@@ -1578,3 +1578,67 @@ window.addEventListener(
 
     }
 );
+/* =========================================================
+   NAVIGASI AWAL GAME
+   WELCOME → TEAM
+========================================================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const startButton =
+        document.getElementById("startButton");
+
+    const welcomeScreen =
+        document.getElementById("welcomeScreen");
+
+    const teamScreen =
+        document.getElementById("teamScreen");
+
+
+    if (!startButton) {
+        console.error(
+            "ERROR: Tombol startButton tidak ditemukan."
+        );
+        return;
+    }
+
+
+    startButton.addEventListener(
+        "click",
+        function () {
+
+            console.log(
+                "Tombol MULAI PETUALANGAN diklik."
+            );
+
+
+            if (!welcomeScreen || !teamScreen) {
+
+                console.error(
+                    "ERROR: welcomeScreen atau teamScreen tidak ditemukan."
+                );
+
+                return;
+
+            }
+
+
+            welcomeScreen.classList.remove(
+                "active"
+            );
+
+
+            teamScreen.classList.add(
+                "active"
+            );
+
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        }
+    );
+
+});
