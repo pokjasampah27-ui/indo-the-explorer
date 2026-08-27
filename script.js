@@ -1,73 +1,34 @@
 /* =========================================================
    JELAJAH SEKOLAH
-   GAME POS-POSAN EDUKATIF
+   GAME POS-POSAN
    SCRIPT.JS FINAL
+   TANPA AUDIO
    ========================================================= */
 
 
 /* =========================================================
-   KONFIGURASI GAME
-========================================================= */
+   KONFIGURASI ASET
+   ========================================================= */
 
-const GAME_CONFIG = {
+const ASSET_FOLDER = "./assets/";
 
-    /* Jumlah pos utama */
-    TOTAL_CORRECT_POS: 7,
 
-    /* Pos buntu */
-    DEAD_END_POSITIONS: [8, 9, 10],
-
-    /* Waktu jalur buntu */
-    DEAD_END_TIME: 5 * 60,
-
-    /* Nama aset */
-    ASSET_PATH: "assets/",
-
-    /* Nama file aset */
-    POS_IMAGES: {
-        1: "pos1.jpg",
-        2: "pos2.jpg",
-        3: "pos3.jpg",
-        4: "pos4.jpg",
-        5: "pos5.jpg",
-        6: "pos6.jpg",
-        7: "pos7.jpg",
-        8: "pos8.jpg",
-        9: "pos9.jpg",
-        10: "pos10.jpg"
-    }
+const POS_IMAGES = {
+    1: "pos1.jpg",
+    2: "pos2.jpg",
+    3: "pos3.jpg",
+    4: "pos4.jpg",
+    5: "pos5.jpg",
+    6: "pos6.jpg",
+    7: "pos7.jpg",
+    8: "pos8.jpg",
+    9: "pos9.jpg",
+    10: "pos10.jpg"
 };
 
 
 /* =========================================================
    DATA POS
-=========================================================
-
-   Pos 1-7 = jalur benar.
-
-   Pos 8-10 = jalur buntu.
-
-   Alur:
-   Pos 1
-      ↓ benar
-   Pos 2
-      ↓ benar
-   Pos 3
-      ↓ benar
-   Pos 4
-      ↓ benar
-   Pos 5
-      ↓ benar
-   Pos 6
-      ↓ benar
-   Pos 7
-      ↓
-   SELESAI
-
-   Jawaban salah pada pos utama:
-      → salah satu pos buntu
-      → timer 5 menit
-      → kembali ke pos asal
 ========================================================= */
 
 const POS_DATA = {
@@ -77,14 +38,10 @@ const POS_DATA = {
 
         image: "pos1.jpg",
 
-        location:
-            "Temukan lokasi Pos 1 sesuai foto petunjuk.",
-
         clue:
-            "Perhatikan lingkungan sekitar dan cari tempat yang memiliki kesesuaian dengan foto pos ini.",
+            "Temukan lokasi sesuai foto Pos 1. Setelah sampai, cari pesan yang disembunyikan.",
 
-        secretCode:
-            "MULAI",
+        secretCode: "MULAI",
 
         question:
             "Apa langkah paling tepat sebelum mengikuti sebuah petunjuk dalam permainan pos-posan?",
@@ -110,14 +67,10 @@ const POS_DATA = {
 
         image: "pos2.jpg",
 
-        location:
-            "Ikuti petunjuk dari Pos 1 menuju lokasi pada foto.",
-
         clue:
-            "Cari lokasi yang sesuai dengan foto. Setelah menemukan pesan, baca tugas dan kode rahasianya.",
+            "Ikuti petunjuk dari Pos 1 menuju lokasi pada foto Pos 2.",
 
-        secretCode:
-            "JEJAK",
+        secretCode: "JEJAK",
 
         question:
             "Mengapa peserta permainan harus bekerja sama dalam sebuah tim?",
@@ -132,7 +85,7 @@ const POS_DATA = {
         answer: 1,
 
         explanation:
-            "Kerja sama membuat anggota tim dapat saling membantu, berbagi informasi, dan menyelesaikan tantangan dengan lebih baik.",
+            "Kerja sama membuat anggota tim dapat saling membantu dan menyelesaikan tantangan dengan lebih baik.",
 
         next: 3
     },
@@ -143,14 +96,10 @@ const POS_DATA = {
 
         image: "pos3.jpg",
 
-        location:
-            "Cari lokasi sesuai foto Pos 3.",
-
         clue:
-            "Pesan di lokasi ini menjadi petunjuk penting untuk melanjutkan perjalanan.",
+            "Cari lokasi sesuai foto Pos 3. Temukan pesan yang disembunyikan.",
 
-        secretCode:
-            "PESAN",
+        secretCode: "PESAN",
 
         question:
             "Jika menemukan pesan yang ditujukan untuk tim, apa yang sebaiknya dilakukan?",
@@ -158,14 +107,14 @@ const POS_DATA = {
         options: [
             "Membawa pulang pesan tersebut",
             "Merusak pesan agar tim lain tidak menemukannya",
-            "Membaca, mencatat informasi yang diperlukan, lalu meninggalkannya tetap pada tempatnya",
+            "Membaca informasi yang diperlukan lalu meninggalkannya di tempat",
             "Menyembunyikannya di tempat lain"
         ],
 
         answer: 2,
 
         explanation:
-            "Pesan permainan harus tetap berada di tempatnya agar semua peserta memperoleh kesempatan bermain secara adil.",
+            "Pesan permainan harus tetap berada di tempatnya agar semua peserta dapat bermain secara adil.",
 
         next: 4
     },
@@ -176,21 +125,17 @@ const POS_DATA = {
 
         image: "pos4.jpg",
 
-        location:
-            "Temukan lokasi pada foto Pos 4.",
-
         clue:
-            "Jangan terburu-buru. Perhatikan lingkungan dan cari pesan yang disembunyikan.",
+            "Perhatikan lingkungan sekitar dan cari pesan sesuai petunjuk.",
 
-        secretCode:
-            "TELITI",
+        secretCode: "TELITI",
 
         question:
             "Apa yang harus dilakukan jika petunjuk permainan terasa belum jelas?",
 
         options: [
             "Menebak tanpa berpikir",
-            "Membaca kembali petunjuk dan mendiskusikannya dengan anggota tim",
+            "Membaca kembali petunjuk dan mendiskusikannya",
             "Meninggalkan permainan",
             "Mengikuti tim lain"
         ],
@@ -209,14 +154,10 @@ const POS_DATA = {
 
         image: "pos5.jpg",
 
-        location:
-            "Ikuti petunjuk dan cari lokasi sesuai foto Pos 5.",
-
         clue:
-            "Setiap pos memiliki pesan yang menjadi bagian dari perjalanan. Pastikan tidak melewatkan petunjuk.",
+            "Temukan lokasi Pos 5 berdasarkan foto dan petunjuk perjalanan.",
 
-        secretCode:
-            "LANGKAH",
+        secretCode: "LANGKAH",
 
         question:
             "Ketika mendapatkan jawaban berbeda antaranggota tim, apa tindakan yang paling tepat?",
@@ -224,14 +165,14 @@ const POS_DATA = {
         options: [
             "Memilih secara asal",
             "Berdebat tanpa mendengarkan",
-            "Mendiskusikan alasan masing-masing dan menentukan jawaban berdasarkan bukti",
+            "Mendiskusikan alasan masing-masing berdasarkan bukti",
             "Mengikuti jawaban tim lain"
         ],
 
         answer: 2,
 
         explanation:
-            "Diskusi berdasarkan alasan dan bukti membantu tim mengambil keputusan secara rasional.",
+            "Diskusi berdasarkan alasan dan bukti membantu tim mengambil keputusan yang tepat.",
 
         next: 6
     },
@@ -242,21 +183,17 @@ const POS_DATA = {
 
         image: "pos6.jpg",
 
-        location:
-            "Temukan lokasi Pos 6 berdasarkan foto.",
-
         clue:
-            "Kalian sudah semakin dekat dengan akhir perjalanan. Tetap teliti membaca pesan.",
+            "Kalian semakin dekat dengan akhir perjalanan. Tetap teliti membaca pesan.",
 
-        secretCode:
-            "KOMPAS",
+        secretCode: "KOMPAS",
 
         question:
             "Apa yang paling penting dilakukan ketika waktu permainan semakin terbatas?",
 
         options: [
             "Panik dan berlari tanpa arah",
-            "Tetap tenang, membaca petunjuk, dan membagi tugas dengan baik",
+            "Tetap tenang, membaca petunjuk, dan membagi tugas",
             "Mengabaikan soal",
             "Mengikuti peserta lain"
         ],
@@ -264,7 +201,7 @@ const POS_DATA = {
         answer: 1,
 
         explanation:
-            "Ketika waktu terbatas, ketenangan, pembagian tugas, dan ketelitian justru semakin penting.",
+            "Ketika waktu terbatas, ketenangan, pembagian tugas, dan ketelitian sangat penting.",
 
         next: 7
     },
@@ -275,14 +212,10 @@ const POS_DATA = {
 
         image: "pos7.jpg",
 
-        location:
-            "Inilah pos terakhir pada jalur utama. Temukan pesan dan selesaikan tantangannya.",
-
         clue:
-            "Kalian telah sampai di ujung perjalanan. Pastikan semua tugas terakhir diselesaikan.",
+            "Ini adalah pos terakhir pada jalur utama. Temukan pesan dan selesaikan tantangannya.",
 
-        secretCode:
-            "JUARA",
+        secretCode: "JUARA",
 
         question:
             "Sikap terbaik setelah berhasil menyelesaikan permainan adalah ...",
@@ -312,15 +245,10 @@ const POS_DATA = {
 
         image: "pos8.jpg",
 
-        location:
-            "Kalian masuk ke jalur yang salah.",
-
         clue:
-            "Periksa lokasi ini. Pesan tujuan tidak ditemukan di sini.",
+            "Kalian masuk ke jalur yang salah. Tidak ada pesan lanjutan di lokasi ini.",
 
-        deadEnd: true,
-
-        returnToPrevious: true
+        deadEnd: true
     },
 
 
@@ -329,15 +257,10 @@ const POS_DATA = {
 
         image: "pos9.jpg",
 
-        location:
-            "Kalian masuk ke jalur yang salah.",
-
         clue:
-            "Tidak ada pesan lanjutan untuk tim kalian di lokasi ini.",
+            "Kalian masuk ke jalur yang salah. Periksa lokasi, tetapi pesan tujuan tidak ditemukan.",
 
-        deadEnd: true,
-
-        returnToPrevious: true
+        deadEnd: true
     },
 
 
@@ -346,15 +269,10 @@ const POS_DATA = {
 
         image: "pos10.jpg",
 
-        location:
-            "Kalian masuk ke jalur yang salah.",
-
         clue:
-            "Jalur ini bukan bagian dari perjalanan utama. Tunggu sampai waktu selesai.",
+            "Jalur ini bukan bagian dari perjalanan utama. Tidak ada pesan lanjutan.",
 
-        deadEnd: true,
-
-        returnToPrevious: true
+        deadEnd: true
     }
 
 };
@@ -384,6 +302,10 @@ const gameState = {
 
     deadEndVisits: 0,
 
+    completedPositions: [],
+
+    visitedDeadEnds: [],
+
     startTime: null,
 
     finishTime: null,
@@ -396,22 +318,22 @@ const gameState = {
 
     secretVerified: false,
 
-    completedPositions: [],
-
-    visitedDeadEnds: [],
-
     gameStarted: false
 };
 
 
 /* =========================================================
-   DOM ELEMENTS
+   HELPER
 ========================================================= */
 
-const $ = (id) => document.getElementById(id);
+function $(id) {
+    return document.getElementById(id);
+}
 
 
-/* Screens */
+/* =========================================================
+   DOM
+========================================================= */
 
 const welcomeScreen =
     $("welcomeScreen");
@@ -428,8 +350,6 @@ const gameScreen =
 const finishScreen =
     $("finishScreen");
 
-
-/* Buttons */
 
 const startButton =
     $("startButton");
@@ -453,13 +373,8 @@ const restartButton =
     $("restartButton");
 
 
-/* Form */
-
 const teamForm =
     $("teamForm");
-
-
-/* Team */
 
 const leaderName =
     $("leaderName");
@@ -473,8 +388,6 @@ const memberInputs = [
     $("member5")
 ];
 
-
-/* Status */
 
 const teamNameDisplay =
     $("teamNameDisplay");
@@ -492,8 +405,6 @@ const progressFill =
     $("progressFill");
 
 
-/* Pos */
-
 const posTitle =
     $("posTitle");
 
@@ -507,8 +418,6 @@ const clueText =
     $("clueText");
 
 
-/* Secret */
-
 const secretArea =
     $("secretArea");
 
@@ -518,8 +427,6 @@ const secretCodeInput =
 const secretMessage =
     $("secretMessage");
 
-
-/* Question */
 
 const questionArea =
     $("questionArea");
@@ -534,8 +441,6 @@ const answerFeedback =
     $("answerFeedback");
 
 
-/* Next */
-
 const nextClueArea =
     $("nextClueArea");
 
@@ -543,16 +448,12 @@ const nextLocationText =
     $("nextLocationText");
 
 
-/* Dead end */
-
 const deadEndArea =
     $("deadEndArea");
 
 const deadEndTimer =
     $("deadEndTimer");
 
-
-/* Finish */
 
 const finishLeader =
     $("finishLeader");
@@ -566,8 +467,6 @@ const finishQuestionCount =
 const finishTime =
     $("finishTime");
 
-
-/* Modal */
 
 const gameModal =
     $("gameModal");
@@ -591,8 +490,6 @@ const modalMessage =
     $("modalMessage");
 
 
-/* Toast */
-
 const toast =
     $("toast");
 
@@ -604,18 +501,29 @@ const toastMessage =
 
 
 /* =========================================================
-   SCREEN MANAGEMENT
+   SCREEN
 ========================================================= */
 
 function showScreen(screen) {
 
     document
         .querySelectorAll(".screen")
-        .forEach((item) => {
-            item.classList.remove("active");
+        .forEach(item => {
+
+            item.classList.remove(
+                "active"
+            );
+
         });
 
-    screen.classList.add("active");
+
+    if (screen) {
+
+        screen.classList.add(
+            "active"
+        );
+    }
+
 
     window.scrollTo({
         top: 0,
@@ -628,7 +536,7 @@ function showScreen(screen) {
    TOAST
 ========================================================= */
 
-let toastTimeout = null;
+let toastTimeout;
 
 
 function showToast(
@@ -636,31 +544,62 @@ function showToast(
     type = "info"
 ) {
 
-    clearTimeout(toastTimeout);
+    clearTimeout(
+        toastTimeout
+    );
 
-    toast.className = "toast";
+
+    toast.className =
+        "toast";
+
 
     if (type === "success") {
-        toast.classList.add("success");
-        toastIcon.textContent = "✅";
+
+        toast.classList.add(
+            "success"
+        );
+
+        toastIcon.textContent =
+            "✅";
+
     }
     else if (type === "error") {
-        toast.classList.add("error");
-        toastIcon.textContent = "⚠️";
+
+        toast.classList.add(
+            "error"
+        );
+
+        toastIcon.textContent =
+            "⚠️";
+
     }
     else {
-        toastIcon.textContent = "💡";
+
+        toastIcon.textContent =
+            "💡";
     }
 
-    toastMessage.textContent = message;
 
-    toast.classList.add("show");
+    toastMessage.textContent =
+        message;
 
-    toastTimeout = setTimeout(() => {
 
-        toast.classList.remove("show");
+    toast.classList.add(
+        "show"
+    );
 
-    }, 3000);
+
+    toastTimeout =
+        setTimeout(
+            () => {
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            },
+            3000
+        );
 }
 
 
@@ -674,39 +613,55 @@ function showModal(
     icon = "💡"
 ) {
 
-    modalTitle.textContent = title;
+    modalTitle.textContent =
+        title;
 
-    modalMessage.textContent = message;
+    modalMessage.textContent =
+        message;
 
-    modalIcon.textContent = icon;
+    modalIcon.textContent =
+        icon;
 
-    gameModal.classList.add("show");
+    gameModal.classList.add(
+        "show"
+    );
 
-    document.body.classList.add("no-scroll");
+    document.body.classList.add(
+        "no-scroll"
+    );
 }
 
 
 function closeModal() {
 
-    gameModal.classList.remove("show");
+    gameModal.classList.remove(
+        "show"
+    );
 
-    document.body.classList.remove("no-scroll");
+    document.body.classList.remove(
+        "no-scroll"
+    );
 }
 
 
 /* =========================================================
-   START
+   MULAI
 ========================================================= */
 
 startButton.addEventListener(
     "click",
     () => {
 
-        showScreen(teamScreen);
+        showScreen(
+            teamScreen
+        );
 
-        setTimeout(() => {
-            leaderName.focus();
-        }, 300);
+        setTimeout(
+            () => {
+                leaderName.focus();
+            },
+            300
+        );
 
     }
 );
@@ -718,16 +673,19 @@ startButton.addEventListener(
 
 teamForm.addEventListener(
     "submit",
-    (event) => {
+    event => {
 
         event.preventDefault();
+
 
         const leader =
             leaderName.value.trim();
 
+
         const members =
             memberInputs.map(
-                input => input.value.trim()
+                input =>
+                    input.value.trim()
             );
 
 
@@ -744,20 +702,23 @@ teamForm.addEventListener(
         }
 
 
-        const emptyMember =
+        const emptyIndex =
             members.findIndex(
-                member => !member
+                member =>
+                    member === ""
             );
 
 
-        if (emptyMember !== -1) {
+        if (emptyIndex !== -1) {
 
             showToast(
-                `Nama anggota ${emptyMember + 1} belum diisi.`,
+                `Nama anggota ${emptyIndex + 1} belum diisi.`,
                 "error"
             );
 
-            memberInputs[emptyMember].focus();
+            memberInputs[
+                emptyIndex
+            ].focus();
 
             return;
         }
@@ -788,11 +749,7 @@ teamForm.addEventListener(
 
 beginMissionButton.addEventListener(
     "click",
-    () => {
-
-        startGame();
-
-    }
+    startGame
 );
 
 
@@ -800,71 +757,104 @@ function startGame() {
 
     resetGameState();
 
-    gameState.gameStarted = true;
+
+    gameState.gameStarted =
+        true;
+
 
     gameState.startTime =
         Date.now();
 
+
+    teamNameDisplay.textContent =
+        gameState.leader;
+
+
     startMainTimer();
 
-    showScreen(gameScreen);
+
+    showScreen(
+        gameScreen
+    );
+
 
     loadPosition(1);
 
+
     showToast(
-        "Petualangan dimulai! Temukan Pos 1.",
+        "Petualangan dimulai!",
         "success"
     );
 }
 
 
 /* =========================================================
-   RESET STATE
+   RESET
 ========================================================= */
 
 function resetGameState() {
 
     clearInterval(
-        gameState.deadEndTimer
-    );
-
-    clearInterval(
         gameState.mainTimer
     );
 
+    clearInterval(
+        gameState.deadEndTimer
+    );
 
-    gameState.currentPos = 1;
 
-    gameState.previousCorrectPos = 1;
+    gameState.currentPos =
+        1;
 
-    gameState.selectedAnswer = null;
+    gameState.previousCorrectPos =
+        1;
 
-    gameState.questionAttempts = 0;
+    gameState.selectedAnswer =
+        null;
 
-    gameState.correctAnswers = 0;
+    gameState.questionAttempts =
+        0;
 
-    gameState.wrongAnswers = 0;
+    gameState.correctAnswers =
+        0;
 
-    gameState.deadEndVisits = 0;
+    gameState.wrongAnswers =
+        0;
 
-    gameState.startTime = null;
+    gameState.deadEndVisits =
+        0;
 
-    gameState.finishTime = null;
+    gameState.completedPositions =
+        [];
 
-    gameState.deadEndStart = null;
+    gameState.visitedDeadEnds =
+        [];
 
-    gameState.secretVerified = false;
+    gameState.startTime =
+        null;
 
-    gameState.completedPositions = [];
+    gameState.finishTime =
+        null;
 
-    gameState.visitedDeadEnds = [];
+    gameState.deadEndStart =
+        null;
 
-    gameState.gameStarted = false;
+    gameState.deadEndTimer =
+        null;
+
+    gameState.mainTimer =
+        null;
+
+    gameState.secretVerified =
+        false;
+
+    gameState.gameStarted =
+        false;
 }
 
 
 /* =========================================================
-   MAIN TIMER
+   TIMER UTAMA
 ========================================================= */
 
 function startMainTimer() {
@@ -875,29 +865,34 @@ function startMainTimer() {
 
 
     gameState.mainTimer =
-        setInterval(() => {
+        setInterval(
+            () => {
 
-            if (!gameState.startTime) {
-                return;
-            }
-
-
-            const elapsed =
-                Date.now() -
-                gameState.startTime;
+                if (
+                    !gameState.startTime
+                ) {
+                    return;
+                }
 
 
-            timerDisplay.textContent =
-                formatElapsedTime(
-                    elapsed
-                );
+                const elapsed =
+                    Date.now() -
+                    gameState.startTime;
 
-        }, 1000);
+
+                timerDisplay.textContent =
+                    formatElapsedTime(
+                        elapsed
+                    );
+
+            },
+            1000
+        );
 }
 
 
 /* =========================================================
-   LOAD POS
+   LOAD POSITION
 ========================================================= */
 
 function loadPosition(
@@ -923,14 +918,13 @@ function loadPosition(
         positionNumber;
 
 
-    gameState.secretVerified =
-        false;
-
     gameState.selectedAnswer =
         null;
 
 
-    /* Jika pos buntu */
+    gameState.secretVerified =
+        false;
+
 
     if (pos.deadEnd) {
 
@@ -942,8 +936,6 @@ function loadPosition(
     }
 
 
-    /* Pos normal */
-
     loadCorrectPosition(
         positionNumber
     );
@@ -951,7 +943,7 @@ function loadPosition(
 
 
 /* =========================================================
-   LOAD POS JALUR BENAR
+   LOAD POS BENAR
 ========================================================= */
 
 function loadCorrectPosition(
@@ -969,17 +961,52 @@ function loadCorrectPosition(
         pos.title;
 
 
+    /*
+       =====================================================
+       BAGIAN FOTO
+       =====================================================
+    */
+
+    const imagePath =
+        ASSET_FOLDER +
+        POS_IMAGES[positionNumber];
+
+
     locationImage.src =
-        GAME_CONFIG.ASSET_PATH +
-        pos.image;
+        imagePath;
 
 
     locationImage.alt =
-        `Foto ${pos.title}`;
+        `Foto lokasi ${pos.title}`;
 
 
     imageLabel.textContent =
-        `Lokasi ${positionNumber}`;
+        `Lokasi Pos ${positionNumber}`;
+
+
+    /*
+       Jika foto belum ditemukan
+    */
+
+    locationImage.onerror =
+        function () {
+
+            console.error(
+                "Foto tidak ditemukan:",
+                imagePath
+            );
+
+
+            this.onerror =
+                null;
+
+
+            this.src =
+                createImagePlaceholder(
+                    `Foto Pos ${positionNumber} tidak ditemukan`
+                );
+
+        };
 
 
     clueText.textContent =
@@ -987,7 +1014,7 @@ function loadCorrectPosition(
 
 
     currentPosDisplay.textContent =
-        `${positionNumber} / ${GAME_CONFIG.TOTAL_CORRECT_POS}`;
+        `${positionNumber} / 7`;
 
 
     updateProgress(
@@ -995,15 +1022,9 @@ function loadCorrectPosition(
     );
 
 
-    /* Reset area */
-
-    nextClueArea.classList.add(
-        "hidden"
-    );
-
-    deadEndArea.classList.add(
-        "hidden"
-    );
+    /*
+       Tampilkan area
+    */
 
     questionArea.classList.remove(
         "hidden"
@@ -1013,6 +1034,18 @@ function loadCorrectPosition(
         "hidden"
     );
 
+    nextClueArea.classList.add(
+        "hidden"
+    );
+
+    deadEndArea.classList.add(
+        "hidden"
+    );
+
+
+    /*
+       Reset kode
+    */
 
     secretCodeInput.value =
         "";
@@ -1021,18 +1054,16 @@ function loadCorrectPosition(
         "";
 
 
+    /*
+       Reset soal
+    */
+
     answerFeedback.textContent =
         "";
 
     answerFeedback.className =
         "answer-feedback";
 
-
-    submitAnswerButton.disabled =
-        true;
-
-
-    /* Tampilkan soal */
 
     questionText.textContent =
         pos.question;
@@ -1043,10 +1074,9 @@ function loadCorrectPosition(
     );
 
 
-    /*
-       Kode rahasia wajib diverifikasi
-       sebelum soal dapat dijawab.
-    */
+    submitAnswerButton.disabled =
+        true;
+
 
     setSecretLockedState(
         true
@@ -1055,25 +1085,25 @@ function loadCorrectPosition(
 
 
 /* =========================================================
-   SECRET CODE
+   KODE RAHASIA
 ========================================================= */
 
 function setSecretLockedState(
     locked
 ) {
 
-    const buttons =
-        optionsContainer.querySelectorAll(
+    optionsContainer
+        .querySelectorAll(
             ".answer-option"
+        )
+        .forEach(
+            button => {
+
+                button.disabled =
+                    locked;
+
+            }
         );
-
-
-    buttons.forEach(
-        button => {
-            button.disabled =
-                locked;
-        }
-    );
 
 
     submitAnswerButton.disabled =
@@ -1090,7 +1120,7 @@ secretCodeButton.addEventListener(
 
 secretCodeInput.addEventListener(
     "keydown",
-    (event) => {
+    event => {
 
         if (
             event.key === "Enter"
@@ -1099,22 +1129,25 @@ secretCodeInput.addEventListener(
             event.preventDefault();
 
             verifySecretCode();
+
         }
+
     }
 );
 
 
 function verifySecretCode() {
 
-    const position =
-        gameState.currentPos;
-
-
     const pos =
-        POS_DATA[position];
+        POS_DATA[
+            gameState.currentPos
+        ];
 
 
-    if (!pos || pos.deadEnd) {
+    if (
+        !pos ||
+        pos.deadEnd
+    ) {
         return;
     }
 
@@ -1148,10 +1181,6 @@ function verifySecretCode() {
             "✓ Kode benar. Tantangan dapat dikerjakan.";
 
 
-        secretMessage.style.color =
-            "#176b5f";
-
-
         setSecretLockedState(
             false
         );
@@ -1162,18 +1191,6 @@ function verifySecretCode() {
             "success"
         );
 
-
-        optionsContainer
-            .querySelectorAll(
-                ".answer-option"
-            )
-            .forEach(
-                button => {
-                    button.disabled =
-                        false;
-                }
-            );
-
     }
     else {
 
@@ -1183,10 +1200,6 @@ function verifySecretCode() {
 
         secretMessage.textContent =
             "✕ Kode salah. Periksa kembali pesan di lokasi.";
-
-
-        secretMessage.style.color =
-            "#b84b34";
 
 
         setSecretLockedState(
@@ -1203,7 +1216,7 @@ function verifySecretCode() {
 
 
 /* =========================================================
-   RENDER PILIHAN
+   PILIHAN JAWABAN
 ========================================================= */
 
 function renderOptions(
@@ -1235,9 +1248,15 @@ function renderOptions(
                 index;
 
 
+            const letter =
+                String.fromCharCode(
+                    65 + index
+                );
+
+
             button.innerHTML = `
                 <span class="option-letter">
-                    ${String.fromCharCode(65 + index)}
+                    ${letter}
                 </span>
 
                 <span class="option-text">
@@ -1266,10 +1285,6 @@ function renderOptions(
     );
 }
 
-
-/* =========================================================
-   PILIH JAWABAN
-========================================================= */
 
 function selectAnswer(
     answerIndex
@@ -1314,7 +1329,7 @@ function selectAnswer(
 
 
 /* =========================================================
-   SUBMIT JAWABAN
+   PERIKSA JAWABAN
 ========================================================= */
 
 submitAnswerButton.addEventListener(
@@ -1360,11 +1375,6 @@ function checkAnswer() {
         POS_DATA[position];
 
 
-    if (!pos) {
-        return;
-    }
-
-
     gameState.questionAttempts++;
 
 
@@ -1376,13 +1386,14 @@ function checkAnswer() {
         pos.answer;
 
 
-    const optionButtons =
-        optionsContainer.querySelectorAll(
-            ".answer-option"
-        );
+    const buttons =
+        optionsContainer
+            .querySelectorAll(
+                ".answer-option"
+            );
 
 
-    optionButtons.forEach(
+    buttons.forEach(
         button => {
             button.disabled =
                 true;
@@ -1394,9 +1405,11 @@ function checkAnswer() {
         true;
 
 
-    /* =========================================
-       JAWABAN BENAR
-    ========================================= */
+    /*
+       =====================================================
+       BENAR
+       =====================================================
+    */
 
     if (
         selected === correct
@@ -1405,7 +1418,7 @@ function checkAnswer() {
         gameState.correctAnswers++;
 
 
-        optionButtons[correct]
+        buttons[correct]
             .classList.add(
                 "correct"
             );
@@ -1424,33 +1437,38 @@ function checkAnswer() {
         );
 
 
-        setTimeout(() => {
+        setTimeout(
+            () => {
 
-            showNextClue(
-                position
-            );
+                showNextClue(
+                    position
+                );
 
-        }, 900);
+            },
+            900
+        );
 
 
         return;
     }
 
 
-    /* =========================================
-       JAWABAN SALAH
-    ========================================= */
+    /*
+       =====================================================
+       SALAH
+       =====================================================
+    */
 
     gameState.wrongAnswers++;
 
 
-    optionButtons[selected]
+    buttons[selected]
         .classList.add(
             "wrong"
         );
 
 
-    optionButtons[correct]
+    buttons[correct]
         .classList.add(
             "correct"
         );
@@ -1461,30 +1479,28 @@ function checkAnswer() {
 
 
     answerFeedback.innerHTML =
-        `✕ <strong>Jawaban belum tepat.</strong> Kalian diarahkan ke jalur lain.`;
+        "✕ <strong>Jawaban belum tepat.</strong> Kalian masuk ke jalur lain.";
 
-
-    /*
-       Pilih pos buntu secara bergantian
-       agar ketiga pos buntu dapat digunakan.
-    */
 
     const deadEnd =
         chooseDeadEnd();
 
 
-    setTimeout(() => {
+    setTimeout(
+        () => {
 
-        showDeadEndRoute(
-            deadEnd
-        );
+            showDeadEndRoute(
+                deadEnd
+            );
 
-    }, 1200);
+        },
+        1200
+    );
 }
 
 
 /* =========================================================
-   POSISI SELESAI
+   POS SELESAI
 ========================================================= */
 
 function markPositionCompleted(
@@ -1503,7 +1519,7 @@ function markPositionCompleted(
 
 
 /* =========================================================
-   NEXT CLUE
+   PETUNJUK BERIKUTNYA
 ========================================================= */
 
 function showNextClue(
@@ -1522,7 +1538,6 @@ function showNextClue(
         "hidden"
     );
 
-
     nextClueArea.classList.remove(
         "hidden"
     );
@@ -1535,18 +1550,23 @@ function showNextClue(
         nextLocationText.textContent =
             "MISI SELESAI";
 
+
         goNextButton.textContent =
             "🏆 SELESAIKAN MISI";
 
+
         goNextButton.dataset.next =
             "finish";
+
 
         return;
     }
 
 
     nextLocationText.textContent =
-        POS_DATA[pos.next].title;
+        POS_DATA[
+            pos.next
+        ].title;
 
 
     goNextButton.textContent =
@@ -1554,12 +1574,14 @@ function showNextClue(
 
 
     goNextButton.dataset.next =
-        String(pos.next);
+        String(
+            pos.next
+        );
 }
 
 
 /* =========================================================
-   NEXT BUTTON
+   MENUJU POS BERIKUTNYA
 ========================================================= */
 
 goNextButton.addEventListener(
@@ -1591,24 +1613,22 @@ goNextButton.addEventListener(
         loadPosition(
             nextPosition
         );
-
     }
 );
 
 
 /* =========================================================
-   MEMILIH POS BUNTU
+   PILIH POS BUNTU
 ========================================================= */
 
 function chooseDeadEnd() {
 
-    const deadEnds =
-        GAME_CONFIG.DEAD_END_POSITIONS;
+    const deadEnds = [
+        8,
+        9,
+        10
+    ];
 
-
-    /*
-       Gunakan pos buntu bergantian.
-    */
 
     const index =
         gameState.deadEndVisits %
@@ -1637,25 +1657,19 @@ function chooseDeadEnd() {
 
 
 /* =========================================================
-   MASUK JALUR BUNTU
+   JALUR BUNTU
 ========================================================= */
 
 function showDeadEndRoute(
     deadEndPosition
 ) {
 
-    const originalPosition =
-        gameState.currentPos;
-
-
     /*
-       Simpan pos yang benar.
-       Ini adalah pos yang harus
-       dikunjungi kembali.
+       Simpan posisi tempat jawaban salah.
     */
 
     gameState.previousCorrectPos =
-        originalPosition;
+        gameState.currentPos;
 
 
     gameState.currentPos =
@@ -1669,7 +1683,7 @@ function showDeadEndRoute(
 
 
 /* =========================================================
-   LOAD DEAD END
+   LOAD POS BUNTU
 ========================================================= */
 
 function loadDeadEnd(
@@ -1685,13 +1699,24 @@ function loadDeadEnd(
     }
 
 
+    stopDeadEndTimer();
+
+
     posTitle.textContent =
         pos.title;
 
 
+    /*
+       FOTO POS BUNTU
+    */
+
+    const imagePath =
+        ASSET_FOLDER +
+        POS_IMAGES[positionNumber];
+
+
     locationImage.src =
-        GAME_CONFIG.ASSET_PATH +
-        pos.image;
+        imagePath;
 
 
     locationImage.alt =
@@ -1700,6 +1725,27 @@ function loadDeadEnd(
 
     imageLabel.textContent =
         "JALUR BUNTU";
+
+
+    locationImage.onerror =
+        function () {
+
+            console.error(
+                "Foto tidak ditemukan:",
+                imagePath
+            );
+
+
+            this.onerror =
+                null;
+
+
+            this.src =
+                createImagePlaceholder(
+                    `Foto Pos ${positionNumber} tidak ditemukan`
+                );
+
+        };
 
 
     clueText.textContent =
@@ -1735,7 +1781,7 @@ function loadDeadEnd(
 
 
 /* =========================================================
-   TIMER JALUR BUNTU
+   TIMER 5 MENIT
 ========================================================= */
 
 function startDeadEndTimer() {
@@ -1779,8 +1825,7 @@ function updateDeadEndTimer() {
     const remaining =
         Math.max(
             0,
-            GAME_CONFIG.DEAD_END_TIME -
-            elapsed
+            300 - elapsed
         );
 
 
@@ -1804,7 +1849,6 @@ function updateDeadEndTimer() {
         deadEndTimer.classList.remove(
             "danger"
         );
-
     }
 
 
@@ -1823,7 +1867,7 @@ function updateDeadEndTimer() {
 
 
 /* =========================================================
-   STOP DEAD END TIMER
+   STOP TIMER BUNTU
 ========================================================= */
 
 function stopDeadEndTimer() {
@@ -1836,6 +1880,7 @@ function stopDeadEndTimer() {
             gameState.deadEndTimer
         );
 
+
         gameState.deadEndTimer =
             null;
     }
@@ -1847,7 +1892,7 @@ function stopDeadEndTimer() {
 
 
 /* =========================================================
-   RETURN DARI POS BUNTU
+   KEMBALI
 ========================================================= */
 
 returnFromDeadEndButton.addEventListener(
@@ -1863,7 +1908,7 @@ returnFromDeadEndButton.addEventListener(
 
 
 function returnToPreviousPosition(
-    automatic = false
+    automatic
 ) {
 
     stopDeadEndTimer();
@@ -1878,7 +1923,7 @@ function returnToPreviousPosition(
 
         showModal(
             "Waktu Habis!",
-            `Pesan tidak ditemukan dalam 5 menit. Tim kembali ke ${POS_DATA[previous].title}. Jawab kembali tantangan dengan lebih teliti.`,
+            `Pesan tidak ditemukan dalam 5 menit. Kalian kembali ke ${POS_DATA[previous].title}. Silakan jawab kembali tantangan.`,
             "⏰"
         );
 
@@ -1892,11 +1937,6 @@ function returnToPreviousPosition(
     }
 
 
-    deadEndArea.classList.add(
-        "hidden"
-    );
-
-
     setTimeout(
         () => {
 
@@ -1905,7 +1945,7 @@ function returnToPreviousPosition(
             );
 
         },
-        automatic ? 500 : 100
+        automatic ? 400 : 100
     );
 }
 
@@ -1922,7 +1962,7 @@ function updateProgress(
         Math.round(
             (
                 (position - 1) /
-                GAME_CONFIG.TOTAL_CORRECT_POS
+                7
             ) * 100
         );
 
@@ -1937,7 +1977,7 @@ function updateProgress(
 
 
 /* =========================================================
-   FINISH
+   SELESAI
 ========================================================= */
 
 function finishGame() {
@@ -1954,7 +1994,7 @@ function finishGame() {
         Date.now();
 
 
-    const totalElapsed =
+    const elapsed =
         gameState.finishTime -
         gameState.startTime;
 
@@ -1973,7 +2013,7 @@ function finishGame() {
 
     finishTime.textContent =
         formatElapsedTime(
-            totalElapsed
+            elapsed
         );
 
 
@@ -1983,14 +2023,14 @@ function finishGame() {
 
 
     showToast(
-        "Selamat! Misi berhasil diselesaikan.",
+        "Misi berhasil diselesaikan!",
         "success"
     );
 }
 
 
 /* =========================================================
-   RESTART
+   MAIN LAGI
 ========================================================= */
 
 restartButton.addEventListener(
@@ -2000,6 +2040,7 @@ restartButton.addEventListener(
         clearInterval(
             gameState.mainTimer
         );
+
 
         clearInterval(
             gameState.deadEndTimer
@@ -2015,7 +2056,7 @@ restartButton.addEventListener(
 
 
 /* =========================================================
-   MODAL EVENTS
+   MODAL
 ========================================================= */
 
 modalCloseButton.addEventListener(
@@ -2037,30 +2078,36 @@ modalOverlay.addEventListener(
 
 
 /* =========================================================
-   FORMAT WAKTU
+   FORMAT COUNTDOWN
 ========================================================= */
 
 function formatCountdown(
-    totalSeconds
+    seconds
 ) {
 
     const minutes =
         Math.floor(
-            totalSeconds / 60
+            seconds / 60
         );
 
 
-    const seconds =
-        totalSeconds % 60;
+    const secs =
+        seconds % 60;
 
 
     return (
-        String(minutes).padStart(2, "0") +
+        String(minutes)
+            .padStart(2, "0") +
         ":" +
-        String(seconds).padStart(2, "0")
+        String(secs)
+            .padStart(2, "0")
     );
 }
 
+
+/* =========================================================
+   FORMAT WAKTU
+========================================================= */
 
 function formatElapsedTime(
     milliseconds
@@ -2093,19 +2140,24 @@ function formatElapsedTime(
     if (hours > 0) {
 
         return (
-            String(hours).padStart(2, "0") +
+            String(hours)
+                .padStart(2, "0") +
             ":" +
-            String(minutes).padStart(2, "0") +
+            String(minutes)
+                .padStart(2, "0") +
             ":" +
-            String(seconds).padStart(2, "0")
+            String(seconds)
+                .padStart(2, "0")
         );
     }
 
 
     return (
-        String(minutes).padStart(2, "0") +
+        String(minutes)
+            .padStart(2, "0") +
         ":" +
-        String(seconds).padStart(2, "0")
+        String(seconds)
+            .padStart(2, "0")
     );
 }
 
@@ -2143,28 +2195,14 @@ function escapeHtml(
 
 
 /* =========================================================
-   ERROR FOTO
+   PLACEHOLDER JIKA FOTO TIDAK ADA
 ========================================================= */
-
-locationImage.addEventListener(
-    "error",
-    () => {
-
-        locationImage.src =
-            createImagePlaceholder(
-                "Foto pos tidak ditemukan"
-            );
-
-    }
-);
-
 
 function createImagePlaceholder(
     text
 ) {
 
-    const svg =
-        `
+    const svg = `
         <svg
             xmlns="http://www.w3.org/2000/svg"
             width="800"
@@ -2175,7 +2213,7 @@ function createImagePlaceholder(
             <rect
                 width="800"
                 height="500"
-                fill="#dce3eb"
+                fill="#e5e7eb"
             />
 
             <text
@@ -2186,11 +2224,11 @@ function createImagePlaceholder(
                 font-size="28"
                 fill="#64748b"
             >
-                ${text}
+                ${escapeHtml(text)}
             </text>
 
         </svg>
-        `;
+    `;
 
 
     return (
@@ -2206,18 +2244,41 @@ function createImagePlaceholder(
 
 function preloadImages() {
 
-    Object.values(
-        GAME_CONFIG.POS_IMAGES
+    Object.keys(
+        POS_IMAGES
     )
     .forEach(
-        filename => {
+        position => {
 
-            const image =
+            const img =
                 new Image();
 
-            image.src =
-                GAME_CONFIG.ASSET_PATH +
-                filename;
+
+            img.src =
+                ASSET_FOLDER +
+                POS_IMAGES[position];
+
+
+            img.onload =
+                () => {
+
+                    console.log(
+                        `✓ Foto Pos ${position} berhasil dimuat:`,
+                        img.src
+                    );
+
+                };
+
+
+            img.onerror =
+                () => {
+
+                    console.error(
+                        `✕ Foto Pos ${position} tidak ditemukan:`,
+                        img.src
+                    );
+
+                };
 
         }
     );
@@ -2225,19 +2286,22 @@ function preloadImages() {
 
 
 /* =========================================================
-   INITIALIZATION
+   INIT
 ========================================================= */
 
 document.addEventListener(
     "DOMContentLoaded",
     () => {
 
+        /*
+           Preload seluruh foto
+        */
+
         preloadImages();
 
 
         /*
-           Pastikan halaman awal
-           selalu Welcome Screen.
+           Halaman awal
         */
 
         showScreen(
@@ -2246,14 +2310,7 @@ document.addEventListener(
 
 
         /*
-           Progress awal.
-        */
-
-        updateProgress(1);
-
-
-        /*
-           Timer awal.
+           Status awal
         */
 
         timerDisplay.textContent =
@@ -2262,6 +2319,33 @@ document.addEventListener(
 
         deadEndTimer.textContent =
             "05:00";
+
+
+        updateProgress(
+            1
+        );
+
+
+        console.log(
+            "================================="
+        );
+
+        console.log(
+            "JELAJAH SEKOLAH"
+        );
+
+        console.log(
+            "Game berhasil dimuat."
+        );
+
+        console.log(
+            "Folder aset:",
+            ASSET_FOLDER
+        );
+
+        console.log(
+            "================================="
+        );
 
     }
 );
