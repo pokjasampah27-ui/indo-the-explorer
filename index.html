@@ -58,12 +58,14 @@
             <div>🔐 Masukkan kode rahasia</div>
             <div>🧠 Jawab semua tantangan</div>
             <div>🧭 Ikuti jalur berikutnya</div>
+            <div>🎥 Rekam tantangan di jalur buntu</div>
 
         </div>
 
         <button
             id="startButton"
             class="primary-button"
+            type="button"
         >
             🚀 MULAI PETUALANGAN
         </button>
@@ -282,8 +284,18 @@
             <div class="instruction-item">
                 <span>6</span>
                 <p>
-                    Di jalur buntu, ikuti tantangan
-                    lucu dan kembali ke Pos 1.
+                    Di Pos 8 dan Pos 9,
+                    lakukan tantangan dan
+                    rekam sebagai bukti.
+                </p>
+            </div>
+
+            <div class="instruction-item">
+                <span>7</span>
+                <p>
+                    Setelah tantangan selesai,
+                    kembali ke Pos 1 dan
+                    lanjutkan perjalanan.
                 </p>
             </div>
 
@@ -305,6 +317,7 @@
         <button
             id="beginMissionButton"
             class="primary-button"
+            type="button"
         >
             🧭 MULAI MISI
         </button>
@@ -573,7 +586,9 @@
         </div>
 
 
-        <!-- DEAD END -->
+        <!-- =================================================
+             DEAD END
+        ================================================== -->
 
         <div
             id="deadEndArea"
@@ -591,6 +606,100 @@
             <p id="deadEndInstruction">
                 -
             </p>
+
+
+            <!-- =================================================
+                 VIDEO CHALLENGE
+            ================================================== -->
+
+            <div
+                id="videoChallengeArea"
+                class="video-challenge-area hidden"
+            >
+
+                <div class="video-title">
+                    🎥 BUKTI VIDEO TANTANGAN
+                </div>
+
+                <p class="video-description">
+                    Rekam seluruh anggota tim saat
+                    melaksanakan tantangan pada pos ini.
+                    Video dapat diputar dan disimpan
+                    setelah selesai direkam.
+                </p>
+
+
+                <div class="camera-box">
+
+                    <video
+                        id="cameraPreview"
+                        class="camera-preview hidden"
+                        autoplay
+                        muted
+                        playsinline
+                    ></video>
+
+
+                    <div
+                        id="cameraPlaceholder"
+                        class="camera-placeholder"
+                    >
+                        📷
+                        <span>
+                            Kamera belum aktif
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <video
+                    id="recordedVideo"
+                    class="recorded-video hidden"
+                    controls
+                    playsinline
+                ></video>
+
+
+                <div
+                    id="recordingStatus"
+                    class="recording-status"
+                >
+                    Belum ada rekaman.
+                </div>
+
+
+                <div class="video-button-group">
+
+                    <button
+                        id="startRecordingButton"
+                        class="primary-button record-button"
+                        type="button"
+                    >
+                        🎥 MULAI REKAM
+                    </button>
+
+
+                    <button
+                        id="stopRecordingButton"
+                        class="secondary-button hidden"
+                        type="button"
+                    >
+                        ⏹️ SELESAI REKAM
+                    </button>
+
+
+                    <button
+                        id="downloadVideoButton"
+                        class="save-video-button hidden"
+                        type="button"
+                    >
+                        💾 SIMPAN VIDEO
+                    </button>
+
+                </div>
+
+            </div>
 
 
             <div class="dead-end-timer-label">
