@@ -14,16 +14,16 @@ const ASSET_FOLDER = "./assets/";
 
 
 const POS_IMAGES = {
-    1: "pos1.jpg",
-    2: "pos2.jpg",
-    3: "pos3.jpg",
-    4: "pos4.jpg",
-    5: "pos5.jpg",
-    6: "pos6.jpg",
-    7: "pos7.jpg",
-    8: "pos8.jpg",
-    9: "pos9.jpg",
-    10: "pos10.jpg"
+    1: "pos1.jpeg",
+    2: "pos2.jpeg",
+    3: "pos3.jpeg",
+    4: "pos4.jpeg",
+    5: "pos5.jpeg",
+    6: "pos6.jpeg",
+    7: "pos7.jpeg",
+    8: "pos8.jpeg",
+    9: "pos9.jpeg",
+    10: "pos10.jpeg"
 };
 
 
@@ -36,7 +36,7 @@ const POS_DATA = {
     1: {
         title: "POS 1 — GERBANG PETUALANGAN",
 
-        image: "pos1.jpg",
+        image: "pos1.jpeg",
 
         clue:
             "Temukan lokasi sesuai foto Pos 1. Setelah sampai, cari pesan yang disembunyikan.",
@@ -65,7 +65,7 @@ const POS_DATA = {
     2: {
         title: "POS 2 — JEJAK KEDUA",
 
-        image: "pos2.jpg",
+        image: "pos2.jpeg",
 
         clue:
             "Ikuti petunjuk dari Pos 1 menuju lokasi pada foto Pos 2.",
@@ -94,7 +94,7 @@ const POS_DATA = {
     3: {
         title: "POS 3 — PESAN TERSEMBUNYI",
 
-        image: "pos3.jpg",
+        image: "pos3.jpeg",
 
         clue:
             "Cari lokasi sesuai foto Pos 3. Temukan pesan yang disembunyikan.",
@@ -123,7 +123,7 @@ const POS_DATA = {
     4: {
         title: "POS 4 — UJI KETELITIAN",
 
-        image: "pos4.jpg",
+        image: "pos4.jpeg",
 
         clue:
             "Perhatikan lingkungan sekitar dan cari pesan sesuai petunjuk.",
@@ -152,7 +152,7 @@ const POS_DATA = {
     5: {
         title: "POS 5 — LANGKAH BERIKUTNYA",
 
-        image: "pos5.jpg",
+        image: "pos5.jpeg",
 
         clue:
             "Temukan lokasi Pos 5 berdasarkan foto dan petunjuk perjalanan.",
@@ -181,7 +181,7 @@ const POS_DATA = {
     6: {
         title: "POS 6 — MENDEKATI AKHIR",
 
-        image: "pos6.jpg",
+        image: "pos6.jpeg",
 
         clue:
             "Kalian semakin dekat dengan akhir perjalanan. Tetap teliti membaca pesan.",
@@ -210,7 +210,7 @@ const POS_DATA = {
     7: {
         title: "POS 7 — POS TERAKHIR",
 
-        image: "pos7.jpg",
+        image: "pos7.jpeg",
 
         clue:
             "Ini adalah pos terakhir pada jalur utama. Temukan pesan dan selesaikan tantangannya.",
@@ -243,7 +243,7 @@ const POS_DATA = {
     8: {
         title: "POS 8 — JALUR BUNTU",
 
-        image: "pos8.jpg",
+        image: "pos8.jpeg",
 
         clue:
             "Kalian masuk ke jalur yang salah. Tidak ada pesan lanjutan di lokasi ini.",
@@ -255,7 +255,7 @@ const POS_DATA = {
     9: {
         title: "POS 9 — JALUR BUNTU",
 
-        image: "pos9.jpg",
+        image: "pos9.jpeg",
 
         clue:
             "Kalian masuk ke jalur yang salah. Periksa lokasi, tetapi pesan tujuan tidak ditemukan.",
@@ -267,7 +267,7 @@ const POS_DATA = {
     10: {
         title: "POS 10 — JALUR BUNTU",
 
-        image: "pos10.jpg",
+        image: "pos10.jpeg",
 
         clue:
             "Jalur ini bukan bagian dari perjalanan utama. Tidak ada pesan lanjutan.",
