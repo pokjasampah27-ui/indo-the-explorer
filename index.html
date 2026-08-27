@@ -1,0 +1,441 @@
+```html
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0,
+                   maximum-scale=1.0, user-scalable=no">
+
+    <meta name="theme-color" content="#172554">
+
+    <title>JURIT MALAM - Misi Petualangan</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- =====================================================
+         HALAMAN PEMBUKA
+    ====================================================== -->
+
+    <main id="app">
+
+        <section id="screen-start" class="screen active">
+
+            <div class="game-header">
+                <div class="badge">🌙 JURIT MALAM</div>
+
+                <h1>Misi Petualangan</h1>
+
+                <p>
+                    Temukan pesan tersembunyi,
+                    pecahkan setiap tantangan,
+                    dan selesaikan perjalanan kelompokmu.
+                </p>
+            </div>
+
+
+            <div class="card">
+
+                <h2>👥 Data Kelompok</h2>
+
+                <div class="form-group">
+                    <label for="leaderName">
+                        Ketua Kelompok
+                    </label>
+
+                    <input
+                        type="text"
+                        id="leaderName"
+                        placeholder="Masukkan nama ketua"
+                        autocomplete="off">
+                </div>
+
+
+                <div class="form-group">
+                    <label for="member1">
+                        Anggota 1
+                    </label>
+
+                    <input
+                        type="text"
+                        id="member1"
+                        placeholder="Nama anggota 1"
+                        autocomplete="off">
+                </div>
+
+
+                <div class="form-group">
+                    <label for="member2">
+                        Anggota 2
+                    </label>
+
+                    <input
+                        type="text"
+                        id="member2"
+                        placeholder="Nama anggota 2"
+                        autocomplete="off">
+                </div>
+
+
+                <div class="form-group">
+                    <label for="member3">
+                        Anggota 3
+                    </label>
+
+                    <input
+                        type="text"
+                        id="member3"
+                        placeholder="Nama anggota 3"
+                        autocomplete="off">
+                </div>
+
+
+                <div class="form-group">
+                    <label for="member4">
+                        Anggota 4
+                    </label>
+
+                    <input
+                        type="text"
+                        id="member4"
+                        placeholder="Nama anggota 4"
+                        autocomplete="off">
+                </div>
+
+
+                <div class="form-group">
+                    <label for="member5">
+                        Anggota 5
+                    </label>
+
+                    <input
+                        type="text"
+                        id="member5"
+                        placeholder="Nama anggota 5"
+                        autocomplete="off">
+                </div>
+
+
+                <button
+                    id="btnStart"
+                    class="btn btn-primary">
+                    🚀 MULAI PETUALANGAN
+                </button>
+
+            </div>
+
+
+            <div class="rules">
+
+                <h3>📜 Aturan Permainan</h3>
+
+                <ol>
+                    <li>Datangi pos sesuai petunjuk.</li>
+                    <li>Temukan pesan atau tugas di pos.</li>
+                    <li>Jawab soal yang diberikan.</li>
+                    <li>Jawaban benar membuka jalur berikutnya.</li>
+                    <li>Jawaban salah dapat membawa kelompok ke jalur buntu.</li>
+                    <li>Jalur buntu memiliki batas waktu 5 menit.</li>
+                    <li>Jika waktu habis, kelompok kembali ke pos sebelumnya.</li>
+                </ol>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             HALAMAN PERMAINAN
+        ====================================================== -->
+
+        <section id="screen-game" class="screen">
+
+            <header class="game-topbar">
+
+                <div>
+                    <small>KELOMPOK</small>
+                    <strong id="displayGroupName">
+                        -
+                    </strong>
+                </div>
+
+                <div class="progress-box">
+                    <small>POS</small>
+                    <strong>
+                        <span id="currentPosNumber">1</span>
+                        /
+                        <span id="totalPosNumber">-</span>
+                    </strong>
+                </div>
+
+            </header>
+
+
+            <!-- TIMER -->
+
+            <div id="timerBox" class="timer-box hidden">
+
+                <span>⏱️ WAKTU JALUR BUNTU</span>
+
+                <strong id="timer">
+                    05:00
+                </strong>
+
+            </div>
+
+
+            <!-- INFORMASI POS -->
+
+            <div class="card pos-card">
+
+                <div class="pos-label">
+                    POS
+                </div>
+
+                <h1 id="posTitle">
+                    -
+                </h1>
+
+
+                <img
+                    id="posImage"
+                    class="pos-image hidden"
+                    src=""
+                    alt="Foto Pos">
+
+
+                <div
+                    id="posDescription"
+                    class="pos-description">
+                    -
+                </div>
+
+
+                <div
+                    id="messageBox"
+                    class="message-box hidden">
+                </div>
+
+            </div>
+
+
+            <!-- SOAL -->
+
+            <div
+                id="questionCard"
+                class="card question-card">
+
+                <div class="question-label">
+                    🧩 TANTANGAN
+                </div>
+
+                <h2 id="questionText">
+                    -
+                </h2>
+
+
+                <div id="answerOptions"
+                     class="answer-options">
+                </div>
+
+
+                <button
+                    id="btnAnswer"
+                    class="btn btn-primary"
+                    disabled>
+                    JAWAB
+                </button>
+
+            </div>
+
+
+            <!-- PETUNJUK -->
+
+            <div
+                id="directionCard"
+                class="card direction-card hidden">
+
+                <div class="direction-icon">
+                    🧭
+                </div>
+
+                <h2 id="directionTitle">
+                    Petunjuk Berikutnya
+                </h2>
+
+                <p id="directionText">
+                    -
+                </p>
+
+
+                <div
+                    id="destinationBox"
+                    class="destination-box">
+                    -
+                </div>
+
+
+                <button
+                    id="btnContinue"
+                    class="btn btn-success">
+                    LANJUTKAN ➜
+                </button>
+
+            </div>
+
+
+            <!-- HASIL JAWABAN -->
+
+            <div
+                id="resultCard"
+                class="card result-card hidden">
+
+                <div id="resultIcon">
+                    -
+                </div>
+
+                <h2 id="resultTitle">
+                    -
+                </h2>
+
+                <p id="resultText">
+                    -
+                </p>
+
+                <button
+                    id="btnResultContinue"
+                    class="btn btn-primary">
+                    LANJUT
+                </button>
+
+            </div>
+
+
+            <!-- JALUR BUNTU -->
+
+            <div
+                id="deadEndCard"
+                class="card dead-end-card hidden">
+
+                <div class="dead-end-icon">
+                    ⛔
+                </div>
+
+                <h2>
+                    JALUR BUNTU!
+                </h2>
+
+                <p>
+                    Kalian berada di jalur yang salah.
+                </p>
+
+                <p>
+                    Cari pesan yang tersembunyi di tempat ini.
+                </p>
+
+                <div class="dead-end-timer">
+                    <span>Waktu tersisa</span>
+
+                    <strong id="deadEndTimer">
+                        05:00
+                    </strong>
+                </div>
+
+                <p>
+                    Jika pesan tidak ditemukan sampai
+                    waktu habis, kelompok akan kembali
+                    ke pos sebelumnya.
+                </p>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =====================================================
+             HALAMAN SELESAI
+        ====================================================== -->
+
+        <section id="screen-finish" class="screen">
+
+            <div class="finish-container">
+
+                <div class="finish-icon">
+                    🏆
+                </div>
+
+                <h1>
+                    MISI SELESAI!
+                </h1>
+
+                <p>
+                    Selamat! Kelompok kalian berhasil
+                    menyelesaikan seluruh perjalanan.
+                </p>
+
+
+                <div class="card">
+
+                    <h2>👥 Kelompok</h2>
+
+                    <div id="finishGroup">
+                        -
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h2>📊 Hasil Perjalanan</h2>
+
+                    <div class="result-stat">
+                        <span>Pos yang diselesaikan</span>
+                        <strong id="finishPos">
+                            -
+                        </strong>
+                    </div>
+
+                    <div class="result-stat">
+                        <span>Jawaban benar</span>
+                        <strong id="finishCorrect">
+                            -
+                        </strong>
+                    </div>
+
+                    <div class="result-stat">
+                        <span>Jawaban salah</span>
+                        <strong id="finishWrong">
+                            -
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <button
+                    id="btnRestart"
+                    class="btn btn-primary">
+                    🔄 MAIN LAGI
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         SCRIPT
+    ====================================================== -->
+
+    <script src="script.js"></script>
+
+</body>
+</html>
+```
