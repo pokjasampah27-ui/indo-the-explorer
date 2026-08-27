@@ -1,19 +1,31 @@
 /* =========================================================
    JELAJAH SEKOLAH
-   GAME POS-POSAN
+   GAME POS-POSAN EDUKATIF
    SCRIPT.JS FINAL
-   TANPA AUDIO
-   ========================================================= */
+
+   ASET:
+   ./assets/pos1.jpeg
+   ./assets/pos2.jpeg
+   ./assets/pos3.jpeg
+   ./assets/pos4.jpeg
+   ./assets/pos5.jpeg
+   ./assets/pos6.jpeg
+   ./assets/pos7.jpeg
+   ./assets/pos8.jpeg
+   ./assets/pos9.jpeg
+   ./assets/pos10.jpeg
+========================================================= */
 
 
 /* =========================================================
-   KONFIGURASI ASET
-   ========================================================= */
+   KONFIGURASI
+========================================================= */
 
 const ASSET_FOLDER = "./assets/";
 
 
 const POS_IMAGES = {
+
     1: "pos1.jpeg",
     2: "pos2.jpeg",
     3: "pos3.jpeg",
@@ -24,6 +36,7 @@ const POS_IMAGES = {
     8: "pos8.jpeg",
     9: "pos9.jpeg",
     10: "pos10.jpeg"
+
 };
 
 
@@ -33,246 +46,757 @@ const POS_IMAGES = {
 
 const POS_DATA = {
 
+
+    /* =====================================================
+       POS 1
+    ===================================================== */
+
     1: {
-        title: "POS 1 — GERBANG PETUALANGAN",
 
-        image: "pos1.jpeg",
+        title:
+            "POS 1 — GERBANG PETUALANGAN",
 
-        clue:
-            "Temukan lokasi sesuai foto Pos 1. Setelah sampai, cari pesan yang disembunyikan.",
+        image:
+            "pos1.jpeg",
 
-        secretCode: "MULAI",
-
-        question:
-            "Apa langkah paling tepat sebelum mengikuti sebuah petunjuk dalam permainan pos-posan?",
-
-        options: [
-            "Langsung berlari tanpa membaca petunjuk",
-            "Membaca dan memahami petunjuk dengan teliti",
-            "Mengikuti kelompok lain",
-            "Menebak lokasi secara acak"
-        ],
-
-        answer: 1,
-
-        explanation:
-            "Petunjuk harus dibaca dan dipahami terlebih dahulu agar perjalanan sesuai dengan jalur yang ditentukan.",
-
-        next: 2
-    },
-
-
-    2: {
-        title: "POS 2 — JEJAK KEDUA",
-
-        image: "pos2.jpeg",
+        secretCode:
+            "MULAI",
 
         clue:
-            "Ikuti petunjuk dari Pos 1 menuju lokasi pada foto Pos 2.",
+            "Temukan lokasi sesuai foto Pos 1. Cari pesan rahasia yang disembunyikan.",
 
-        secretCode: "JEJAK",
+        questions: [
 
-        question:
-            "Mengapa peserta permainan harus bekerja sama dalam sebuah tim?",
+            {
+                question:
+                    `Penggunaan plastik sekali pakai perlu dikurangi di lingkungan sekolah. Plastik membutuhkan waktu yang sangat lama untuk terurai. Selain mencemari tanah, sampah plastik juga dapat menyumbat saluran air. Oleh sebab itu, siswa sebaiknya membawa botol minum dan tempat makan yang dapat digunakan berulang kali.
 
-        options: [
-            "Agar tugas dapat dibebankan kepada satu orang",
-            "Agar semua anggota dapat saling membantu menyelesaikan tantangan",
-            "Agar dapat bergerak tanpa aturan",
-            "Agar dapat mengabaikan petunjuk"
+Jenis paragraf tersebut adalah ....`,
+
+                options: [
+                    "deduktif",
+                    "induktif",
+                    "campuran",
+                    "naratif",
+                    "deskriptif"
+                ],
+
+                answer:
+                    0,
+
+                explanation:
+                    "Paragraf tersebut bersifat deduktif karena gagasan utama terdapat pada awal paragraf."
+            },
+
+
+            {
+                question:
+                    `Setiap pagi, petugas kebersihan membersihkan halaman sekolah. Siswa juga melaksanakan piket sesuai jadwal. Tempat sampah tersedia di berbagai sudut sekolah. Guru mengingatkan siswa agar tidak membuang sampah sembarangan. Dengan demikian, kebersihan sekolah dapat terwujud melalui kerja sama seluruh warga sekolah.
+
+Jenis paragraf tersebut adalah ....`,
+
+                options: [
+                    "deduktif",
+                    "induktif",
+                    "campuran",
+                    "argumentatif",
+                    "ekspositoris"
+                ],
+
+                answer:
+                    1,
+
+                explanation:
+                    "Paragraf tersebut induktif karena gagasan utama berada pada akhir paragraf."
+            },
+
+
+            {
+                question:
+                    `Membaca buku memberikan banyak manfaat bagi pelajar. Dengan membaca, siswa dapat memperoleh informasi baru dan memperluas pengetahuan. Membaca juga dapat meningkatkan kemampuan memahami berbagai jenis teks. Selain itu, kebiasaan membaca dapat memperkaya kosakata. Oleh karena itu, membaca buku secara rutin merupakan kebiasaan penting bagi pelajar.
+
+Berdasarkan letak dan hubungan gagasan utamanya, paragraf tersebut termasuk ....`,
+
+                options: [
+                    "deduktif karena hanya memiliki kalimat utama di awal",
+                    "induktif karena kalimat utama berada di akhir",
+                    "campuran karena gagasan utama dinyatakan di awal dan ditegaskan kembali di akhir",
+                    "induktif karena seluruh kalimat awal merupakan kalimat penjelas",
+                    "deduktif karena kalimat terakhir merupakan gagasan tambahan"
+                ],
+
+                answer:
+                    2,
+
+                explanation:
+                    "Paragraf campuran memiliki gagasan utama di awal yang kemudian ditegaskan kembali pada akhir paragraf."
+            }
+
         ],
 
-        answer: 1,
+        next:
+            2
 
-        explanation:
-            "Kerja sama membuat anggota tim dapat saling membantu dan menyelesaikan tantangan dengan lebih baik.",
-
-        next: 3
-    },
-
-
-    3: {
-        title: "POS 3 — PESAN TERSEMBUNYI",
-
-        image: "pos3.jpeg",
-
-        clue:
-            "Cari lokasi sesuai foto Pos 3. Temukan pesan yang disembunyikan.",
-
-        secretCode: "PESAN",
-
-        question:
-            "Jika menemukan pesan yang ditujukan untuk tim, apa yang sebaiknya dilakukan?",
-
-        options: [
-            "Membawa pulang pesan tersebut",
-            "Merusak pesan agar tim lain tidak menemukannya",
-            "Membaca informasi yang diperlukan lalu meninggalkannya di tempat",
-            "Menyembunyikannya di tempat lain"
-        ],
-
-        answer: 2,
-
-        explanation:
-            "Pesan permainan harus tetap berada di tempatnya agar semua peserta dapat bermain secara adil.",
-
-        next: 4
-    },
-
-
-    4: {
-        title: "POS 4 — UJI KETELITIAN",
-
-        image: "pos4.jpeg",
-
-        clue:
-            "Perhatikan lingkungan sekitar dan cari pesan sesuai petunjuk.",
-
-        secretCode: "TELITI",
-
-        question:
-            "Apa yang harus dilakukan jika petunjuk permainan terasa belum jelas?",
-
-        options: [
-            "Menebak tanpa berpikir",
-            "Membaca kembali petunjuk dan mendiskusikannya",
-            "Meninggalkan permainan",
-            "Mengikuti tim lain"
-        ],
-
-        answer: 1,
-
-        explanation:
-            "Membaca ulang dan berdiskusi membantu tim memahami petunjuk dengan lebih tepat.",
-
-        next: 5
-    },
-
-
-    5: {
-        title: "POS 5 — LANGKAH BERIKUTNYA",
-
-        image: "pos5.jpeg",
-
-        clue:
-            "Temukan lokasi Pos 5 berdasarkan foto dan petunjuk perjalanan.",
-
-        secretCode: "LANGKAH",
-
-        question:
-            "Ketika mendapatkan jawaban berbeda antaranggota tim, apa tindakan yang paling tepat?",
-
-        options: [
-            "Memilih secara asal",
-            "Berdebat tanpa mendengarkan",
-            "Mendiskusikan alasan masing-masing berdasarkan bukti",
-            "Mengikuti jawaban tim lain"
-        ],
-
-        answer: 2,
-
-        explanation:
-            "Diskusi berdasarkan alasan dan bukti membantu tim mengambil keputusan yang tepat.",
-
-        next: 6
-    },
-
-
-    6: {
-        title: "POS 6 — MENDEKATI AKHIR",
-
-        image: "pos6.jpeg",
-
-        clue:
-            "Kalian semakin dekat dengan akhir perjalanan. Tetap teliti membaca pesan.",
-
-        secretCode: "KOMPAS",
-
-        question:
-            "Apa yang paling penting dilakukan ketika waktu permainan semakin terbatas?",
-
-        options: [
-            "Panik dan berlari tanpa arah",
-            "Tetap tenang, membaca petunjuk, dan membagi tugas",
-            "Mengabaikan soal",
-            "Mengikuti peserta lain"
-        ],
-
-        answer: 1,
-
-        explanation:
-            "Ketika waktu terbatas, ketenangan, pembagian tugas, dan ketelitian sangat penting.",
-
-        next: 7
-    },
-
-
-    7: {
-        title: "POS 7 — POS TERAKHIR",
-
-        image: "pos7.jpeg",
-
-        clue:
-            "Ini adalah pos terakhir pada jalur utama. Temukan pesan dan selesaikan tantangannya.",
-
-        secretCode: "JUARA",
-
-        question:
-            "Sikap terbaik setelah berhasil menyelesaikan permainan adalah ...",
-
-        options: [
-            "Mengejek tim lain",
-            "Merusak lokasi permainan",
-            "Menghargai semua peserta dan menjaga lingkungan",
-            "Menyembunyikan semua pesan permainan"
-        ],
-
-        answer: 2,
-
-        explanation:
-            "Permainan yang baik berakhir dengan sikap sportif, saling menghargai, dan menjaga lingkungan.",
-
-        next: null
     },
 
 
     /* =====================================================
-       POS BUNTU
+       POS 2
+    ===================================================== */
+
+    2: {
+
+        title:
+            "POS 2 — JEJAK KEDUA",
+
+        image:
+            "pos2.jpeg",
+
+        secretCode:
+            "JEJAK",
+
+        clue:
+            "Ikuti petunjuk dari Pos 1 dan temukan lokasi pada foto ini.",
+
+        questions: [
+
+            {
+                question:
+                    `Jika kalimat-kalimat berikut disusun menjadi paragraf yang padu:
+
+1. Penggunaan transportasi umum dapat mengurangi jumlah kendaraan pribadi di jalan.
+2. Jumlah kendaraan pribadi yang tinggi menyebabkan kemacetan semakin parah.
+3. Selain itu, kendaraan pribadi menghasilkan emisi yang dapat mencemari udara.
+4. Penggunaan transportasi umum juga dapat menghemat penggunaan bahan bakar.
+5. Oleh karena itu, penggunaan transportasi umum merupakan salah satu solusi untuk mengatasi masalah lingkungan dan kemacetan.
+
+Jenis paragraf yang terbentuk adalah ....`,
+
+                options: [
+                    "deduktif",
+                    "induktif",
+                    "campuran",
+                    "naratif",
+                    "deskriptif"
+                ],
+
+                answer:
+                    1,
+
+                explanation:
+                    "Gagasan utama ditegaskan pada bagian akhir dengan kalimat 'Oleh karena itu', sehingga paragraf tersebut bersifat induktif."
+            },
+
+
+            {
+                question:
+                    `Siswa kelas XI mengikuti lomba karya ilmiah.
+
+Fungsi "Siswa kelas XI" dalam kalimat tersebut adalah ....`,
+
+                options: [
+                    "predikat",
+                    "objek",
+                    "pelengkap",
+                    "subjek",
+                    "keterangan"
+                ],
+
+                answer:
+                    3,
+
+                explanation:
+                    "Siswa kelas XI merupakan pihak yang melakukan tindakan mengikuti lomba, sehingga berfungsi sebagai subjek."
+            }
+
+        ],
+
+        next:
+            3
+
+    },
+
+
+    /* =====================================================
+       POS 3
+    ===================================================== */
+
+    3: {
+
+        title:
+            "POS 3 — PESAN TERSEMBUNYI",
+
+        image:
+            "pos3.jpeg",
+
+        secretCode:
+            "PESAN",
+
+        clue:
+            "Cari pesan tersembunyi di lokasi sesuai foto Pos 3.",
+
+        questions: [
+
+            {
+                question:
+                    `Rani membaca novel di perpustakaan.
+
+Fungsi kata "novel" adalah ....`,
+
+                options: [
+                    "subjek",
+                    "predikat",
+                    "objek",
+                    "pelengkap",
+                    "keterangan"
+                ],
+
+                answer:
+                    2,
+
+                explanation:
+                    "Novel merupakan benda yang dikenai tindakan membaca sehingga berfungsi sebagai objek."
+            },
+
+
+            {
+                question:
+                    `Ayah menjadi ketua panitia kegiatan sekolah.
+
+Fungsi "ketua panitia kegiatan sekolah" adalah ....`,
+
+                options: [
+                    "subjek",
+                    "predikat",
+                    "objek",
+                    "pelengkap",
+                    "keterangan"
+                ],
+
+                answer:
+                    3,
+
+                explanation:
+                    "Bagian tersebut melengkapi predikat 'menjadi', sehingga berfungsi sebagai pelengkap."
+            },
+
+
+            {
+                question:
+                    `Guru memberikan penghargaan kepada siswa berprestasi di aula sekolah.
+
+Analisis fungsi unsur-unsur kalimat yang tepat adalah ....`,
+
+                options: [
+                    "S = Guru, P = memberikan, O = penghargaan, Pel = kepada siswa berprestasi, K = di aula sekolah",
+                    "S = Guru, P = memberikan, O = penghargaan, K = kepada siswa berprestasi, K = di aula sekolah",
+                    "S = Guru, P = memberikan penghargaan, O = siswa berprestasi, K = di aula sekolah",
+                    "S = Guru, P = memberikan, Pel = penghargaan, O = kepada siswa berprestasi, K = di aula sekolah",
+                    "S = Guru, P = memberikan, O = kepada siswa berprestasi, Pel = penghargaan, K = di aula sekolah"
+                ],
+
+                answer:
+                    1,
+
+                explanation:
+                    "Guru adalah subjek, memberikan adalah predikat, penghargaan adalah objek, sedangkan kepada siswa berprestasi dan di aula sekolah berfungsi sebagai keterangan."
+            }
+
+        ],
+
+        next:
+            4
+
+    },
+
+
+    /* =====================================================
+       POS 4
+    ===================================================== */
+
+    4: {
+
+        title:
+            "POS 4 — UJI KETELITIAN",
+
+        image:
+            "pos4.jpeg",
+
+        secretCode:
+            "TELITI",
+
+        clue:
+            "Perhatikan lingkungan sekitar. Temukan pesan sesuai petunjuk.",
+
+        questions: [
+
+            {
+                question:
+                    `Rina membaca buku.
+
+Buku dibaca Rina.
+
+Pernyataan yang paling tepat adalah ....`,
+
+                options: [
+                    "\"buku\" merupakan pelengkap pada kedua kalimat",
+                    "\"buku\" merupakan objek pada kalimat 1 dan subjek pada kalimat 2",
+                    "\"buku\" merupakan subjek pada kalimat 1 dan objek pada kalimat 2",
+                    "\"Rina\" merupakan objek pada kedua kalimat",
+                    "fungsi \"buku\" tidak berubah karena maknanya tetap sama"
+                ],
+
+                answer:
+                    1,
+
+                explanation:
+                    "Pada kalimat aktif, buku menjadi objek. Setelah dipasifkan, buku berubah menjadi subjek."
+            },
+
+
+            {
+                question:
+                    "Kata yang termasuk verba adalah ....",
+
+                options: [
+                    "kebersihan",
+                    "indah",
+                    "membaca",
+                    "sekolah",
+                    "sangat"
+                ],
+
+                answer:
+                    2,
+
+                explanation:
+                    "Membaca merupakan kata kerja atau verba."
+            },
+
+
+            {
+                question:
+                    `Kata "sangat" dalam kalimat berikut termasuk kelas kata ....
+
+Lingkungan sekolah itu sangat bersih.`,
+
+                options: [
+                    "nomina",
+                    "verba",
+                    "adjektiva",
+                    "adverbia",
+                    "konjungsi"
+                ],
+
+                answer:
+                    3,
+
+                explanation:
+                    "Sangat merupakan adverbia yang menerangkan tingkat sifat 'bersih'."
+            }
+
+        ],
+
+        next:
+            5
+
+    },
+
+
+    /* =====================================================
+       POS 5
+    ===================================================== */
+
+    5: {
+
+        title:
+            "POS 5 — LANGKAH BERIKUTNYA",
+
+        image:
+            "pos5.jpeg",
+
+        secretCode:
+            "LANGKAH",
+
+        clue:
+            "Kalian semakin jauh. Tetap kompak dan teliti membaca setiap petunjuk.",
+
+        questions: [
+
+            {
+                question:
+                    "Kata yang termasuk pronomina persona orang ketiga adalah ....",
+
+                options: [
+                    "saya",
+                    "kami",
+                    "kamu",
+                    "mereka",
+                    "kalian"
+                ],
+
+                answer:
+                    3,
+
+                explanation:
+                    "Mereka merupakan pronomina persona orang ketiga."
+            },
+
+
+            {
+                question:
+                    `Kata "dan" dalam kalimat berikut termasuk ....
+
+Rina dan Sinta mengikuti kegiatan literasi.`,
+
+                options: [
+                    "preposisi",
+                    "konjungsi",
+                    "pronomina",
+                    "adverbia",
+                    "numeralia"
+                ],
+
+                answer:
+                    1,
+
+                explanation:
+                    "Dan merupakan kata penghubung atau konjungsi."
+            },
+
+
+            {
+                question:
+                    `Beberapa siswa sedang membaca tiga buku baru di perpustakaan.
+
+Kata yang termasuk numeralia dan verba secara berturut-turut adalah ....`,
+
+                options: [
+                    "beberapa dan siswa",
+                    "siswa dan membaca",
+                    "tiga dan membaca",
+                    "baru dan perpustakaan",
+                    "sedang dan buku"
+                ],
+
+                answer:
+                    2,
+
+                explanation:
+                    "Tiga merupakan numeralia, sedangkan membaca merupakan verba."
+            }
+
+        ],
+
+        next:
+            6
+
+    },
+
+
+    /* =====================================================
+       POS 6
+    ===================================================== */
+
+    6: {
+
+        title:
+            "POS 6 — KOMPAS PETUALANGAN",
+
+        image:
+            "pos6.jpeg",
+
+        secretCode:
+            "KOMPAS",
+
+        clue:
+            "Kalian hampir mencapai akhir. Jangan kehilangan arah!",
+
+        questions: [
+
+            {
+                question:
+                    "Kelompok kata berikut yang merupakan frasa nominal adalah ....",
+
+                options: [
+                    "sangat indah",
+                    "sedang belajar",
+                    "di sekolah",
+                    "rumah besar",
+                    "akan pergi"
+                ],
+
+                answer:
+                    3,
+
+                explanation:
+                    "Rumah besar merupakan frasa nominal dengan inti berupa nomina 'rumah'."
+            },
+
+
+            {
+                question:
+                    `Kelompok kata "sangat rajin" termasuk frasa ....`,
+
+                options: [
+                    "nominal",
+                    "verbal",
+                    "adjektival",
+                    "preposisional",
+                    "numeralia"
+                ],
+
+                answer:
+                    2,
+
+                explanation:
+                    "Sangat rajin merupakan frasa adjektival karena inti frasanya adalah kata sifat 'rajin'."
+            },
+
+
+            {
+                question:
+                    "Kelompok kata berikut yang merupakan frasa preposisional adalah ....",
+
+                options: [
+                    "siswa rajin",
+                    "sangat tinggi",
+                    "sedang membaca",
+                    "tiga buku",
+                    "di perpustakaan"
+                ],
+
+                answer:
+                    4,
+
+                explanation:
+                    "Di perpustakaan merupakan frasa preposisional karena diawali preposisi 'di'."
+            },
+
+
+            {
+                question:
+                    `Para siswa sedang mengerjakan tugas kelompok di ruang kelas.
+
+Analisis yang tepat terhadap kelompok kata "sedang mengerjakan" adalah ....`,
+
+                options: [
+                    "frasa nominal karena memiliki kata 'siswa' sebagai konteksnya",
+                    "frasa verbal karena inti frasa berupa verba 'mengerjakan'",
+                    "frasa adjektival karena 'sedang' menunjukkan keadaan",
+                    "frasa preposisional karena menerangkan kegiatan siswa",
+                    "frasa numeralia karena menunjukkan aktivitas yang dilakukan siswa"
+                ],
+
+                answer:
+                    1,
+
+                explanation:
+                    "Sedang mengerjakan merupakan frasa verbal karena inti frasa tersebut adalah verba 'mengerjakan'."
+            }
+
+        ],
+
+        next:
+            7
+
+    },
+
+
+    /* =====================================================
+       POS 7
+    ===================================================== */
+
+    7: {
+
+        title:
+            "POS 7 — GARIS FINIS",
+
+        image:
+            "pos7.jpeg",
+
+        secretCode:
+            "JUARA",
+
+        clue:
+            "Ini adalah pos terakhir. Selesaikan dua tantangan terakhir untuk memenangkan misi.",
+
+        questions: [
+
+            {
+                question:
+                    `Tiga siswa yang sangat rajin sedang membaca buku pelajaran di perpustakaan.
+
+Pernyataan yang paling tepat adalah ....`,
+
+                options: [
+                    "\"tiga siswa\" merupakan frasa verbal",
+                    "\"sangat rajin\" merupakan frasa nominal",
+                    "\"sedang membaca\" merupakan frasa verbal",
+                    "\"buku pelajaran\" merupakan frasa adjektival",
+                    "\"di perpustakaan\" merupakan frasa nominal"
+                ],
+
+                answer:
+                    2,
+
+                explanation:
+                    "Sedang membaca merupakan frasa verbal karena inti frasanya berupa verba 'membaca'."
+            },
+
+
+            {
+                question:
+                    `Menjaga kesehatan tubuh merupakan tanggung jawab setiap individu. Olahraga secara teratur dapat meningkatkan kebugaran tubuh. Mengonsumsi makanan bergizi membantu memenuhi kebutuhan nutrisi. Istirahat yang cukup juga membuat tubuh memiliki waktu untuk memulihkan diri. Dengan demikian, kebiasaan hidup sehat perlu diterapkan secara konsisten dalam kehidupan sehari-hari.
+
+Berdasarkan struktur paragraf dan unsur kebahasaannya, pernyataan yang tepat adalah ....`,
+
+                options: [
+                    "paragraf tersebut induktif dan 'secara konsisten' merupakan frasa nominal",
+                    "paragraf tersebut deduktif dan 'menjaga kesehatan tubuh' merupakan frasa verbal",
+                    "paragraf tersebut campuran dan 'kebiasaan hidup sehat' merupakan frasa nominal",
+                    "paragraf tersebut induktif dan 'perlu diterapkan' merupakan frasa nominal",
+                    "paragraf tersebut campuran dan 'dalam kehidupan sehari-hari' merupakan frasa verbal"
+                ],
+
+                answer:
+                    2,
+
+                explanation:
+                    "Gagasan utama muncul di awal dan ditegaskan kembali di akhir sehingga paragraf tersebut campuran. 'Kebiasaan hidup sehat' merupakan frasa nominal."
+            }
+
+        ],
+
+        next:
+            null
+
+    },
+
+
+    /* =====================================================
+       POS 8
+       JALUR BUNTU
     ===================================================== */
 
     8: {
-        title: "POS 8 — JALUR BUNTU",
 
-        image: "pos8.jpeg",
+        title:
+            "POS 8 — WADUH, SALAH JALAN!",
 
-        clue:
-            "Kalian masuk ke jalur yang salah. Tidak ada pesan lanjutan di lokasi ini.",
+        image:
+            "pos8.jpeg",
 
-        deadEnd: true
+        deadEnd:
+            true,
+
+        instruction:
+            `Ups! Kalian memasuki jalur yang salah! 😂
+
+Sekarang seluruh anggota harus berdiri berjajar.
+
+Ketua tim berdiri paling depan dan berkata dengan gaya pembawa berita:
+
+"BREAKING NEWS! TIM KAMI TERSESAT!"
+
+Setelah itu, semua anggota harus menjawab:
+
+"TAPI KAMI TETAP KOMPAK!"
+
+Lakukan sekali dengan penuh semangat.
+
+Kalian memiliki waktu 5 menit sebelum sistem mengembalikan kalian ke POS 1.`
+
     },
 
+
+    /* =====================================================
+       POS 9
+       JALUR BUNTU
+    ===================================================== */
 
     9: {
-        title: "POS 9 — JALUR BUNTU",
 
-        image: "pos9.jpeg",
+        title:
+            "POS 9 — KETEMU JALAN BUNTU!",
 
-        clue:
-            "Kalian masuk ke jalur yang salah. Periksa lokasi, tetapi pesan tujuan tidak ditemukan.",
+        image:
+            "pos9.jpeg",
 
-        deadEnd: true
+        deadEnd:
+            true,
+
+        instruction:
+            `😂 Waduh! Sepertinya kompas kalian sedang libur.
+
+Tantangan:
+
+Semua anggota berdiri membentuk lingkaran.
+
+Lalu bergantian menyebut:
+
+"Nama saya ... dan saya bukan tersesat!"
+
+Setelah semua anggota selesai, ketua tim harus berkata:
+
+"KAMI TAHU JALANNYA!"
+
+Padahal sebenarnya kalian sedang berada di JALAN BUNTU. 🤣
+
+Setelah itu tunggu sampai waktu habis atau tekan tombol kembali ke POS 1.`
+
     },
 
 
+    /* =====================================================
+       POS 10
+       JALUR BUNTU
+    ===================================================== */
+
     10: {
-        title: "POS 10 — JALUR BUNTU",
 
-        image: "pos10.jpeg",
+        title:
+            "POS 10 — PINTU KESASARAN",
 
-        clue:
-            "Jalur ini bukan bagian dari perjalanan utama. Tidak ada pesan lanjutan.",
+        image:
+            "pos10.jpeg",
 
-        deadEnd: true
+        deadEnd:
+            true,
+
+        instruction:
+            `🚨 PERINGATAN!
+
+Kalian telah mencapai lokasi rahasia...
+
+Sayangnya...
+
+INI SALAH JALAN! 😂
+
+Tantangan terakhir:
+
+Semua anggota mengangkat satu tangan.
+
+Ketua bertanya:
+
+"Siapa yang memilih jalan ini?"
+
+Semua anggota menjawab:
+
+"BUKAN SAYA!"
+
+Ketua bertanya lagi:
+
+"Lalu siapa?"
+
+Semua menjawab:
+
+"KAMI TIDAK TAHU!"
+
+😂😂😂
+
+Setelah tantangan selesai, kalian harus kembali ke POS 1 dan mengulang perjalanan dengan lebih teliti.`
+
     }
 
 };
@@ -284,41 +808,60 @@ const POS_DATA = {
 
 const gameState = {
 
-    leader: "",
+    leader:
+        "",
 
-    members: [],
+    members:
+        [],
 
-    currentPos: 1,
+    currentPos:
+        1,
 
-    previousCorrectPos: 1,
+    previousCorrectPos:
+        1,
 
-    selectedAnswer: null,
+    currentQuestion:
+        0,
 
-    questionAttempts: 0,
+    selectedAnswer:
+        null,
 
-    correctAnswers: 0,
+    correctAnswers:
+        0,
 
-    wrongAnswers: 0,
+    wrongAnswers:
+        0,
 
-    deadEndVisits: 0,
+    totalQuestionsAnswered:
+        0,
 
-    completedPositions: [],
+    completedPositions:
+        [],
 
-    visitedDeadEnds: [],
+    deadEndVisits:
+        [],
 
-    startTime: null,
+    startTime:
+        null,
 
-    finishTime: null,
+    finishTime:
+        null,
 
-    deadEndStart: null,
+    mainTimer:
+        null,
 
-    deadEndTimer: null,
+    deadEndTimer:
+        null,
 
-    mainTimer: null,
+    deadEndStart:
+        null,
 
-    secretVerified: false,
+    gameStarted:
+        false,
 
-    gameStarted: false
+    secretVerified:
+        false
+
 };
 
 
@@ -327,12 +870,14 @@ const gameState = {
 ========================================================= */
 
 function $(id) {
+
     return document.getElementById(id);
+
 }
 
 
 /* =========================================================
-   DOM
+   ELEMENT
 ========================================================= */
 
 const welcomeScreen =
@@ -357,43 +902,27 @@ const startButton =
 const beginMissionButton =
     $("beginMissionButton");
 
-const secretCodeButton =
-    $("secretCodeButton");
-
-const submitAnswerButton =
-    $("submitAnswerButton");
-
-const goNextButton =
-    $("goNextButton");
-
-const returnFromDeadEndButton =
-    $("returnFromDeadEndButton");
-
-const restartButton =
-    $("restartButton");
-
-
 const teamForm =
     $("teamForm");
+
 
 const leaderName =
     $("leaderName");
 
 
 const memberInputs = [
+
     $("member1"),
     $("member2"),
     $("member3"),
     $("member4"),
     $("member5")
+
 ];
 
 
 const teamNameDisplay =
     $("teamNameDisplay");
-
-const currentPosDisplay =
-    $("currentPosDisplay");
 
 const timerDisplay =
     $("timerDisplay");
@@ -404,9 +933,9 @@ const progressPercent =
 const progressFill =
     $("progressFill");
 
+const currentPosDisplay =
+    $("currentPosDisplay");
 
-const posTitle =
-    $("posTitle");
 
 const locationImage =
     $("locationImage");
@@ -414,22 +943,31 @@ const locationImage =
 const imageLabel =
     $("imageLabel");
 
+const posTitle =
+    $("posTitle");
+
 const clueText =
     $("clueText");
 
 
-const secretArea =
-    $("secretArea");
-
 const secretCodeInput =
     $("secretCodeInput");
+
+const secretCodeButton =
+    $("secretCodeButton");
 
 const secretMessage =
     $("secretMessage");
 
+const secretArea =
+    $("secretArea");
+
 
 const questionArea =
     $("questionArea");
+
+const questionCounter =
+    $("questionCounter");
 
 const questionText =
     $("questionText");
@@ -440,6 +978,9 @@ const optionsContainer =
 const answerFeedback =
     $("answerFeedback");
 
+const submitAnswerButton =
+    $("submitAnswerButton");
+
 
 const nextClueArea =
     $("nextClueArea");
@@ -447,12 +988,24 @@ const nextClueArea =
 const nextLocationText =
     $("nextLocationText");
 
+const goNextButton =
+    $("goNextButton");
+
 
 const deadEndArea =
     $("deadEndArea");
 
+const deadEndTitle =
+    $("deadEndTitle");
+
+const deadEndInstruction =
+    $("deadEndInstruction");
+
 const deadEndTimer =
     $("deadEndTimer");
+
+const returnFromDeadEndButton =
+    $("returnFromDeadEndButton");
 
 
 const finishLeader =
@@ -473,9 +1026,6 @@ const gameModal =
 
 const modalOverlay =
     $("modalOverlay");
-
-const modalCloseButton =
-    $("modalCloseButton");
 
 const modalOkButton =
     $("modalOkButton");
@@ -508,27 +1058,27 @@ function showScreen(screen) {
 
     document
         .querySelectorAll(".screen")
-        .forEach(item => {
+        .forEach(
+            item => {
 
-            item.classList.remove(
-                "active"
-            );
+                item.classList.remove(
+                    "active"
+                );
 
-        });
-
-
-    if (screen) {
-
-        screen.classList.add(
-            "active"
+            }
         );
-    }
+
+
+    screen.classList.add(
+        "active"
+    );
 
 
     window.scrollTo({
         top: 0,
         behavior: "smooth"
     });
+
 }
 
 
@@ -553,7 +1103,9 @@ function showToast(
         "toast";
 
 
-    if (type === "success") {
+    if (
+        type === "success"
+    ) {
 
         toast.classList.add(
             "success"
@@ -563,7 +1115,9 @@ function showToast(
             "✅";
 
     }
-    else if (type === "error") {
+    else if (
+        type === "error"
+    ) {
 
         toast.classList.add(
             "error"
@@ -577,6 +1131,7 @@ function showToast(
 
         toastIcon.textContent =
             "💡";
+
     }
 
 
@@ -600,6 +1155,7 @@ function showToast(
             },
             3000
         );
+
 }
 
 
@@ -626,9 +1182,6 @@ function showModal(
         "show"
     );
 
-    document.body.classList.add(
-        "no-scroll"
-    );
 }
 
 
@@ -638,14 +1191,11 @@ function closeModal() {
         "show"
     );
 
-    document.body.classList.remove(
-        "no-scroll"
-    );
 }
 
 
 /* =========================================================
-   MULAI
+   START
 ========================================================= */
 
 startButton.addEventListener(
@@ -658,7 +1208,9 @@ startButton.addEventListener(
 
         setTimeout(
             () => {
+
                 leaderName.focus();
+
             },
             300
         );
@@ -668,7 +1220,7 @@ startButton.addEventListener(
 
 
 /* =========================================================
-   FORM TIM
+   TEAM
 ========================================================= */
 
 teamForm.addEventListener(
@@ -696,31 +1248,25 @@ teamForm.addEventListener(
                 "error"
             );
 
-            leaderName.focus();
-
             return;
+
         }
 
 
-        const emptyIndex =
-            members.findIndex(
+        if (
+            members.some(
                 member =>
                     member === ""
-            );
-
-
-        if (emptyIndex !== -1) {
+            )
+        ) {
 
             showToast(
-                `Nama anggota ${emptyIndex + 1} belum diisi.`,
+                "Semua nama anggota harus diisi.",
                 "error"
             );
 
-            memberInputs[
-                emptyIndex
-            ].focus();
-
             return;
+
         }
 
 
@@ -744,7 +1290,7 @@ teamForm.addEventListener(
 
 
 /* =========================================================
-   MULAI MISI
+   START GAME
 ========================================================= */
 
 beginMissionButton.addEventListener(
@@ -755,7 +1301,7 @@ beginMissionButton.addEventListener(
 
 function startGame() {
 
-    resetGameState();
+    resetState();
 
 
     gameState.gameStarted =
@@ -778,13 +1324,16 @@ function startGame() {
     );
 
 
-    loadPosition(1);
+    loadPosition(
+        1
+    );
 
 
     showToast(
         "Petualangan dimulai!",
         "success"
     );
+
 }
 
 
@@ -792,7 +1341,7 @@ function startGame() {
    RESET
 ========================================================= */
 
-function resetGameState() {
+function resetState() {
 
     clearInterval(
         gameState.mainTimer
@@ -809,11 +1358,11 @@ function resetGameState() {
     gameState.previousCorrectPos =
         1;
 
+    gameState.currentQuestion =
+        0;
+
     gameState.selectedAnswer =
         null;
-
-    gameState.questionAttempts =
-        0;
 
     gameState.correctAnswers =
         0;
@@ -821,13 +1370,13 @@ function resetGameState() {
     gameState.wrongAnswers =
         0;
 
-    gameState.deadEndVisits =
+    gameState.totalQuestionsAnswered =
         0;
 
     gameState.completedPositions =
         [];
 
-    gameState.visitedDeadEnds =
+    gameState.deadEndVisits =
         [];
 
     gameState.startTime =
@@ -836,20 +1385,18 @@ function resetGameState() {
     gameState.finishTime =
         null;
 
-    gameState.deadEndStart =
+    gameState.mainTimer =
         null;
 
     gameState.deadEndTimer =
         null;
 
-    gameState.mainTimer =
+    gameState.deadEndStart =
         null;
 
     gameState.secretVerified =
         false;
 
-    gameState.gameStarted =
-        false;
 }
 
 
@@ -888,6 +1435,7 @@ function startMainTimer() {
             },
             1000
         );
+
 }
 
 
@@ -911,6 +1459,7 @@ function loadPosition(
         );
 
         return;
+
     }
 
 
@@ -918,27 +1467,33 @@ function loadPosition(
         positionNumber;
 
 
+    gameState.currentQuestion =
+        0;
+
     gameState.selectedAnswer =
         null;
-
 
     gameState.secretVerified =
         false;
 
 
-    if (pos.deadEnd) {
+    if (
+        pos.deadEnd
+    ) {
 
         loadDeadEnd(
             positionNumber
         );
 
         return;
+
     }
 
 
     loadCorrectPosition(
         positionNumber
     );
+
 }
 
 
@@ -961,12 +1516,6 @@ function loadCorrectPosition(
         pos.title;
 
 
-    /*
-       =====================================================
-       BAGIAN FOTO
-       =====================================================
-    */
-
     const imagePath =
         ASSET_FOLDER +
         POS_IMAGES[positionNumber];
@@ -977,16 +1526,12 @@ function loadCorrectPosition(
 
 
     locationImage.alt =
-        `Foto lokasi ${pos.title}`;
+        `Foto lokasi Pos ${positionNumber}`;
 
 
     imageLabel.textContent =
-        `Lokasi Pos ${positionNumber}`;
+        `LOKASI POS ${positionNumber}`;
 
-
-    /*
-       Jika foto belum ditemukan
-    */
 
     locationImage.onerror =
         function () {
@@ -1022,95 +1567,43 @@ function loadCorrectPosition(
     );
 
 
-    /*
-       Tampilkan area
-    */
-
-    questionArea.classList.remove(
-        "hidden"
-    );
-
     secretArea.classList.remove(
         "hidden"
     );
 
+
+    questionArea.classList.add(
+        "hidden"
+    );
+
+
     nextClueArea.classList.add(
         "hidden"
     );
+
 
     deadEndArea.classList.add(
         "hidden"
     );
 
 
-    /*
-       Reset kode
-    */
-
     secretCodeInput.value =
         "";
+
 
     secretMessage.textContent =
         "";
 
 
-    /*
-       Reset soal
-    */
-
-    answerFeedback.textContent =
-        "";
-
-    answerFeedback.className =
-        "answer-feedback";
+    setSecretMessageStyle();
 
 
-    questionText.textContent =
-        pos.question;
-
-
-    renderOptions(
-        pos.options
-    );
-
-
-    submitAnswerButton.disabled =
-        true;
-
-
-    setSecretLockedState(
-        true
-    );
 }
 
 
 /* =========================================================
-   KODE RAHASIA
+   SECRET CODE
 ========================================================= */
-
-function setSecretLockedState(
-    locked
-) {
-
-    optionsContainer
-        .querySelectorAll(
-            ".answer-option"
-        )
-        .forEach(
-            button => {
-
-                button.disabled =
-                    locked;
-
-            }
-        );
-
-
-    submitAnswerButton.disabled =
-        locked ||
-        gameState.selectedAnswer === null;
-}
-
 
 secretCodeButton.addEventListener(
     "click",
@@ -1161,9 +1654,13 @@ function verifySecretCode() {
     if (!entered) {
 
         secretMessage.textContent =
-            "Masukkan kode rahasia terlebih dahulu.";
+            "Masukkan kode terlebih dahulu.";
+
+        secretMessage.style.color =
+            "#dc2626";
 
         return;
+
     }
 
 
@@ -1178,11 +1675,14 @@ function verifySecretCode() {
 
 
         secretMessage.textContent =
-            "✓ Kode benar. Tantangan dapat dikerjakan.";
+            "✓ Kode benar! Tantangan terbuka.";
+
+        secretMessage.style.color =
+            "#16a34a";
 
 
-        setSecretLockedState(
-            false
+        showQuestion(
+            0
         );
 
 
@@ -1199,24 +1699,107 @@ function verifySecretCode() {
 
 
         secretMessage.textContent =
-            "✕ Kode salah. Periksa kembali pesan di lokasi.";
+            "✕ Kode salah. Cari dan periksa kembali pesan di lokasi.";
 
-
-        setSecretLockedState(
-            true
-        );
+        secretMessage.style.color =
+            "#dc2626";
 
 
         showToast(
             "Kode rahasia salah.",
             "error"
         );
+
     }
+
 }
 
 
 /* =========================================================
-   PILIHAN JAWABAN
+   SHOW QUESTION
+========================================================= */
+
+function showQuestion(
+    questionIndex
+) {
+
+    const pos =
+        POS_DATA[
+            gameState.currentPos
+        ];
+
+
+    if (
+        !pos ||
+        !pos.questions
+    ) {
+        return;
+    }
+
+
+    const question =
+        pos.questions[
+            questionIndex
+        ];
+
+
+    if (!question) {
+
+        finishPosition();
+
+        return;
+
+    }
+
+
+    gameState.currentQuestion =
+        questionIndex;
+
+
+    gameState.selectedAnswer =
+        null;
+
+
+    questionArea.classList.remove(
+        "hidden"
+    );
+
+
+    questionCounter.textContent =
+        `Soal ${questionIndex + 1} dari ${pos.questions.length}`;
+
+
+    questionText.textContent =
+        question.question;
+
+
+    answerFeedback.textContent =
+        "";
+
+
+    answerFeedback.className =
+        "answer-feedback";
+
+
+    submitAnswerButton.disabled =
+        true;
+
+
+    renderOptions(
+        question.options
+    );
+
+
+    questionArea.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+
+}
+
+
+/* =========================================================
+   OPTIONS
 ========================================================= */
 
 function renderOptions(
@@ -1228,7 +1811,10 @@ function renderOptions(
 
 
     options.forEach(
-        (option, index) => {
+        (
+            option,
+            index
+        ) => {
 
             const button =
                 document.createElement(
@@ -1254,15 +1840,42 @@ function renderOptions(
                 );
 
 
-            button.innerHTML = `
-                <span class="option-letter">
-                    ${letter}
-                </span>
+            const letterSpan =
+                document.createElement(
+                    "span"
+                );
 
-                <span class="option-text">
-                    ${escapeHtml(option)}
-                </span>
-            `;
+
+            letterSpan.className =
+                "option-letter";
+
+
+            letterSpan.textContent =
+                letter;
+
+
+            const textSpan =
+                document.createElement(
+                    "span"
+                );
+
+
+            textSpan.className =
+                "option-text";
+
+
+            textSpan.textContent =
+                option;
+
+
+            button.appendChild(
+                letterSpan
+            );
+
+
+            button.appendChild(
+                textSpan
+            );
 
 
             button.addEventListener(
@@ -1283,8 +1896,13 @@ function renderOptions(
 
         }
     );
+
 }
 
+
+/* =========================================================
+   SELECT ANSWER
+========================================================= */
 
 function selectAnswer(
     answerIndex
@@ -1295,11 +1913,12 @@ function selectAnswer(
     ) {
 
         showToast(
-            "Masukkan kode rahasia terlebih dahulu.",
+            "Kode rahasia belum benar.",
             "error"
         );
 
         return;
+
     }
 
 
@@ -1312,7 +1931,10 @@ function selectAnswer(
             ".answer-option"
         )
         .forEach(
-            (button, index) => {
+            (
+                button,
+                index
+            ) => {
 
                 button.classList.toggle(
                     "selected",
@@ -1325,11 +1947,12 @@ function selectAnswer(
 
     submitAnswerButton.disabled =
         false;
+
 }
 
 
 /* =========================================================
-   PERIKSA JAWABAN
+   CHECK ANSWER
 ========================================================= */
 
 submitAnswerButton.addEventListener(
@@ -1346,36 +1969,25 @@ function checkAnswer() {
     ) {
 
         showToast(
-            "Pilih salah satu jawaban.",
+            "Pilih jawaban terlebih dahulu.",
             "error"
         );
 
         return;
+
     }
-
-
-    if (
-        !gameState.secretVerified
-    ) {
-
-        showToast(
-            "Kode rahasia belum diverifikasi.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    const position =
-        gameState.currentPos;
 
 
     const pos =
-        POS_DATA[position];
+        POS_DATA[
+            gameState.currentPos
+        ];
 
 
-    gameState.questionAttempts++;
+    const question =
+        pos.questions[
+            gameState.currentQuestion
+        ];
 
 
     const selected =
@@ -1383,7 +1995,10 @@ function checkAnswer() {
 
 
     const correct =
-        pos.answer;
+        question.answer;
+
+
+    gameState.totalQuestionsAnswered++;
 
 
     const buttons =
@@ -1395,8 +2010,10 @@ function checkAnswer() {
 
     buttons.forEach(
         button => {
+
             button.disabled =
                 true;
+
         }
     );
 
@@ -1405,11 +2022,9 @@ function checkAnswer() {
         true;
 
 
-    /*
-       =====================================================
+    /* =====================================================
        BENAR
-       =====================================================
-    */
+    ===================================================== */
 
     if (
         selected === correct
@@ -1418,10 +2033,11 @@ function checkAnswer() {
         gameState.correctAnswers++;
 
 
-        buttons[correct]
-            .classList.add(
-                "correct"
-            );
+        buttons[
+            correct
+        ].classList.add(
+            "correct"
+        );
 
 
         answerFeedback.className =
@@ -1429,83 +2045,109 @@ function checkAnswer() {
 
 
         answerFeedback.innerHTML =
-            `✓ <strong>Jawaban benar!</strong><br>${escapeHtml(pos.explanation)}`;
-
-
-        markPositionCompleted(
-            position
-        );
+            `✓ Jawaban benar!<br>${escapeHtml(question.explanation)}`;
 
 
         setTimeout(
             () => {
 
-                showNextClue(
-                    position
-                );
+                const nextQuestion =
+                    gameState.currentQuestion +
+                    1;
+
+
+                if (
+                    nextQuestion <
+                    pos.questions.length
+                ) {
+
+                    showQuestion(
+                        nextQuestion
+                    );
+
+                }
+                else {
+
+                    finishPosition();
+
+                }
 
             },
-            900
+            1100
         );
 
 
         return;
+
     }
 
 
-    /*
-       =====================================================
+    /* =====================================================
        SALAH
-       =====================================================
-    */
+    ===================================================== */
 
     gameState.wrongAnswers++;
 
 
-    buttons[selected]
-        .classList.add(
-            "wrong"
-        );
+    buttons[
+        selected
+    ].classList.add(
+        "wrong"
+    );
 
 
-    buttons[correct]
-        .classList.add(
-            "correct"
-        );
+    buttons[
+        correct
+    ].classList.add(
+        "correct"
+    );
 
 
     answerFeedback.className =
         "answer-feedback wrong";
 
 
-    answerFeedback.innerHTML =
-        "✕ <strong>Jawaban belum tepat.</strong> Kalian masuk ke jalur lain.";
-
-
-    const deadEnd =
-        chooseDeadEnd();
+    answerFeedback.textContent =
+        "✕ Jawaban salah! Jalur kalian berubah menjadi jalur buntu.";
 
 
     setTimeout(
         () => {
 
+            const deadEnds = [
+                8,
+                9,
+                10
+            ];
+
+
+            const index =
+                (
+                    gameState.wrongAnswers - 1
+                ) %
+                deadEnds.length;
+
+
             showDeadEndRoute(
-                deadEnd
+                deadEnds[index]
             );
 
         },
-        1200
+        1300
     );
+
 }
 
 
 /* =========================================================
-   POS SELESAI
+   FINISH POSITION
 ========================================================= */
 
-function markPositionCompleted(
-    position
-) {
+function finishPosition() {
+
+    const position =
+        gameState.currentPos;
+
 
     if (
         !gameState.completedPositions
@@ -1514,33 +2156,27 @@ function markPositionCompleted(
 
         gameState.completedPositions
             .push(position);
+
     }
-}
 
 
-/* =========================================================
-   PETUNJUK BERIKUTNYA
-========================================================= */
-
-function showNextClue(
-    position
-) {
-
-    const pos =
-        POS_DATA[position];
+    secretArea.classList.add(
+        "hidden"
+    );
 
 
     questionArea.classList.add(
         "hidden"
     );
 
-    secretArea.classList.add(
-        "hidden"
-    );
 
     nextClueArea.classList.remove(
         "hidden"
     );
+
+
+    const pos =
+        POS_DATA[position];
 
 
     if (
@@ -1548,7 +2184,7 @@ function showNextClue(
     ) {
 
         nextLocationText.textContent =
-            "MISI SELESAI";
+            "🏆 MISI SELESAI!";
 
 
         goNextButton.textContent =
@@ -1560,6 +2196,7 @@ function showNextClue(
 
 
         return;
+
     }
 
 
@@ -1577,11 +2214,18 @@ function showNextClue(
         String(
             pos.next
         );
+
+
+    showToast(
+        `Pos ${position} selesai!`,
+        "success"
+    );
+
 }
 
 
 /* =========================================================
-   MENUJU POS BERIKUTNYA
+   NEXT BUTTON
 ========================================================= */
 
 goNextButton.addEventListener(
@@ -1599,77 +2243,32 @@ goNextButton.addEventListener(
             finishGame();
 
             return;
+
         }
 
 
-        const nextPosition =
+        gameState.previousCorrectPos =
             Number(next);
 
 
-        gameState.previousCorrectPos =
-            nextPosition;
-
-
         loadPosition(
-            nextPosition
+            Number(next)
         );
+
     }
 );
 
 
 /* =========================================================
-   PILIH POS BUNTU
-========================================================= */
-
-function chooseDeadEnd() {
-
-    const deadEnds = [
-        8,
-        9,
-        10
-    ];
-
-
-    const index =
-        gameState.deadEndVisits %
-        deadEnds.length;
-
-
-    const selected =
-        deadEnds[index];
-
-
-    gameState.deadEndVisits++;
-
-
-    if (
-        !gameState.visitedDeadEnds
-            .includes(selected)
-    ) {
-
-        gameState.visitedDeadEnds
-            .push(selected);
-    }
-
-
-    return selected;
-}
-
-
-/* =========================================================
-   JALUR BUNTU
+   DEAD END
 ========================================================= */
 
 function showDeadEndRoute(
     deadEndPosition
 ) {
 
-    /*
-       Simpan posisi tempat jawaban salah.
-    */
-
     gameState.previousCorrectPos =
-        gameState.currentPos;
+        1;
 
 
     gameState.currentPos =
@@ -1679,11 +2278,12 @@ function showDeadEndRoute(
     loadDeadEnd(
         deadEndPosition
     );
+
 }
 
 
 /* =========================================================
-   LOAD POS BUNTU
+   LOAD DEAD END
 ========================================================= */
 
 function loadDeadEnd(
@@ -1691,7 +2291,9 @@ function loadDeadEnd(
 ) {
 
     const pos =
-        POS_DATA[positionNumber];
+        POS_DATA[
+            positionNumber
+        ];
 
 
     if (!pos) {
@@ -1699,16 +2301,29 @@ function loadDeadEnd(
     }
 
 
-    stopDeadEndTimer();
+    secretArea.classList.add(
+        "hidden"
+    );
+
+
+    questionArea.classList.add(
+        "hidden"
+    );
+
+
+    nextClueArea.classList.add(
+        "hidden"
+    );
+
+
+    deadEndArea.classList.remove(
+        "hidden"
+    );
 
 
     posTitle.textContent =
         pos.title;
 
-
-    /*
-       FOTO POS BUNTU
-    */
 
     const imagePath =
         ASSET_FOLDER +
@@ -1749,39 +2364,28 @@ function loadDeadEnd(
 
 
     clueText.textContent =
-        pos.clue;
+        "Kalian menemukan jalur yang salah. Ikuti tantangan berikut.";
 
 
     currentPosDisplay.textContent =
         `BUNTU ${positionNumber}`;
 
 
-    questionArea.classList.add(
-        "hidden"
-    );
+    deadEndTitle.textContent =
+        pos.title;
 
 
-    secretArea.classList.add(
-        "hidden"
-    );
-
-
-    nextClueArea.classList.add(
-        "hidden"
-    );
-
-
-    deadEndArea.classList.remove(
-        "hidden"
-    );
+    deadEndInstruction.textContent =
+        pos.instruction;
 
 
     startDeadEndTimer();
+
 }
 
 
 /* =========================================================
-   TIMER 5 MENIT
+   TIMER DEAD END
 ========================================================= */
 
 function startDeadEndTimer() {
@@ -1801,8 +2405,13 @@ function startDeadEndTimer() {
             updateDeadEndTimer,
             1000
         );
+
 }
 
+
+/* =========================================================
+   UPDATE DEAD END TIMER
+========================================================= */
 
 function updateDeadEndTimer() {
 
@@ -1849,6 +2458,7 @@ function updateDeadEndTimer() {
         deadEndTimer.classList.remove(
             "danger"
         );
+
     }
 
 
@@ -1859,47 +2469,45 @@ function updateDeadEndTimer() {
         stopDeadEndTimer();
 
 
-        returnToPreviousPosition(
+        returnToPos1(
             true
         );
+
     }
+
 }
 
 
 /* =========================================================
-   STOP TIMER BUNTU
+   STOP DEAD END TIMER
 ========================================================= */
 
 function stopDeadEndTimer() {
 
-    if (
+    clearInterval(
         gameState.deadEndTimer
-    ) {
-
-        clearInterval(
-            gameState.deadEndTimer
-        );
+    );
 
 
-        gameState.deadEndTimer =
-            null;
-    }
+    gameState.deadEndTimer =
+        null;
 
 
     gameState.deadEndStart =
         null;
+
 }
 
 
 /* =========================================================
-   KEMBALI
+   RETURN TO POS 1
 ========================================================= */
 
 returnFromDeadEndButton.addEventListener(
     "click",
     () => {
 
-        returnToPreviousPosition(
+        returnToPos1(
             false
         );
 
@@ -1907,33 +2515,29 @@ returnFromDeadEndButton.addEventListener(
 );
 
 
-function returnToPreviousPosition(
+function returnToPos1(
     automatic
 ) {
 
     stopDeadEndTimer();
 
 
-    const previous =
-        gameState.previousCorrectPos ||
-        1;
-
-
     if (automatic) {
 
         showModal(
-            "Waktu Habis!",
-            `Pesan tidak ditemukan dalam 5 menit. Kalian kembali ke ${POS_DATA[previous].title}. Silakan jawab kembali tantangan.`,
-            "⏰"
+            "⏰ Waktu Habis!",
+            "Kalian belum menemukan pesan. Saatnya kembali ke POS 1 dan mencoba perjalanan lagi dengan lebih teliti!",
+            "😂"
         );
 
     }
     else {
 
         showToast(
-            "Kembali ke pos sebelumnya.",
+            "Kembali ke POS 1.",
             "info"
         );
+
     }
 
 
@@ -1941,12 +2545,13 @@ function returnToPreviousPosition(
         () => {
 
             loadPosition(
-                previous
+                1
             );
 
         },
-        automatic ? 400 : 100
+        automatic ? 500 : 100
     );
+
 }
 
 
@@ -1962,22 +2567,29 @@ function updateProgress(
         Math.round(
             (
                 (position - 1) /
-                7
+                6
             ) * 100
         );
 
 
     progressPercent.textContent =
-        `${percent}%`;
+        `${Math.min(
+            percent,
+            100
+        )}%`;
 
 
     progressFill.style.width =
-        `${percent}%`;
+        `${Math.min(
+            percent,
+            100
+        )}%`;
+
 }
 
 
 /* =========================================================
-   SELESAI
+   FINISH
 ========================================================= */
 
 function finishGame() {
@@ -2004,11 +2616,11 @@ function finishGame() {
 
 
     finishPosCount.textContent =
-        gameState.completedPositions.length;
+        `${gameState.completedPositions.length} / 7`;
 
 
     finishQuestionCount.textContent =
-        gameState.questionAttempts;
+        gameState.totalQuestionsAnswered;
 
 
     finishTime.textContent =
@@ -2023,14 +2635,15 @@ function finishGame() {
 
 
     showToast(
-        "Misi berhasil diselesaikan!",
+        "Selamat! Misi berhasil diselesaikan!",
         "success"
     );
+
 }
 
 
 /* =========================================================
-   MAIN LAGI
+   RESTART
 ========================================================= */
 
 restartButton.addEventListener(
@@ -2040,7 +2653,6 @@ restartButton.addEventListener(
         clearInterval(
             gameState.mainTimer
         );
-
 
         clearInterval(
             gameState.deadEndTimer
@@ -2059,12 +2671,6 @@ restartButton.addEventListener(
    MODAL
 ========================================================= */
 
-modalCloseButton.addEventListener(
-    "click",
-    closeModal
-);
-
-
 modalOkButton.addEventListener(
     "click",
     closeModal
@@ -2078,35 +2684,7 @@ modalOverlay.addEventListener(
 
 
 /* =========================================================
-   FORMAT COUNTDOWN
-========================================================= */
-
-function formatCountdown(
-    seconds
-) {
-
-    const minutes =
-        Math.floor(
-            seconds / 60
-        );
-
-
-    const secs =
-        seconds % 60;
-
-
-    return (
-        String(minutes)
-            .padStart(2, "0") +
-        ":" +
-        String(secs)
-            .padStart(2, "0")
-    );
-}
-
-
-/* =========================================================
-   FORMAT WAKTU
+   FORMAT TIME
 ========================================================= */
 
 function formatElapsedTime(
@@ -2137,7 +2715,9 @@ function formatElapsedTime(
         totalSeconds % 60;
 
 
-    if (hours > 0) {
+    if (
+        hours > 0
+    ) {
 
         return (
             String(hours)
@@ -2149,6 +2729,7 @@ function formatElapsedTime(
             String(seconds)
                 .padStart(2, "0")
         );
+
     }
 
 
@@ -2159,6 +2740,36 @@ function formatElapsedTime(
         String(seconds)
             .padStart(2, "0")
     );
+
+}
+
+
+/* =========================================================
+   COUNTDOWN
+========================================================= */
+
+function formatCountdown(
+    seconds
+) {
+
+    const minutes =
+        Math.floor(
+            seconds / 60
+        );
+
+
+    const secs =
+        seconds % 60;
+
+
+    return (
+        String(minutes)
+            .padStart(2, "0") +
+        ":" +
+        String(secs)
+            .padStart(2, "0")
+    );
+
 }
 
 
@@ -2171,31 +2782,49 @@ function escapeHtml(
 ) {
 
     return String(value)
+
         .replace(
             /&/g,
             "&amp;"
         )
+
         .replace(
             /</g,
             "&lt;"
         )
+
         .replace(
             />/g,
             "&gt;"
         )
+
         .replace(
             /"/g,
             "&quot;"
         )
+
         .replace(
             /'/g,
             "&#039;"
         );
+
 }
 
 
 /* =========================================================
-   PLACEHOLDER JIKA FOTO TIDAK ADA
+   SECRET MESSAGE STYLE
+========================================================= */
+
+function setSecretMessageStyle() {
+
+    secretMessage.style.color =
+        "#64748b";
+
+}
+
+
+/* =========================================================
+   IMAGE PLACEHOLDER
 ========================================================= */
 
 function createImagePlaceholder(
@@ -2203,6 +2832,7 @@ function createImagePlaceholder(
 ) {
 
     const svg = `
+
         <svg
             xmlns="http://www.w3.org/2000/svg"
             width="800"
@@ -2213,12 +2843,12 @@ function createImagePlaceholder(
             <rect
                 width="800"
                 height="500"
-                fill="#e5e7eb"
+                fill="#e2e8f0"
             />
 
             <text
                 x="400"
-                y="245"
+                y="250"
                 text-anchor="middle"
                 font-family="Arial"
                 font-size="28"
@@ -2228,6 +2858,7 @@ function createImagePlaceholder(
             </text>
 
         </svg>
+
     `;
 
 
@@ -2235,11 +2866,12 @@ function createImagePlaceholder(
         "data:image/svg+xml;charset=UTF-8," +
         encodeURIComponent(svg)
     );
+
 }
 
 
 /* =========================================================
-   PRELOAD FOTO
+   PRELOAD ASSETS
 ========================================================= */
 
 function preloadImages() {
@@ -2254,17 +2886,20 @@ function preloadImages() {
                 new Image();
 
 
-            img.src =
+            const path =
                 ASSET_FOLDER +
                 POS_IMAGES[position];
+
+
+            img.src =
+                path;
 
 
             img.onload =
                 () => {
 
                     console.log(
-                        `✓ Foto Pos ${position} berhasil dimuat:`,
-                        img.src
+                        `✓ Pos ${position}: ${path}`
                     );
 
                 };
@@ -2274,44 +2909,27 @@ function preloadImages() {
                 () => {
 
                     console.error(
-                        `✕ Foto Pos ${position} tidak ditemukan:`,
-                        img.src
+                        `✕ GAGAL MEMUAT: ${path}`
                     );
 
                 };
 
         }
     );
+
 }
 
 
 /* =========================================================
-   INIT
+   INITIALIZATION
 ========================================================= */
 
 document.addEventListener(
     "DOMContentLoaded",
     () => {
 
-        /*
-           Preload seluruh foto
-        */
-
         preloadImages();
 
-
-        /*
-           Halaman awal
-        */
-
-        showScreen(
-            welcomeScreen
-        );
-
-
-        /*
-           Status awal
-        */
 
         timerDisplay.textContent =
             "00:00";
@@ -2321,13 +2939,21 @@ document.addEventListener(
             "05:00";
 
 
-        updateProgress(
-            1
+        progressPercent.textContent =
+            "0%";
+
+
+        progressFill.style.width =
+            "0%";
+
+
+        showScreen(
+            welcomeScreen
         );
 
 
         console.log(
-            "================================="
+            "=================================="
         );
 
         console.log(
@@ -2335,16 +2961,20 @@ document.addEventListener(
         );
 
         console.log(
-            "Game berhasil dimuat."
+            "GAME POS-POSAN EDUKATIF"
         );
 
         console.log(
-            "Folder aset:",
+            "=================================="
+        );
+
+        console.log(
+            "Folder assets:",
             ASSET_FOLDER
         );
 
         console.log(
-            "================================="
+            "=================================="
         );
 
     }
