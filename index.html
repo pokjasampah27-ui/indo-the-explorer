@@ -11,23 +11,13 @@
     >
 
     <meta
+        name="description"
+        content="Jelajah Sekolah - Game Pos-Posan Edukatif"
+    >
+
+    <meta
         name="theme-color"
         content="#4f46e5"
-    >
-
-    <meta
-        name="mobile-web-app-capable"
-        content="yes"
-    >
-
-    <meta
-        name="apple-mobile-web-app-capable"
-        content="yes"
-    >
-
-    <meta
-        name="apple-mobile-web-app-status-bar-style"
-        content="default"
     >
 
     <title>Jelajah Sekolah</title>
@@ -44,6 +34,26 @@
 
 
 <!-- =====================================================
+     BACKGROUND
+===================================================== -->
+
+<div
+    class="background-decoration decoration-1"
+    aria-hidden="true"
+></div>
+
+<div
+    class="background-decoration decoration-2"
+    aria-hidden="true"
+></div>
+
+<div
+    class="background-decoration decoration-3"
+    aria-hidden="true"
+></div>
+
+
+<!-- =====================================================
      WELCOME
 ===================================================== -->
 
@@ -54,7 +64,10 @@
 
     <div class="hero-card">
 
-        <div class="hero-icon">
+        <div
+            class="hero-icon"
+            aria-hidden="true"
+        >
             🧭
         </div>
 
@@ -75,32 +88,22 @@
 
         <div class="rule-box">
 
-            <div>
-                🔎 Temukan pos sesuai petunjuk
-            </div>
+            <div>🔎 Temukan pos sesuai petunjuk</div>
 
-            <div>
-                🔐 Masukkan kode rahasia
-            </div>
+            <div>🔐 Masukkan kode rahasia</div>
 
-            <div>
-                🧠 Jawab semua tantangan
-            </div>
+            <div>🧠 Jawab tantangan</div>
 
-            <div>
-                🧭 Ikuti jalur berikutnya
-            </div>
+            <div>🧭 Ikuti jalur berikutnya</div>
 
-            <div>
-                🎥 Dokumentasikan Pos 8 dan Pos 9
-            </div>
+            <div>🎥 Dokumentasikan Pos 8 dan Pos 9</div>
 
         </div>
 
 
         <button
             id="startButton"
-            class="primary-button"
+            class="primary-button big-button"
             type="button"
         >
             🚀 MULAI PETUALANGAN
@@ -127,19 +130,19 @@
             👥
         </div>
 
-
         <h1>
             DAFTARKAN TIM
         </h1>
-
 
         <p class="subtitle">
             Satu ketua dan lima anggota.
         </p>
 
 
-        <form id="teamForm">
-
+        <form
+            id="teamForm"
+            autocomplete="off"
+        >
 
             <div class="input-group">
 
@@ -150,7 +153,9 @@
                 <input
                     type="text"
                     id="leaderName"
+                    name="leaderName"
                     placeholder="Masukkan nama ketua"
+                    maxlength="50"
                     autocomplete="off"
                     required
                 >
@@ -158,11 +163,9 @@
             </div>
 
 
-
             <div class="members-title">
-                👥 Anggota Tim
+                👥 Lima Anggota Tim
             </div>
-
 
 
             <div class="input-group">
@@ -174,13 +177,14 @@
                 <input
                     type="text"
                     id="member1"
+                    name="member1"
                     placeholder="Nama anggota 1"
+                    maxlength="50"
                     autocomplete="off"
                     required
                 >
 
             </div>
-
 
 
             <div class="input-group">
@@ -192,13 +196,14 @@
                 <input
                     type="text"
                     id="member2"
+                    name="member2"
                     placeholder="Nama anggota 2"
+                    maxlength="50"
                     autocomplete="off"
                     required
                 >
 
             </div>
-
 
 
             <div class="input-group">
@@ -210,13 +215,14 @@
                 <input
                     type="text"
                     id="member3"
+                    name="member3"
                     placeholder="Nama anggota 3"
+                    maxlength="50"
                     autocomplete="off"
                     required
                 >
 
             </div>
-
 
 
             <div class="input-group">
@@ -228,13 +234,14 @@
                 <input
                     type="text"
                     id="member4"
+                    name="member4"
                     placeholder="Nama anggota 4"
+                    maxlength="50"
                     autocomplete="off"
                     required
                 >
 
             </div>
-
 
 
             <div class="input-group">
@@ -246,7 +253,9 @@
                 <input
                     type="text"
                     id="member5"
+                    name="member5"
                     placeholder="Nama anggota 5"
+                    maxlength="50"
                     autocomplete="off"
                     required
                 >
@@ -254,12 +263,23 @@
             </div>
 
 
+            <div class="notice-box">
+
+                🔐
+
+                <p>
+                    Simpan baik-baik kode rahasia
+                    yang ditemukan di setiap pos.
+                </p>
+
+            </div>
+
 
             <button
                 type="submit"
-                class="primary-button"
+                class="primary-button big-button"
             >
-                ✅ SIMPAN TIM
+                🚀 LANJUTKAN
             </button>
 
         </form>
@@ -285,10 +305,13 @@
             📜
         </div>
 
-
         <h1>
             ATURAN MISI
         </h1>
+
+        <p class="subtitle">
+            Baca sebelum perjalanan dimulai.
+        </p>
 
 
         <div class="instruction-list">
@@ -296,24 +319,19 @@
 
             <div class="instruction-item">
 
-                <span>
-                    1
-                </span>
+                <span>1</span>
 
                 <p>
-                    Pergilah ke lokasi sesuai foto
-                    yang ditampilkan.
+                    Pergilah menuju lokasi pos
+                    sesuai foto dan petunjuk.
                 </p>
 
             </div>
 
 
-
             <div class="instruction-item">
 
-                <span>
-                    2
-                </span>
+                <span>2</span>
 
                 <p>
                     Cari pesan rahasia yang
@@ -323,83 +341,78 @@
             </div>
 
 
-
             <div class="instruction-item">
 
-                <span>
-                    3
-                </span>
+                <span>3</span>
 
                 <p>
                     Masukkan kode rahasia
-                    ke dalam game.
+                    yang ditemukan.
                 </p>
 
             </div>
 
 
-
             <div class="instruction-item">
 
-                <span>
-                    4
-                </span>
+                <span>4</span>
 
                 <p>
-                    Jawab seluruh soal pada pos.
+                    Jawab tantangan pada pos.
                 </p>
 
             </div>
 
 
-
             <div class="instruction-item">
 
-                <span>
-                    5
-                </span>
+                <span>5</span>
 
                 <p>
-                    Jika salah, kalian akan
-                    mendapat jalur buntu.
+                    Jawaban salah membawa tim
+                    ke salah satu jalur buntu.
                 </p>
 
             </div>
 
 
-
             <div class="instruction-item">
 
-                <span>
-                    6
-                </span>
+                <span>6</span>
 
                 <p>
-                    Di jalur buntu, ikuti tantangan
-                    lucu dan kembali ke Pos 1.
+                    Jalur buntu memiliki batas
+                    waktu 5 menit.
                 </p>
 
             </div>
 
 
-
             <div class="instruction-item">
 
-                <span>
-                    7
-                </span>
+                <span>7</span>
 
                 <p>
-                    Pada Pos 8 dan Pos 9,
-                    lakukan dokumentasi video
+                    Pos 8 dan Pos 9 memiliki
+                    tugas dokumentasi video
                     menggunakan kamera HP.
                 </p>
 
             </div>
 
 
-        </div>
+            <div class="instruction-item">
 
+                <span>8</span>
+
+                <p>
+                    Selesaikan tujuh pos utama
+                    untuk menyelesaikan misi.
+                </p>
+
+            </div>
+
+        </div>
 
 
         <div class="warning-box">
@@ -407,18 +420,17 @@
             ⚠️
 
             <strong>
-                Jangan merusak, memindahkan,
-                atau mengambil pesan yang
-                ditemukan di lokasi.
+                Jangan membuka, memindahkan,
+                mengambil, atau merusak pesan
+                yang bukan untuk tim kalian.
             </strong>
 
         </div>
 
 
-
         <button
             id="beginMissionButton"
-            class="primary-button"
+            class="primary-button big-button"
             type="button"
         >
             🧭 MULAI MISI
@@ -439,19 +451,14 @@
     class="screen"
 >
 
-    <!-- =================================================
-         GAME HEADER
-    ================================================= -->
 
     <header class="game-header">
-
 
         <div>
 
             <div class="small-label">
                 PETUALANGAN TIM
             </div>
-
 
             <div
                 id="teamNameDisplay"
@@ -461,7 +468,6 @@
             </div>
 
         </div>
-
 
 
         <div class="timer-box">
@@ -478,19 +484,12 @@
 
 
 
-    <!-- =================================================
-         GAME CONTAINER
-    ================================================= -->
-
     <main class="game-container">
 
 
-        <!-- =============================================
-             PROGRESS
-        ============================================== -->
+        <!-- PROGRESS -->
 
         <div class="progress-card">
-
 
             <div class="progress-info">
 
@@ -498,13 +497,11 @@
                     Perjalanan
                 </span>
 
-
                 <strong id="progressPercent">
                     0%
                 </strong>
 
             </div>
-
 
 
             <div class="progress-bar">
@@ -517,13 +514,12 @@
             </div>
 
 
-
             <div class="pos-indicator">
 
                 Pos:
 
                 <strong id="currentPosDisplay">
-                    1 / 9
+                    1 / 7
                 </strong>
 
             </div>
@@ -532,19 +528,15 @@
 
 
 
-        <!-- =============================================
-             LOCATION
-        ============================================== -->
+        <!-- LOCATION -->
 
         <div class="location-card">
-
 
             <div class="location-heading">
 
                 <span>
                     📍 LOKASI MISI
                 </span>
-
 
                 <span
                     id="imageLabel"
@@ -554,7 +546,6 @@
                 </span>
 
             </div>
-
 
 
             <div class="image-wrapper">
@@ -569,11 +560,9 @@
             </div>
 
 
-
             <h2 id="posTitle">
                 POS 1
             </h2>
-
 
 
             <p
@@ -587,9 +576,7 @@
 
 
 
-        <!-- =============================================
-             SECRET CODE
-        ============================================== -->
+        <!-- SECRET CODE -->
 
         <div
             id="secretArea"
@@ -600,12 +587,10 @@
                 🔐 KODE RAHASIA
             </div>
 
-
             <p>
                 Masukkan kode yang kalian
                 temukan di lokasi.
             </p>
-
 
 
             <div class="secret-row">
@@ -614,11 +599,10 @@
                     type="text"
                     id="secretCodeInput"
                     placeholder="Masukkan kode"
+                    maxlength="30"
                     autocomplete="off"
-                    autocapitalize="characters"
                     spellcheck="false"
                 >
-
 
                 <button
                     id="secretCodeButton"
@@ -631,7 +615,6 @@
             </div>
 
 
-
             <div
                 id="secretMessage"
                 class="secret-message"
@@ -641,9 +624,7 @@
 
 
 
-        <!-- =============================================
-             QUESTION
-        ============================================== -->
+        <!-- QUESTION -->
 
         <div
             id="questionArea"
@@ -655,14 +636,12 @@
             </div>
 
 
-
             <div
                 id="questionCounter"
                 class="question-counter"
             >
                 Soal
             </div>
-
 
 
             <div
@@ -673,19 +652,16 @@
             </div>
 
 
-
             <div
                 id="optionsContainer"
                 class="options-container"
             ></div>
 
 
-
             <div
                 id="answerFeedback"
                 class="answer-feedback"
             ></div>
-
 
 
             <button
@@ -701,39 +677,24 @@
 
 
 
-        <!-- =================================================
-             VIDEO POS 8 & POS 9
-
-             PANEL INI TIDAK DIBUAT MANUAL.
-
-             script.js akan menjalankan:
-             createVideoRecorderUI(posNumber)
-
-             sehingga panel kamera muncul otomatis
-             ketika current position = 8 atau 9.
-        ================================================= -->
+        <!-- VIDEO RECORDER AKAN DIBUAT OTOMATIS
+             OLEH SCRIPT.JS KHUSUS POS 8 & POS 9 -->
 
 
-
-        <!-- =============================================
-             NEXT
-        ============================================== -->
+        <!-- NEXT -->
 
         <div
             id="nextClueArea"
             class="next-card hidden"
         >
 
-
             <div class="next-icon">
                 🧭
             </div>
 
-
             <h2>
                 POS SELESAI!
             </h2>
-
 
             <p>
                 Petunjuk berikutnya:
@@ -760,30 +721,27 @@
 
 
 
-        <!-- =============================================
-             DEAD END
-        ============================================== -->
+        <!-- DEAD END -->
 
         <div
             id="deadEndArea"
             class="dead-end-card hidden"
         >
 
-
             <div class="dead-end-icon">
                 😂
             </div>
 
 
-            <h2 id="deadEndTitle">
+            <h2>
                 JALUR BUNTU!
             </h2>
 
 
             <p id="deadEndInstruction">
-                -
+                Kalian berada di lokasi
+                yang salah.
             </p>
-
 
 
             <div class="dead-end-timer-label">
@@ -799,17 +757,15 @@
             </div>
 
 
-
             <button
                 id="returnFromDeadEndButton"
                 class="secondary-button"
                 type="button"
             >
-                ↩️ KEMBALI KE POS 1
+                ↩️ KEMBALI KE POS SEBELUMNYA
             </button>
 
         </div>
-
 
     </main>
 
@@ -828,7 +784,6 @@
 
     <div class="finish-card">
 
-
         <div class="finish-icon">
             🏆
         </div>
@@ -845,16 +800,15 @@
         </p>
 
 
+        <div class="finish-team">
 
-        <div class="result-grid">
+            👑
 
+            <div>
 
-            <div class="result-item">
-
-                <span>
-                    Ketua
-                </span>
-
+                <small>
+                    KETUA TIM
+                </small>
 
                 <strong id="finishLeader">
                     -
@@ -862,36 +816,36 @@
 
             </div>
 
+        </div>
+
+
+        <div class="result-grid">
 
 
             <div class="result-item">
 
                 <span>
-                    Pos Selesai
+                    Pos Benar
                 </span>
-
 
                 <strong id="finishPosCount">
-                    -
+                    0
                 </strong>
 
             </div>
-
 
 
             <div class="result-item">
 
                 <span>
-                    Jumlah Soal
+                    Percobaan Soal
                 </span>
 
-
                 <strong id="finishQuestionCount">
-                    -
+                    0
                 </strong>
 
             </div>
-
 
 
             <div class="result-item">
@@ -900,16 +854,32 @@
                     Waktu
                 </span>
 
-
                 <strong id="finishTime">
-                    -
+                    00:00
                 </strong>
 
             </div>
 
 
+            <div class="result-item">
+
+                <span>
+                    Status
+                </span>
+
+                <strong>
+                    SELESAI
+                </strong>
+
+            </div>
+
         </div>
 
+
+        <p class="finish-message">
+            🎉 Perjalanan berhasil diselesaikan.
+            Tetap sportif dan jaga lingkungan sekolah.
+        </p>
 
 
         <button
@@ -935,16 +905,13 @@
     class="modal"
 >
 
-
     <div
         id="modalOverlay"
         class="modal-overlay"
     ></div>
 
 
-
     <div class="modal-box">
-
 
         <div
             id="modalIcon"
@@ -987,11 +954,9 @@
     class="toast"
 >
 
-
     <span id="toastIcon">
         💡
     </span>
-
 
     <span id="toastMessage">
         -
@@ -1001,15 +966,7 @@
 
 
 
-<!-- =====================================================
-     JAVASCRIPT
-===================================================== -->
-
-<script
-    src="script.js"
-    defer
-></script>
-
+<script src="script.js"></script>
 
 </body>
 
