@@ -5,7 +5,12 @@
 
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Jelajah Sekolah - Game Pos-Posan Edukatif"
     >
 
     <meta
@@ -13,725 +18,160 @@
         content="#14213d"
     >
 
-    <meta
-        name="description"
-        content="Game Pos-Posan Edukatif - Jelajah Sekolah"
+    <title>Jelajah Sekolah | Pos-Posan</title>
+
+    <!-- =====================================================
+         CSS
+    ====================================================== -->
+    <link
+        rel="stylesheet"
+        href="style.css"
     >
-
-    <title>Jelajah Sekolah - Game Pos-Posan</title>
-
-    <link rel="stylesheet" href="style.css">
 </head>
+
 
 <body>
 
-<!-- =========================================================
-     BACKGROUND / DEKORASI
-========================================================= -->
+    <!-- =====================================================
+         DEKORASI LATAR
+    ====================================================== -->
 
-<div class="background-decoration decoration-1"></div>
-<div class="background-decoration decoration-2"></div>
-<div class="background-decoration decoration-3"></div>
+    <div
+        class="background-decoration decoration-1"
+        aria-hidden="true"
+    ></div>
 
+    <div
+        class="background-decoration decoration-2"
+        aria-hidden="true"
+    ></div>
 
-<!-- =========================================================
-     HEADER
-========================================================= -->
-
-<header class="game-header">
-
-    <div class="header-logo">
-        🧭
-    </div>
-
-    <div class="header-title">
-        <h1>JELAJAH SEKOLAH</h1>
-        <p>Game Pos-Posan Edukatif</p>
-    </div>
-
-    <button
-        type="button"
-        class="sound-button"
-        id="soundButton"
-        aria-label="Aktifkan atau matikan suara"
-    >
-        🔊
-    </button>
-
-</header>
-
-
-<!-- =========================================================
-     MAIN CONTAINER
-========================================================= -->
-
-<main class="game-container">
+    <div
+        class="background-decoration decoration-3"
+        aria-hidden="true"
+    ></div>
 
 
     <!-- =====================================================
-         HALAMAN PEMBUKA
+         HEADER
     ====================================================== -->
 
-    <section
-        id="startScreen"
-        class="screen active"
-    >
+    <header class="game-header">
 
-        <div class="hero-card">
+        <div
+            class="header-logo"
+            aria-hidden="true"
+        >
+            🧭
+        </div>
 
-            <div class="hero-icon">
-                🏕️
-            </div>
+        <div class="header-title">
+            <h1>JELAJAH SEKOLAH</h1>
 
-            <h2>
-                SIAP MENJELAJAH?
-            </h2>
-
-            <p class="hero-description">
-                Temukan pesan rahasia di setiap pos,
-                pecahkan soal, ikuti petunjuk,
-                dan selesaikan seluruh perjalanan!
+            <p>
+                Misi Pos-Posan Edukatif
             </p>
-
-            <div class="mission-info">
-
-                <div class="mission-item">
-                    <span class="mission-icon">📍</span>
-                    <div>
-                        <strong>10 Pos</strong>
-                        <small>7 jalur benar + 3 jalur jebakan</small>
-                    </div>
-                </div>
-
-                <div class="mission-item">
-                    <span class="mission-icon">🧠</span>
-                    <div>
-                        <strong>Tantangan Soal</strong>
-                        <small>Jawab pertanyaan dengan tepat</small>
-                    </div>
-                </div>
-
-                <div class="mission-item">
-                    <span class="mission-icon">⏱️</span>
-                    <div>
-                        <strong>Waktu 5 Menit</strong>
-                        <small>Jangan terlalu lama mencari pesan</small>
-                    </div>
-                </div>
-
-            </div>
-
-            <button
-                type="button"
-                id="startButton"
-                class="primary-button big-button"
-            >
-                🚀 MULAI PERMAINAN
-            </button>
-
         </div>
 
-    </section>
+    </header>
 
 
     <!-- =====================================================
-         FORM IDENTITAS KELOMPOK
+         MAIN
     ====================================================== -->
 
-    <section
-        id="teamScreen"
-        class="screen"
-    >
-
-        <div class="card">
-
-            <div class="section-heading">
-
-                <div class="heading-icon">
-                    👥
-                </div>
-
-                <div>
-                    <h2>IDENTITAS KELOMPOK</h2>
-                    <p>Isi nama seluruh anggota kelompok.</p>
-                </div>
-
-            </div>
+    <main class="game-container">
 
 
-            <div class="team-form">
+        <!-- =================================================
+             SCREEN 1
+             HALAMAN PEMBUKA
+        ================================================== -->
 
-                <!-- KETUA -->
+        <section
+            id="welcomeScreen"
+            class="screen active"
+        >
 
-                <div class="input-group leader-input">
+            <div class="hero-card">
 
-                    <label for="leaderName">
-                        ⭐ Nama Ketua
-                    </label>
-
-                    <input
-                        type="text"
-                        id="leaderName"
-                        name="leaderName"
-                        placeholder="Masukkan nama ketua"
-                        autocomplete="off"
-                        maxlength="50"
-                    >
-
-                </div>
-
-
-                <!-- ANGGOTA -->
-
-                <div class="members-title">
-                    <span>👤</span>
-                    5 Anggota Kelompok
-                </div>
-
-
-                <div class="input-group">
-
-                    <label for="member1">
-                        Anggota 1
-                    </label>
-
-                    <input
-                        type="text"
-                        id="member1"
-                        name="member1"
-                        placeholder="Nama anggota 1"
-                        autocomplete="off"
-                        maxlength="50"
-                    >
-
-                </div>
-
-
-                <div class="input-group">
-
-                    <label for="member2">
-                        Anggota 2
-                    </label>
-
-                    <input
-                        type="text"
-                        id="member2"
-                        name="member2"
-                        placeholder="Nama anggota 2"
-                        autocomplete="off"
-                        maxlength="50"
-                    >
-
-                </div>
-
-
-                <div class="input-group">
-
-                    <label for="member3">
-                        Anggota 3
-                    </label>
-
-                    <input
-                        type="text"
-                        id="member3"
-                        name="member3"
-                        placeholder="Nama anggota 3"
-                        autocomplete="off"
-                        maxlength="50"
-                    >
-
-                </div>
-
-
-                <div class="input-group">
-
-                    <label for="member4">
-                        Anggota 4
-                    </label>
-
-                    <input
-                        type="text"
-                        id="member4"
-                        name="member4"
-                        placeholder="Nama anggota 4"
-                        autocomplete="off"
-                        maxlength="50"
-                    >
-
-                </div>
-
-
-                <div class="input-group">
-
-                    <label for="member5">
-                        Anggota 5
-                    </label>
-
-                    <input
-                        type="text"
-                        id="member5"
-                        name="member5"
-                        placeholder="Nama anggota 5"
-                        autocomplete="off"
-                        maxlength="50"
-                    >
-
-                </div>
-
-            </div>
-
-
-            <div class="notice-box">
-                <span>💡</span>
-
-                <p>
-                    Pastikan semua nama sudah benar sebelum
-                    melanjutkan permainan.
-                </p>
-            </div>
-
-
-            <div class="button-row">
-
-                <button
-                    type="button"
-                    id="backToStartButton"
-                    class="secondary-button"
+                <div
+                    class="hero-icon"
+                    aria-hidden="true"
                 >
-                    ← Kembali
-                </button>
-
-                <button
-                    type="button"
-                    id="saveTeamButton"
-                    class="primary-button"
-                >
-                    LANJUTKAN →
-                </button>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =====================================================
-         INSTRUKSI PERMAINAN
-    ====================================================== -->
-
-    <section
-        id="instructionScreen"
-        class="screen"
-    >
-
-        <div class="card instruction-card">
-
-            <div class="instruction-header">
-                <div class="big-icon">
                     🗺️
                 </div>
 
                 <h2>
-                    ATURAN PERMAINAN
+                    Jelajah Sekolah
                 </h2>
 
-                <p>
-                    Baca baik-baik sebelum berangkat!
-                </p>
-            </div>
-
-
-            <div class="rules">
-
-                <div class="rule">
-                    <span class="rule-number">1</span>
-                    <div>
-                        <strong>Temukan Pos</strong>
-                        <p>
-                            Datangi lokasi pos sesuai petunjuk
-                            yang diberikan di layar.
-                        </p>
-                    </div>
-                </div>
-
-
-                <div class="rule">
-                    <span class="rule-number">2</span>
-                    <div>
-                        <strong>Temukan Pesan</strong>
-                        <p>
-                            Di setiap pos terdapat pesan atau
-                            kode rahasia yang harus ditemukan.
-                        </p>
-                    </div>
-                </div>
-
-
-                <div class="rule">
-                    <span class="rule-number">3</span>
-                    <div>
-                        <strong>Jawab Soal</strong>
-                        <p>
-                            Setelah menemukan pesan, masukkan
-                            kode rahasia untuk membuka soal.
-                        </p>
-                    </div>
-                </div>
-
-
-                <div class="rule">
-                    <span class="rule-number">4</span>
-                    <div>
-                        <strong>Jawaban Benar</strong>
-                        <p>
-                            Jika benar, kalian mendapatkan
-                            petunjuk menuju pos berikutnya.
-                        </p>
-                    </div>
-                </div>
-
-
-                <div class="rule">
-                    <span class="rule-number">5</span>
-                    <div>
-                        <strong>Jawaban Salah</strong>
-                        <p>
-                            Jika salah, kalian akan mendapatkan
-                            jalur yang berbeda.
-                        </p>
-                    </div>
-                </div>
-
-
-                <div class="rule">
-                    <span class="rule-number">6</span>
-                    <div>
-                        <strong>Jalur Buntu</strong>
-                        <p>
-                            Jika masuk pos jebakan, cari pesan
-                            selama maksimal 5 menit.
-                        </p>
-                    </div>
-                </div>
-
-
-                <div class="rule">
-                    <span class="rule-number">7</span>
-                    <div>
-                        <strong>Kembali ke Pos 1</strong>
-                        <p>
-                            Setelah menyelesaikan jalur jebakan,
-                            sistem akan mengarahkan kembali
-                            ke Pos 1.
-                        </p>
-                    </div>
-                </div>
-
-            </div>
-
-
-            <div class="warning-box">
-                ⚠️
-                <span>
-                    Jangan berlari dan tetap jaga keselamatan
-                    selama menjelajah lingkungan sekolah.
-                </span>
-            </div>
-
-
-            <button
-                type="button"
-                id="beginMissionButton"
-                class="primary-button big-button"
-            >
-                🏁 MULAI MISI
-            </button>
-
-        </div>
-
-    </section>
-
-
-    <!-- =====================================================
-         GAME SCREEN
-    ====================================================== -->
-
-    <section
-        id="gameScreen"
-        class="screen"
-    >
-
-        <!-- STATUS BAR -->
-
-        <div class="game-status">
-
-            <div class="status-team">
-
-                <span class="status-icon">
-                    👥
-                </span>
-
-                <div>
-                    <small>KELOMPOK</small>
-                    <strong id="teamDisplay">
-                        -
-                    </strong>
-                </div>
-
-            </div>
-
-
-            <div class="status-progress">
-
-                <small>PERJALANAN</small>
-
-                <strong>
-                    POS
-                    <span id="currentPosNumber">
-                        1
-                    </span>
-                    /
-                    <span id="totalPosNumber">
-                        7
-                    </span>
-                </strong>
-
-            </div>
-
-
-            <div class="status-timer">
-
-                <span class="timer-icon">
-                    ⏱️
-                </span>
-
-                <div>
-                    <small>WAKTU</small>
-                    <strong id="timerDisplay">
-                        05:00
-                    </strong>
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- PROGRESS -->
-
-        <div class="progress-wrapper">
-
-            <div class="progress-label">
-
-                <span>
-                    Progress Misi
-                </span>
-
-                <span id="progressPercent">
-                    0%
-                </span>
-
-            </div>
-
-            <div class="progress-bar">
-
-                <div
-                    id="progressBar"
-                    class="progress-fill"
-                    style="width: 0%;"
-                ></div>
-
-            </div>
-
-        </div>
-
-
-        <!-- POS CARD -->
-
-        <div class="pos-card">
-
-            <div class="pos-badge">
-                <span>📍</span>
-                <strong id="posTitle">
-                    POS 1
-                </strong>
-            </div>
-
-
-            <!-- FOTO POS -->
-
-            <div class="location-image-wrapper">
-
-                <img
-                    id="locationImage"
-                    class="location-image"
-                    src="assets/pos1.jpg"
-                    alt="Petunjuk lokasi pos"
-                >
-
-                <div class="image-label">
-                    🔎 CARI LOKASI INI
-                </div>
-
-            </div>
-
-
-            <!-- PETUNJUK -->
-
-            <div class="clue-box">
-
-                <div class="clue-title">
-                    <span>🕵️</span>
-                    PETUNJUK
-                </div>
-
-                <p id="clueText">
-                    Temukan lokasi sesuai gambar.
-                </p>
-
-            </div>
-
-
-            <!-- PESAN RAHASIA -->
-
-            <div
-                id="secretArea"
-                class="secret-area"
-            >
-
-                <div class="secret-header">
-                    🔐 KODE RAHASIA
-                </div>
-
-                <p>
-                    Temukan secarik pesan di lokasi.
-                    Masukkan kode rahasia yang kalian temukan.
-                </p>
-
-                <div class="secret-input-row">
-
-                    <input
-                        type="text"
-                        id="secretCodeInput"
-                        placeholder="Masukkan kode rahasia"
-                        autocomplete="off"
-                        autocapitalize="characters"
-                        maxlength="20"
-                    >
-
-                    <button
-                        type="button"
-                        id="verifyCodeButton"
-                        class="primary-button"
-                    >
-                        BUKA
-                    </button>
-
-                </div>
-
-                <div
-                    id="secretMessage"
-                    class="message"
-                ></div>
-
-            </div>
-
-
-            <!-- SOAL -->
-
-            <div
-                id="questionArea"
-                class="question-area hidden"
-            >
-
-                <div class="question-header">
-
-                    <span class="question-icon">
-                        🧠
-                    </span>
-
-                    <div>
-                        <small>
-                            TANTANGAN POS
-                        </small>
-
-                        <h3>
-                            Jawab pertanyaan berikut
-                        </h3>
-                    </div>
-
-                </div>
-
-
-                <div
-                    id="questionText"
-                    class="question-text"
-                >
-                    Pertanyaan akan muncul di sini.
-                </div>
-
-
-                <div
-                    id="optionsContainer"
-                    class="options-container"
-                >
-                    <!-- pilihan jawaban dibuat oleh script.js -->
-                </div>
-
-
-                <button
-                    type="button"
-                    id="answerButton"
-                    class="primary-button full-button"
-                    disabled
-                >
-                    ✅ PERIKSA JAWABAN
-                </button>
-
-
-                <div
-                    id="answerFeedback"
-                    class="answer-feedback"
-                ></div>
-
-            </div>
-
-
-            <!-- PETUNJUK LANJUTAN -->
-
-            <div
-                id="nextClueArea"
-                class="next-clue-area hidden"
-            >
-
-                <div class="success-icon">
-                    🎉
-                </div>
-
-                <h3>
-                    JAWABAN BENAR!
-                </h3>
-
-                <p id="nextClueText">
-                    Petunjuk berikutnya akan muncul di sini.
+                <p class="hero-description">
+                    Pecahkan tantangan, temukan pesan rahasia,
+                    ikuti petunjuk, dan selesaikan perjalanan
+                    dari satu pos ke pos berikutnya.
                 </p>
 
 
-                <div class="next-location">
+                <div class="mission-info">
 
-                    <span>
-                        📍
-                    </span>
+                    <div class="mission-item">
 
-                    <div>
-                        <small>
-                            TUJUAN BERIKUTNYA
-                        </small>
+                        <div
+                            class="mission-icon"
+                            aria-hidden="true"
+                        >
+                            📍
+                        </div>
 
-                        <strong id="nextLocationName">
-                            POS 2
-                        </strong>
+                        <div>
+                            <strong>10 Pos</strong>
+
+                            <small>
+                                7 jalur benar dan 3 jalur buntu
+                            </small>
+                        </div>
+
+                    </div>
+
+
+                    <div class="mission-item">
+
+                        <div
+                            class="mission-icon"
+                            aria-hidden="true"
+                        >
+                            🧠
+                        </div>
+
+                        <div>
+                            <strong>Tantangan</strong>
+
+                            <small>
+                                Jawab soal untuk menentukan arah
+                            </small>
+                        </div>
+
+                    </div>
+
+
+                    <div class="mission-item">
+
+                        <div
+                            class="mission-icon"
+                            aria-hidden="true"
+                        >
+                            ⏱️
+                        </div>
+
+                        <div>
+                            <strong>5 Menit</strong>
+
+                            <small>
+                                Batas waktu ketika masuk jalur buntu
+                            </small>
+                        </div>
+
                     </div>
 
                 </div>
@@ -739,60 +179,400 @@
 
                 <button
                     type="button"
-                    id="continueButton"
+                    id="startButton"
                     class="primary-button big-button"
                 >
-                    🚶 LANJUTKAN PERJALANAN
+                    🚩 MULAI PETUALANGAN
                 </button>
 
             </div>
 
-
-            <!-- JALUR BUNTU -->
-
-            <div
-                id="deadEndArea"
-                class="dead-end-area hidden"
-            >
-
-                <div class="dead-end-icon">
-                    🐍
-                </div>
-
-                <h3>
-                    JALUR BUNTU!
-                </h3>
-
-                <p id="deadEndText">
-                    Kalian menemukan pos yang salah.
-                </p>
+        </section>
 
 
-                <div class="dead-end-timer">
 
-                    <div class="dead-end-timer-title">
-                        ⏳ BATAS WAKTU
+        <!-- =================================================
+             SCREEN 2
+             FORM TIM
+        ================================================== -->
+
+        <section
+            id="teamScreen"
+            class="screen"
+        >
+
+            <div class="card">
+
+                <div class="section-heading">
+
+                    <div
+                        class="heading-icon"
+                        aria-hidden="true"
+                    >
+                        👥
                     </div>
 
-                    <strong id="deadEndTimer">
-                        05:00
-                    </strong>
+                    <div>
+                        <h2>
+                            Bentuk Tim
+                        </h2>
+
+                        <p>
+                            Isi nama ketua dan lima anggota tim.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <form
+                    id="teamForm"
+                    class="team-form"
+                    autocomplete="off"
+                >
+
+                    <!-- KETUA -->
+
+                    <div class="input-group leader-input">
+
+                        <label for="leaderName">
+                            👑 Nama Ketua
+                        </label>
+
+                        <input
+                            type="text"
+                            id="leaderName"
+                            name="leaderName"
+                            placeholder="Masukkan nama ketua"
+                            maxlength="50"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- ANGGOTA -->
+
+                    <div class="members-title">
+
+                        <span aria-hidden="true">
+                            🧑‍🤝‍🧑
+                        </span>
+
+                        <span>
+                            Lima Anggota Tim
+                        </span>
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label for="member1">
+                            Anggota 1
+                        </label>
+
+                        <input
+                            type="text"
+                            id="member1"
+                            name="member1"
+                            placeholder="Nama anggota 1"
+                            maxlength="50"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label for="member2">
+                            Anggota 2
+                        </label>
+
+                        <input
+                            type="text"
+                            id="member2"
+                            name="member2"
+                            placeholder="Nama anggota 2"
+                            maxlength="50"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label for="member3">
+                            Anggota 3
+                        </label>
+
+                        <input
+                            type="text"
+                            id="member3"
+                            name="member3"
+                            placeholder="Nama anggota 3"
+                            maxlength="50"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label for="member4">
+                            Anggota 4
+                        </label>
+
+                        <input
+                            type="text"
+                            id="member4"
+                            name="member4"
+                            placeholder="Nama anggota 4"
+                            maxlength="50"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label for="member5">
+                            Anggota 5
+                        </label>
+
+                        <input
+                            type="text"
+                            id="member5"
+                            name="member5"
+                            placeholder="Nama anggota 5"
+                            maxlength="50"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="notice-box">
+
+                        <span aria-hidden="true">
+                            🔐
+                        </span>
+
+                        <p>
+                            Simpan baik-baik kode rahasia yang
+                            ditemukan di setiap pos. Kode tersebut
+                            menjadi bagian dari perjalanan tim.
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="primary-button big-button"
+                    >
+                        🚀 LANJUTKAN
+                    </button>
+
+                </form>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             SCREEN 3
+             PETUNJUK PERMAINAN
+        ================================================== -->
+
+        <section
+            id="instructionScreen"
+            class="screen"
+        >
+
+            <div class="card instruction-card">
+
+                <div class="instruction-header">
+
+                    <div
+                        class="big-icon"
+                        aria-hidden="true"
+                    >
+                        🧭
+                    </div>
+
+                    <h2>
+                        Aturan Misi
+                    </h2>
 
                     <p>
-                        Cari pesan tersembunyi di sekitar
-                        lokasi ini.
+                        Baca sebelum perjalanan dimulai.
                     </p>
 
                 </div>
 
 
-                <div class="dead-end-message">
+                <div class="rules">
 
-                    🔎
+
+                    <div class="rule">
+
+                        <div class="rule-number">
+                            1
+                        </div>
+
+                        <div>
+                            <strong>
+                                Datangi pos
+                            </strong>
+
+                            <p>
+                                Pergilah menuju lokasi pos sesuai
+                                petunjuk yang diberikan.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="rule">
+
+                        <div class="rule-number">
+                            2
+                        </div>
+
+                        <div>
+                            <strong>
+                                Temukan tugas dan pesan
+                            </strong>
+
+                            <p>
+                                Setelah sampai, cari petunjuk atau
+                                pesan yang disembunyikan di lokasi.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="rule">
+
+                        <div class="rule-number">
+                            3
+                        </div>
+
+                        <div>
+                            <strong>
+                                Jawab soal
+                            </strong>
+
+                            <p>
+                                Jawaban menentukan jalur perjalanan
+                                tim berikutnya.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="rule">
+
+                        <div class="rule-number">
+                            4
+                        </div>
+
+                        <div>
+                            <strong>
+                                Jawaban benar
+                            </strong>
+
+                            <p>
+                                Tim mendapatkan petunjuk menuju pos
+                                berikutnya pada jalur utama.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="rule">
+
+                        <div class="rule-number">
+                            5
+                        </div>
+
+                        <div>
+                            <strong>
+                                Jawaban salah
+                            </strong>
+
+                            <p>
+                                Tim akan diarahkan ke salah satu pos
+                                buntu. Pesan berikutnya tidak ditemukan
+                                di sana.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="rule">
+
+                        <div class="rule-number">
+                            6
+                        </div>
+
+                        <div>
+                            <strong>
+                                Jalur buntu
+                            </strong>
+
+                            <p>
+                                Tim memiliki waktu maksimal 5 menit.
+                                Setelah waktu habis, permainan
+                                mengarahkan tim kembali ke pos semula.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="rule">
+
+                        <div class="rule-number">
+                            7
+                        </div>
+
+                        <div>
+                            <strong>
+                                Selesaikan tujuh pos
+                            </strong>
+
+                            <p>
+                                Ikuti jalur yang benar sampai mencapai
+                                pos terakhir dan selesaikan misi.
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="warning-box">
+
+                    ⚠️
+
                     <span>
-                        Jika tidak menemukan pesan sampai
-                        waktu habis, sistem akan mengarahkan
-                        kalian kembali ke Pos 1.
+                        Jangan membuka, memindahkan, atau merusak
+                        pesan yang bukan untuk tim kalian.
+                        Kerjakan permainan dengan sportif.
                     </span>
 
                 </div>
@@ -800,266 +580,679 @@
 
                 <button
                     type="button"
-                    id="returnToStartButton"
-                    class="primary-button full-button hidden"
+                    id="beginMissionButton"
+                    class="primary-button big-button"
                 >
-                    🔄 KEMBALI KE POS 1
+                    🏃 MULAI MISI
                 </button>
 
             </div>
 
-        </div>
-
-    </section>
+        </section>
 
 
-    <!-- =====================================================
-         LAYAR SELESAI
-    ====================================================== -->
 
-    <section
-        id="finishScreen"
-        class="screen"
-    >
+        <!-- =================================================
+             SCREEN 4
+             GAME
+        ================================================== -->
 
-        <div class="finish-card">
-
-            <div class="finish-animation">
-                🏆
-            </div>
-
-            <h2>
-                MISI SELESAI!
-            </h2>
-
-            <p class="finish-subtitle">
-                Selamat! Kelompok kalian berhasil
-                menyelesaikan seluruh perjalanan.
-            </p>
+        <section
+            id="gameScreen"
+            class="screen"
+        >
 
 
-            <div class="finish-team">
+            <!-- STATUS TIM -->
 
-                <span>
-                    👥
-                </span>
+            <div class="game-status">
 
-                <div>
-                    <small>
-                        KELOMPOK
-                    </small>
 
-                    <strong id="finishTeamName">
-                        -
-                    </strong>
+                <div class="status-team">
+
+                    <div
+                        class="status-icon"
+                        aria-hidden="true"
+                    >
+                        👥
+                    </div>
+
+                    <div>
+
+                        <small>
+                            TIM
+                        </small>
+
+                        <strong id="teamNameDisplay">
+                            -
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="status-progress">
+
+                    <div>
+
+                        <small>
+                            POS
+                        </small>
+
+                        <strong id="currentPosDisplay">
+                            1 / 7
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="status-timer">
+
+                    <div
+                        class="timer-icon"
+                        aria-hidden="true"
+                    >
+                        ⏱️
+                    </div>
+
+                    <div>
+
+                        <small>
+                            WAKTU
+                        </small>
+
+                        <strong id="timerDisplay">
+                            --
+                        </strong>
+
+                    </div>
+
                 </div>
 
             </div>
 
 
-            <div class="finish-statistics">
+            <!-- PROGRESS -->
 
-                <div class="stat-box">
+            <div class="progress-wrapper">
+
+                <div class="progress-label">
 
                     <span>
+                        Perjalanan Tim
+                    </span>
+
+                    <span id="progressPercent">
+                        0%
+                    </span>
+
+                </div>
+
+                <div class="progress-bar">
+
+                    <div
+                        id="progressFill"
+                        class="progress-fill"
+                        style="width: 0%;"
+                    ></div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- POS CARD -->
+
+            <div class="pos-card">
+
+
+                <!-- JUDUL POS -->
+
+                <div class="pos-badge">
+
+                    <span aria-hidden="true">
                         📍
                     </span>
 
-                    <strong id="finishPosCount">
-                        7
+                    <strong id="posTitle">
+                        POS 1
                     </strong>
-
-                    <small>
-                        Pos Berhasil
-                    </small>
 
                 </div>
 
 
-                <div class="stat-box">
+                <!-- FOTO POS -->
 
-                    <span>
-                        🧠
-                    </span>
+                <div class="location-image-wrapper">
 
-                    <strong id="finishCorrectCount">
-                        0
-                    </strong>
+                    <img
+                        id="locationImage"
+                        class="location-image"
+                        src="assets/pos1.jpg"
+                        alt="Foto lokasi pos"
+                    >
 
-                    <small>
-                        Jawaban Benar
-                    </small>
+                    <div
+                        id="imageLabel"
+                        class="image-label"
+                    >
+                        Lokasi Pos
+                    </div>
 
                 </div>
 
 
-                <div class="stat-box">
+                <!-- PETUNJUK -->
 
-                    <span>
-                        ⏱️
-                    </span>
+                <div class="clue-box">
 
-                    <strong id="finishTime">
-                        -
-                    </strong>
+                    <div class="clue-title">
 
-                    <small>
-                        Waktu
-                    </small>
+                        <span aria-hidden="true">
+                            🔎
+                        </span>
+
+                        PETUNJUK LOKASI
+
+                    </div>
+
+                    <p id="clueText">
+                        Temukan lokasi sesuai petunjuk.
+                    </p>
+
+                </div>
+
+
+
+                <!-- AREA KODE RAHASIA -->
+
+                <div
+                    id="secretArea"
+                    class="secret-area"
+                >
+
+                    <div class="secret-header">
+                        🔐 KODE RAHASIA
+                    </div>
+
+                    <p>
+                        Setelah menemukan pesan di lokasi,
+                        masukkan kode rahasia yang tertulis
+                        pada pesan tersebut.
+                    </p>
+
+
+                    <div class="secret-input-row">
+
+                        <input
+                            type="text"
+                            id="secretCodeInput"
+                            placeholder="MASUKKAN KODE"
+                            maxlength="30"
+                            autocomplete="off"
+                            spellcheck="false"
+                        >
+
+                        <button
+                            type="button"
+                            id="secretCodeButton"
+                            class="primary-button"
+                        >
+                            PERIKSA
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        id="secretMessage"
+                        class="message"
+                        aria-live="polite"
+                    ></div>
+
+                </div>
+
+
+
+                <!-- AREA SOAL -->
+
+                <div
+                    id="questionArea"
+                    class="question-area"
+                >
+
+                    <div class="question-header">
+
+                        <div
+                            class="question-icon"
+                            aria-hidden="true"
+                        >
+                            🧠
+                        </div>
+
+                        <div>
+
+                            <small>
+                                TANTANGAN POS
+                            </small>
+
+                            <h3>
+                                Jawab pertanyaan berikut
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        id="questionText"
+                        class="question-text"
+                    >
+                        Pertanyaan akan muncul di sini.
+                    </div>
+
+
+                    <div
+                        id="optionsContainer"
+                        class="options-container"
+                    >
+                        <!--
+                            Pilihan jawaban dibuat oleh script.js
+                        -->
+                    </div>
+
+
+                    <div
+                        id="answerFeedback"
+                        class="answer-feedback"
+                        aria-live="polite"
+                    ></div>
+
+
+                    <button
+                        type="button"
+                        id="submitAnswerButton"
+                        class="primary-button full-button"
+                        disabled
+                    >
+                        ✅ JAWAB
+                    </button>
+
+                </div>
+
+
+
+                <!-- =============================================
+                     AREA JALUR BERIKUTNYA
+                ============================================== -->
+
+                <div
+                    id="nextClueArea"
+                    class="next-clue-area hidden"
+                >
+
+                    <div
+                        class="success-icon"
+                        aria-hidden="true"
+                    >
+                        🎯
+                    </div>
+
+                    <h3>
+                        Jawaban Benar!
+                    </h3>
+
+                    <p>
+                        Hebat! Tim menemukan jalur yang benar.
+                        Ikuti petunjuk menuju pos berikutnya.
+                    </p>
+
+
+                    <div class="next-location">
+
+                        <span aria-hidden="true">
+                            🧭
+                        </span>
+
+                        <div>
+
+                            <small>
+                                POS BERIKUTNYA
+                            </small>
+
+                            <strong id="nextLocationText">
+                                -
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        id="goNextButton"
+                        class="primary-button full-button"
+                    >
+                        🏃 MENUJU POS BERIKUTNYA
+                    </button>
+
+                </div>
+
+
+
+                <!-- =============================================
+                     AREA JALUR BUNTU
+                ============================================== -->
+
+                <div
+                    id="deadEndArea"
+                    class="dead-end-area hidden"
+                >
+
+                    <div
+                        class="dead-end-icon"
+                        aria-hidden="true"
+                    >
+                        🐍
+                    </div>
+
+                    <h3>
+                        JALUR BUNTU!
+                    </h3>
+
+                    <p>
+                        Kalian berada di lokasi yang salah.
+                        Pesan tujuan tidak ditemukan di sini.
+                    </p>
+
+
+                    <div class="dead-end-timer">
+
+                        <div class="dead-end-timer-title">
+                            WAKTU TERSISA
+                        </div>
+
+                        <span id="deadEndTimer">
+                            05:00
+                        </span>
+
+                        <p>
+                            Cari petunjuk di lokasi ini.
+                        </p>
+
+                    </div>
+
+
+                    <div class="dead-end-message">
+
+                        🔍
+
+                        <span>
+                            Jika pesan tidak ditemukan sampai
+                            waktu habis, sistem akan mengarahkan
+                            kalian kembali ke pos sebelumnya.
+                        </span>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        id="returnFromDeadEndButton"
+                        class="secondary-button full-button"
+                    >
+                        ↩️ KEMBALI KE POS SEBELUMNYA
+                    </button>
 
                 </div>
 
             </div>
 
+        </section>
 
-            <div class="finish-message">
 
-                🌟
-                <p>
-                    Hebat! Kerja sama, ketelitian,
-                    keberanian, dan pengetahuan kalian
-                    telah membawa kelompok ini sampai
-                    ke garis akhir.
+
+        <!-- =================================================
+             SCREEN 5
+             FINISH
+        ================================================== -->
+
+        <section
+            id="finishScreen"
+            class="screen"
+        >
+
+            <div class="finish-card">
+
+                <div
+                    class="finish-animation"
+                    aria-hidden="true"
+                >
+                    🏆
+                </div>
+
+                <h2>
+                    MISI SELESAI!
+                </h2>
+
+                <p class="finish-subtitle">
+                    Selamat! Tim kalian berhasil menyelesaikan
+                    perjalanan Jelajah Sekolah dan menemukan
+                    seluruh jalur yang benar.
                 </p>
 
+
+                <!-- TIM -->
+
+                <div class="finish-team">
+
+                    <span aria-hidden="true">
+                        👑
+                    </span>
+
+                    <div>
+
+                        <small>
+                            KETUA TIM
+                        </small>
+
+                        <strong id="finishLeader">
+                            -
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- STATISTIK -->
+
+                <div class="finish-statistics">
+
+
+                    <div class="stat-box">
+
+                        <span aria-hidden="true">
+                            📍
+                        </span>
+
+                        <strong id="finishPosCount">
+                            7
+                        </strong>
+
+                        <small>
+                            Pos Benar
+                        </small>
+
+                    </div>
+
+
+                    <div class="stat-box">
+
+                        <span aria-hidden="true">
+                            🧠
+                        </span>
+
+                        <strong id="finishQuestionCount">
+                            -
+                        </strong>
+
+                        <small>
+                            Percobaan Soal
+                        </small>
+
+                    </div>
+
+
+                    <div class="stat-box">
+
+                        <span aria-hidden="true">
+                            ⏱️
+                        </span>
+
+                        <strong id="finishTime">
+                            -
+                        </strong>
+
+                        <small>
+                            Waktu
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="finish-message">
+
+                    🎉
+
+                    <p>
+                        Perjalanan berhasil diselesaikan.
+                        Terima kasih telah bermain dengan jujur,
+                        sportif, dan tetap menjaga lingkungan sekolah.
+                    </p>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    id="restartButton"
+                    class="primary-button big-button"
+                >
+                    🔄 MAIN LAGI
+                </button>
+
             </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         MODAL
+    ====================================================== -->
+
+    <div
+        id="gameModal"
+        class="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modalTitle"
+        aria-describedby="modalMessage"
+    >
+
+        <div
+            class="modal-overlay"
+            id="modalOverlay"
+        ></div>
+
+
+        <div class="modal-content">
+
+            <button
+                type="button"
+                id="modalCloseButton"
+                class="modal-close"
+                aria-label="Tutup"
+            >
+                ×
+            </button>
+
+
+            <div
+                id="modalIcon"
+                class="modal-icon"
+                aria-hidden="true"
+            >
+                💡
+            </div>
+
+
+            <h3 id="modalTitle">
+                Informasi
+            </h3>
+
+
+            <p id="modalMessage">
+                -
+            </p>
 
 
             <button
                 type="button"
-                id="restartButton"
-                class="primary-button big-button"
+                id="modalOkButton"
+                class="primary-button"
             >
-                🔄 MAIN LAGI
+                OK
             </button>
 
         </div>
 
-    </section>
+    </div>
 
 
-</main>
 
+    <!-- =====================================================
+         TOAST
+    ====================================================== -->
 
-<!-- =========================================================
-     MODAL INFORMASI
-========================================================= -->
+    <div
+        id="toast"
+        class="toast"
+        role="status"
+        aria-live="polite"
+    >
 
-<div
-    id="gameModal"
-    class="modal"
-    aria-hidden="true"
->
-
-    <div class="modal-overlay"></div>
-
-    <div class="modal-content">
-
-        <button
-            type="button"
-            id="closeModalButton"
-            class="modal-close"
-            aria-label="Tutup"
-        >
-            ×
-        </button>
-
-        <div
-            id="modalIcon"
-            class="modal-icon"
+        <span
+            id="toastIcon"
+            aria-hidden="true"
         >
             💡
-        </div>
+        </span>
 
-        <h3 id="modalTitle">
-            Informasi
-        </h3>
-
-        <p id="modalText">
+        <span id="toastMessage">
             -
-        </p>
-
-        <button
-            type="button"
-            id="modalOkButton"
-            class="primary-button"
-        >
-            OKE
-        </button>
+        </span>
 
     </div>
 
-</div>
 
 
-<!-- =========================================================
-     TOAST NOTIFICATION
-========================================================= -->
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
 
-<div
-    id="toast"
-    class="toast"
-    role="status"
-    aria-live="polite"
->
-    <span id="toastIcon">💡</span>
-    <span id="toastText">Informasi</span>
-</div>
-
-
-<!-- =========================================================
-     AUDIO
-========================================================= -->
-
-<audio
-    id="correctSound"
-    preload="auto"
->
-    <source
-        src="assets/correct.mp3"
-        type="audio/mpeg"
-    >
-</audio>
-
-
-<audio
-    id="wrongSound"
-    preload="auto"
->
-    <source
-        src="assets/wrong.mp3"
-        type="audio/mpeg"
-    >
-</audio>
-
-
-<audio
-    id="successSound"
-    preload="auto"
->
-    <source
-        src="assets/success.mp3"
-        type="audio/mpeg"
-    >
-</audio>
-
-
-<audio
-    id="tickSound"
-    preload="auto"
->
-    <source
-        src="assets/tick.mp3"
-        type="audio/mpeg"
-    >
-</audio>
-
-
-<!-- =========================================================
-     JAVASCRIPT
-========================================================= -->
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 
 </body>
 </html>
