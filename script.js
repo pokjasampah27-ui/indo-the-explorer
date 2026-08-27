@@ -1,75 +1,83 @@
-```javascript
 /* ============================================================
    JURIT MALAM
-   GAME PETUALANGAN POS-POSAN
+   GAME POS-POSAN DIGITAL
+   ============================================================
 
-   File:
-   script.js
+   STRUKTUR:
+   POS 01 - 07 = JALUR BENAR
+   POS 08 - 10 = JALUR SALAH / BUNTU
 
-   Semua pengaturan pos berada pada bagian DATA POS.
-============================================================ */
+   Alur utama:
+   POS 1 → POS 2 → POS 3 → POS 4 → POS 5 → POS 6 → POS 7
+   → SELESAI
+
+   Jalur salah:
+   POS 8 → POS 9 → POS 10 → kembali POS 1
+
+   ============================================================ */
 
 
 /* ============================================================
-   KONFIGURASI GAME
-============================================================ */
+   KONFIGURASI
+   ============================================================ */
 
 const GAME_CONFIG = {
 
-    // Durasi jalur buntu dalam detik
+    // Waktu maksimal mencari pesan di jalur salah
     deadEndTime: 5 * 60,
 
-    // Jumlah anggota selain ketua
-    memberCount: 5
+    // Ketua + 5 anggota
+    totalMembers: 5,
+
+    // Pos pertama
+    startPosition: "pos-01"
 
 };
 
 
 /* ============================================================
-   DATA POS
-============================================================
+   DATA PERMAINAN
+   ============================================================
 
-   UNTUK SEMENTARA DATA INI CONTOH.
+   CATATAN:
 
-   Nanti setelah foto-foto pos kamu kirim,
-   bagian ini akan kita sesuaikan.
+   question       = soal
+   options        = pilihan jawaban
+   correctAnswer  = nomor jawaban benar, dimulai dari 0
 
--------------------------------------------------------------
+   next           = pos berikutnya jika benar
+   wrongNext      = jalur salah jika jawaban salah
 
-   Struktur:
+   code           = kode rahasia yang terdapat pada pesan fisik
+                    di lokasi tersebut
 
-   id
-   title
-   image
-   description
-   question
-   options
-   correctAnswer
-   correctDestination
-   correctMessage
-   wrongDestination
-   wrongMessage
-   isDeadEnd
-   deadEndReturn
-
-============================================================ */
+   ============================================================ */
 
 
-const POS_DATA = [
+const POS_DATA = {
 
-    {
+    /* ========================================================
+       POS 01
+       ======================================================== */
+
+    "pos-01": {
+
         id: "pos-01",
 
-        title: "Pos 1 — Gerbang Awal",
+        number: 1,
+
+        type: "correct",
+
+        title: "POS 1 — GERBANG AWAL",
 
         image: "assets/pos-01.jpg",
 
         description:
-            "Selamat datang di misi Jurit Malam. " +
-            "Temukan tugas yang disembunyikan di pos ini.",
+            "Selamat datang dalam misi Jurit Malam. " +
+            "Temukan pesan yang disembunyikan di lokasi ini.",
 
         question:
-            "Contoh soal: Manakah yang termasuk kalimat efektif?",
+            "Manakah kalimat yang paling efektif?",
 
         options: [
             "Para siswa-siswa sedang belajar.",
@@ -80,177 +88,326 @@ const POS_DATA = [
 
         correctAnswer: 1,
 
-        correctDestination: "pos-02",
+        next: "pos-02",
 
-        correctMessage:
-            "Jawaban benar! Kalian mendapatkan petunjuk " +
-            "untuk melanjutkan perjalanan.",
+        wrongNext: "pos-08"
 
-        wrongDestination: "buntu-01",
-
-        wrongMessage:
-            "Jawaban belum tepat. Kalian mengambil jalur " +
-            "yang salah."
     },
 
 
-    {
+    /* ========================================================
+       POS 02
+       ======================================================== */
+
+    "pos-02": {
+
         id: "pos-02",
 
-        title: "Pos 2 — Persimpangan",
+        number: 2,
+
+        type: "correct",
+
+        title: "POS 2 — JEJAK PERTAMA",
 
         image: "assets/pos-02.jpg",
 
         description:
-            "Kalian telah sampai di persimpangan. " +
-            "Cari pesan berikutnya.",
+            "Kalian telah sampai di lokasi kedua. " +
+            "Cari pesan berikutnya dengan teliti.",
 
         question:
-            "Contoh soal: Apa fungsi utama sebuah paragraf?",
+            "Apa yang dimaksud dengan gagasan utama?",
 
         options: [
-            "Menghias tulisan.",
-            "Mengembangkan satu gagasan utama.",
-            "Memperpanjang tulisan.",
-            "Menghilangkan kalimat utama."
+            "Gagasan yang menjadi inti pembahasan.",
+            "Kalimat tambahan dalam paragraf.",
+            "Kata terakhir dalam paragraf.",
+            "Contoh yang digunakan dalam paragraf."
         ],
 
-        correctAnswer: 1,
+        correctAnswer: 0,
 
-        correctDestination: "pos-03",
+        next: "pos-03",
 
-        correctMessage:
-            "Benar! Petunjuk berikutnya berhasil ditemukan.",
+        wrongNext: "pos-08"
 
-        wrongDestination: "buntu-02",
-
-        wrongMessage:
-            "Jawaban salah. Kalian masuk ke jalur buntu."
     },
 
 
-    {
+    /* ========================================================
+       POS 03
+       ======================================================== */
+
+    "pos-03": {
+
         id: "pos-03",
 
-        title: "Pos 3 — Penjaga Pesan",
+        number: 3,
+
+        type: "correct",
+
+        title: "POS 3 — PERSIMPANGAN",
 
         image: "assets/pos-03.jpg",
 
         description:
-            "Temukan pesan tersembunyi dan pecahkan tantangannya.",
+            "Perjalanan berlanjut. Jangan sampai salah memilih jalur.",
 
         question:
-            "Contoh soal: Kalimat utama biasanya berisi ...",
+            "Kalimat utama dalam sebuah paragraf biasanya memuat ...",
 
         options: [
             "Gagasan utama.",
-            "Keterangan tambahan saja.",
-            "Contoh-contoh.",
-            "Kata penghubung."
+            "Gagasan tambahan saja.",
+            "Contoh.",
+            "Keterangan waktu."
         ],
 
         correctAnswer: 0,
 
-        correctDestination: "pos-04",
+        next: "pos-04",
 
-        correctMessage:
-            "Hebat! Kalian berhasil menemukan jalur yang benar.",
+        wrongNext: "pos-08"
 
-        wrongDestination: "buntu-03",
-
-        wrongMessage:
-            "Jawaban salah. Jalur yang kalian pilih tidak tepat."
     },
 
 
-    {
+    /* ========================================================
+       POS 04
+       ======================================================== */
+
+    "pos-04": {
+
         id: "pos-04",
 
-        title: "Pos 4 — Jejak Terakhir",
+        number: 4,
+
+        type: "correct",
+
+        title: "POS 4 — JEJAK TERSEMBUNYI",
 
         image: "assets/pos-04.jpg",
 
         description:
-            "Ini adalah salah satu tantangan terakhir.",
+            "Perhatikan lingkungan sekitar. " +
+            "Pesan berikutnya menunggu kalian.",
 
         question:
-            "Contoh soal terakhir.",
+            "Salah satu ciri paragraf yang baik adalah ...",
 
         options: [
-            "Pilihan A",
-            "Pilihan B",
-            "Pilihan C",
-            "Pilihan D"
+            "Memiliki gagasan yang tidak berhubungan.",
+            "Memiliki kesatuan gagasan.",
+            "Tidak memiliki kalimat utama.",
+            "Menggunakan sebanyak mungkin kalimat."
+        ],
+
+        correctAnswer: 1,
+
+        next: "pos-05",
+
+        wrongNext: "pos-09"
+
+    },
+
+
+    /* ========================================================
+       POS 05
+       ======================================================== */
+
+    "pos-05": {
+
+        id: "pos-05",
+
+        number: 5,
+
+        type: "correct",
+
+        title: "POS 5 — TAMAN RAHASIA",
+
+        image: "assets/pos-05.jpg",
+
+        description:
+            "Kalian sudah semakin dekat. " +
+            "Temukan pesan yang tersembunyi di lokasi ini.",
+
+        question:
+            "Kalimat penjelas berfungsi untuk ...",
+
+        options: [
+            "Menjelaskan gagasan utama.",
+            "Menghapus gagasan utama.",
+            "Menggantikan judul.",
+            "Mengakhiri semua paragraf."
         ],
 
         correctAnswer: 0,
 
-        correctDestination: "finish",
+        next: "pos-06",
 
-        correctMessage:
-            "Luar biasa! Kalian telah menyelesaikan seluruh misi.",
-
-        wrongDestination: "buntu-04",
-
-        wrongMessage:
-            "Jawaban salah. Cari jalan keluar dari jalur buntu."
-    }
-
-];
-
-
-/* ============================================================
-   DATA JALUR BUNTU
-============================================================ */
-
-const DEAD_END_DATA = {
-
-    "buntu-01": {
-
-        title: "Jalur Buntu 1",
-
-        description:
-            "Kalian berada di tempat yang salah. " +
-            "Tidak ada pesan lanjutan di sini.",
-
-        returnTo: "pos-01"
+        wrongNext: "pos-09"
 
     },
 
 
-    "buntu-02": {
+    /* ========================================================
+       POS 06
+       ======================================================== */
 
-        title: "Jalur Buntu 2",
+    "pos-06": {
+
+        id: "pos-06",
+
+        number: 6,
+
+        type: "correct",
+
+        title: "POS 6 — JALAN TERAKHIR",
+
+        image: "assets/pos-06.jpg",
 
         description:
-            "Tempat ini bukan tujuan berikutnya. " +
-            "Cari pesan tersembunyi sebelum waktu habis.",
+            "Tinggal satu langkah lagi sebelum mencapai tujuan.",
 
-        returnTo: "pos-02"
+        question:
+            "Hubungan antara kalimat utama dan kalimat penjelas adalah ...",
+
+        options: [
+            "Tidak saling berhubungan.",
+            "Kalimat penjelas mendukung gagasan utama.",
+            "Kalimat utama selalu lebih panjang.",
+            "Kalimat penjelas menggantikan judul."
+        ],
+
+        correctAnswer: 1,
+
+        next: "pos-07",
+
+        wrongNext: "pos-10"
 
     },
 
 
-    "buntu-03": {
+    /* ========================================================
+       POS 07
+       ======================================================== */
 
-        title: "Jalur Buntu 3",
+    "pos-07": {
+
+        id: "pos-07",
+
+        number: 7,
+
+        type: "correct",
+
+        title: "POS 7 — GARIS FINISH",
+
+        image: "assets/pos-07.jpg",
 
         description:
-            "Kalian mengambil jalur yang keliru.",
+            "Ini adalah tantangan terakhir. " +
+            "Jawab dengan teliti untuk menyelesaikan misi.",
 
-        returnTo: "pos-03"
+        question:
+            "Sebuah paragraf yang baik seharusnya memiliki ...",
+
+        options: [
+            "Gagasan yang saling berkaitan.",
+            "Kalimat yang tidak berhubungan.",
+            "Hanya satu kata.",
+            "Tidak memiliki gagasan utama."
+        ],
+
+        correctAnswer: 0,
+
+        next: "finish",
+
+        wrongNext: "pos-10"
 
     },
 
 
-    "buntu-04": {
+    /* ========================================================
+       POS 08
+       JALUR SALAH
+       ======================================================== */
 
-        title: "Jalur Buntu 4",
+    "pos-08": {
+
+        id: "pos-08",
+
+        number: 8,
+
+        type: "wrong",
+
+        title: "POS 8 — JALUR MISTERI",
+
+        image: "assets/pos-08.jpg",
 
         description:
-            "Belum menemukan jalan yang benar.",
+            "Kalian menemukan lokasi yang tidak sesuai. " +
+            "Cari pesan tersembunyi di tempat ini.",
 
-        returnTo: "pos-04"
+        returnTo: "pos-01",
+
+        nextWrong: "pos-09"
+
+    },
+
+
+    /* ========================================================
+       POS 09
+       JALUR SALAH
+       ======================================================== */
+
+    "pos-09": {
+
+        id: "pos-09",
+
+        number: 9,
+
+        type: "wrong",
+
+        title: "POS 9 — JEJAK TERSESAT",
+
+        image: "assets/pos-09.jpg",
+
+        description:
+            "Tempat ini bukan bagian dari jalur utama. " +
+            "Periksa sekitar dan cari pesan.",
+
+        returnTo: "pos-01",
+
+        nextWrong: "pos-10"
+
+    },
+
+
+    /* ========================================================
+       POS 10
+       JALUR SALAH
+       ======================================================== */
+
+    "pos-10": {
+
+        id: "pos-10",
+
+        number: 10,
+
+        type: "wrong",
+
+        title: "POS 10 — JALAN BUNTU",
+
+        image: "assets/pos-10.jpg",
+
+        description:
+            "Kalian telah masuk terlalu jauh ke jalur yang salah. " +
+            "Jika pesan tidak ditemukan dalam waktu 5 menit, " +
+            "kalian harus kembali ke Pos 1.",
+
+        returnTo: "pos-01",
+
+        nextWrong: "pos-01"
 
     }
 
@@ -259,9 +416,9 @@ const DEAD_END_DATA = {
 
 /* ============================================================
    STATE PERMAINAN
-============================================================ */
+   ============================================================ */
 
-const GAME_STATE = {
+const GAME = {
 
     group: {
 
@@ -271,165 +428,54 @@ const GAME_STATE = {
 
     },
 
-    currentPos: "pos-01",
+    currentPosition: "pos-01",
+
+    previousPosition: "pos-01",
 
     correctAnswers: 0,
 
     wrongAnswers: 0,
 
-    completedPositions: [],
+    visitedPositions: [],
 
     selectedAnswer: null,
 
-    timer: null,
+    deadEndTimer: null,
 
     remainingTime: GAME_CONFIG.deadEndTime,
 
-    inDeadEnd: false
+    inWrongRoute: false
 
 };
 
 
 /* ============================================================
-   ELEMENT DOM
-============================================================ */
+   DOM
+   ============================================================ */
 
-const screens = {
-
-    start:
-        document.getElementById("screen-start"),
-
-    game:
-        document.getElementById("screen-game"),
-
-    finish:
-        document.getElementById("screen-finish")
-
-};
-
-
-const elements = {
-
-    leaderName:
-        document.getElementById("leaderName"),
-
-    btnStart:
-        document.getElementById("btnStart"),
-
-    displayGroupName:
-        document.getElementById("displayGroupName"),
-
-    currentPosNumber:
-        document.getElementById("currentPosNumber"),
-
-    totalPosNumber:
-        document.getElementById("totalPosNumber"),
-
-    posTitle:
-        document.getElementById("posTitle"),
-
-    posImage:
-        document.getElementById("posImage"),
-
-    posDescription:
-        document.getElementById("posDescription"),
-
-    messageBox:
-        document.getElementById("messageBox"),
-
-    questionText:
-        document.getElementById("questionText"),
-
-    answerOptions:
-        document.getElementById("answerOptions"),
-
-    btnAnswer:
-        document.getElementById("btnAnswer"),
-
-    resultCard:
-        document.getElementById("resultCard"),
-
-    resultIcon:
-        document.getElementById("resultIcon"),
-
-    resultTitle:
-        document.getElementById("resultTitle"),
-
-    resultText:
-        document.getElementById("resultText"),
-
-    btnResultContinue:
-        document.getElementById("btnResultContinue"),
-
-    directionCard:
-        document.getElementById("directionCard"),
-
-    directionTitle:
-        document.getElementById("directionTitle"),
-
-    directionText:
-        document.getElementById("directionText"),
-
-    destinationBox:
-        document.getElementById("destinationBox"),
-
-    btnContinue:
-        document.getElementById("btnContinue"),
-
-    timerBox:
-        document.getElementById("timerBox"),
-
-    timer:
-        document.getElementById("timer"),
-
-    deadEndCard:
-        document.getElementById("deadEndCard"),
-
-    deadEndTimer:
-        document.getElementById("deadEndTimer"),
-
-    finishGroup:
-        document.getElementById("finishGroup"),
-
-    finishPos:
-        document.getElementById("finishPos"),
-
-    finishCorrect:
-        document.getElementById("finishCorrect"),
-
-    finishWrong:
-        document.getElementById("finishWrong"),
-
-    btnRestart:
-        document.getElementById("btnRestart")
-
-};
+const $ = id =>
+    document.getElementById(id);
 
 
 /* ============================================================
    MULAI GAME
-============================================================ */
-
-elements.btnStart.addEventListener(
-    "click",
-    startGame
-);
-
+   ============================================================ */
 
 function startGame() {
 
     const leader =
-        elements.leaderName.value.trim();
+        $("leaderName").value.trim();
 
     if (!leader) {
 
         alert(
-            "Nama ketua kelompok harus diisi."
+            "Silakan isi nama ketua kelompok."
         );
 
-        elements.leaderName.focus();
+        $("leaderName").focus();
 
         return;
+
     }
 
 
@@ -438,81 +484,87 @@ function startGame() {
 
     for (
         let i = 1;
-        i <= GAME_CONFIG.memberCount;
+        i <= GAME_CONFIG.totalMembers;
         i++
     ) {
 
         const input =
-            document.getElementById(
-                `member${i}`
-            );
+            $(`member${i}`);
 
         const name =
             input.value.trim();
 
+
         if (!name) {
 
             alert(
-                `Nama anggota ${i} harus diisi.`
+                `Silakan isi nama Anggota ${i}.`
             );
 
             input.focus();
 
             return;
+
         }
+
 
         members.push(name);
 
     }
 
 
-    GAME_STATE.group.leader =
+    GAME.group.leader =
         leader;
 
-    GAME_STATE.group.members =
+    GAME.group.members =
         members;
 
 
-    GAME_STATE.currentPos =
-        "pos-01";
+    GAME.currentPosition =
+        GAME_CONFIG.startPosition;
 
-    GAME_STATE.correctAnswers =
+    GAME.previousPosition =
+        GAME_CONFIG.startPosition;
+
+    GAME.correctAnswers =
         0;
 
-    GAME_STATE.wrongAnswers =
+    GAME.wrongAnswers =
         0;
 
-    GAME_STATE.completedPositions =
+    GAME.visitedPositions =
         [];
 
-    GAME_STATE.selectedAnswer =
+    GAME.selectedAnswer =
         null;
 
 
-    elements.displayGroupName.textContent =
+    $("displayGroupName").textContent =
         leader;
 
 
-    elements.totalPosNumber.textContent =
-        POS_DATA.length;
+    $("totalPosNumber").textContent =
+        7;
 
 
     showScreen("game");
 
+
     loadPosition(
-        GAME_STATE.currentPos
+        GAME.currentPosition
     );
 
 }
 
 
 /* ============================================================
-   PINDAH SCREEN
-============================================================ */
+   TAMPILKAN SCREEN
+   ============================================================ */
 
-function showScreen(screenName) {
+function showScreen(name) {
 
-    Object.values(screens)
+    document
+        .querySelectorAll(".screen")
         .forEach(screen => {
 
             screen.classList.remove(
@@ -522,61 +574,34 @@ function showScreen(screenName) {
         });
 
 
-    screens[screenName]
-        .classList.add("active");
-
-}
+    const target =
+        $(`screen-${name}`);
 
 
-/* ============================================================
-   MENCARI DATA POS
-============================================================ */
+    if (target) {
 
-function getPosition(posId) {
-
-    return POS_DATA.find(
-        pos => pos.id === posId
-    );
-
-}
-
-
-/* ============================================================
-   MENENTUKAN NOMOR POS
-============================================================ */
-
-function getPositionNumber(posId) {
-
-    const index =
-        POS_DATA.findIndex(
-            pos => pos.id === posId
+        target.classList.add(
+            "active"
         );
 
-    return index >= 0
-        ? index + 1
-        : "-";
+    }
 
 }
 
 
 /* ============================================================
    MEMUAT POS
-============================================================ */
+   ============================================================ */
 
-function loadPosition(posId) {
+function loadPosition(
+    positionId
+) {
 
     stopDeadEndTimer();
 
 
-    GAME_STATE.currentPos =
-        posId;
-
-    GAME_STATE.inDeadEnd =
-        false;
-
-
     const position =
-        getPosition(posId);
+        POS_DATA[positionId];
 
 
     if (!position) {
@@ -584,69 +609,199 @@ function loadPosition(posId) {
         finishGame();
 
         return;
-    }
-
-
-    elements.currentPosNumber.textContent =
-        getPositionNumber(posId);
-
-
-    elements.posTitle.textContent =
-        position.title;
-
-
-    elements.posDescription.textContent =
-        position.description;
-
-
-    /* FOTO POS */
-
-    if (
-        position.image &&
-        position.image.trim() !== ""
-    ) {
-
-        elements.posImage.src =
-            position.image;
-
-        elements.posImage.classList.remove(
-            "hidden"
-        );
-
-        elements.posImage.onerror =
-            function () {
-
-                this.classList.add(
-                    "hidden"
-                );
-
-            };
-
-    } else {
-
-        elements.posImage.classList.add(
-            "hidden"
-        );
 
     }
 
 
-    /* SOAL */
-
-    elements.questionText.textContent =
-        position.question;
+    GAME.currentPosition =
+        positionId;
 
 
-    elements.answerOptions.innerHTML =
-        "";
-
-
-    GAME_STATE.selectedAnswer =
+    GAME.selectedAnswer =
         null;
 
 
-    elements.btnAnswer.disabled =
+    /* ==========================================
+       STATUS JALUR
+       ========================================== */
+
+    GAME.inWrongRoute =
+        position.type === "wrong";
+
+
+    /* ==========================================
+       NOMOR POS
+       ========================================== */
+
+    $("currentPosNumber").textContent =
+        position.number;
+
+
+    /* ==========================================
+       JUDUL
+       ========================================== */
+
+    $("posTitle").textContent =
+        position.title;
+
+
+    /* ==========================================
+       DESKRIPSI
+       ========================================== */
+
+    $("posDescription").textContent =
+        position.description;
+
+
+    /* ==========================================
+       FOTO
+       ========================================== */
+
+    const image =
+        $("posImage");
+
+
+    image.src =
+        position.image;
+
+
+    image.classList.remove(
+        "hidden"
+    );
+
+
+    image.onerror =
+        function () {
+
+            this.classList.add(
+                "hidden"
+            );
+
+        };
+
+
+    /* ==========================================
+       POS BENAR
+       ========================================== */
+
+    if (
+        position.type === "correct"
+    ) {
+
+        showCorrectPosition(
+            position
+        );
+
+    }
+
+
+    /* ==========================================
+       POS SALAH
+       ========================================== */
+
+    if (
+        position.type === "wrong"
+    ) {
+
+        showWrongPosition(
+            position
+        );
+
+    }
+
+}
+
+
+/* ============================================================
+   POS JALUR BENAR
+   ============================================================ */
+
+function showCorrectPosition(
+    position
+) {
+
+    $("questionCard")
+        .classList.remove("hidden");
+
+
+    $("deadEndCard")
+        .classList.add("hidden");
+
+
+    $("directionCard")
+        .classList.add("hidden");
+
+
+    $("resultCard")
+        .classList.add("hidden");
+
+
+    $("timerBox")
+        .classList.add("hidden");
+
+
+    $("questionText").textContent =
+        position.question;
+
+
+    createAnswerOptions(
+        position
+    );
+
+
+    $("btnAnswer").disabled =
         true;
+
+}
+
+
+/* ============================================================
+   POS JALUR SALAH
+   ============================================================ */
+
+function showWrongPosition(
+    position
+) {
+
+    $("questionCard")
+        .classList.add("hidden");
+
+
+    $("directionCard")
+        .classList.add("hidden");
+
+
+    $("resultCard")
+        .classList.add("hidden");
+
+
+    $("deadEndCard")
+        .classList.remove("hidden");
+
+
+    $("timerBox")
+        .classList.remove("hidden");
+
+
+    startDeadEndTimer();
+
+}
+
+
+/* ============================================================
+   MEMBUAT PILIHAN JAWABAN
+   ============================================================ */
+
+function createAnswerOptions(
+    position
+) {
+
+    const container =
+        $("answerOptions");
+
+
+    container.innerHTML =
+        "";
 
 
     position.options.forEach(
@@ -656,6 +811,10 @@ function loadPosition(posId) {
                 document.createElement(
                     "button"
                 );
+
+
+            button.type =
+                "button";
 
 
             button.className =
@@ -672,7 +831,7 @@ function loadPosition(posId) {
 
             button.addEventListener(
                 "click",
-                function () {
+                () => {
 
                     selectAnswer(
                         index,
@@ -683,36 +842,26 @@ function loadPosition(posId) {
             );
 
 
-            elements.answerOptions
-                .appendChild(button);
+            container.appendChild(
+                button
+            );
 
         }
     );
-
-
-    hideResult();
-
-    hideDirection();
-
-    hideDeadEnd();
-
-
-    elements.messageBox
-        .classList.add("hidden");
 
 }
 
 
 /* ============================================================
-   MEMILIH JAWABAN
-============================================================ */
+   PILIH JAWABAN
+   ============================================================ */
 
 function selectAnswer(
     index,
     button
 ) {
 
-    GAME_STATE.selectedAnswer =
+    GAME.selectedAnswer =
         index;
 
 
@@ -720,15 +869,13 @@ function selectAnswer(
         .querySelectorAll(
             ".answer-option"
         )
-        .forEach(
-            btn => {
+        .forEach(btn => {
 
-                btn.classList.remove(
-                    "selected"
-                );
+            btn.classList.remove(
+                "selected"
+            );
 
-            }
-        );
+        });
 
 
     button.classList.add(
@@ -736,17 +883,17 @@ function selectAnswer(
     );
 
 
-    elements.btnAnswer.disabled =
+    $("btnAnswer").disabled =
         false;
 
 }
 
 
 /* ============================================================
-   TOMBOL JAWAB
-============================================================ */
+   PERIKSA JAWABAN
+   ============================================================ */
 
-elements.btnAnswer.addEventListener(
+$("btnAnswer").addEventListener(
     "click",
     checkAnswer
 );
@@ -754,34 +901,35 @@ elements.btnAnswer.addEventListener(
 
 function checkAnswer() {
 
+    const position =
+        POS_DATA[
+            GAME.currentPosition
+        ];
+
+
     if (
-        GAME_STATE.selectedAnswer === null
+        GAME.selectedAnswer === null
     ) {
 
         return;
+
     }
 
 
-    const position =
-        getPosition(
-            GAME_STATE.currentPos
-        );
-
-
-    const isCorrect =
-        GAME_STATE.selectedAnswer ===
+    const correct =
+        GAME.selectedAnswer ===
         position.correctAnswer;
 
 
-    if (isCorrect) {
+    if (correct) {
 
-        handleCorrectAnswer(
+        processCorrectAnswer(
             position
         );
 
     } else {
 
-        handleWrongAnswer(
+        processWrongAnswer(
             position
         );
 
@@ -792,60 +940,63 @@ function checkAnswer() {
 
 /* ============================================================
    JAWABAN BENAR
-============================================================ */
+   ============================================================ */
 
-function handleCorrectAnswer(
+function processCorrectAnswer(
     position
 ) {
 
-    GAME_STATE.correctAnswers++;
+    GAME.correctAnswers++;
 
 
     if (
-        !GAME_STATE.completedPositions
+        !GAME.visitedPositions
             .includes(position.id)
     ) {
 
-        GAME_STATE.completedPositions
+        GAME.visitedPositions
             .push(position.id);
 
     }
 
 
-    elements.resultIcon.textContent =
+    $("resultCard")
+        .classList.remove("hidden");
+
+
+    $("questionCard")
+        .classList.add("hidden");
+
+
+    $("resultIcon").textContent =
         "✅";
 
 
-    elements.resultTitle.textContent =
+    $("resultTitle").textContent =
         "JAWABAN BENAR!";
 
 
-    elements.resultText.textContent =
-        position.correctMessage;
+    $("resultText").textContent =
+        "Hebat! Kalian menemukan jalur yang benar. " +
+        "Ikuti petunjuk menuju lokasi berikutnya.";
 
 
-    showResult();
-
-
-    elements.btnResultContinue.onclick =
+    $("btnResultContinue").onclick =
         function () {
 
-            const destination =
-                position.correctDestination;
-
-
             if (
-                destination === "finish"
+                position.next === "finish"
             ) {
 
                 finishGame();
 
                 return;
+
             }
 
 
             showDirection(
-                destination
+                position.next
             );
 
         };
@@ -855,35 +1006,47 @@ function handleCorrectAnswer(
 
 /* ============================================================
    JAWABAN SALAH
-============================================================ */
+   ============================================================ */
 
-function handleWrongAnswer(
+function processWrongAnswer(
     position
 ) {
 
-    GAME_STATE.wrongAnswers++;
+    GAME.wrongAnswers++;
 
 
-    elements.resultIcon.textContent =
+    GAME.previousPosition =
+        position.id;
+
+
+    $("questionCard")
+        .classList.add("hidden");
+
+
+    $("resultCard")
+        .classList.remove("hidden");
+
+
+    $("resultIcon").textContent =
         "❌";
 
 
-    elements.resultTitle.textContent =
+    $("resultTitle").textContent =
         "JAWABAN SALAH";
 
 
-    elements.resultText.textContent =
-        position.wrongMessage;
+    $("resultText").textContent =
+        "Kalian mengambil jalur yang salah. " +
+        "Ikuti petunjuk menuju lokasi berikutnya. " +
+        "Jika pesan tidak ditemukan dalam 5 menit, " +
+        "kalian akan kembali ke Pos 1.";
 
 
-    showResult();
-
-
-    elements.btnResultContinue.onclick =
+    $("btnResultContinue").onclick =
         function () {
 
-            startDeadEnd(
-                position.wrongDestination
+            startWrongRoute(
+                position.wrongNext
             );
 
         };
@@ -892,45 +1055,17 @@ function handleWrongAnswer(
 
 
 /* ============================================================
-   MENAMPILKAN HASIL
-============================================================ */
-
-function showResult() {
-
-    elements.questionCard
-        .classList.add("hidden");
-
-    elements.resultCard
-        .classList.remove("hidden");
-
-}
-
-
-/* ============================================================
-   MENYEMBUNYIKAN HASIL
-============================================================ */
-
-function hideResult() {
-
-    elements.questionCard
-        .classList.remove("hidden");
-
-    elements.resultCard
-        .classList.add("hidden");
-
-}
-
-
-/* ============================================================
-   MENAMPILKAN PETUNJUK
-============================================================ */
+   PETUNJUK POS BERIKUTNYA
+   ============================================================ */
 
 function showDirection(
     destinationId
 ) {
 
     const destination =
-        getPosition(destinationId);
+        POS_DATA[
+            destinationId
+        ];
 
 
     if (!destination) {
@@ -938,32 +1073,33 @@ function showDirection(
         finishGame();
 
         return;
+
     }
 
 
-    elements.directionTitle.textContent =
-        "🧭 PETUNJUK BERIKUTNYA";
-
-
-    elements.directionText.textContent =
-        "Jawaban kalian benar. " +
-        "Ikuti petunjuk berikut dan datangi lokasi " +
-        "yang ditunjukkan oleh pesan permainan.";
-
-
-    elements.destinationBox.textContent =
-        destination.title;
-
-
-    elements.directionCard
-        .classList.remove("hidden");
-
-
-    elements.questionCard
+    $("resultCard")
         .classList.add("hidden");
 
 
-    elements.btnContinue.onclick =
+    $("directionCard")
+        .classList.remove("hidden");
+
+
+    $("directionTitle").textContent =
+        "🧭 PETUNJUK BERIKUTNYA";
+
+
+    $("directionText").textContent =
+        "Kalian harus meninggalkan lokasi ini " +
+        "dan mencari tempat berikutnya berdasarkan " +
+        "petunjuk yang terdapat pada pesan fisik.";
+
+
+    $("destinationBox").textContent =
+        "Cari lokasi berikutnya";
+
+
+    $("btnContinue").onclick =
         function () {
 
             loadPosition(
@@ -976,83 +1112,63 @@ function showDirection(
 
 
 /* ============================================================
-   MENYEMBUNYIKAN PETUNJUK
-============================================================ */
+   MEMULAI JALUR SALAH
+   ============================================================ */
 
-function hideDirection() {
+function startWrongRoute(
+    wrongPositionId
+) {
 
-    elements.directionCard
-        .classList.add("hidden");
+    GAME.inWrongRoute =
+        true;
+
+
+    GAME.currentPosition =
+        wrongPositionId;
+
+
+    loadPosition(
+        wrongPositionId
+    );
 
 }
 
 
 /* ============================================================
-   JALUR BUNTU
-============================================================ */
+   TIMER JALUR SALAH
+   ============================================================ */
 
-function startDeadEnd(
-    deadEndId
-) {
+function startDeadEndTimer() {
 
-    const deadEnd =
-        DEAD_END_DATA[
-            deadEndId
-        ];
+    stopDeadEndTimer();
 
 
-    if (!deadEnd) {
-
-        loadPosition(
-            GAME_STATE.currentPos
-        );
-
-        return;
-    }
-
-
-    GAME_STATE.inDeadEnd =
-        true;
-
-
-    GAME_STATE.remainingTime =
+    GAME.remainingTime =
         GAME_CONFIG.deadEndTime;
 
 
-    elements.questionCard
-        .classList.add("hidden");
+    updateTimer();
 
 
-    elements.resultCard
-        .classList.add("hidden");
-
-
-    elements.directionCard
-        .classList.add("hidden");
-
-
-    elements.deadEndCard
-        .classList.remove("hidden");
-
-
-    elements.timerBox
-        .classList.remove("hidden");
-
-
-    elements.posTitle.textContent =
-        deadEnd.title;
-
-
-    elements.posDescription.textContent =
-        deadEnd.description;
-
-
-    updateTimerDisplay();
-
-
-    GAME_STATE.timer =
+    GAME.deadEndTimer =
         setInterval(
-            deadEndTick,
+            function () {
+
+                GAME.remainingTime--;
+
+
+                updateTimer();
+
+
+                if (
+                    GAME.remainingTime <= 0
+                ) {
+
+                    deadEndTimeout();
+
+                }
+
+            },
             1000
         );
 
@@ -1060,46 +1176,15 @@ function startDeadEnd(
 
 
 /* ============================================================
-   TIMER JALUR BUNTU
-============================================================ */
-
-function deadEndTick() {
-
-    if (
-        !GAME_STATE.inDeadEnd
-    ) {
-
-        return;
-    }
-
-
-    GAME_STATE.remainingTime--;
-
-
-    updateTimerDisplay();
-
-
-    if (
-        GAME_STATE.remainingTime <= 0
-    ) {
-
-        handleDeadEndTimeout();
-
-    }
-
-}
-
-
-/* ============================================================
    UPDATE TIMER
-============================================================ */
+   ============================================================ */
 
-function updateTimerDisplay() {
+function updateTimer() {
 
     const seconds =
         Math.max(
             0,
-            GAME_STATE.remainingTime
+            GAME.remainingTime
         );
 
 
@@ -1113,148 +1198,142 @@ function updateTimerDisplay() {
         seconds % 60;
 
 
-    const display =
-        String(minutes).padStart(2, "0")
+    const text =
+        String(minutes)
+            .padStart(2, "0")
         +
         ":"
         +
-        String(
-            remainingSeconds
-        ).padStart(2, "0");
+        String(remainingSeconds)
+            .padStart(2, "0");
 
 
-    elements.timer.textContent =
-        display;
+    $("timer").textContent =
+        text;
 
 
-    elements.deadEndTimer.textContent =
-        display;
+    $("deadEndTimer").textContent =
+        text;
 
 }
 
 
 /* ============================================================
    WAKTU HABIS
-============================================================ */
+   ============================================================ */
 
-function handleDeadEndTimeout() {
+function deadEndTimeout() {
 
     stopDeadEndTimer();
 
 
-    GAME_STATE.inDeadEnd =
+    GAME.inWrongRoute =
         false;
 
 
-    elements.timerBox
+    $("deadEndCard")
         .classList.add("hidden");
 
 
-    elements.deadEndCard
+    $("timerBox")
         .classList.add("hidden");
 
 
-    const previousPosition =
-        GAME_STATE.currentPos;
+    $("resultCard")
+        .classList.remove("hidden");
 
 
-    alert(
-        "⏰ Waktu 5 menit habis!\n\n" +
-        "Kalian akan kembali ke pos sebelumnya " +
-        "untuk menjawab soal kembali."
-    );
+    $("resultIcon").textContent =
+        "⏰";
 
 
-    loadPosition(
-        previousPosition
-    );
+    $("resultTitle").textContent =
+        "WAKTU HABIS";
+
+
+    $("resultText").textContent =
+        "Kalian tidak menemukan pesan dalam waktu " +
+        "5 menit. Kelompok harus kembali ke Pos 1 " +
+        "dan mengulang tantangan.";
+
+
+    $("btnResultContinue").onclick =
+        function () {
+
+            loadPosition(
+                "pos-01"
+            );
+
+        };
 
 }
 
 
 /* ============================================================
    STOP TIMER
-============================================================ */
+   ============================================================ */
 
 function stopDeadEndTimer() {
 
     if (
-        GAME_STATE.timer
+        GAME.deadEndTimer
     ) {
 
         clearInterval(
-            GAME_STATE.timer
+            GAME.deadEndTimer
         );
 
-        GAME_STATE.timer =
+        GAME.deadEndTimer =
             null;
 
     }
 
 
-    GAME_STATE.remainingTime =
+    GAME.remainingTime =
         GAME_CONFIG.deadEndTime;
-
-
-    elements.timerBox
-        .classList.add("hidden");
-
-}
-
-
-/* ============================================================
-   SEMBUNYIKAN JALUR BUNTU
-============================================================ */
-
-function hideDeadEnd() {
-
-    elements.deadEndCard
-        .classList.add("hidden");
 
 }
 
 
 /* ============================================================
    SELESAI
-============================================================ */
+   ============================================================ */
 
 function finishGame() {
 
     stopDeadEndTimer();
 
 
-    GAME_STATE.inDeadEnd =
+    GAME.inWrongRoute =
         false;
 
 
-    elements.finishGroup.innerHTML =
+    $("finishGroup").innerHTML =
         createGroupSummary();
 
 
-    elements.finishPos.textContent =
-        GAME_STATE.completedPositions.length
-        +
-        " / "
-        +
-        POS_DATA.length;
+    $("finishPos").textContent =
+        "7 / 7";
 
 
-    elements.finishCorrect.textContent =
-        GAME_STATE.correctAnswers;
+    $("finishCorrect").textContent =
+        GAME.correctAnswers;
 
 
-    elements.finishWrong.textContent =
-        GAME_STATE.wrongAnswers;
+    $("finishWrong").textContent =
+        GAME.wrongAnswers;
 
 
-    showScreen("finish");
+    showScreen(
+        "finish"
+    );
 
 }
 
 
 /* ============================================================
    RINGKASAN KELOMPOK
-============================================================ */
+   ============================================================ */
 
 function createGroupSummary() {
 
@@ -1263,10 +1342,10 @@ function createGroupSummary() {
 
     html += `
         <div class="group-leader">
-            <strong>Ketua</strong>
+            <strong>Ketua:</strong>
             <br>
             ${escapeHTML(
-                GAME_STATE.group.leader
+                GAME.group.leader
             )}
         </div>
     `;
@@ -1274,21 +1353,25 @@ function createGroupSummary() {
 
     html += `
         <div class="group-members">
-            <strong>Anggota</strong>
+            <strong>Anggota:</strong>
             <ol>
     `;
 
 
-    GAME_STATE.group.members
-        .forEach(member => {
+    GAME.group.members
+        .forEach(
+            member => {
 
-            html += `
-                <li>
-                    ${escapeHTML(member)}
-                </li>
-            `;
+                html += `
+                    <li>
+                        ${escapeHTML(
+                            member
+                        )}
+                    </li>
+                `;
 
-        });
+            }
+        );
 
 
     html += `
@@ -1304,7 +1387,7 @@ function createGroupSummary() {
 
 /* ============================================================
    KEAMANAN HTML
-============================================================ */
+   ============================================================ */
 
 function escapeHTML(
     text
@@ -1326,55 +1409,32 @@ function escapeHTML(
 
 
 /* ============================================================
-   TOMBOL MAIN LAGI
-============================================================ */
+   MAIN LAGI
+   ============================================================ */
 
-elements.btnRestart.addEventListener(
-    "click",
-    function () {
+$("btnRestart")
+    .addEventListener(
+        "click",
+        function () {
 
-        stopDeadEndTimer();
+            stopDeadEndTimer();
 
-        showScreen("start");
+            showScreen(
+                "start"
+            );
 
-    }
-);
+        }
+    );
 
 
 /* ============================================================
    INISIALISASI
-============================================================ */
+   ============================================================ */
 
-elements.totalPosNumber.textContent =
-    POS_DATA.length;
+$("totalPosNumber")
+    .textContent = 7;
 
 
 /* ============================================================
-   CATATAN PENGEMBANGAN
-
-   Nanti kita dapat menambahkan:
-
-   1. QR Code di setiap pos.
-   2. Validasi bahwa peserta benar-benar
-      berada di pos tertentu.
-   3. Foto setiap lokasi.
-   4. Audio/suara misterius.
-   5. Efek suara.
-   6. Peta sekolah.
-   7. Sistem kode rahasia.
-   8. Pesan tersembunyi.
-   9. Leaderboard.
-   10. Penyimpanan hasil permainan.
-   11. Panel panitia.
-   12. Waktu keseluruhan permainan.
-   13. Banyak jalur berbeda.
-   14. Pos palsu.
-   15. Pos jebakan.
-   16. Sistem skor.
-   17. Sistem penalti.
-   18. Randomisasi soal.
-   19. Randomisasi jalur.
-   20. Rekap hasil setiap kelompok.
-
+   END
 ============================================================ */
-```
