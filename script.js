@@ -1,7 +1,10 @@
 /* =========================================================
    JELAJAH SEKOLAH
    GAME POS-POSAN EDUKATIF
-   SCRIPT.JS FINAL + LAPORAN GOOGLE SHEETS
+
+   SCRIPT.JS FINAL
+   + LAPORAN GOOGLE SHEETS
+   + VIDEO POS 8 & POS 9
 
    ASET:
    ./assets/pos1.jpeg
@@ -14,9 +17,6 @@
    ./assets/pos8.jpeg
    ./assets/pos9.jpeg
    ./assets/pos10.jpeg
-
-   GOOGLE SHEETS:
-   Hanya untuk mencatat hasil_game.
 ========================================================= */
 
 
@@ -24,12 +24,9 @@
    KONFIGURASI
 ========================================================= */
 
-const ASSET_FOLDER = "./assets/";
+const ASSET_FOLDER =
+    "./assets/";
 
-
-/*
-   URL WEB APP GOOGLE APPS SCRIPT
-*/
 
 const REPORT_API_URL =
     "https://script.google.com/macros/s/AKfycbwlzVK06_kfSbd_EOVEk_y3d_hKK58ftK7MZPXK6tENMExxKACxn-IEYajBnVkulej_/exec";
@@ -61,6 +58,7 @@ const POS_IMAGES = {
 
 const POS_DATA = {
 
+
     /* =====================================================
        POS 1
     ===================================================== */
@@ -82,6 +80,7 @@ const POS_DATA = {
         questions: [
 
             {
+
                 question:
                     `Penggunaan plastik sekali pakai perlu dikurangi di lingkungan sekolah. Plastik membutuhkan waktu yang sangat lama untuk terurai. Selain mencemari tanah, sampah plastik juga dapat menyumbat saluran air. Oleh sebab itu, siswa sebaiknya membawa botol minum dan tempat makan yang dapat digunakan berulang kali.
 
@@ -100,10 +99,12 @@ Jenis paragraf tersebut adalah ....`,
 
                 explanation:
                     "Paragraf tersebut bersifat deduktif karena gagasan utama terdapat pada awal paragraf."
+
             },
 
 
             {
+
                 question:
                     `Setiap pagi, petugas kebersihan membersihkan halaman sekolah. Siswa juga melaksanakan piket sesuai jadwal. Tempat sampah tersedia di berbagai sudut sekolah. Guru mengingatkan siswa agar tidak membuang sampah sembarangan. Dengan demikian, kebersihan sekolah dapat terwujud melalui kerja sama seluruh warga sekolah.
 
@@ -122,10 +123,12 @@ Jenis paragraf tersebut adalah ....`,
 
                 explanation:
                     "Paragraf tersebut induktif karena gagasan utama berada pada akhir paragraf."
+
             },
 
 
             {
+
                 question:
                     `Membaca buku memberikan banyak manfaat bagi pelajar. Dengan membaca, siswa dapat memperoleh informasi baru dan memperluas pengetahuan. Membaca juga dapat meningkatkan kemampuan memahami berbagai jenis teks. Selain itu, kebiasaan membaca dapat memperkaya kosakata. Oleh karena itu, membaca buku secara rutin merupakan kebiasaan penting bagi pelajar.
 
@@ -144,6 +147,7 @@ Berdasarkan letak dan hubungan gagasan utamanya, paragraf tersebut termasuk ....
 
                 explanation:
                     "Paragraf campuran memiliki gagasan utama di awal yang kemudian ditegaskan kembali pada akhir paragraf."
+
             }
 
         ],
@@ -175,6 +179,7 @@ Berdasarkan letak dan hubungan gagasan utamanya, paragraf tersebut termasuk ....
         questions: [
 
             {
+
                 question:
                     `Jika kalimat-kalimat berikut disusun menjadi paragraf yang padu:
 
@@ -199,10 +204,12 @@ Jenis paragraf yang terbentuk adalah ....`,
 
                 explanation:
                     "Gagasan utama ditegaskan pada bagian akhir dengan kalimat 'Oleh karena itu', sehingga paragraf tersebut bersifat induktif."
+
             },
 
 
             {
+
                 question:
                     `Siswa kelas XI mengikuti lomba karya ilmiah.
 
@@ -221,6 +228,7 @@ Fungsi "Siswa kelas XI" dalam kalimat tersebut adalah ....`,
 
                 explanation:
                     "Siswa kelas XI merupakan pihak yang melakukan tindakan mengikuti lomba, sehingga berfungsi sebagai subjek."
+
             }
 
         ],
@@ -252,6 +260,7 @@ Fungsi "Siswa kelas XI" dalam kalimat tersebut adalah ....`,
         questions: [
 
             {
+
                 question:
                     `Rani membaca novel di perpustakaan.
 
@@ -270,10 +279,12 @@ Fungsi kata "novel" adalah ....`,
 
                 explanation:
                     "Novel merupakan benda yang dikenai tindakan membaca sehingga berfungsi sebagai objek."
+
             },
 
 
             {
+
                 question:
                     `Ayah menjadi ketua panitia kegiatan sekolah.
 
@@ -292,10 +303,12 @@ Fungsi "ketua panitia kegiatan sekolah" adalah ....`,
 
                 explanation:
                     "Bagian tersebut melengkapi predikat 'menjadi', sehingga berfungsi sebagai pelengkap."
+
             },
 
 
             {
+
                 question:
                     `Guru memberikan penghargaan kepada siswa berprestasi di aula sekolah.
 
@@ -314,6 +327,7 @@ Analisis fungsi unsur-unsur kalimat yang tepat adalah ....`,
 
                 explanation:
                     "Guru adalah subjek, memberikan adalah predikat, penghargaan adalah objek, sedangkan kepada siswa berprestasi dan di aula sekolah berfungsi sebagai keterangan."
+
             }
 
         ],
@@ -345,6 +359,7 @@ Analisis fungsi unsur-unsur kalimat yang tepat adalah ....`,
         questions: [
 
             {
+
                 question:
                     `Rina membaca buku.
 
@@ -365,10 +380,12 @@ Pernyataan yang paling tepat adalah ....`,
 
                 explanation:
                     "Pada kalimat aktif, buku menjadi objek. Setelah dipasifkan, buku berubah menjadi subjek."
+
             },
 
 
             {
+
                 question:
                     "Kata yang termasuk verba adalah ....",
 
@@ -385,10 +402,12 @@ Pernyataan yang paling tepat adalah ....`,
 
                 explanation:
                     "Membaca merupakan kata kerja atau verba."
+
             },
 
 
             {
+
                 question:
                     `Kata "sangat" dalam kalimat berikut termasuk kelas kata ....
 
@@ -407,6 +426,7 @@ Lingkungan sekolah itu sangat bersih.`,
 
                 explanation:
                     "Sangat merupakan adverbia yang menerangkan tingkat sifat 'bersih'."
+
             }
 
         ],
@@ -438,6 +458,7 @@ Lingkungan sekolah itu sangat bersih.`,
         questions: [
 
             {
+
                 question:
                     "Kata yang termasuk pronomina persona orang ketiga adalah ....",
 
@@ -454,10 +475,12 @@ Lingkungan sekolah itu sangat bersih.`,
 
                 explanation:
                     "Mereka merupakan pronomina persona orang ketiga."
+
             },
 
 
             {
+
                 question:
                     `Kata "dan" dalam kalimat berikut termasuk ....
 
@@ -476,10 +499,12 @@ Rina dan Sinta mengikuti kegiatan literasi.`,
 
                 explanation:
                     "Dan merupakan kata penghubung atau konjungsi."
+
             },
 
 
             {
+
                 question:
                     `Beberapa siswa sedang membaca tiga buku baru di perpustakaan.
 
@@ -498,6 +523,7 @@ Kata yang termasuk numeralia dan verba secara berturut-turut adalah ....`,
 
                 explanation:
                     "Tiga merupakan numeralia, sedangkan membaca merupakan verba."
+
             }
 
         ],
@@ -529,6 +555,7 @@ Kata yang termasuk numeralia dan verba secara berturut-turut adalah ....`,
         questions: [
 
             {
+
                 question:
                     "Kelompok kata berikut yang merupakan frasa nominal adalah ....",
 
@@ -545,10 +572,12 @@ Kata yang termasuk numeralia dan verba secara berturut-turut adalah ....`,
 
                 explanation:
                     "Rumah besar merupakan frasa nominal dengan inti berupa nomina 'rumah'."
+
             },
 
 
             {
+
                 question:
                     `Kelompok kata "sangat rajin" termasuk frasa ....`,
 
@@ -565,10 +594,12 @@ Kata yang termasuk numeralia dan verba secara berturut-turut adalah ....`,
 
                 explanation:
                     "Sangat rajin merupakan frasa adjektival karena inti frasanya adalah kata sifat 'rajin'."
+
             },
 
 
             {
+
                 question:
                     "Kelompok kata berikut yang merupakan frasa preposisional adalah ....",
 
@@ -585,10 +616,12 @@ Kata yang termasuk numeralia dan verba secara berturut-turut adalah ....`,
 
                 explanation:
                     "Di perpustakaan merupakan frasa preposisional karena diawali preposisi 'di'."
+
             },
 
 
             {
+
                 question:
                     `Para siswa sedang mengerjakan tugas kelompok di ruang kelas.
 
@@ -607,6 +640,7 @@ Analisis yang tepat terhadap kelompok kata "sedang mengerjakan" adalah ....`,
 
                 explanation:
                     "Sedang mengerjakan merupakan frasa verbal karena inti frasa tersebut adalah verba 'mengerjakan'."
+
             }
 
         ],
@@ -638,6 +672,7 @@ Analisis yang tepat terhadap kelompok kata "sedang mengerjakan" adalah ....`,
         questions: [
 
             {
+
                 question:
                     `Tiga siswa yang sangat rajin sedang membaca buku pelajaran di perpustakaan.
 
@@ -656,10 +691,12 @@ Pernyataan yang paling tepat adalah ....`,
 
                 explanation:
                     "Sedang membaca merupakan frasa verbal karena inti frasanya berupa verba 'membaca'."
+
             },
 
 
             {
+
                 question:
                     `Menjaga kesehatan tubuh merupakan tanggung jawab setiap individu. Olahraga secara teratur dapat meningkatkan kebugaran tubuh. Mengonsumsi makanan bergizi membantu memenuhi kebutuhan nutrisi. Istirahat yang cukup juga membuat tubuh memiliki waktu untuk memulihkan diri. Dengan demikian, kebiasaan hidup sehat perlu diterapkan secara konsisten dalam kehidupan sehari-hari.
 
@@ -678,6 +715,7 @@ Berdasarkan struktur paragraf dan unsur kebahasaannya, pernyataan yang tepat ada
 
                 explanation:
                     "Gagasan utama muncul di awal dan ditegaskan kembali di akhir sehingga paragraf tersebut campuran. 'Kebiasaan hidup sehat' merupakan frasa nominal."
+
             }
 
         ],
@@ -719,6 +757,8 @@ Setelah itu, semua anggota harus menjawab:
 
 Lakukan sekali dengan penuh semangat.
 
+🎥 Rekam video tantangan ini sebagai bukti.
+
 Kalian memiliki waktu 5 menit sebelum sistem mengembalikan kalian ke POS 1.`
 
     },
@@ -756,6 +796,8 @@ Setelah semua anggota selesai, ketua tim harus berkata:
 "KAMI TAHU JALANNYA!"
 
 Padahal sebenarnya kalian sedang berada di JALAN BUNTU. 🤣
+
+🎥 Rekam video tantangan ini sebagai bukti.
 
 Setelah itu tunggu sampai waktu habis atau tekan tombol kembali ke POS 1.`
 
@@ -877,7 +919,33 @@ const gameState = {
         false,
 
     resultSent:
-        false
+        false,
+
+
+    /* =====================================================
+       VIDEO STATE
+    ===================================================== */
+
+    mediaStream:
+        null,
+
+    mediaRecorder:
+        null,
+
+    recordedChunks:
+        [],
+
+    recordedVideoBlob:
+        null,
+
+    recordedVideoUrl:
+        null,
+
+    recording:
+        false,
+
+    recordingPos:
+        null
 
 };
 
@@ -1025,6 +1093,35 @@ const returnFromDeadEndButton =
     $("returnFromDeadEndButton");
 
 
+/* =========================================================
+   VIDEO ELEMENT
+========================================================= */
+
+const videoChallengeArea =
+    $("videoChallengeArea");
+
+const cameraPreview =
+    $("cameraPreview");
+
+const cameraPlaceholder =
+    $("cameraPlaceholder");
+
+const recordedVideo =
+    $("recordedVideo");
+
+const recordingStatus =
+    $("recordingStatus");
+
+const startRecordingButton =
+    $("startRecordingButton");
+
+const stopRecordingButton =
+    $("stopRecordingButton");
+
+const downloadVideoButton =
+    $("downloadVideoButton");
+
+
 const finishLeader =
     $("finishLeader");
 
@@ -1065,6 +1162,10 @@ const toastIcon =
 
 const toastMessage =
     $("toastMessage");
+
+
+const restartButton =
+    $("restartButton");
 
 
 /* =========================================================
@@ -1379,6 +1480,9 @@ function resetState() {
     );
 
 
+    resetVideoRecorder();
+
+
     gameState.currentPos =
         1;
 
@@ -1463,7 +1567,9 @@ function startMainTimer() {
                 if (
                     !gameState.startTime
                 ) {
+
                     return;
+
                 }
 
 
@@ -1524,6 +1630,9 @@ function loadPosition(
         false;
 
 
+    resetVideoRecorder();
+
+
     if (
         pos.deadEnd
     ) {
@@ -1557,6 +1666,11 @@ function loadCorrectPosition(
 
 
     stopDeadEndTimer();
+
+
+    videoChallengeArea.classList.add(
+        "hidden"
+    );
 
 
     posTitle.textContent =
@@ -2368,6 +2482,9 @@ function loadDeadEnd(
     }
 
 
+    resetVideoRecorder();
+
+
     secretArea.classList.add(
         "hidden"
     );
@@ -2444,6 +2561,30 @@ function loadDeadEnd(
 
     deadEndInstruction.textContent =
         pos.instruction;
+
+
+    /* =====================================================
+       VIDEO HANYA POS 8 DAN POS 9
+    ===================================================== */
+
+    if (
+        positionNumber === 8 ||
+        positionNumber === 9
+    ) {
+
+        videoChallengeArea.classList.remove(
+            "hidden"
+        );
+
+    }
+
+    else {
+
+        videoChallengeArea.classList.add(
+            "hidden"
+        );
+
+    }
 
 
     startDeadEndTimer();
@@ -2592,11 +2733,19 @@ function returnToPos1(
     stopDeadEndTimer();
 
 
+    /*
+       Pastikan kamera dan recorder
+       dimatikan sebelum kembali.
+    */
+
+    resetVideoRecorder();
+
+
     if (automatic) {
 
         showModal(
             "⏰ Waktu Habis!",
-            "Kalian belum menemukan pesan. Saatnya kembali ke POS 1 dan mencoba perjalanan lagi dengan lebih teliti!",
+            "Kalian belum menyelesaikan tantangan. Saatnya kembali ke POS 1 dan mencoba perjalanan lagi dengan lebih teliti!",
             "😂"
         );
 
@@ -2660,6 +2809,831 @@ function updateProgress(
 
 
 /* =========================================================
+   VIDEO RECORDING
+========================================================= */
+
+startRecordingButton.addEventListener(
+    "click",
+    startVideoRecording
+);
+
+
+stopRecordingButton.addEventListener(
+    "click",
+    stopVideoRecording
+);
+
+
+downloadVideoButton.addEventListener(
+    "click",
+    saveRecordedVideo
+);
+
+
+/* =========================================================
+   MULAI REKAM
+========================================================= */
+
+async function startVideoRecording() {
+
+    if (
+        gameState.recording
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        gameState.currentPos !== 8 &&
+        gameState.currentPos !== 9
+    ) {
+
+        showToast(
+            "Perekaman hanya tersedia di Pos 8 dan Pos 9.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if (
+        !navigator.mediaDevices ||
+        !navigator.mediaDevices.getUserMedia
+    ) {
+
+        showModal(
+            "Kamera Tidak Tersedia",
+            "Browser atau perangkat ini tidak mendukung akses kamera.",
+            "📵"
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        const stream =
+            await navigator.mediaDevices.getUserMedia({
+
+                video: {
+
+                    facingMode:
+                        "environment",
+
+                    width: {
+                        ideal: 1280
+                    },
+
+                    height: {
+                        ideal: 720
+                    }
+
+                },
+
+                audio:
+                    true
+
+            });
+
+
+        gameState.mediaStream =
+            stream;
+
+
+        gameState.recordedChunks =
+            [];
+
+
+        gameState.recordedVideoBlob =
+            null;
+
+
+        gameState.recordingPos =
+            gameState.currentPos;
+
+
+        let mimeType =
+            "";
+
+
+        const supportedTypes = [
+
+            "video/webm;codecs=vp9,opus",
+
+            "video/webm;codecs=vp8,opus",
+
+            "video/webm"
+
+        ];
+
+
+        if (
+            typeof MediaRecorder !==
+            "undefined"
+        ) {
+
+            for (
+                const type of supportedTypes
+            ) {
+
+                if (
+                    MediaRecorder.isTypeSupported(
+                        type
+                    )
+                ) {
+
+                    mimeType =
+                        type;
+
+                    break;
+
+                }
+
+            }
+
+        }
+
+
+        if (
+            typeof MediaRecorder ===
+            "undefined"
+        ) {
+
+            stopCamera();
+
+
+            showModal(
+                "Perekaman Tidak Didukung",
+                "Browser ini tidak mendukung fitur perekaman video. Silakan gunakan Chrome atau browser modern lainnya.",
+                "📹"
+            );
+
+
+            return;
+
+        }
+
+
+        gameState.mediaRecorder =
+            mimeType
+
+                ? new MediaRecorder(
+                    stream,
+                    {
+                        mimeType:
+                            mimeType
+                    }
+                )
+
+                : new MediaRecorder(
+                    stream
+                );
+
+
+        gameState.mediaRecorder.ondataavailable =
+            event => {
+
+                if (
+                    event.data &&
+                    event.data.size > 0
+                ) {
+
+                    gameState.recordedChunks.push(
+                        event.data
+                    );
+
+                }
+
+            };
+
+
+        gameState.mediaRecorder.onstop =
+            finishVideoRecording;
+
+
+        gameState.mediaRecorder.onerror =
+            event => {
+
+                console.error(
+                    "MediaRecorder error:",
+                    event
+                );
+
+
+                showToast(
+                    "Terjadi masalah saat merekam video.",
+                    "error"
+                );
+
+            };
+
+
+        cameraPreview.srcObject =
+            stream;
+
+
+        cameraPreview.classList.remove(
+            "hidden"
+        );
+
+
+        cameraPlaceholder.classList.add(
+            "hidden"
+        );
+
+
+        recordedVideo.classList.add(
+            "hidden"
+        );
+
+
+        downloadVideoButton.classList.add(
+            "hidden"
+        );
+
+
+        recordingStatus.textContent =
+            "🔴 Sedang merekam video...";
+
+
+        recordingStatus.classList.add(
+            "recording"
+        );
+
+
+        startRecordingButton.classList.add(
+            "hidden"
+        );
+
+
+        stopRecordingButton.classList.remove(
+            "hidden"
+        );
+
+
+        gameState.recording =
+            true;
+
+
+        gameState.mediaRecorder.start(
+            1000
+        );
+
+
+        showToast(
+            "Perekaman video dimulai.",
+            "success"
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Gagal mengakses kamera:",
+            error
+        );
+
+
+        stopCamera();
+
+
+        gameState.recording =
+            false;
+
+
+        showModal(
+            "Kamera Tidak Diizinkan",
+            "Akses kamera dan mikrofon diperlukan untuk merekam video. Silakan izinkan akses kamera dan mikrofon pada browser kemudian coba lagi.",
+            "📷"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   STOP REKAM
+========================================================= */
+
+function stopVideoRecording() {
+
+    if (
+        !gameState.mediaRecorder ||
+        !gameState.recording
+    ) {
+
+        return;
+
+    }
+
+
+    gameState.recording =
+        false;
+
+
+    recordingStatus.textContent =
+        "⏳ Menyelesaikan rekaman...";
+
+
+    recordingStatus.classList.remove(
+        "recording"
+    );
+
+
+    stopRecordingButton.classList.add(
+        "hidden"
+    );
+
+
+    try {
+
+        if (
+            gameState.mediaRecorder.state !==
+            "inactive"
+        ) {
+
+            gameState.mediaRecorder.stop();
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Gagal menghentikan recorder:",
+            error
+        );
+
+
+        finishVideoRecording();
+
+    }
+
+}
+
+
+/* =========================================================
+   SELESAI REKAM
+========================================================= */
+
+function finishVideoRecording() {
+
+    const recorder =
+        gameState.mediaRecorder;
+
+
+    if (!recorder) {
+
+        return;
+
+    }
+
+
+    const mimeType =
+        recorder.mimeType ||
+        "video/webm";
+
+
+    if (
+        gameState.recordedChunks.length ===
+        0
+    ) {
+
+        stopCamera();
+
+
+        startRecordingButton.classList.remove(
+            "hidden"
+        );
+
+
+        recordingStatus.textContent =
+            "⚠️ Rekaman kosong. Silakan coba lagi.";
+
+
+        return;
+
+    }
+
+
+    gameState.recordedVideoBlob =
+        new Blob(
+            gameState.recordedChunks,
+            {
+                type:
+                    mimeType
+            }
+        );
+
+
+    if (
+        gameState.recordedVideoUrl
+    ) {
+
+        URL.revokeObjectURL(
+            gameState.recordedVideoUrl
+        );
+
+    }
+
+
+    gameState.recordedVideoUrl =
+        URL.createObjectURL(
+            gameState.recordedVideoBlob
+        );
+
+
+    recordedVideo.src =
+        gameState.recordedVideoUrl;
+
+
+    recordedVideo.load();
+
+
+    recordedVideo.classList.remove(
+        "hidden"
+    );
+
+
+    downloadVideoButton.classList.remove(
+        "hidden"
+    );
+
+
+    startRecordingButton.classList.remove(
+        "hidden"
+    );
+
+
+    recordingStatus.textContent =
+        "✅ Video berhasil direkam. Putar kembali atau simpan video.";
+
+
+    stopCamera();
+
+
+    gameState.mediaRecorder =
+        null;
+
+
+    showToast(
+        "Video tantangan berhasil direkam.",
+        "success"
+    );
+
+}
+
+
+/* =========================================================
+   STOP CAMERA
+========================================================= */
+
+function stopCamera() {
+
+    if (
+        gameState.mediaStream
+    ) {
+
+        gameState.mediaStream
+            .getTracks()
+            .forEach(
+                track => {
+
+                    try {
+
+                        track.stop();
+
+                    }
+
+                    catch (error) {
+
+                        console.warn(
+                            "Gagal menghentikan track:",
+                            error
+                        );
+
+                    }
+
+                }
+            );
+
+    }
+
+
+    gameState.mediaStream =
+        null;
+
+
+    if (
+        cameraPreview
+    ) {
+
+        cameraPreview.srcObject =
+            null;
+
+    }
+
+}
+
+
+/* =========================================================
+   SIMPAN VIDEO
+========================================================= */
+
+function saveRecordedVideo() {
+
+    if (
+        !gameState.recordedVideoBlob ||
+        !gameState.recordedVideoUrl
+    ) {
+
+        showToast(
+            "Belum ada video yang dapat disimpan.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const position =
+        gameState.recordingPos ||
+        gameState.currentPos;
+
+
+    const leader =
+        sanitizeFileName(
+            gameState.leader ||
+            "Tim"
+        );
+
+
+    const now =
+        new Date();
+
+
+    const date =
+        now.getFullYear() +
+        "-" +
+        String(
+            now.getMonth() + 1
+        ).padStart(
+            2,
+            "0"
+        ) +
+        "-" +
+        String(
+            now.getDate()
+        ).padStart(
+            2,
+            "0"
+        ) +
+        "-" +
+        String(
+            now.getHours()
+        ).padStart(
+            2,
+            "0"
+        ) +
+        "-" +
+        String(
+            now.getMinutes()
+        ).padStart(
+            2,
+            "0"
+        ) +
+        "-" +
+        String(
+            now.getSeconds()
+        ).padStart(
+            2,
+            "0"
+        );
+
+
+    const fileName =
+        `Jelajah_Sekolah_Pos_${position}_${leader}_${date}.webm`;
+
+
+    const link =
+        document.createElement(
+            "a"
+        );
+
+
+    link.href =
+        gameState.recordedVideoUrl;
+
+
+    link.download =
+        fileName;
+
+
+    link.style.display =
+        "none";
+
+
+    document.body.appendChild(
+        link
+    );
+
+
+    link.click();
+
+
+    document.body.removeChild(
+        link
+    );
+
+
+    showToast(
+        "Video disimpan ke perangkat.",
+        "success"
+    );
+
+}
+
+
+/* =========================================================
+   SANITIZE NAMA FILE
+========================================================= */
+
+function sanitizeFileName(
+    value
+) {
+
+    return String(value)
+
+        .replace(
+            /[<>:"/\\|?*]+/g,
+            "_"
+        )
+
+        .replace(
+            /\s+/g,
+            "_"
+        )
+
+        .substring(
+            0,
+            50
+        );
+
+}
+
+
+/* =========================================================
+   RESET VIDEO
+========================================================= */
+
+function resetVideoRecorder() {
+
+    /*
+       Hentikan recorder jika sedang aktif.
+    */
+
+    if (
+        gameState.mediaRecorder
+    ) {
+
+        try {
+
+            if (
+                gameState.mediaRecorder.state !==
+                "inactive"
+            ) {
+
+                gameState.mediaRecorder.stop();
+
+            }
+
+        }
+
+        catch (error) {
+
+            console.warn(
+                "Recorder sudah tidak aktif:",
+                error
+            );
+
+        }
+
+    }
+
+
+    stopCamera();
+
+
+    /*
+       Hapus URL object lama.
+    */
+
+    if (
+        gameState.recordedVideoUrl
+    ) {
+
+        try {
+
+            URL.revokeObjectURL(
+                gameState.recordedVideoUrl
+            );
+
+        }
+
+        catch (error) {
+
+            console.warn(
+                error
+            );
+
+        }
+
+    }
+
+
+    gameState.mediaRecorder =
+        null;
+
+    gameState.recordedChunks =
+        [];
+
+    gameState.recordedVideoBlob =
+        null;
+
+    gameState.recordedVideoUrl =
+        null;
+
+    gameState.recording =
+        false;
+
+    gameState.recordingPos =
+        null;
+
+
+    /*
+       Reset tampilan kamera.
+    */
+
+    cameraPreview.classList.add(
+        "hidden"
+    );
+
+
+    cameraPlaceholder.classList.remove(
+        "hidden"
+    );
+
+
+    recordedVideo.classList.add(
+        "hidden"
+    );
+
+
+    recordedVideo.removeAttribute(
+        "src"
+    );
+
+
+    recordedVideo.load();
+
+
+    downloadVideoButton.classList.add(
+        "hidden"
+    );
+
+
+    stopRecordingButton.classList.add(
+        "hidden"
+    );
+
+
+    startRecordingButton.classList.remove(
+        "hidden"
+    );
+
+
+    recordingStatus.classList.remove(
+        "recording"
+    );
+
+
+    recordingStatus.textContent =
+        "Belum ada rekaman.";
+
+}
+
+
+/* =========================================================
    KIRIM HASIL GAME KE GOOGLE SHEETS
 ========================================================= */
 
@@ -2685,8 +3659,6 @@ async function sendGameResult() {
 
     /*
        Tandai terlebih dahulu.
-       Ini mencegah pengiriman ganda
-       akibat klik berulang.
     */
 
     gameState.resultSent =
@@ -2787,16 +3759,9 @@ async function sendGameResult() {
             "✓ Laporan hasil game berhasil dikirim."
         );
 
-
     }
 
     catch (error) {
-
-        /*
-           Game tetap selesai meskipun
-           pengiriman laporan mengalami
-           masalah koneksi.
-        */
 
         console.error(
             "Gagal mengirim laporan:",
@@ -2820,6 +3785,9 @@ function finishGame() {
     clearInterval(
         gameState.mainTimer
     );
+
+
+    resetVideoRecorder();
 
 
     /*
@@ -2874,11 +3842,6 @@ function finishGame() {
     );
 
 
-    /*
-       Kirim laporan otomatis
-       ke Google Sheets.
-    */
-
     sendGameResult();
 
 }
@@ -2900,6 +3863,44 @@ restartButton.addEventListener(
         clearInterval(
             gameState.deadEndTimer
         );
+
+
+        resetVideoRecorder();
+
+
+        /*
+           Bersihkan data tim
+           agar permainan berikutnya
+           dimulai dari awal.
+        */
+
+        gameState.leader =
+            "";
+
+        gameState.members =
+            [];
+
+
+        leaderName.value =
+            "";
+
+
+        memberInputs.forEach(
+            input => {
+
+                input.value =
+                    "";
+
+            }
+        );
+
+
+        teamNameDisplay.textContent =
+            "-";
+
+
+        timerDisplay.textContent =
+            "00:00";
 
 
         showScreen(
@@ -2965,17 +3966,26 @@ function formatElapsedTime(
         return (
 
             String(hours)
-                .padStart(2, "0") +
+                .padStart(
+                    2,
+                    "0"
+                ) +
 
             ":" +
 
             String(minutes)
-                .padStart(2, "0") +
+                .padStart(
+                    2,
+                    "0"
+                ) +
 
             ":" +
 
             String(seconds)
-                .padStart(2, "0")
+                .padStart(
+                    2,
+                    "0"
+                )
 
         );
 
@@ -2985,12 +3995,18 @@ function formatElapsedTime(
     return (
 
         String(minutes)
-            .padStart(2, "0") +
+            .padStart(
+                2,
+                "0"
+            ) +
 
         ":" +
 
         String(seconds)
-            .padStart(2, "0")
+            .padStart(
+                2,
+                "0"
+            )
 
     );
 
@@ -3018,12 +4034,18 @@ function formatCountdown(
     return (
 
         String(minutes)
-            .padStart(2, "0") +
+            .padStart(
+                2,
+                "0"
+            ) +
 
         ":" +
 
         String(secs)
-            .padStart(2, "0")
+            .padStart(
+                2,
+                "0"
+            )
 
     );
 
@@ -3212,6 +4234,14 @@ document.addEventListener(
         );
 
 
+        /*
+           Pastikan area video
+           dalam keadaan bersih saat awal.
+        */
+
+        resetVideoRecorder();
+
+
         console.log(
             "=================================="
         );
@@ -3229,6 +4259,11 @@ document.addEventListener(
 
         console.log(
             "GOOGLE SHEETS REPORTING AKTIF"
+        );
+
+
+        console.log(
+            "VIDEO POS 8 & POS 9 AKTIF"
         );
 
 
