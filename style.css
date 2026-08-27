@@ -41,9 +41,11 @@ body {
             #ecfeff
         );
 
-    color: var(--dark);
+    color:
+        var(--dark);
 
-    min-height: 100vh;
+    min-height:
+        100vh;
 }
 
 
@@ -59,7 +61,8 @@ button {
 
 
 .hidden {
-    display: none !important;
+    display:
+        none !important;
 }
 
 
@@ -69,9 +72,11 @@ button {
 
 .screen {
 
-    display: none;
+    display:
+        none;
 
-    min-height: 100vh;
+    min-height:
+        100vh;
 
     padding:
         25px 16px;
@@ -79,11 +84,15 @@ button {
 
 
 .screen.active {
-    display: flex;
 
-    align-items: center;
+    display:
+        flex;
 
-    justify-content: center;
+    align-items:
+        center;
+
+    justify-content:
+        center;
 }
 
 
@@ -93,8 +102,11 @@ button {
 
 .hero-card {
 
-    width: 100%;
-    max-width: 600px;
+    width:
+        100%;
+
+    max-width:
+        600px;
 
     background:
         rgba(255,255,255,.96);
@@ -105,7 +117,8 @@ button {
     padding:
         38px 25px;
 
-    text-align: center;
+    text-align:
+        center;
 
     box-shadow:
         0 20px 60px
@@ -115,45 +128,54 @@ button {
 
 .hero-icon {
 
-    font-size: 70px;
+    font-size:
+        70px;
 
-    margin-bottom: 15px;
+    margin-bottom:
+        15px;
 }
 
 
 .hero-card h1 {
 
-    font-size: 36px;
+    font-size:
+        36px;
 
     color:
         var(--primary);
 
-    margin-bottom: 8px;
+    margin-bottom:
+        8px;
 }
 
 
 .hero-card h2 {
 
-    font-size: 20px;
+    font-size:
+        20px;
 
-    margin-bottom: 18px;
+    margin-bottom:
+        18px;
 }
 
 
 .hero-card p {
 
-    line-height: 1.7;
+    line-height:
+        1.7;
 
     color:
         var(--gray);
 
-    margin-bottom: 25px;
+    margin-bottom:
+        25px;
 }
 
 
 .rule-box {
 
-    text-align: left;
+    text-align:
+        left;
 
     background:
         #f8fafc;
@@ -161,11 +183,14 @@ button {
     border-radius:
         18px;
 
-    padding: 18px;
+    padding:
+        18px;
 
-    margin-bottom: 25px;
+    margin-bottom:
+        25px;
 
-    line-height: 2;
+    line-height:
+        2;
 }
 
 
@@ -175,9 +200,11 @@ button {
 
 .game-card {
 
-    width: 100%;
+    width:
+        100%;
 
-    max-width: 600px;
+    max-width:
+        600px;
 
     background:
         var(--white);
@@ -185,7 +212,8 @@ button {
     border-radius:
         var(--radius);
 
-    padding: 30px 22px;
+    padding:
+        30px 22px;
 
     box-shadow:
         0 20px 60px
@@ -195,31 +223,40 @@ button {
 
 .section-icon {
 
-    text-align: center;
+    text-align:
+        center;
 
-    font-size: 55px;
+    font-size:
+        55px;
 
-    margin-bottom: 10px;
+    margin-bottom:
+        10px;
 }
 
 
 .game-card h1 {
 
-    text-align: center;
+    text-align:
+        center;
 
-    font-size: 28px;
+    font-size:
+        28px;
 
-    margin-bottom: 5px;
+    margin-bottom:
+        5px;
 }
 
 
 .subtitle {
 
-    text-align: center;
+    text-align:
+        center;
 
-    color: var(--gray);
+    color:
+        var(--gray);
 
-    margin-bottom: 25px;
+    margin-bottom:
+        25px;
 }
 
 
@@ -229,24 +266,29 @@ button {
 
 .input-group {
 
-    margin-bottom: 16px;
+    margin-bottom:
+        16px;
 }
 
 
 .input-group label {
 
-    display: block;
+    display:
+        block;
 
-    font-weight: 700;
+    font-weight:
+        700;
 
-    margin-bottom: 7px;
+    margin-bottom:
+        7px;
 }
 
 
 .input-group input,
 .secret-row input {
 
-    width: 100%;
+    width:
+        100%;
 
     padding:
         14px 15px;
@@ -257,7 +299,8 @@ button {
     border-radius:
         13px;
 
-    outline: none;
+    outline:
+        none;
 
     transition:
         .2s;
@@ -278,7 +321,8 @@ button {
 
 .members-title {
 
-    font-weight: 800;
+    font-weight:
+        800;
 
     margin:
         20px 0 15px;
@@ -290,9 +334,11 @@ button {
 ===================================================== */
 
 .primary-button,
-.secondary-button {
+.secondary-button,
+.save-video-button {
 
-    border: none;
+    border:
+        none;
 
     border-radius:
         14px;
@@ -303,7 +349,8 @@ button {
     font-weight:
         800;
 
-    width: 100%;
+    width:
+        100%;
 
     transition:
         transform .15s,
@@ -339,8 +386,23 @@ button {
 }
 
 
+.save-video-button {
+
+    color:
+        white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #15803d,
+            #22c55e
+        );
+}
+
+
 .primary-button:hover,
-.secondary-button:hover {
+.secondary-button:hover,
+.save-video-button:hover {
 
     transform:
         translateY(-2px);
@@ -348,7 +410,8 @@ button {
 
 
 .primary-button:disabled,
-.secondary-button:disabled {
+.secondary-button:disabled,
+.save-video-button:disabled {
 
     opacity:
         .45;
@@ -374,15 +437,20 @@ button {
 
 .instruction-item {
 
-    display: flex;
+    display:
+        flex;
 
-    gap: 13px;
+    gap:
+        13px;
 
-    align-items: flex-start;
+    align-items:
+        flex-start;
 
-    margin-bottom: 15px;
+    margin-bottom:
+        15px;
 
-    line-height: 1.5;
+    line-height:
+        1.5;
 }
 
 
@@ -403,11 +471,14 @@ button {
     color:
         white;
 
-    display: flex;
+    display:
+        flex;
 
-    align-items: center;
+    align-items:
+        center;
 
-    justify-content: center;
+    justify-content:
+        center;
 
     font-weight:
         800;
@@ -448,13 +519,17 @@ button {
     position:
         sticky;
 
-    top: 0;
+    top:
+        0;
 
-    z-index: 20;
+    z-index:
+        20;
 
-    width: 100%;
+    width:
+        100%;
 
-    display: flex;
+    display:
+        flex;
 
     justify-content:
         space-between;
@@ -462,7 +537,8 @@ button {
     align-items:
         center;
 
-    gap: 10px;
+    gap:
+        10px;
 
     padding:
         13px 16px;
@@ -535,7 +611,8 @@ button {
 
 .game-container {
 
-    width: 100%;
+    width:
+        100%;
 
     max-width:
         700px;
@@ -1134,6 +1211,10 @@ button {
 }
 
 
+/* =====================================================
+   DEAD END TIMER
+===================================================== */
+
 .dead-end-timer-label {
 
     font-size:
@@ -1144,6 +1225,9 @@ button {
 
     font-weight:
         800;
+
+    margin-top:
+        18px;
 }
 
 
@@ -1173,10 +1257,254 @@ button {
 @keyframes blink {
 
     50% {
+
         opacity:
             .35;
+
     }
 
+}
+
+
+/* =====================================================
+   VIDEO CHALLENGE
+===================================================== */
+
+.video-challenge-area {
+
+    margin:
+        20px 0;
+
+    padding:
+        18px;
+
+    background:
+        rgba(255,255,255,.82);
+
+    border:
+        2px dashed #cbd5e1;
+
+    border-radius:
+        18px;
+}
+
+
+.video-title {
+
+    font-size:
+        18px;
+
+    font-weight:
+        900;
+
+    margin-bottom:
+        8px;
+}
+
+
+.video-description {
+
+    font-size:
+        14px;
+
+    color:
+        var(--gray);
+
+    line-height:
+        1.55;
+
+    margin-bottom:
+        14px;
+}
+
+
+/* =====================================================
+   CAMERA
+===================================================== */
+
+.camera-box {
+
+    width:
+        100%;
+
+    border-radius:
+        16px;
+
+    overflow:
+        hidden;
+
+    background:
+        #0f172a;
+
+    margin-bottom:
+        12px;
+}
+
+
+.camera-preview {
+
+    display:
+        block;
+
+    width:
+        100%;
+
+    height:
+        360px;
+
+    object-fit:
+        cover;
+
+    background:
+        #0f172a;
+}
+
+
+.camera-placeholder {
+
+    width:
+        100%;
+
+    min-height:
+        220px;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        8px;
+
+    color:
+        #cbd5e1;
+
+    font-size:
+        55px;
+}
+
+
+.camera-placeholder span {
+
+    font-size:
+        14px;
+
+    font-weight:
+        700;
+}
+
+
+/* =====================================================
+   RECORDED VIDEO
+===================================================== */
+
+.recorded-video {
+
+    display:
+        block;
+
+    width:
+        100%;
+
+    max-height:
+        400px;
+
+    background:
+        #0f172a;
+
+    border-radius:
+        16px;
+
+    margin-bottom:
+        12px;
+}
+
+
+/* =====================================================
+   RECORDING STATUS
+===================================================== */
+
+.recording-status {
+
+    min-height:
+        24px;
+
+    text-align:
+        center;
+
+    font-weight:
+        800;
+
+    color:
+        var(--gray);
+
+    margin-bottom:
+        12px;
+}
+
+
+.recording-status.recording {
+
+    color:
+        var(--danger);
+
+    animation:
+        recordingBlink 1s infinite;
+}
+
+
+@keyframes recordingBlink {
+
+    50% {
+
+        opacity:
+            .4;
+
+    }
+
+}
+
+
+/* =====================================================
+   VIDEO BUTTON
+===================================================== */
+
+.video-button-group {
+
+    display:
+        grid;
+
+    gap:
+        10px;
+}
+
+
+.record-button {
+
+    background:
+        linear-gradient(
+            135deg,
+            #dc2626,
+            #ef4444
+        );
+}
+
+
+.record-button:hover {
+
+    background:
+        linear-gradient(
+            135deg,
+            #b91c1c,
+            #dc2626
+        );
 }
 
 
@@ -1485,42 +1813,104 @@ button {
    RESPONSIVE
 ===================================================== */
 
-@media
-(max-width: 520px) {
+@media (max-width: 520px) {
 
     .hero-card h1 {
+
         font-size:
             30px;
+
     }
 
 
     .game-card {
+
         padding:
             24px 17px;
+
     }
 
 
     .location-image {
+
         height:
             230px;
+
     }
 
 
     .secret-row {
+
         grid-template-columns:
             1fr;
+
     }
 
 
     .result-grid {
+
         grid-template-columns:
             1fr;
+
     }
 
 
     .game-header {
+
         padding:
             11px 12px;
+
+    }
+
+
+    .game-container {
+
+        padding:
+            14px 10px 40px;
+
+    }
+
+
+    .location-card,
+    .challenge-card,
+    .next-card,
+    .dead-end-card {
+
+        padding:
+            15px;
+
+    }
+
+
+    .camera-preview {
+
+        height:
+            280px;
+
+    }
+
+
+    .camera-placeholder {
+
+        min-height:
+            180px;
+
+    }
+
+
+    .recorded-video {
+
+        max-height:
+            300px;
+
+    }
+
+
+    .video-challenge-area {
+
+        padding:
+            14px;
+
     }
 
 }
