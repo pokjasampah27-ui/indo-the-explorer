@@ -1,315 +1,406 @@
 /* =========================================================
+   JELAJAH SEKOLAH
    GAME POS-POSAN / JURIT MALAM EDUKATIF
-   FINAL VERSION
-   ---------------------------------------------------------
-   Pos 1 - 7  : JALUR BENAR
-   Pos 8 - 10 : JALUR SALAH / BUNTU
-   Timer buntu: 5 menit
+   =========================================================
+
+   ALUR:
+   POS 1 → POS 2 → POS 3 → POS 4 → POS 5 → POS 6 → POS 7
+             JALUR BENAR
+
+   Jawaban salah:
+   POS 8 / POS 9 / POS 10
+             ↓
+          5 MENIT
+             ↓
+           POS 1
+
    ========================================================= */
 
 
 /* =========================================================
-   KONFIGURASI GAME
-   ========================================================= */
+   KONFIGURASI
+========================================================= */
 
-const GAME_CONFIG = {
-    totalPos: 10,
-    posBenarTerakhir: 7,
-    waktuBuntu: 5 * 60 * 1000, // 5 menit
-    storageKey: "posposan_game_final_v1"
+const CONFIG = {
+    storageKey: "jelajahSekolahGame_vFinal",
+
+    jumlahPosBenar: 7,
+
+    waktuJalurBuntu: 5 * 60,
+
+    totalAnggota: 5
 };
 
 
 /* =========================================================
    DATA POS
-   =========================================================
-   routeCorrect = pos tujuan jika jawaban benar
-   routeWrong   = pos tujuan jika jawaban salah
-
-   secretCode = kode rahasia yang harus ditemukan peserta
-   ========================================================= */
+========================================================= */
 
 const POS_DATA = {
 
+    /* =====================================================
+       POS 1
+    ===================================================== */
+
     1: {
         nomor: 1,
-        nama: "Pos 1",
-        tipe: "awal",
+
+        tipe: "benar",
+
+        nama: "POS 1",
+
         gambar: "assets/pos1.jpg",
 
-        pesan:
-            "Selamat datang di permainan! " +
-            "Baca petunjuk dengan teliti dan temukan kode rahasia.",
-
-        kodeRahasia: "MELATI",
-
-        soal: {
-            pertanyaan:
-                "Kalimat yang digunakan untuk menyampaikan informasi disebut ...",
-
-            pilihan: [
-                "Kalimat berita",
-                "Kalimat tanya",
-                "Kalimat perintah",
-                "Kalimat seru"
-            ],
-
-            jawaban: 0
-        },
-
-        routeCorrect: 2,
-        routeWrong: 8
-    },
-
-
-    2: {
-        nomor: 2,
-        nama: "Pos 2",
-        tipe: "benar",
-        gambar: "assets/pos2.jpg",
+        petunjuk:
+            "Temukan lokasi sesuai gambar Pos 1. " +
+            "Setelah tiba, cari secarik pesan yang disembunyikan.",
 
         pesan:
-            "Kamu berhasil menemukan Pos 2. " +
-            "Cari petunjuk dan jangan sampai salah jalur.",
+            "Selamat datang di Pos 1. " +
+            "Temukan kode rahasia di lokasi ini.",
 
-        kodeRahasia: "GARUDA",
+        kode: "MELATI",
 
-        soal: {
-            pertanyaan:
-                "Manakah yang merupakan kalimat tanya?",
+        soal:
+            "Kalimat yang digunakan untuk menyampaikan informasi disebut ...",
 
-            pilihan: [
-                "Tolong tutup pintu itu!",
-                "Siapa ketua kelompokmu?",
-                "Mereka belajar di kelas.",
-                "Jangan berlari!"
-            ],
+        pilihan: [
+            "Kalimat berita",
+            "Kalimat tanya",
+            "Kalimat perintah",
+            "Kalimat seru"
+        ],
 
-            jawaban: 1
-        },
+        jawaban: 0,
 
-        routeCorrect: 3,
-        routeWrong: 8
-    },
+        tujuanBenar: 2,
 
-
-    3: {
-        nomor: 3,
-        nama: "Pos 3",
-        tipe: "benar",
-        gambar: "assets/pos3.jpg",
-
-        pesan:
-            "Bagus! Kamu berada di jalur yang benar. " +
-            "Perhatikan setiap pesan yang ditemukan.",
-
-        kodeRahasia: "NUSANTARA",
-
-        soal: {
-            pertanyaan:
-                "Kalimat 'Tutup pintu itu!' termasuk kalimat ...",
-
-            pilihan: [
-                "Berita",
-                "Tanya",
-                "Perintah",
-                "Penjelas"
-            ],
-
-            jawaban: 2
-        },
-
-        routeCorrect: 4,
-        routeWrong: 9
-    },
-
-
-    4: {
-        nomor: 4,
-        nama: "Pos 4",
-        tipe: "benar",
-        gambar: "assets/pos4.jpg",
-
-        pesan:
-            "Kamu semakin dekat dengan tujuan. " +
-            "Kerja sama kelompok sangat diperlukan.",
-
-        kodeRahasia: "PANDU",
-
-        soal: {
-            pertanyaan:
-                "Kalimat yang mengungkapkan perasaan kuat biasanya disebut ...",
-
-            pilihan: [
-                "Kalimat berita",
-                "Kalimat seru",
-                "Kalimat tanya",
-                "Kalimat pasif"
-            ],
-
-            jawaban: 1
-        },
-
-        routeCorrect: 5,
-        routeWrong: 9
-    },
-
-
-    5: {
-        nomor: 5,
-        nama: "Pos 5",
-        tipe: "benar",
-        gambar: "assets/pos5.jpg",
-
-        pesan:
-            "Hebat! Jalurmu masih benar. " +
-            "Jangan lupa mencatat kode rahasia yang ditemukan.",
-
-        kodeRahasia: "SEMANGAT",
-
-        soal: {
-            pertanyaan:
-                "Dalam sebuah paragraf, kalimat yang menjadi pokok pembahasan disebut ...",
-
-            pilihan: [
-                "Kalimat utama",
-                "Kalimat penjelas",
-                "Kalimat tanya",
-                "Kalimat seru"
-            ],
-
-            jawaban: 0
-        },
-
-        routeCorrect: 6,
-        routeWrong: 10
-    },
-
-
-    6: {
-        nomor: 6,
-        nama: "Pos 6",
-        tipe: "benar",
-        gambar: "assets/pos6.jpg",
-
-        pesan:
-            "Tinggal satu langkah lagi menuju Pos terakhir. " +
-            "Tetap teliti!",
-
-        kodeRahasia: "MERDEKA",
-
-        soal: {
-            pertanyaan:
-                "Fungsi utama kalimat penjelas dalam paragraf adalah ...",
-
-            pilihan: [
-                "Menjelaskan kalimat utama",
-                "Menggantikan judul",
-                "Mengakhiri semua paragraf",
-                "Menjadi salam pembuka"
-            ],
-
-            jawaban: 0
-        },
-
-        routeCorrect: 7,
-        routeWrong: 10
-    },
-
-
-    7: {
-        nomor: 7,
-        nama: "Pos 7",
-        tipe: "finish",
-        gambar: "assets/pos7.jpg",
-
-        pesan:
-            "SELAMAT! Kamu telah menyelesaikan jalur utama " +
-            "dan berhasil mencapai Pos 7.",
-
-        kodeRahasia: "JUARA",
-
-        soal: {
-            pertanyaan:
-                "Paragraf yang baik harus memiliki hubungan antarkalimat yang ...",
-
-            pilihan: [
-                "Tidak beraturan",
-                "Saling berkaitan",
-                "Berbeda topik",
-                "Tidak berhubungan"
-            ],
-
-            jawaban: 1
-        },
-
-        routeCorrect: null,
-        routeWrong: 10
+        tujuanSalah: 8
     },
 
 
     /* =====================================================
-       POS BUNTU
-       ===================================================== */
+       POS 2
+    ===================================================== */
+
+    2: {
+        nomor: 2,
+
+        tipe: "benar",
+
+        nama: "POS 2",
+
+        gambar: "assets/pos2.jpg",
+
+        petunjuk:
+            "Ikuti perjalanan menuju Pos 2. " +
+            "Perhatikan gambar dan lingkungan sekitar sekolah.",
+
+        pesan:
+            "Kalian berhasil sampai di Pos 2. " +
+            "Temukan kode rahasia berikutnya.",
+
+        kode: "GARUDA",
+
+        soal:
+            "Manakah yang merupakan kalimat tanya?",
+
+        pilihan: [
+            "Tolong tutup pintu itu!",
+            "Siapa ketua kelompokmu?",
+            "Mereka belajar di kelas.",
+            "Jangan berlari!"
+        ],
+
+        jawaban: 1,
+
+        tujuanBenar: 3,
+
+        tujuanSalah: 8
+    },
+
+
+    /* =====================================================
+       POS 3
+    ===================================================== */
+
+    3: {
+        nomor: 3,
+
+        tipe: "benar",
+
+        nama: "POS 3",
+
+        gambar: "assets/pos3.jpg",
+
+        petunjuk:
+            "Cari lokasi Pos 3 berdasarkan foto. " +
+            "Sesampainya di sana, cari pesan yang tersembunyi.",
+
+        pesan:
+            "Bagus! Kalian masih berada di jalur yang benar.",
+
+        kode: "NUSANTARA",
+
+        soal:
+            "Kalimat 'Tutup pintu itu!' termasuk kalimat ...",
+
+        pilihan: [
+            "Berita",
+            "Tanya",
+            "Perintah",
+            "Penjelas"
+        ],
+
+        jawaban: 2,
+
+        tujuanBenar: 4,
+
+        tujuanSalah: 9
+    },
+
+
+    /* =====================================================
+       POS 4
+    ===================================================== */
+
+    4: {
+        nomor: 4,
+
+        tipe: "benar",
+
+        nama: "POS 4",
+
+        gambar: "assets/pos4.jpg",
+
+        petunjuk:
+            "Temukan Pos 4. " +
+            "Jangan hanya mengandalkan satu orang. " +
+            "Bekerjalah sebagai sebuah kelompok.",
+
+        pesan:
+            "Kalian menemukan Pos 4. " +
+            "Cari kode rahasia sebelum menjawab soal.",
+
+        kode: "PANDU",
+
+        soal:
+            "Kalimat yang mengungkapkan perasaan kuat biasanya disebut ...",
+
+        pilihan: [
+            "Kalimat berita",
+            "Kalimat seru",
+            "Kalimat tanya",
+            "Kalimat pasif"
+        ],
+
+        jawaban: 1,
+
+        tujuanBenar: 5,
+
+        tujuanSalah: 9
+    },
+
+
+    /* =====================================================
+       POS 5
+    ===================================================== */
+
+    5: {
+        nomor: 5,
+
+        tipe: "benar",
+
+        nama: "POS 5",
+
+        gambar: "assets/pos5.jpg",
+
+        petunjuk:
+            "Kalian sudah melewati beberapa tantangan. " +
+            "Temukan lokasi Pos 5 berdasarkan foto.",
+
+        pesan:
+            "Hebat! Kalian semakin dekat menuju akhir perjalanan.",
+
+        kode: "SEMANGAT",
+
+        soal:
+            "Dalam sebuah paragraf, kalimat yang menjadi pokok pembahasan disebut ...",
+
+        pilihan: [
+            "Kalimat utama",
+            "Kalimat penjelas",
+            "Kalimat tanya",
+            "Kalimat seru"
+        ],
+
+        jawaban: 0,
+
+        tujuanBenar: 6,
+
+        tujuanSalah: 10
+    },
+
+
+    /* =====================================================
+       POS 6
+    ===================================================== */
+
+    6: {
+        nomor: 6,
+
+        tipe: "benar",
+
+        nama: "POS 6",
+
+        gambar: "assets/pos6.jpg",
+
+        petunjuk:
+            "Cari Pos 6 sesuai foto. " +
+            "Kalian tinggal selangkah lagi menuju Pos terakhir.",
+
+        pesan:
+            "Luar biasa! Tinggal satu pos lagi.",
+
+        kode: "MERDEKA",
+
+        soal:
+            "Fungsi utama kalimat penjelas dalam paragraf adalah ...",
+
+        pilihan: [
+            "Menjelaskan kalimat utama",
+            "Menggantikan judul",
+            "Mengakhiri semua paragraf",
+            "Menjadi salam pembuka"
+        ],
+
+        jawaban: 0,
+
+        tujuanBenar: 7,
+
+        tujuanSalah: 10
+    },
+
+
+    /* =====================================================
+       POS 7
+    ===================================================== */
+
+    7: {
+        nomor: 7,
+
+        tipe: "finish",
+
+        nama: "POS 7 — FINISH",
+
+        gambar: "assets/pos7.jpg",
+
+        petunjuk:
+            "Ini adalah pos terakhir. " +
+            "Temukan kode rahasia dan selesaikan tantangan terakhir.",
+
+        pesan:
+            "SELAMAT! Kalian telah mencapai Pos 7.",
+
+        kode: "JUARA",
+
+        soal:
+            "Paragraf yang baik harus memiliki hubungan antarkalimat yang ...",
+
+        pilihan: [
+            "Tidak beraturan",
+            "Saling berkaitan",
+            "Berbeda topik",
+            "Tidak berhubungan"
+        ],
+
+        jawaban: 1,
+
+        tujuanBenar: null,
+
+        tujuanSalah: 10
+    },
+
+
+    /* =====================================================
+       POS BUNTU 8
+    ===================================================== */
 
     8: {
         nomor: 8,
-        nama: "Pos Buntu 8",
+
         tipe: "buntu",
+
+        nama: "POS BUNTU 8",
+
         gambar: "assets/pos8.jpg",
 
+        petunjuk:
+            "Kalian menemukan salah satu jalur buntu. " +
+            "Cari pesan tersembunyi di sekitar lokasi ini.",
+
         pesan:
-            "JALUR SALAH! " +
-            "Tidak ada pesan lanjutan di sini. " +
-            "Temukan petunjuk yang mungkin tersembunyi, " +
-            "tetapi waktu kalian hanya 5 menit.",
+            "Tidak ada soal di pos ini. " +
+            "Jika pesan tidak ditemukan dalam 5 menit, " +
+            "kalian akan dikembalikan ke Pos 1.",
 
-        kodeRahasia: "BUNTU8",
+        kode: "BUNTU8",
 
-        soal: null,
-
-        routeCorrect: null,
-        routeWrong: 1
+        tujuan: 1
     },
 
+
+    /* =====================================================
+       POS BUNTU 9
+    ===================================================== */
 
     9: {
         nomor: 9,
-        nama: "Pos Buntu 9",
+
         tipe: "buntu",
+
+        nama: "POS BUNTU 9",
+
         gambar: "assets/pos9.jpg",
 
+        petunjuk:
+            "Jalur kalian salah. " +
+            "Cari pesan yang mungkin tersembunyi di sekitar lokasi.",
+
         pesan:
-            "JALUR SALAH! " +
-            "Kalian masuk ke jalan yang tidak memiliki pesan berikutnya. " +
-            "Waktu pencarian hanya 5 menit.",
+            "Tidak ada tantangan soal di pos ini. " +
+            "Waktu kalian hanya 5 menit.",
 
-        kodeRahasia: "BUNTU9",
+        kode: "BUNTU9",
 
-        soal: null,
-
-        routeCorrect: null,
-        routeWrong: 1
+        tujuan: 1
     },
 
 
+    /* =====================================================
+       POS BUNTU 10
+    ===================================================== */
+
     10: {
         nomor: 10,
-        nama: "Pos Buntu 10",
+
         tipe: "buntu",
+
+        nama: "POS BUNTU 10",
+
         gambar: "assets/pos10.jpg",
 
+        petunjuk:
+            "Kalian berada di jalur yang salah. " +
+            "Cari pesan tersembunyi sebelum waktu habis.",
+
         pesan:
-            "JALUR SALAH! " +
-            "Tidak ditemukan pesan lanjutan. " +
-            "Segera kembali setelah waktu habis.",
+            "Tidak ada soal di pos ini. " +
+            "Jika tidak menemukan pesan dalam 5 menit, kembali ke Pos 1.",
 
-        kodeRahasia: "BUNTU10",
+        kode: "BUNTU10",
 
-        soal: null,
-
-        routeCorrect: null,
-        routeWrong: 1
+        tujuan: 1
     }
 
 };
@@ -317,96 +408,140 @@ const POS_DATA = {
 
 /* =========================================================
    STATE PERMAINAN
-   ========================================================= */
+========================================================= */
 
-let gameState = {
+let game = {
+
     started: false,
 
+    teamName: "",
+
     ketua: "",
+
     anggota: [],
 
     currentPos: 1,
+
+    kodeTerbuka: false,
 
     kodeDitemukan: [],
 
     posDikunjungi: [],
 
     jawabanBenar: 0,
+
     jawabanSalah: 0,
 
-    selesai: false,
+    mulaiWaktu: null,
+
+    selesaiWaktu: null,
 
     waktuBuntuMulai: null,
 
-    riwayat: []
+    riwayat: [],
+
+    selesai: false
 };
 
 
 /* =========================================================
    TIMER
-   ========================================================= */
+========================================================= */
 
 let timerInterval = null;
 
 
 /* =========================================================
-   HELPER DOM
-   ========================================================= */
+   HELPER
+========================================================= */
 
-function getElement(id) {
+function $(id) {
     return document.getElementById(id);
 }
 
 
+function show(element) {
+
+    if (element) {
+        element.classList.remove("hidden");
+    }
+}
+
+
+function hide(element) {
+
+    if (element) {
+        element.classList.add("hidden");
+    }
+}
+
+
+function setText(id, text) {
+
+    const element = $(id);
+
+    if (element) {
+        element.textContent = text;
+    }
+}
+
+
+function escapeHTML(text) {
+
+    const div = document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
+}
+
+
 /* =========================================================
-   SIMPAN GAME
-   ========================================================= */
+   LOCAL STORAGE
+========================================================= */
 
 function saveGame() {
 
     try {
 
         localStorage.setItem(
-            GAME_CONFIG.storageKey,
-            JSON.stringify(gameState)
+            CONFIG.storageKey,
+            JSON.stringify(game)
         );
 
     } catch (error) {
 
         console.error(
-            "Gagal menyimpan permainan:",
+            "Tidak dapat menyimpan permainan:",
             error
         );
-
     }
 }
 
-
-/* =========================================================
-   MUAT GAME
-   ========================================================= */
 
 function loadGame() {
 
     try {
 
-        const saved = localStorage.getItem(
-            GAME_CONFIG.storageKey
-        );
+        const saved =
+            localStorage.getItem(
+                CONFIG.storageKey
+            );
 
         if (!saved) {
             return false;
         }
 
-        const parsed = JSON.parse(saved);
+        const data =
+            JSON.parse(saved);
 
-        if (!parsed) {
+        if (!data) {
             return false;
         }
 
-        gameState = {
-            ...gameState,
-            ...parsed
+        game = {
+            ...game,
+            ...data
         };
 
         return true;
@@ -414,7 +549,7 @@ function loadGame() {
     } catch (error) {
 
         console.error(
-            "Gagal memuat permainan:",
+            "Tidak dapat memuat permainan:",
             error
         );
 
@@ -424,61 +559,93 @@ function loadGame() {
 
 
 /* =========================================================
-   HAPUS GAME
-   ========================================================= */
+   SCREEN
+========================================================= */
 
-function resetGame() {
+function showScreen(id) {
 
-    clearBuntuTimer();
+    document
+        .querySelectorAll(".screen")
+        .forEach(screen => {
 
-    localStorage.removeItem(
-        GAME_CONFIG.storageKey
-    );
+            screen.classList.remove("active");
 
-    gameState = {
-        started: false,
+            screen.classList.add("hidden");
+        });
 
-        ketua: "",
-        anggota: [],
 
-        currentPos: 1,
+    const screen = $(id);
 
-        kodeDitemukan: [],
+    if (screen) {
 
-        posDikunjungi: [],
+        screen.classList.remove("hidden");
 
-        jawabanBenar: 0,
-        jawabanSalah: 0,
-
-        selesai: false,
-
-        waktuBuntuMulai: null,
-
-        riwayat: []
-    };
-
-    location.reload();
+        screen.classList.add("active");
+    }
 }
 
 
 /* =========================================================
-   START GAME
-   ========================================================= */
+   MULAI
+========================================================= */
 
-function startGame() {
+function startApplication() {
 
-    const ketuaInput =
-        getElement("ketua");
+    const loaded =
+        loadGame();
 
-    const ketua =
-        ketuaInput
-            ? ketuaInput.value.trim()
+
+    if (
+        loaded &&
+        game.started &&
+        !game.selesai
+    ) {
+
+        showScreen("gameScreen");
+
+        renderCurrentPos();
+
+        return;
+    }
+
+
+    if (
+        loaded &&
+        game.selesai
+    ) {
+
+        showFinishScreen();
+
+        return;
+    }
+
+
+    showScreen("startScreen");
+}
+
+
+/* =========================================================
+   FORM IDENTITAS
+========================================================= */
+
+function openTeamForm() {
+
+    showScreen("teamScreen");
+}
+
+
+function saveTeam() {
+
+    const leader =
+        $("leaderName")
+            ? $("leaderName").value.trim()
             : "";
 
-    if (!ketua) {
 
-        showMessage(
-            "Nama ketua harus diisi.",
+    if (!leader) {
+
+        showToast(
+            "⚠️ Nama ketua wajib diisi.",
             "error"
         );
 
@@ -486,137 +653,140 @@ function startGame() {
     }
 
 
-    const anggota = [];
+    const members = [];
 
-    for (let i = 1; i <= 5; i++) {
+
+    for (
+        let i = 1;
+        i <= CONFIG.totalAnggota;
+        i++
+    ) {
 
         const input =
-            getElement(`anggota${i}`);
+            $(`member${i}`);
 
-        if (input) {
 
-            const nama =
-                input.value.trim();
-
-            if (!nama) {
-
-                showMessage(
-                    `Nama anggota ${i} harus diisi.`,
-                    "error"
-                );
-
-                return;
-            }
-
-            anggota.push(nama);
+        if (!input) {
+            continue;
         }
+
+
+        const value =
+            input.value.trim();
+
+
+        if (!value) {
+
+            showToast(
+                `⚠️ Nama anggota ${i} wajib diisi.`,
+                "error"
+            );
+
+            input.focus();
+
+            return;
+        }
+
+
+        members.push(value);
     }
 
 
-    gameState.started = true;
+    game.ketua = leader;
 
-    gameState.ketua = ketua;
+    game.anggota = members;
 
-    gameState.anggota = anggota;
-
-    gameState.currentPos = 1;
-
-    gameState.kodeDitemukan = [];
-
-    gameState.posDikunjungi = [];
-
-    gameState.jawabanBenar = 0;
-
-    gameState.jawabanSalah = 0;
-
-    gameState.selesai = false;
-
-    gameState.waktuBuntuMulai = null;
-
-    gameState.riwayat = [];
+    game.teamName =
+        leader + " & " + members[0];
 
 
     saveGame();
 
-    showGameScreen();
 
-    renderPos(1);
+    showScreen(
+        "instructionScreen"
+    );
 }
 
 
 /* =========================================================
-   TAMPILKAN LAYAR GAME
-   ========================================================= */
+   MULAI MISI
+========================================================= */
 
-function showGameScreen() {
+function beginMission() {
 
-    const startScreen =
-        getElement("startScreen");
+    game.started = true;
 
-    const gameScreen =
-        getElement("gameScreen");
+    game.selesai = false;
 
-    if (startScreen) {
-        startScreen.classList.add("hidden");
-    }
+    game.currentPos = 1;
 
-    if (gameScreen) {
-        gameScreen.classList.remove("hidden");
-    }
-}
+    game.kodeTerbuka = false;
+
+    game.kodeDitemukan = [];
+
+    game.posDikunjungi = [];
+
+    game.jawabanBenar = 0;
+
+    game.jawabanSalah = 0;
+
+    game.riwayat = [];
+
+    game.mulaiWaktu =
+        Date.now();
+
+    game.selesaiWaktu = null;
+
+    game.waktuBuntuMulai = null;
 
 
-/* =========================================================
-   TAMPILKAN LAYAR START
-   ========================================================= */
+    saveGame();
 
-function showStartScreen() {
 
-    const startScreen =
-        getElement("startScreen");
+    showScreen(
+        "gameScreen"
+    );
 
-    const gameScreen =
-        getElement("gameScreen");
 
-    if (startScreen) {
-        startScreen.classList.remove("hidden");
-    }
-
-    if (gameScreen) {
-        gameScreen.classList.add("hidden");
-    }
+    renderCurrentPos();
 }
 
 
 /* =========================================================
    RENDER POS
-   ========================================================= */
+========================================================= */
 
-function renderPos(posNumber) {
+function renderCurrentPos() {
 
     const pos =
-        POS_DATA[posNumber];
+        POS_DATA[
+            game.currentPos
+        ];
+
 
     if (!pos) {
 
         console.error(
-            "Data pos tidak ditemukan:",
-            posNumber
+            "Pos tidak ditemukan:",
+            game.currentPos
         );
 
         return;
     }
 
 
-    gameState.currentPos = posNumber;
+    game.kodeTerbuka = false;
 
 
     if (
-        !gameState.posDikunjungi.includes(posNumber)
+        !game.posDikunjungi.includes(
+            pos.nomor
+        )
     ) {
 
-        gameState.posDikunjungi.push(
-            posNumber
+        game.posDikunjungi.push(
+            pos.nomor
         );
     }
 
@@ -625,834 +795,206 @@ function renderPos(posNumber) {
 
 
     /* -----------------------------------------------------
-       NAMA POS
-       ----------------------------------------------------- */
+       STATUS
+    ----------------------------------------------------- */
 
     setText(
-        "posNumber",
-        `POS ${pos.nomor}`
+        "teamDisplay",
+        game.ketua || "Kelompok"
     );
 
+
     setText(
-        "posName",
+        "currentPosNumber",
+        pos.nomor
+    );
+
+
+    setText(
+        "totalPosNumber",
+        CONFIG.jumlahPosBenar
+    );
+
+
+    /* -----------------------------------------------------
+       JUDUL POS
+    ----------------------------------------------------- */
+
+    setText(
+        "posTitle",
         pos.nama
     );
 
 
     /* -----------------------------------------------------
        GAMBAR
-       ----------------------------------------------------- */
+    ----------------------------------------------------- */
 
     const image =
-        getElement("posImage");
+        $("locationImage");
+
 
     if (image) {
 
-        image.src = pos.gambar;
+        image.src =
+            pos.gambar;
 
         image.alt =
-            `Foto lokasi ${pos.nama}`;
+            `Foto ${pos.nama}`;
 
-        image.onerror = function () {
+        image.style.display =
+            "block";
 
-            this.style.display = "none";
 
-        };
+        image.onerror =
+            function () {
 
-        image.onload = function () {
+                this.style.display =
+                    "none";
 
-            this.style.display = "block";
-
-        };
+                console.warn(
+                    "Gambar tidak ditemukan:",
+                    pos.gambar
+                );
+            };
     }
 
 
     /* -----------------------------------------------------
-       PESAN
-       ----------------------------------------------------- */
+       PETUNJUK
+    ----------------------------------------------------- */
 
     setText(
-        "posMessage",
+        "clueText",
+        pos.petunjuk
+    );
+
+
+    /* -----------------------------------------------------
+       RESET AREA
+    ----------------------------------------------------- */
+
+    hide(
+        $("questionArea")
+    );
+
+
+    hide(
+        $("nextClueArea")
+    );
+
+
+    hide(
+        $("deadEndArea")
+    );
+
+
+    /* -----------------------------------------------------
+       KODE
+    ----------------------------------------------------- */
+
+    const secretInput =
+        $("secretCodeInput");
+
+
+    const secretArea =
+        $("secretArea");
+
+
+    if (secretArea) {
+
+        show(secretArea);
+    }
+
+
+    if (secretInput) {
+
+        secretInput.value = "";
+
+        secretInput.disabled =
+            false;
+    }
+
+
+    setText(
+        "secretMessage",
+        "Temukan kode rahasia di lokasi pos."
+    );
+
+
+    /* -----------------------------------------------------
+       JIKA BUNTU
+    ----------------------------------------------------- */
+
+    if (pos.tipe === "buntu") {
+
+        renderDeadEnd(pos);
+
+        return;
+    }
+
+
+    /* -----------------------------------------------------
+       JIKA POS NORMAL
+    ----------------------------------------------------- */
+
+    stopTimer();
+
+    setText(
+        "timerDisplay",
+        "—"
+    );
+
+
+    updateProgress();
+
+    updateFinishStats();
+}
+
+
+/* =========================================================
+   RENDER JALUR BUNTU
+========================================================= */
+
+function renderDeadEnd(pos) {
+
+    hide(
+        $("secretArea")
+    );
+
+
+    show(
+        $("deadEndArea")
+    );
+
+
+    setText(
+        "deadEndText",
         pos.pesan
     );
 
 
-    /* -----------------------------------------------------
-       KODE RAHASIA
-       ----------------------------------------------------- */
-
-    const codeBox =
-        getElement("secretCode");
-
-    if (codeBox) {
-
-        codeBox.textContent =
-            "••••••";
-
-        codeBox.dataset.realCode =
-            pos.kodeRahasia;
-    }
-
-
-    /* -----------------------------------------------------
-       TIPE POS
-       ----------------------------------------------------- */
-
-    updatePosType(pos);
-
-
-    /* -----------------------------------------------------
-       SOAL
-       ----------------------------------------------------- */
-
-    if (pos.soal) {
-
-        renderQuestion(pos);
-
-    } else {
-
-        hideQuestion();
-
-    }
-
-
-    /* -----------------------------------------------------
-       TIMER
-       ----------------------------------------------------- */
-
-    if (pos.tipe === "buntu") {
-
-        startBuntuTimer();
-
-    } else {
-
-        clearBuntuTimer();
-
-    }
-
-
-    /* -----------------------------------------------------
-       PROGRESS
-       ----------------------------------------------------- */
-
-    updateProgress();
-
-
-    /* -----------------------------------------------------
-       SCROLL KE ATAS
-       ----------------------------------------------------- */
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
-}
-
-
-/* =========================================================
-   RENDER SOAL
-   ========================================================= */
-
-function renderQuestion(pos) {
-
-    const questionBox =
-        getElement("questionBox");
-
-    const questionText =
-        getElement("questionText");
-
-    const optionsBox =
-        getElement("options");
-
-    if (!questionBox ||
-        !questionText ||
-        !optionsBox) {
-
-        return;
-    }
-
-
-    questionBox.classList.remove(
-        "hidden"
-    );
-
-
-    questionText.textContent =
-        pos.soal.pertanyaan;
-
-
-    optionsBox.innerHTML = "";
-
-
-    pos.soal.pilihan.forEach(
-        (pilihan, index) => {
-
-            const button =
-                document.createElement("button");
-
-            button.type = "button";
-
-            button.className =
-                "answer-option";
-
-            button.dataset.index =
-                index;
-
-            button.innerHTML = `
-                <span class="option-letter">
-                    ${String.fromCharCode(65 + index)}
-                </span>
-
-                <span class="option-text">
-                    ${escapeHTML(pilihan)}
-                </span>
-            `;
-
-
-            button.addEventListener(
-                "click",
-                function () {
-
-                    checkAnswer(
-                        index
-                    );
-
-                }
-            );
-
-
-            optionsBox.appendChild(
-                button
-            );
-        }
-    );
-}
-
-
-/* =========================================================
-   SEMBUNYIKAN SOAL
-   ========================================================= */
-
-function hideQuestion() {
-
-    const questionBox =
-        getElement("questionBox");
-
-    if (questionBox) {
-
-        questionBox.classList.add(
-            "hidden"
-        );
-    }
-}
-
-
-/* =========================================================
-   CEK JAWABAN
-   ========================================================= */
-
-function checkAnswer(selectedIndex) {
-
-    const pos =
-        POS_DATA[
-            gameState.currentPos
-        ];
-
-
-    if (!pos || !pos.soal) {
-        return;
-    }
-
-
-    const correctIndex =
-        pos.soal.jawaban;
-
-
-    disableAnswerButtons();
-
-
-    if (selectedIndex === correctIndex) {
-
-        gameState.jawabanBenar++;
-
-
-        gameState.riwayat.push({
-            pos: pos.nomor,
-            benar: true,
-            waktu: new Date().toISOString()
-        });
-
-
-        saveGame();
-
-
-        showAnswerFeedback(
-            true,
-            "Jawaban BENAR! 🎉",
-            "Kalian menemukan jalur yang tepat."
-        );
-
-
-        setTimeout(
-            function () {
-
-                if (
-                    pos.routeCorrect === null
-                ) {
-
-                    finishGame();
-
-                    return;
-                }
-
-
-                renderPos(
-                    pos.routeCorrect
-                );
-
-            },
-            1800
-        );
-
-
-    } else {
-
-        gameState.jawabanSalah++;
-
-
-        gameState.riwayat.push({
-            pos: pos.nomor,
-            benar: false,
-            waktu: new Date().toISOString()
-        });
-
-
-        saveGame();
-
-
-        showAnswerFeedback(
-            false,
-            "Jawaban SALAH! ⚠️",
-            "Kalian mengambil jalur yang salah!"
-        );
-
-
-        setTimeout(
-            function () {
-
-                renderPos(
-                    pos.routeWrong
-                );
-
-            },
-            1800
-        );
-    }
-}
-
-
-/* =========================================================
-   NONAKTIFKAN PILIHAN
-   ========================================================= */
-
-function disableAnswerButtons() {
-
-    const buttons =
-        document.querySelectorAll(
-            ".answer-option"
-        );
-
-    buttons.forEach(
-        button => {
-
-            button.disabled = true;
-
-        }
-    );
-}
-
-
-/* =========================================================
-   FEEDBACK JAWABAN
-   ========================================================= */
-
-function showAnswerFeedback(
-    benar,
-    title,
-    message
-) {
-
-    const modal =
-        getElement("feedbackModal");
-
-    const titleElement =
-        getElement("feedbackTitle");
-
-    const messageElement =
-        getElement("feedbackMessage");
-
-
-    if (
-        !modal ||
-        !titleElement ||
-        !messageElement
-    ) {
-
-        return;
-    }
-
-
-    titleElement.textContent =
-        title;
-
-    messageElement.textContent =
-        message;
-
-
-    modal.classList.remove(
-        "hidden"
-    );
-
-
-    if (benar) {
-
-        modal.classList.add(
-            "correct"
-        );
-
-        modal.classList.remove(
-            "wrong"
-        );
-
-    } else {
-
-        modal.classList.add(
-            "wrong"
-        );
-
-        modal.classList.remove(
-            "correct"
-        );
-    }
-
-
-    setTimeout(
-        function () {
-
-            modal.classList.add(
-                "hidden"
-            );
-
-        },
-        1500
-    );
-}
-
-
-/* =========================================================
-   TIMER POS BUNTU
-   ========================================================= */
-
-function startBuntuTimer() {
-
-    clearBuntuTimer();
-
-
-    if (!gameState.waktuBuntuMulai) {
-
-        gameState.waktuBuntuMulai =
-            Date.now();
-
-        saveGame();
-    }
-
-
-    updateBuntuTimer();
-
-
-    timerInterval =
-        setInterval(
-            updateBuntuTimer,
-            1000
-        );
-}
-
-
-/* =========================================================
-   UPDATE TIMER
-   ========================================================= */
-
-function updateBuntuTimer() {
-
-    if (
-        gameState.currentPos < 8
-    ) {
-
-        clearBuntuTimer();
-
-        return;
-    }
-
-
-    if (
-        !gameState.waktuBuntuMulai
-    ) {
-
-        gameState.waktuBuntuMulai =
-            Date.now();
-
-        saveGame();
-    }
-
-
-    const elapsed =
-        Date.now() -
-        gameState.waktuBuntuMulai;
-
-
-    const remaining =
-        GAME_CONFIG.waktuBuntu -
-        elapsed;
-
-
-    if (remaining <= 0) {
-
-        clearBuntuTimer();
-
-        handleBuntuTimeout();
-
-        return;
-    }
-
-
-    const minutes =
-        Math.floor(
-            remaining / 60000
-        );
-
-    const seconds =
-        Math.floor(
-            (remaining % 60000) / 1000
-        );
-
-
-    const timerText =
-        `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
-
-
-    setText(
-        "buntuTimer",
-        timerText
-    );
-
-
-    const timer =
-        getElement("buntuTimer");
-
-    if (timer) {
-
-        if (remaining <= 60000) {
-
-            timer.classList.add(
-                "danger"
-            );
-
-        } else {
-
-            timer.classList.remove(
-                "danger"
-            );
-        }
-    }
-}
-
-
-/* =========================================================
-   WAKTU BUNTU HABIS
-   ========================================================= */
-
-function handleBuntuTimeout() {
-
-    gameState.waktuBuntuMulai =
-        null;
+    game.waktuBuntuMulai =
+        Date.now();
 
 
     saveGame();
 
 
-    showTimeoutMessage();
+    startTimer();
 
-
-    setTimeout(
-        function () {
-
-            renderPos(1);
-
-        },
-        2500
-    );
-}
-
-
-/* =========================================================
-   PESAN WAKTU HABIS
-   ========================================================= */
-
-function showTimeoutMessage() {
-
-    const modal =
-        getElement("feedbackModal");
-
-    const title =
-        getElement("feedbackTitle");
-
-    const message =
-        getElement("feedbackMessage");
-
-
-    if (
-        !modal ||
-        !title ||
-        !message
-    ) {
-
-        return;
-    }
-
-
-    title.textContent =
-        "⏰ WAKTU HABIS!";
-
-
-    message.textContent =
-        "Kalian tidak menemukan pesan. " +
-        "Kembali ke Pos 1 dan jawab soal dengan benar.";
-
-
-    modal.classList.remove(
-        "hidden"
-    );
-
-
-    modal.classList.add(
-        "wrong"
-    );
-}
-
-
-/* =========================================================
-   HENTIKAN TIMER
-   ========================================================= */
-
-function clearBuntuTimer() {
-
-    if (timerInterval) {
-
-        clearInterval(
-            timerInterval
-        );
-
-        timerInterval = null;
-    }
-
-
-    gameState.waktuBuntuMulai =
-        null;
-
-
-    const timer =
-        getElement("buntuTimer");
-
-    if (timer) {
-
-        timer.textContent =
-            "05:00";
-
-        timer.classList.remove(
-            "danger"
-        );
-    }
-}
-
-
-/* =========================================================
-   UPDATE TIPE POS
-   ========================================================= */
-
-function updatePosType(pos) {
-
-    const badge =
-        getElement("posType");
-
-    if (!badge) {
-        return;
-    }
-
-
-    badge.className =
-        "pos-type";
-
-
-    if (pos.tipe === "awal") {
-
-        badge.textContent =
-            "🚩 POS AWAL";
-
-        badge.classList.add(
-            "awal"
-        );
-
-    } else if (
-        pos.tipe === "buntu"
-    ) {
-
-        badge.textContent =
-            "🐍 JALUR BUNTU";
-
-        badge.classList.add(
-            "buntu"
-        );
-
-    } else if (
-        pos.tipe === "finish"
-    ) {
-
-        badge.textContent =
-            "🏆 POS AKHIR";
-
-        badge.classList.add(
-            "finish"
-        );
-
-    } else {
-
-        badge.textContent =
-            "⭐ JALUR BENAR";
-
-        badge.classList.add(
-            "benar"
-        );
-    }
-}
-
-
-/* =========================================================
-   PROGRESS GAME
-   ========================================================= */
-
-function updateProgress() {
-
-    const current =
-        gameState.currentPos;
-
-
-    const progress =
-        Math.min(
-            current,
-            GAME_CONFIG.posBenarTerakhir
-        );
-
-
-    const percent =
-        (progress /
-            GAME_CONFIG.posBenarTerakhir) *
-        100;
-
-
-    const progressBar =
-        getElement("progressBar");
-
-
-    if (progressBar) {
-
-        progressBar.style.width =
-            `${percent}%`;
-    }
-
-
-    setText(
-        "progressText",
-        `Pos ${progress} / ${GAME_CONFIG.posBenarTerakhir}`
-    );
-
-
-    setText(
-        "correctCount",
-        gameState.jawabanBenar
-    );
-
-
-    setText(
-        "wrongCount",
-        gameState.jawabanSalah
-    );
+    updateProgress();
 }
 
 
 /* =========================================================
    KODE RAHASIA
-   ========================================================= */
+========================================================= */
 
-function revealSecretCode() {
-
-    const pos =
-        POS_DATA[
-            gameState.currentPos
-        ];
-
-
-    if (!pos) {
-        return;
-    }
-
-
-    const code =
-        pos.kodeRahasia;
-
-
-    const secretCode =
-        getElement("secretCode");
-
-
-    if (secretCode) {
-
-        secretCode.textContent =
-            code;
-
-        secretCode.classList.add(
-            "revealed"
-        );
-    }
-
-
-    if (
-        !gameState.kodeDitemukan.includes(
-            pos.nomor
-        )
-    ) {
-
-        gameState.kodeDitemukan.push(
-            pos.nomor
-        );
-
-        saveGame();
-
-        showMessage(
-            `Kode rahasia ditemukan: ${code}`,
-            "success"
-        );
-    }
-}
-
-
-/* =========================================================
-   VALIDASI KODE RAHASIA
-   ========================================================= */
-
-function validateSecretCode() {
+function verifySecretCode() {
 
     const input =
-        getElement("codeInput");
+        $("secretCodeInput");
 
 
     if (!input) {
@@ -1468,7 +1010,7 @@ function validateSecretCode() {
 
     const pos =
         POS_DATA[
-            gameState.currentPos
+            game.currentPos
         ];
 
 
@@ -1477,117 +1019,123 @@ function validateSecretCode() {
     }
 
 
-    if (
-        entered ===
-        pos.kodeRahasia.toUpperCase()
-    ) {
+    if (!entered) {
 
-        if (
-            !gameState.kodeDitemukan.includes(
-                pos.nomor
-            )
-        ) {
-
-            gameState.kodeDitemukan.push(
-                pos.nomor
-            );
-        }
-
-
-        saveGame();
-
-
-        input.value = "";
-
-
-        showMessage(
-            "Kode rahasia BENAR! 🔐",
-            "success"
-        );
-
-    } else {
-
-        showMessage(
-            "Kode rahasia belum tepat.",
+        showToast(
+            "🔐 Masukkan kode rahasia terlebih dahulu.",
             "error"
         );
+
+        input.focus();
+
+        return;
     }
-}
 
 
-/* =========================================================
-   FINISH GAME
-   ========================================================= */
+    if (
+        entered !==
+        pos.kode.toUpperCase()
+    ) {
 
-function finishGame() {
+        setText(
+            "secretMessage",
+            "❌ Kode salah. Periksa kembali pesan yang ditemukan."
+        );
 
-    clearBuntuTimer();
+
+        showToast(
+            "❌ Kode rahasia salah.",
+            "error"
+        );
 
 
-    gameState.selesai = true;
+        input.select();
+
+        return;
+    }
+
+
+    /* -----------------------------------------------------
+       KODE BENAR
+    ----------------------------------------------------- */
+
+    game.kodeTerbuka = true;
+
+
+    if (
+        !game.kodeDitemukan.includes(
+            pos.nomor
+        )
+    ) {
+
+        game.kodeDitemukan.push(
+            pos.nomor
+        );
+    }
+
 
     saveGame();
 
 
-    const gameScreen =
-        getElement("gameScreen");
-
-    const finishScreen =
-        getElement("finishScreen");
-
-
-    if (gameScreen) {
-
-        gameScreen.classList.add(
-            "hidden"
-        );
-    }
-
-
-    if (finishScreen) {
-
-        finishScreen.classList.remove(
-            "hidden"
-        );
-    }
-
-
     setText(
-        "finishKetua",
-        gameState.ketua
+        "secretMessage",
+        "✅ Kode benar! Tantangan berhasil dibuka."
     );
 
 
-    setText(
-        "finishCorrect",
-        gameState.jawabanBenar
+    showToast(
+        "🔓 Kode benar!",
+        "success"
     );
 
 
-    setText(
-        "finishWrong",
-        gameState.jawabanSalah
+    input.disabled = true;
+
+
+    /* -----------------------------------------------------
+       BUKA SOAL
+    ----------------------------------------------------- */
+
+    setTimeout(
+        function () {
+
+            openQuestion(pos);
+
+        },
+        500
     );
-
-
-    setText(
-        "finishCodeCount",
-        gameState.kodeDitemukan.length
-    );
-
-
-    renderTeamFinish();
 }
 
 
 /* =========================================================
-   TAMPILKAN ANGGOTA PADA FINISH
-   ========================================================= */
+   BUKA SOAL
+========================================================= */
 
-function renderTeamFinish() {
+function openQuestion(pos) {
+
+    if (!pos.soal) {
+        return;
+    }
+
+
+    hide(
+        $("secretArea")
+    );
+
+
+    show(
+        $("questionArea")
+    );
+
+
+    setText(
+        "questionText",
+        pos.soal
+    );
+
 
     const container =
-        getElement("finishTeam");
+        $("optionsContainer");
 
 
     if (!container) {
@@ -1598,199 +1146,1173 @@ function renderTeamFinish() {
     container.innerHTML = "";
 
 
-    const semuaNama = [
-        gameState.ketua,
-        ...gameState.anggota
-    ];
+    pos.pilihan.forEach(
+        (option, index) => {
+
+            const button =
+                document.createElement(
+                    "button"
+                );
 
 
-    semuaNama.forEach(
-        (nama, index) => {
-
-            const item =
-                document.createElement("div");
-
-            item.className =
-                "team-member";
+            button.type =
+                "button";
 
 
-            item.innerHTML = `
-                <span class="team-number">
-                    ${index + 1}
+            button.className =
+                "answer-option";
+
+
+            button.dataset.index =
+                index;
+
+
+            button.innerHTML = `
+                <span class="option-letter">
+                    ${String.fromCharCode(65 + index)}
                 </span>
 
-                <span>
-                    ${escapeHTML(nama)}
+                <span class="option-text">
+                    ${escapeHTML(option)}
                 </span>
             `;
 
 
+            button.addEventListener(
+                "click",
+                function () {
+
+                    selectAnswer(
+                        index
+                    );
+                }
+            );
+
+
             container.appendChild(
-                item
+                button
             );
         }
     );
+
+
+    setText(
+        "answerFeedback",
+        ""
+    );
+
+
+    const answerButton =
+        $("answerButton");
+
+
+    if (answerButton) {
+
+        answerButton.disabled =
+            true;
+    }
 }
 
 
 /* =========================================================
-   PESAN UMUM
-   ========================================================= */
+   PILIH JAWABAN
+========================================================= */
 
-function showMessage(
-    message,
-    type = "info"
-) {
-
-    const messageBox =
-        getElement("messageBox");
+let selectedAnswer = null;
 
 
-    if (!messageBox) {
+function selectAnswer(index) {
 
-        alert(message);
+    selectedAnswer =
+        index;
+
+
+    document
+        .querySelectorAll(
+            ".answer-option"
+        )
+        .forEach(
+            button => {
+
+                button.classList.remove(
+                    "selected"
+                );
+
+            }
+        );
+
+
+    const selected =
+        document.querySelector(
+            `.answer-option[data-index="${index}"]`
+        );
+
+
+    if (selected) {
+
+        selected.classList.add(
+            "selected"
+        );
+    }
+
+
+    const answerButton =
+        $("answerButton");
+
+
+    if (answerButton) {
+
+        answerButton.disabled =
+            false;
+    }
+}
+
+
+/* =========================================================
+   PERIKSA JAWABAN
+========================================================= */
+
+function checkSelectedAnswer() {
+
+    if (
+        selectedAnswer === null
+    ) {
+
+        showToast(
+            "Pilih salah satu jawaban.",
+            "error"
+        );
 
         return;
     }
 
 
-    messageBox.textContent =
-        message;
+    const pos =
+        POS_DATA[
+            game.currentPos
+        ];
 
 
-    messageBox.className =
-        `message-box ${type}`;
+    if (!pos) {
+        return;
+    }
 
 
-    messageBox.classList.remove(
-        "hidden"
+    const benar =
+        selectedAnswer ===
+        pos.jawaban;
+
+
+    /* -----------------------------------------------------
+       MATIKAN TOMBOL
+    ----------------------------------------------------- */
+
+    document
+        .querySelectorAll(
+            ".answer-option"
+        )
+        .forEach(
+            button => {
+
+                button.disabled =
+                    true;
+
+            }
+        );
+
+
+    const answerButton =
+        $("answerButton");
+
+
+    if (answerButton) {
+
+        answerButton.disabled =
+            true;
+    }
+
+
+    /* -----------------------------------------------------
+       JAWABAN BENAR
+    ----------------------------------------------------- */
+
+    if (benar) {
+
+        game.jawabanBenar++;
+
+
+        game.riwayat.push({
+
+            pos: pos.nomor,
+
+            benar: true,
+
+            waktu:
+                new Date().toISOString()
+
+        });
+
+
+        markCorrectAnswer();
+
+
+        saveGame();
+
+
+        if (
+            pos.tujuanBenar === null
+        ) {
+
+            setTimeout(
+                finishGame,
+                1800
+            );
+
+            return;
+        }
+
+
+        setTimeout(
+            function () {
+
+                showNextClue(
+                    pos.tujuanBenar
+                );
+
+            },
+            1400
+        );
+
+
+    } else {
+
+        /* -------------------------------------------------
+           JAWABAN SALAH
+        ------------------------------------------------- */
+
+        game.jawabanSalah++;
+
+
+        game.riwayat.push({
+
+            pos: pos.nomor,
+
+            benar: false,
+
+            waktu:
+                new Date().toISOString()
+
+        });
+
+
+        markWrongAnswer();
+
+
+        saveGame();
+
+
+        setTimeout(
+            function () {
+
+                goToPos(
+                    pos.tujuanSalah
+                );
+
+            },
+            1800
+        );
+    }
+
+
+    updateFinishStats();
+}
+
+
+/* =========================================================
+   FEEDBACK BENAR
+========================================================= */
+
+function markCorrectAnswer() {
+
+    const feedback =
+        $("answerFeedback");
+
+
+    if (feedback) {
+
+        feedback.textContent =
+            "🎉 JAWABAN BENAR! Kalian menemukan jalur yang tepat.";
+
+        feedback.className =
+            "answer-feedback correct";
+    }
+
+
+    document
+        .querySelectorAll(
+            ".answer-option"
+        )
+        .forEach(
+            button => {
+
+                if (
+                    Number(
+                        button.dataset.index
+                    ) ===
+                    POS_DATA[
+                        game.currentPos
+                    ].jawaban
+                ) {
+
+                    button.classList.add(
+                        "correct"
+                    );
+                }
+            }
+        );
+
+
+    showToast(
+        "🎉 Jawaban benar! Ikuti petunjuk berikutnya.",
+        "success"
+    );
+
+
+    playSound(
+        "correctSound"
+    );
+}
+
+
+/* =========================================================
+   FEEDBACK SALAH
+========================================================= */
+
+function markWrongAnswer() {
+
+    const feedback =
+        $("answerFeedback");
+
+
+    if (feedback) {
+
+        feedback.textContent =
+            "❌ Jawaban salah. Kalian diarahkan ke jalur lain.";
+
+        feedback.className =
+            "answer-feedback wrong";
+    }
+
+
+    document
+        .querySelectorAll(
+            ".answer-option"
+        )
+        .forEach(
+            button => {
+
+                if (
+                    Number(
+                        button.dataset.index
+                    ) ===
+                    POS_DATA[
+                        game.currentPos
+                    ].jawaban
+                ) {
+
+                    button.classList.add(
+                        "correct"
+                    );
+                }
+
+
+                if (
+                    Number(
+                        button.dataset.index
+                    ) ===
+                    selectedAnswer
+                ) {
+
+                    button.classList.add(
+                        "wrong"
+                    );
+                }
+            }
+        );
+
+
+    showToast(
+        "❌ Jawaban salah. Kalian masuk jalur berbeda.",
+        "error"
+    );
+
+
+    playSound(
+        "wrongSound"
+    );
+}
+
+
+/* =========================================================
+   PETUNJUK POS BERIKUTNYA
+========================================================= */
+
+function showNextClue(nextPosNumber) {
+
+    const nextPos =
+        POS_DATA[
+            nextPosNumber
+        ];
+
+
+    if (!nextPos) {
+        return;
+    }
+
+
+    hide(
+        $("questionArea")
+    );
+
+
+    hide(
+        $("secretArea")
+    );
+
+
+    show(
+        $("nextClueArea")
+    );
+
+
+    setText(
+        "nextClueText",
+        nextPos.petunjuk
+    );
+
+
+    setText(
+        "nextLocationName",
+        nextPos.nama
+    );
+
+
+    const continueButton =
+        $("continueButton");
+
+
+    if (continueButton) {
+
+        continueButton.onclick =
+            function () {
+
+                goToPos(
+                    nextPosNumber
+                );
+
+            };
+    }
+}
+
+
+/* =========================================================
+   PINDAH POS
+========================================================= */
+
+function goToPos(posNumber) {
+
+    stopTimer();
+
+
+    game.currentPos =
+        posNumber;
+
+
+    game.kodeTerbuka =
+        false;
+
+
+    game.waktuBuntuMulai =
+        null;
+
+
+    selectedAnswer =
+        null;
+
+
+    saveGame();
+
+
+    renderCurrentPos();
+}
+
+
+/* =========================================================
+   TIMER
+========================================================= */
+
+function startTimer() {
+
+    stopTimer();
+
+
+    updateTimer();
+
+
+    timerInterval =
+        setInterval(
+            updateTimer,
+            1000
+        );
+}
+
+
+function updateTimer() {
+
+    if (
+        game.currentPos < 8
+    ) {
+
+        stopTimer();
+
+        return;
+    }
+
+
+    if (
+        !game.waktuBuntuMulai
+    ) {
+
+        game.waktuBuntuMulai =
+            Date.now();
+
+        saveGame();
+    }
+
+
+    const elapsed =
+        Math.floor(
+            (
+                Date.now() -
+                game.waktuBuntuMulai
+            ) / 1000
+        );
+
+
+    const remaining =
+        CONFIG.waktuJalurBuntu -
+        elapsed;
+
+
+    if (
+        remaining <= 0
+    ) {
+
+        stopTimer();
+
+        returnToPosOne();
+
+        return;
+    }
+
+
+    const minutes =
+        Math.floor(
+            remaining / 60
+        );
+
+
+    const seconds =
+        remaining % 60;
+
+
+    const time =
+        `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+
+
+    setText(
+        "timerDisplay",
+        time
+    );
+
+
+    setText(
+        "deadEndTimer",
+        time
+    );
+
+
+    if (
+        remaining <= 60
+    ) {
+
+        $("timerDisplay")
+            ?.classList.add(
+                "danger"
+            );
+
+        $("deadEndTimer")
+            ?.classList.add(
+                "danger"
+            );
+
+    } else {
+
+        $("timerDisplay")
+            ?.classList.remove(
+                "danger"
+            );
+
+        $("deadEndTimer")
+            ?.classList.remove(
+                "danger"
+            );
+    }
+}
+
+
+function stopTimer() {
+
+    if (timerInterval) {
+
+        clearInterval(
+            timerInterval
+        );
+
+        timerInterval =
+            null;
+    }
+}
+
+
+/* =========================================================
+   KEMBALI KE POS 1
+========================================================= */
+
+function returnToPosOne() {
+
+    game.waktuBuntuMulai =
+        null;
+
+
+    saveGame();
+
+
+    showToast(
+        "⏰ Waktu habis! Kalian kembali ke Pos 1.",
+        "error"
+    );
+
+
+    playSound(
+        "wrongSound"
     );
 
 
     setTimeout(
         function () {
 
-            messageBox.classList.add(
-                "hidden"
-            );
+            goToPos(1);
 
         },
-        2500
+        1800
     );
 }
 
 
 /* =========================================================
-   SET TEXT
-   ========================================================= */
+   PROGRESS
+========================================================= */
 
-function setText(
-    id,
-    value
-) {
+function updateProgress() {
 
-    const element =
-        getElement(id);
+    let progress =
+        game.currentPos;
 
 
-    if (element) {
+    if (
+        progress > 7
+    ) {
 
-        element.textContent =
-            value;
+        progress =
+            1;
+    }
+
+
+    const percent =
+        Math.min(
+            100,
+            Math.max(
+                0,
+                (
+                    (progress - 1) /
+                    6
+                ) * 100
+            )
+        );
+
+
+    const bar =
+        $("progressBar");
+
+
+    if (bar) {
+
+        bar.style.width =
+            `${percent}%`;
+    }
+
+
+    setText(
+        "progressPercent",
+        `${Math.round(percent)}%`
+    );
+}
+
+
+/* =========================================================
+   STATISTIK
+========================================================= */
+
+function updateFinishStats() {
+
+    setText(
+        "finishTeamName",
+        game.ketua || "-"
+    );
+
+
+    setText(
+        "finishCorrectCount",
+        game.jawabanBenar
+    );
+
+
+    setText(
+        "finishPosCount",
+        Math.min(
+            game.posDikunjungi
+                .filter(
+                    pos => pos >= 1 && pos <= 7
+                )
+                .length,
+            7
+        )
+    );
+
+
+    if (
+        game.mulaiWaktu
+    ) {
+
+        const end =
+            game.selesaiWaktu ||
+            Date.now();
+
+
+        const seconds =
+            Math.floor(
+                (
+                    end -
+                    game.mulaiWaktu
+                ) / 1000
+            );
+
+
+        setText(
+            "finishTime",
+            formatDuration(seconds)
+        );
     }
 }
 
 
-/* =========================================================
-   ESCAPE HTML
-   ========================================================= */
+function formatDuration(seconds) {
 
-function escapeHTML(value) {
-
-    const div =
-        document.createElement(
-            "div"
+    const hours =
+        Math.floor(
+            seconds / 3600
         );
 
-    div.textContent =
-        value;
 
-    return div.innerHTML;
+    const minutes =
+        Math.floor(
+            (
+                seconds % 3600
+            ) / 60
+        );
+
+
+    const secs =
+        seconds % 60;
+
+
+    if (hours > 0) {
+
+        return (
+            `${String(hours).padStart(2, "0")}:` +
+            `${String(minutes).padStart(2, "0")}:` +
+            `${String(secs).padStart(2, "0")}`
+        );
+    }
+
+
+    return (
+        `${String(minutes).padStart(2, "0")}:` +
+        `${String(secs).padStart(2, "0")}`
+    );
 }
 
 
 /* =========================================================
-   TOGGLE PETUNJUK
-   ========================================================= */
+   FINISH
+========================================================= */
 
-function toggleInstruction() {
+function finishGame() {
 
-    const instruction =
-        getElement("instructionPanel");
+    stopTimer();
 
 
-    if (!instruction) {
+    game.selesai =
+        true;
+
+
+    game.selesaiWaktu =
+        Date.now();
+
+
+    game.currentPos =
+        7;
+
+
+    saveGame();
+
+
+    playSound(
+        "successSound"
+    );
+
+
+    showFinishScreen();
+}
+
+
+function showFinishScreen() {
+
+    showScreen(
+        "finishScreen"
+    );
+
+
+    updateFinishStats();
+}
+
+
+/* =========================================================
+   RESTART
+========================================================= */
+
+function restartGame() {
+
+    const yakin =
+        confirm(
+            "Apakah kalian yakin ingin memulai permainan baru?"
+        );
+
+
+    if (!yakin) {
         return;
     }
 
 
-    instruction.classList.toggle(
-        "hidden"
+    stopTimer();
+
+
+    localStorage.removeItem(
+        CONFIG.storageKey
     );
-}
 
 
-/* =========================================================
-   KEMBALI KE POS SEBELUMNYA
-   ========================================================= */
+    game = {
 
-function backToCurrentPos() {
+        started: false,
 
-    renderPos(
-        gameState.currentPos
-    );
-}
+        teamName: "",
+
+        ketua: "",
+
+        anggota: [],
+
+        currentPos: 1,
+
+        kodeTerbuka: false,
+
+        kodeDitemukan: [],
+
+        posDikunjungi: [],
+
+        jawabanBenar: 0,
+
+        jawabanSalah: 0,
+
+        mulaiWaktu: null,
+
+        selesaiWaktu: null,
+
+        waktuBuntuMulai: null,
+
+        riwayat: [],
+
+        selesai: false
+    };
 
 
-/* =========================================================
-   CEK STATUS GAME SAAT HALAMAN DIBUKA
-   ========================================================= */
-
-function initializeGame() {
-
-    const adaGame =
-        loadGame();
+    selectedAnswer =
+        null;
 
 
-    if (
-        adaGame &&
-        gameState.started &&
-        !gameState.selesai
+    /* kosongkan form */
+
+    if ($("leaderName")) {
+
+        $("leaderName").value = "";
+    }
+
+
+    for (
+        let i = 1;
+        i <= 5;
+        i++
     ) {
 
-        showGameScreen();
+        if ($(`member${i}`)) {
 
-        renderPos(
-            gameState.currentPos
+            $(`member${i}`).value =
+                "";
+        }
+    }
+
+
+    showScreen(
+        "startScreen"
+    );
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+let toastTimeout = null;
+
+
+function showToast(
+    message,
+    type = "info"
+) {
+
+    const toast =
+        $("toast");
+
+
+    const text =
+        $("toastText");
+
+
+    const icon =
+        $("toastIcon");
+
+
+    if (!toast || !text) {
+
+        return;
+    }
+
+
+    text.textContent =
+        message;
+
+
+    if (icon) {
+
+        if (type === "success") {
+
+            icon.textContent =
+                "✅";
+
+        } else if (
+            type === "error"
+        ) {
+
+            icon.textContent =
+                "⚠️";
+
+        } else {
+
+            icon.textContent =
+                "💡";
+        }
+    }
+
+
+    toast.className =
+        `toast ${type}`;
+
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    clearTimeout(
+        toastTimeout
+    );
+
+
+    toastTimeout =
+        setTimeout(
+            function () {
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            },
+            3000
         );
+}
 
-    } else if (
-        adaGame &&
-        gameState.selesai
-    ) {
 
-        finishGame();
+/* =========================================================
+   MODAL
+========================================================= */
 
-    } else {
+function openModal(
+    title,
+    text,
+    icon = "💡"
+) {
 
-        showStartScreen();
+    const modal =
+        $("gameModal");
+
+
+    if (!modal) {
+        return;
+    }
+
+
+    setText(
+        "modalTitle",
+        title
+    );
+
+
+    setText(
+        "modalText",
+        text
+    );
+
+
+    setText(
+        "modalIcon",
+        icon
+    );
+
+
+    modal.classList.add(
+        "show"
+    );
+
+
+    modal.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+}
+
+
+function closeModal() {
+
+    const modal =
+        $("gameModal");
+
+
+    if (!modal) {
+        return;
+    }
+
+
+    modal.classList.remove(
+        "show"
+    );
+
+
+    modal.setAttribute(
+        "aria-hidden",
+        "true"
+    );
+}
+
+
+/* =========================================================
+   SUARA
+========================================================= */
+
+let soundEnabled =
+    true;
+
+
+function playSound(id) {
+
+    if (!soundEnabled) {
+        return;
+    }
+
+
+    const audio =
+        $(id);
+
+
+    if (!audio) {
+        return;
+    }
+
+
+    audio.currentTime =
+        0;
+
+
+    audio.play()
+        .catch(
+            () => {}
+        );
+}
+
+
+function toggleSound() {
+
+    soundEnabled =
+        !soundEnabled;
+
+
+    const button =
+        $("soundButton");
+
+
+    if (button) {
+
+        button.textContent =
+            soundEnabled
+                ? "🔊"
+                : "🔇";
     }
 }
 
 
 /* =========================================================
    EVENT LISTENER
-   ========================================================= */
+========================================================= */
 
 document.addEventListener(
     "DOMContentLoaded",
@@ -1798,88 +2320,103 @@ document.addEventListener(
 
 
         /* -------------------------------------------------
-           START GAME
-           ------------------------------------------------- */
+           TOMBOL MULAI
+        ------------------------------------------------- */
 
         const startButton =
-            getElement("startGame");
+            $("startButton");
 
 
         if (startButton) {
 
             startButton.addEventListener(
                 "click",
-                startGame
+                openTeamForm
             );
         }
 
 
         /* -------------------------------------------------
-           RESET GAME
-           ------------------------------------------------- */
+           SIMPAN IDENTITAS
+        ------------------------------------------------- */
 
-        const resetButton =
-            getElement("resetGame");
+        const saveTeamButton =
+            $("saveTeamButton");
 
 
-        if (resetButton) {
+        if (saveTeamButton) {
 
-            resetButton.addEventListener(
+            saveTeamButton.addEventListener(
+                "click",
+                saveTeam
+            );
+        }
+
+
+        /* -------------------------------------------------
+           KEMBALI DARI FORM
+        ------------------------------------------------- */
+
+        const backStart =
+            $("backToStartButton");
+
+
+        if (backStart) {
+
+            backStart.addEventListener(
                 "click",
                 function () {
 
-                    const yakin =
-                        confirm(
-                            "Yakin ingin memulai permainan baru?"
-                        );
+                    showScreen(
+                        "startScreen"
+                    );
 
-
-                    if (yakin) {
-
-                        resetGame();
-                    }
                 }
             );
         }
 
 
         /* -------------------------------------------------
+           MULAI MISI
+        ------------------------------------------------- */
+
+        const beginMission =
+            $("beginMissionButton");
+
+
+        if (beginMission) {
+
+            beginMission.addEventListener(
+                "click",
+                beginMission
+            );
+        }
+
+
+        /* -------------------------------------------------
            KODE RAHASIA
-           ------------------------------------------------- */
+        ------------------------------------------------- */
 
-        const revealButton =
-            getElement("revealCode");
+        const verifyCode =
+            $("verifyCodeButton");
 
 
-        if (revealButton) {
+        if (verifyCode) {
 
-            revealButton.addEventListener(
+            verifyCode.addEventListener(
                 "click",
-                revealSecretCode
+                verifySecretCode
             );
         }
 
 
-        const validateButton =
-            getElement("validateCode");
+        const secretInput =
+            $("secretCodeInput");
 
 
-        if (validateButton) {
+        if (secretInput) {
 
-            validateButton.addEventListener(
-                "click",
-                validateSecretCode
-            );
-        }
-
-
-        const codeInput =
-            getElement("codeInput");
-
-
-        if (codeInput) {
-
-            codeInput.addEventListener(
+            secretInput.addEventListener(
                 "keydown",
                 function (event) {
 
@@ -1887,148 +2424,175 @@ document.addEventListener(
                         event.key === "Enter"
                     ) {
 
-                        validateSecretCode();
+                        verifySecretCode();
+
                     }
+
                 }
             );
         }
 
 
         /* -------------------------------------------------
-           PETUNJUK
-           ------------------------------------------------- */
+           JAWAB SOAL
+        ------------------------------------------------- */
 
-        const instructionButton =
-            getElement("instructionButton");
+        const answerButton =
+            $("answerButton");
 
 
-        if (instructionButton) {
+        if (answerButton) {
 
-            instructionButton.addEventListener(
+            answerButton.addEventListener(
                 "click",
-                toggleInstruction
+                checkSelectedAnswer
             );
         }
 
 
         /* -------------------------------------------------
-           TOMBOL KEMBALI KE POS
-           ------------------------------------------------- */
+           SUARA
+        ------------------------------------------------- */
 
-        const backButton =
-            getElement("backToPos");
+        const soundButton =
+            $("soundButton");
 
 
-        if (backButton) {
+        if (soundButton) {
 
-            backButton.addEventListener(
+            soundButton.addEventListener(
                 "click",
-                backToCurrentPos
+                toggleSound
+            );
+        }
+
+
+        /* -------------------------------------------------
+           MODAL
+        ------------------------------------------------- */
+
+        const closeModalButton =
+            $("closeModalButton");
+
+
+        if (closeModalButton) {
+
+            closeModalButton.addEventListener(
+                "click",
+                closeModal
+            );
+        }
+
+
+        const modalOkButton =
+            $("modalOkButton");
+
+
+        if (modalOkButton) {
+
+            modalOkButton.addEventListener(
+                "click",
+                closeModal
+            );
+        }
+
+
+        const modalOverlay =
+            document.querySelector(
+                ".modal-overlay"
+            );
+
+
+        if (modalOverlay) {
+
+            modalOverlay.addEventListener(
+                "click",
+                closeModal
+            );
+        }
+
+
+        /* -------------------------------------------------
+           RESTART
+        ------------------------------------------------- */
+
+        const restartButton =
+            $("restartButton");
+
+
+        if (restartButton) {
+
+            restartButton.addEventListener(
+                "click",
+                restartGame
             );
         }
 
 
         /* -------------------------------------------------
            INIT
-           ------------------------------------------------- */
+        ------------------------------------------------- */
 
-        initializeGame();
+        startApplication();
 
     }
 );
 
 
 /* =========================================================
-   FUNGSI GLOBAL
-   =========================================================
-   Dipasang ke window agar tetap bisa dipanggil
-   langsung dari onclick="" jika index.html
-   menggunakan cara tersebut.
-   ========================================================= */
-
-window.startGame =
-    startGame;
-
-window.resetGame =
-    resetGame;
-
-window.revealSecretCode =
-    revealSecretCode;
-
-window.validateSecretCode =
-    validateSecretCode;
-
-window.toggleInstruction =
-    toggleInstruction;
-
-window.backToCurrentPos =
-    backToCurrentPos;
-
-
-/* =========================================================
-   PENCEGAHAN REFRESH SAAT TIMER BUNTU
-   ========================================================= */
+   HANDLE REFRESH
+========================================================= */
 
 window.addEventListener(
     "beforeunload",
     function () {
 
-        if (
-            gameState.currentPos >= 8 &&
-            gameState.currentPos <= 10 &&
-            gameState.waktuBuntuMulai
-        ) {
+        saveGame();
 
-            saveGame();
-        }
     }
 );
 
 
 /* =========================================================
-   DEBUG / ADMIN
-   ---------------------------------------------------------
-   Bisa digunakan di Console browser untuk memeriksa
-   status permainan.
-   ========================================================= */
+   DEBUG ADMIN
+========================================================= */
 
-window.PosGame = {
+window.JelajahSekolah = {
 
-    getState() {
-        return gameState;
+    state() {
+
+        console.log(
+            game
+        );
+
+        return game;
     },
 
-    getPos(pos) {
-        return POS_DATA[pos];
+
+    pos(number) {
+
+        return POS_DATA[
+            number
+        ];
     },
 
-    goTo(pos) {
 
-        if (POS_DATA[pos]) {
+    pindah(number) {
 
-            renderPos(pos);
+        if (
+            POS_DATA[number]
+        ) {
+
+            goToPos(number);
 
         }
     },
+
 
     reset() {
-        resetGame();
-    },
 
-    showCode() {
+        restartGame();
 
-        const pos =
-            POS_DATA[
-                gameState.currentPos
-            ];
-
-        if (pos) {
-
-            console.log(
-                "Kode:",
-                pos.kodeRahasia
-            );
-        }
     }
 
 };
