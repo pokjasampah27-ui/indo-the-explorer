@@ -1,7 +1,7 @@
 /* =========================================================
    JELAJAH SEKOLAH
    GAME POS-POSAN EDUKATIF
-   SCRIPT.JS FINAL
+   SCRIPT.JS FINAL + LAPORAN GOOGLE SHEETS
 
    ASET:
    ./assets/pos1.jpeg
@@ -14,6 +14,9 @@
    ./assets/pos8.jpeg
    ./assets/pos9.jpeg
    ./assets/pos10.jpeg
+
+   GOOGLE SHEETS:
+   Hanya untuk mencatat hasil_game.
 ========================================================= */
 
 
@@ -23,6 +26,18 @@
 
 const ASSET_FOLDER = "./assets/";
 
+
+/*
+   URL WEB APP GOOGLE APPS SCRIPT
+*/
+
+const REPORT_API_URL =
+    "https://script.google.com/macros/s/AKfycbwlzVK06_kfSbd_EOVEk_y3d_hKK58ftK7MZPXK6tENMExxKACxn-IEYajBnVkulej_/exec";
+
+
+/* =========================================================
+   DATA GAMBAR
+========================================================= */
 
 const POS_IMAGES = {
 
@@ -45,7 +60,6 @@ const POS_IMAGES = {
 ========================================================= */
 
 const POS_DATA = {
-
 
     /* =====================================================
        POS 1
@@ -860,6 +874,9 @@ const gameState = {
         false,
 
     secretVerified:
+        false,
+
+    resultSent:
         false
 
 };
@@ -1075,8 +1092,13 @@ function showScreen(screen) {
 
 
     window.scrollTo({
-        top: 0,
-        behavior: "smooth"
+
+        top:
+            0,
+
+        behavior:
+            "smooth"
+
     });
 
 }
@@ -1115,6 +1137,7 @@ function showToast(
             "✅";
 
     }
+
     else if (
         type === "error"
     ) {
@@ -1127,6 +1150,7 @@ function showToast(
             "⚠️";
 
     }
+
     else {
 
         toastIcon.textContent =
@@ -1206,6 +1230,7 @@ startButton.addEventListener(
             teamScreen
         );
 
+
         setTimeout(
             () => {
 
@@ -1272,6 +1297,7 @@ teamForm.addEventListener(
 
         gameState.leader =
             leader;
+
 
         gameState.members =
             members;
@@ -1347,6 +1373,7 @@ function resetState() {
         gameState.mainTimer
     );
 
+
     clearInterval(
         gameState.deadEndTimer
     );
@@ -1355,46 +1382,64 @@ function resetState() {
     gameState.currentPos =
         1;
 
+
     gameState.previousCorrectPos =
         1;
+
 
     gameState.currentQuestion =
         0;
 
+
     gameState.selectedAnswer =
         null;
+
 
     gameState.correctAnswers =
         0;
 
+
     gameState.wrongAnswers =
         0;
+
 
     gameState.totalQuestionsAnswered =
         0;
 
+
     gameState.completedPositions =
         [];
+
 
     gameState.deadEndVisits =
         [];
 
+
     gameState.startTime =
         null;
+
 
     gameState.finishTime =
         null;
 
+
     gameState.mainTimer =
         null;
+
 
     gameState.deadEndTimer =
         null;
 
+
     gameState.deadEndStart =
         null;
 
+
     gameState.secretVerified =
+        false;
+
+
+    gameState.resultSent =
         false;
 
 }
@@ -1470,8 +1515,10 @@ function loadPosition(
     gameState.currentQuestion =
         0;
 
+
     gameState.selectedAnswer =
         null;
+
 
     gameState.secretVerified =
         false;
@@ -1597,7 +1644,6 @@ function loadCorrectPosition(
 
     setSecretMessageStyle();
 
-
 }
 
 
@@ -1621,6 +1667,7 @@ secretCodeInput.addEventListener(
 
             event.preventDefault();
 
+
             verifySecretCode();
 
         }
@@ -1641,7 +1688,9 @@ function verifySecretCode() {
         !pos ||
         pos.deadEnd
     ) {
+
         return;
+
     }
 
 
@@ -1656,8 +1705,10 @@ function verifySecretCode() {
         secretMessage.textContent =
             "Masukkan kode terlebih dahulu.";
 
+
         secretMessage.style.color =
             "#dc2626";
+
 
         return;
 
@@ -1677,6 +1728,7 @@ function verifySecretCode() {
         secretMessage.textContent =
             "✓ Kode benar! Tantangan terbuka.";
 
+
         secretMessage.style.color =
             "#16a34a";
 
@@ -1692,6 +1744,7 @@ function verifySecretCode() {
         );
 
     }
+
     else {
 
         gameState.secretVerified =
@@ -1700,6 +1753,7 @@ function verifySecretCode() {
 
         secretMessage.textContent =
             "✕ Kode salah. Cari dan periksa kembali pesan di lokasi.";
+
 
         secretMessage.style.color =
             "#dc2626";
@@ -1733,7 +1787,9 @@ function showQuestion(
         !pos ||
         !pos.questions
     ) {
+
         return;
+
     }
 
 
@@ -1791,8 +1847,13 @@ function showQuestion(
 
 
     questionArea.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
+
+        behavior:
+            "smooth",
+
+        block:
+            "start"
+
     });
 
 }
@@ -1917,6 +1978,7 @@ function selectAnswer(
             "error"
         );
 
+
         return;
 
     }
@@ -1972,6 +2034,7 @@ function checkAnswer() {
             "Pilih jawaban terlebih dahulu.",
             "error"
         );
+
 
         return;
 
@@ -2066,6 +2129,7 @@ function checkAnswer() {
                     );
 
                 }
+
                 else {
 
                     finishPosition();
@@ -2123,7 +2187,8 @@ function checkAnswer() {
 
             const index =
                 (
-                    gameState.wrongAnswers - 1
+                    gameState.wrongAnswers -
+                    1
                 ) %
                 deadEnds.length;
 
@@ -2297,7 +2362,9 @@ function loadDeadEnd(
 
 
     if (!pos) {
+
         return;
+
     }
 
 
@@ -2418,7 +2485,9 @@ function updateDeadEndTimer() {
     if (
         !gameState.deadEndStart
     ) {
+
         return;
+
     }
 
 
@@ -2453,6 +2522,7 @@ function updateDeadEndTimer() {
         );
 
     }
+
     else {
 
         deadEndTimer.classList.remove(
@@ -2531,6 +2601,7 @@ function returnToPos1(
         );
 
     }
+
     else {
 
         showToast(
@@ -2589,7 +2660,156 @@ function updateProgress(
 
 
 /* =========================================================
-   FINISH
+   KIRIM HASIL GAME KE GOOGLE SHEETS
+========================================================= */
+
+async function sendGameResult() {
+
+    /*
+       Jangan mengirim dua kali.
+    */
+
+    if (
+        gameState.resultSent
+    ) {
+
+        console.log(
+            "Laporan sudah pernah dikirim."
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+       Tandai terlebih dahulu.
+       Ini mencegah pengiriman ganda
+       akibat klik berulang.
+    */
+
+    gameState.resultSent =
+        true;
+
+
+    if (!REPORT_API_URL) {
+
+        console.error(
+            "REPORT_API_URL belum tersedia."
+        );
+
+
+        return;
+
+    }
+
+
+    const elapsed =
+        gameState.finishTime &&
+        gameState.startTime
+
+            ? gameState.finishTime -
+              gameState.startTime
+
+            : 0;
+
+
+    const payload = {
+
+        action:
+            "simpanHasilGame",
+
+        leader:
+            gameState.leader,
+
+        members:
+            gameState.members,
+
+        completedPositions:
+            gameState.completedPositions.length,
+
+        totalQuestions:
+            gameState.totalQuestionsAnswered,
+
+        correctAnswers:
+            gameState.correctAnswers,
+
+        wrongAnswers:
+            gameState.wrongAnswers,
+
+        gameTime:
+            formatElapsedTime(
+                elapsed
+            ),
+
+        status:
+            "SELESAI"
+
+    };
+
+
+    console.log(
+        "Mengirim laporan hasil game:",
+        payload
+    );
+
+
+    try {
+
+        await fetch(
+            REPORT_API_URL,
+            {
+
+                method:
+                    "POST",
+
+                mode:
+                    "no-cors",
+
+                headers: {
+
+                    "Content-Type":
+                        "text/plain;charset=utf-8"
+
+                },
+
+                body:
+                    JSON.stringify(
+                        payload
+                    )
+
+            }
+        );
+
+
+        console.log(
+            "✓ Laporan hasil game berhasil dikirim."
+        );
+
+
+    }
+
+    catch (error) {
+
+        /*
+           Game tetap selesai meskipun
+           pengiriman laporan mengalami
+           masalah koneksi.
+        */
+
+        console.error(
+            "Gagal mengirim laporan:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   FINISH GAME
 ========================================================= */
 
 function finishGame() {
@@ -2600,6 +2820,20 @@ function finishGame() {
     clearInterval(
         gameState.mainTimer
     );
+
+
+    /*
+       Cegah finishGame dipanggil
+       berkali-kali.
+    */
+
+    if (
+        gameState.finishTime
+    ) {
+
+        return;
+
+    }
 
 
     gameState.finishTime =
@@ -2639,6 +2873,14 @@ function finishGame() {
         "success"
     );
 
+
+    /*
+       Kirim laporan otomatis
+       ke Google Sheets.
+    */
+
+    sendGameResult();
+
 }
 
 
@@ -2653,6 +2895,7 @@ restartButton.addEventListener(
         clearInterval(
             gameState.mainTimer
         );
+
 
         clearInterval(
             gameState.deadEndTimer
@@ -2720,25 +2963,35 @@ function formatElapsedTime(
     ) {
 
         return (
+
             String(hours)
                 .padStart(2, "0") +
+
             ":" +
+
             String(minutes)
                 .padStart(2, "0") +
+
             ":" +
+
             String(seconds)
                 .padStart(2, "0")
+
         );
 
     }
 
 
     return (
+
         String(minutes)
             .padStart(2, "0") +
+
         ":" +
+
         String(seconds)
             .padStart(2, "0")
+
     );
 
 }
@@ -2763,11 +3016,15 @@ function formatCountdown(
 
 
     return (
+
         String(minutes)
             .padStart(2, "0") +
+
         ":" +
+
         String(secs)
             .padStart(2, "0")
+
     );
 
 }
@@ -2863,8 +3120,11 @@ function createImagePlaceholder(
 
 
     return (
+
         "data:image/svg+xml;charset=UTF-8," +
+
         encodeURIComponent(svg)
+
     );
 
 }
@@ -2956,22 +3216,38 @@ document.addEventListener(
             "=================================="
         );
 
+
         console.log(
             "JELAJAH SEKOLAH"
         );
+
 
         console.log(
             "GAME POS-POSAN EDUKATIF"
         );
 
+
+        console.log(
+            "GOOGLE SHEETS REPORTING AKTIF"
+        );
+
+
         console.log(
             "=================================="
         );
+
 
         console.log(
             "Folder assets:",
             ASSET_FOLDER
         );
+
+
+        console.log(
+            "Report API:",
+            REPORT_API_URL
+        );
+
 
         console.log(
             "=================================="
