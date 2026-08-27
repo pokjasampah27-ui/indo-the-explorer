@@ -1,9 +1,30 @@
+/* =========================================================
+   JELAJAH SEKOLAH
+   STYLE.CSS FINAL
+   Mendukung:
+   - Game Jelajah Sekolah
+   - Pos 1–9
+   - Video Pos 8 & Pos 9
+   - Kamera HP
+   - MediaRecorder
+   - Responsive mobile
+========================================================= */
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
+
+/* =========================================================
+   ROOT
+========================================================= */
 
 :root {
 
@@ -27,6 +48,10 @@
 }
 
 
+/* =========================================================
+   BODY
+========================================================= */
+
 body {
 
     font-family:
@@ -46,29 +71,57 @@ body {
 
     min-height:
         100vh;
+
+    -webkit-font-smoothing:
+        antialiased;
+
+    text-rendering:
+        optimizeLegibility;
 }
 
 
+/* =========================================================
+   GENERAL
+========================================================= */
+
 button,
 input {
-    font: inherit;
+
+    font:
+        inherit;
 }
 
 
 button {
-    cursor: pointer;
+
+    cursor:
+        pointer;
+
+    -webkit-tap-highlight-color:
+        transparent;
+}
+
+
+input {
+
+    -webkit-appearance:
+        none;
+
+    appearance:
+        none;
 }
 
 
 .hidden {
+
     display:
         none !important;
 }
 
 
-/* =====================================================
+/* =========================================================
    SCREEN
-===================================================== */
+========================================================= */
 
 .screen {
 
@@ -96,9 +149,9 @@ button {
 }
 
 
-/* =====================================================
+/* =========================================================
    WELCOME
-===================================================== */
+========================================================= */
 
 .hero-card {
 
@@ -194,9 +247,9 @@ button {
 }
 
 
-/* =====================================================
+/* =========================================================
    CARD
-===================================================== */
+========================================================= */
 
 .game-card {
 
@@ -260,9 +313,9 @@ button {
 }
 
 
-/* =====================================================
+/* =========================================================
    INPUT
-===================================================== */
+========================================================= */
 
 .input-group {
 
@@ -329,13 +382,12 @@ button {
 }
 
 
-/* =====================================================
+/* =========================================================
    BUTTON
-===================================================== */
+========================================================= */
 
 .primary-button,
-.secondary-button,
-.save-video-button {
+.secondary-button {
 
     border:
         none;
@@ -354,7 +406,8 @@ button {
 
     transition:
         transform .15s,
-        opacity .15s;
+        opacity .15s,
+        box-shadow .15s;
 }
 
 
@@ -386,32 +439,28 @@ button {
 }
 
 
-.save-video-button {
-
-    color:
-        white;
-
-    background:
-        linear-gradient(
-            135deg,
-            #15803d,
-            #22c55e
-        );
-}
-
-
 .primary-button:hover,
-.secondary-button:hover,
-.save-video-button:hover {
+.secondary-button:hover {
 
     transform:
         translateY(-2px);
+
+    box-shadow:
+        0 8px 20px
+        rgba(79,70,229,.18);
+}
+
+
+.primary-button:active,
+.secondary-button:active {
+
+    transform:
+        translateY(0);
 }
 
 
 .primary-button:disabled,
-.secondary-button:disabled,
-.save-video-button:disabled {
+.secondary-button:disabled {
 
     opacity:
         .45;
@@ -421,12 +470,15 @@ button {
 
     transform:
         none;
+
+    box-shadow:
+        none;
 }
 
 
-/* =====================================================
+/* =========================================================
    INSTRUCTION
-===================================================== */
+========================================================= */
 
 .instruction-list {
 
@@ -510,9 +562,9 @@ button {
 }
 
 
-/* =====================================================
+/* =========================================================
    GAME HEADER
-===================================================== */
+========================================================= */
 
 .game-header {
 
@@ -606,6 +658,9 @@ button {
 
     font-weight:
         900;
+
+    white-space:
+        nowrap;
 }
 
 
@@ -625,9 +680,9 @@ button {
 }
 
 
-/* =====================================================
+/* =========================================================
    PROGRESS
-===================================================== */
+========================================================= */
 
 .progress-card {
 
@@ -717,9 +772,9 @@ button {
 }
 
 
-/* =====================================================
+/* =========================================================
    LOCATION
-===================================================== */
+========================================================= */
 
 .location-card,
 .challenge-card,
@@ -782,6 +837,9 @@ button {
 
     color:
         var(--primary);
+
+    white-space:
+        nowrap;
 }
 
 
@@ -849,9 +907,9 @@ button {
 }
 
 
-/* =====================================================
+/* =========================================================
    CHALLENGE
-===================================================== */
+========================================================= */
 
 .challenge-title {
 
@@ -940,9 +998,9 @@ button {
 }
 
 
-/* =====================================================
+/* =========================================================
    OPTIONS
-===================================================== */
+========================================================= */
 
 .options-container {
 
@@ -988,6 +1046,9 @@ button {
 
     color:
         var(--dark);
+
+    transition:
+        .15s;
 }
 
 
@@ -1102,9 +1163,9 @@ button {
 }
 
 
-/* =====================================================
+/* =========================================================
    NEXT
-===================================================== */
+========================================================= */
 
 .next-card {
 
@@ -1163,9 +1224,9 @@ button {
 }
 
 
-/* =====================================================
+/* =========================================================
    DEAD END
-===================================================== */
+========================================================= */
 
 .dead-end-card {
 
@@ -1211,10 +1272,6 @@ button {
 }
 
 
-/* =====================================================
-   DEAD END TIMER
-===================================================== */
-
 .dead-end-timer-label {
 
     font-size:
@@ -1225,9 +1282,6 @@ button {
 
     font-weight:
         800;
-
-    margin-top:
-        18px;
 }
 
 
@@ -1266,82 +1320,102 @@ button {
 }
 
 
-/* =====================================================
-   VIDEO CHALLENGE
-===================================================== */
+/* =========================================================
+   =========================================================
+   VIDEO RECORDER
+   POS 8 & POS 9
+   =========================================================
+   ========================================================= */
 
-.video-challenge-area {
+.video-recorder-card {
 
-    margin:
-        20px 0;
-
-    padding:
-        18px;
-
-    background:
-        rgba(255,255,255,.82);
-
-    border:
-        2px dashed #cbd5e1;
-
-    border-radius:
-        18px;
-}
-
-
-.video-title {
-
-    font-size:
-        18px;
-
-    font-weight:
-        900;
-
-    margin-bottom:
-        8px;
-}
-
-
-.video-description {
-
-    font-size:
-        14px;
-
-    color:
-        var(--gray);
-
-    line-height:
-        1.55;
-
-    margin-bottom:
-        14px;
-}
-
-
-/* =====================================================
-   CAMERA
-===================================================== */
-
-.camera-box {
-
-    width:
-        100%;
-
-    border-radius:
-        16px;
+    position:
+        relative;
 
     overflow:
         hidden;
 
-    background:
-        #0f172a;
+    border:
+        2px solid #e0e7ff;
 
-    margin-bottom:
-        12px;
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #f8faff
+        );
 }
 
 
-.camera-preview {
+/* =========================================================
+   VIDEO CARD TITLE
+========================================================= */
+
+.video-recorder-card .challenge-title {
+
+    color:
+        var(--primary);
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        6px;
+}
+
+
+.video-recorder-card > p {
+
+    margin-bottom:
+        15px;
+}
+
+
+/* =========================================================
+   VIDEO PREVIEW WRAPPER
+========================================================= */
+
+.video-preview-wrapper {
+
+    position:
+        relative;
+
+    width:
+        100%;
+
+    aspect-ratio:
+        16 / 9;
+
+    min-height:
+        210px;
+
+    background:
+        #0f172a;
+
+    border-radius:
+        17px;
+
+    overflow:
+        hidden;
+
+    margin:
+        10px 0 14px;
+
+    box-shadow:
+        inset 0 0 0 1px
+        rgba(255,255,255,.08);
+}
+
+
+/* =========================================================
+   CAMERA PREVIEW
+========================================================= */
+
+.camera-preview,
+.recorded-preview {
 
     display:
         block;
@@ -1350,7 +1424,10 @@ button {
         100%;
 
     height:
-        360px;
+        100%;
+
+    min-height:
+        210px;
 
     object-fit:
         cover;
@@ -1360,76 +1437,31 @@ button {
 }
 
 
-.camera-placeholder {
+/*
+   Video kamera depan dapat terlihat
+   seperti cermin pada perangkat tertentu.
+   Kita tidak membalik gambar secara CSS
+   agar hasil rekaman tetap natural.
+*/
 
-    width:
-        100%;
 
-    min-height:
-        220px;
+.camera-preview {
 
-    display:
-        flex;
-
-    flex-direction:
-        column;
-
-    align-items:
+    object-position:
         center;
+}
 
-    justify-content:
+
+.recorded-preview {
+
+    object-position:
         center;
-
-    gap:
-        8px;
-
-    color:
-        #cbd5e1;
-
-    font-size:
-        55px;
 }
 
 
-.camera-placeholder span {
-
-    font-size:
-        14px;
-
-    font-weight:
-        700;
-}
-
-
-/* =====================================================
-   RECORDED VIDEO
-===================================================== */
-
-.recorded-video {
-
-    display:
-        block;
-
-    width:
-        100%;
-
-    max-height:
-        400px;
-
-    background:
-        #0f172a;
-
-    border-radius:
-        16px;
-
-    margin-bottom:
-        12px;
-}
-
-
-/* =====================================================
+/* =========================================================
    RECORDING STATUS
-===================================================== */
+========================================================= */
 
 .recording-status {
 
@@ -1445,48 +1477,108 @@ button {
     color:
         var(--gray);
 
-    margin-bottom:
-        12px;
+    margin:
+        5px 0 5px;
+
+    line-height:
+        1.5;
 }
 
 
-.recording-status.recording {
+/* =========================================================
+   RECORDING TIMER
+========================================================= */
+
+.recording-timer {
+
+    text-align:
+        center;
+
+    font-size:
+        34px;
+
+    line-height:
+        1;
+
+    font-weight:
+        900;
 
     color:
-        var(--danger);
+        var(--primary);
 
-    animation:
-        recordingBlink 1s infinite;
+    margin:
+        8px 0 17px;
+
+    font-variant-numeric:
+        tabular-nums;
+
+    letter-spacing:
+        1px;
 }
 
 
-@keyframes recordingBlink {
+/*
+   Saat merekam, script dapat memberikan
+   indikator visual melalui status.
+*/
 
-    50% {
+.recording-status:has(+ .recording-timer) {
 
-        opacity:
-            .4;
-
-    }
-
+    transition:
+        color .2s;
 }
 
 
-/* =====================================================
-   VIDEO BUTTON
-===================================================== */
+/* =========================================================
+   VIDEO BUTTON GRID
+========================================================= */
 
-.video-button-group {
+.video-button-grid {
 
     display:
         grid;
 
+    grid-template-columns:
+        1fr 1fr;
+
     gap:
+        9px;
+
+    margin-bottom:
         10px;
 }
 
 
-.record-button {
+.video-button-grid .secondary-button {
+
+    min-height:
+        50px;
+
+    padding:
+        12px 10px;
+
+    font-size:
+        13px;
+}
+
+
+/* =========================================================
+   VIDEO ACTION BUTTONS
+========================================================= */
+
+#startRecordingButton,
+#stopRecordingButton,
+#sendVideoButton {
+
+    margin-top:
+        8px;
+
+    min-height:
+        52px;
+}
+
+
+#startRecordingButton {
 
     background:
         linear-gradient(
@@ -1497,7 +1589,15 @@ button {
 }
 
 
-.record-button:hover {
+#startRecordingButton:hover:not(:disabled) {
+
+    box-shadow:
+        0 8px 22px
+        rgba(220,38,38,.20);
+}
+
+
+#stopRecordingButton {
 
     background:
         linear-gradient(
@@ -1508,9 +1608,231 @@ button {
 }
 
 
-/* =====================================================
+#sendVideoButton {
+
+    background:
+        linear-gradient(
+            135deg,
+            #15803d,
+            #16a34a
+        );
+}
+
+
+#sendVideoButton:hover:not(:disabled) {
+
+    box-shadow:
+        0 8px 22px
+        rgba(22,163,74,.20);
+}
+
+
+/* =========================================================
+   VIDEO UPLOAD MESSAGE
+========================================================= */
+
+#videoUploadMessage {
+
+    margin-top:
+        12px;
+
+    text-align:
+        center;
+
+    min-height:
+        25px;
+}
+
+
+/* =========================================================
+   VIDEO RECORDING ANIMATION
+========================================================= */
+
+@keyframes recordingPulse {
+
+    0% {
+
+        box-shadow:
+            0 0 0 0
+            rgba(220,38,38,.35);
+
+    }
+
+    70% {
+
+        box-shadow:
+            0 0 0 10px
+            rgba(220,38,38,0);
+
+    }
+
+    100% {
+
+        box-shadow:
+            0 0 0 0
+            rgba(220,38,38,0);
+
+    }
+
+}
+
+
+/*
+   Ketika tombol STOP tampil,
+   berarti proses perekaman sedang berjalan.
+*/
+
+#stopRecordingButton:not(.hidden) {
+
+    animation:
+        recordingPulse 1.6s infinite;
+}
+
+
+/* =========================================================
+   CAMERA ERROR / STATUS
+========================================================= */
+
+.video-recorder-card .answer-feedback.correct {
+
+    background:
+        #f0fdf4;
+
+    border-radius:
+        12px;
+
+    padding:
+        10px;
+
+}
+
+
+.video-recorder-card .answer-feedback.wrong {
+
+    background:
+        #fef2f2;
+
+    border-radius:
+        12px;
+
+    padding:
+        10px;
+
+}
+
+
+/* =========================================================
+   MOBILE VIDEO SAFETY
+========================================================= */
+
+@media
+(max-width: 520px) {
+
+    .video-recorder-card {
+
+        padding:
+            15px;
+
+    }
+
+
+    .video-preview-wrapper {
+
+        aspect-ratio:
+            9 / 16;
+
+        min-height:
+            360px;
+
+        max-height:
+            70vh;
+
+    }
+
+
+    .camera-preview,
+    .recorded-preview {
+
+        min-height:
+            360px;
+
+        object-fit:
+            cover;
+
+    }
+
+
+    .video-button-grid {
+
+        grid-template-columns:
+            1fr;
+
+        gap:
+            8px;
+
+    }
+
+
+    .video-button-grid .secondary-button {
+
+        min-height:
+            48px;
+
+    }
+
+
+    .recording-timer {
+
+        font-size:
+            32px;
+
+    }
+
+
+    #startRecordingButton,
+    #stopRecordingButton,
+    #sendVideoButton {
+
+        min-height:
+            54px;
+
+    }
+
+}
+
+
+/* =========================================================
+   TABLET / DESKTOP VIDEO
+========================================================= */
+
+@media
+(min-width: 521px) {
+
+    .video-preview-wrapper {
+
+        aspect-ratio:
+            16 / 9;
+
+        min-height:
+            300px;
+
+    }
+
+
+    .camera-preview,
+    .recorded-preview {
+
+        min-height:
+            300px;
+
+    }
+
+}
+
+
+/* =========================================================
    FINISH
-===================================================== */
+========================================================= */
 
 .finish-card {
 
@@ -1623,12 +1945,15 @@ button {
 
     color:
         var(--primary);
+
+    word-break:
+        break-word;
 }
 
 
-/* =====================================================
+/* =========================================================
    MODAL
-===================================================== */
+========================================================= */
 
 .modal {
 
@@ -1731,9 +2056,9 @@ button {
 }
 
 
-/* =====================================================
+/* =========================================================
    TOAST
-===================================================== */
+========================================================= */
 
 .toast {
 
@@ -1809,16 +2134,44 @@ button {
 }
 
 
-/* =====================================================
+/* =========================================================
    RESPONSIVE
-===================================================== */
+========================================================= */
 
-@media (max-width: 520px) {
+@media
+(max-width: 520px) {
+
+    .screen {
+
+        padding:
+            18px 10px;
+
+    }
+
+
+    .hero-card {
+
+        padding:
+            30px 18px;
+
+        border-radius:
+            24px;
+
+    }
+
 
     .hero-card h1 {
 
         font-size:
             30px;
+
+    }
+
+
+    .hero-card h2 {
+
+        font-size:
+            18px;
 
     }
 
@@ -1863,6 +2216,25 @@ button {
     }
 
 
+    .team-name {
+
+        max-width:
+            145px;
+
+    }
+
+
+    .timer-box {
+
+        padding:
+            9px 10px;
+
+        font-size:
+            13px;
+
+    }
+
+
     .game-container {
 
         padding:
@@ -1876,40 +2248,165 @@ button {
     .next-card,
     .dead-end-card {
 
+        border-radius:
+            17px;
+
         padding:
             15px;
 
     }
 
+}
 
-    .camera-preview {
 
-        height:
-            280px;
+/* =========================================================
+   VERY SMALL PHONE
+========================================================= */
+
+@media
+(max-width: 360px) {
+
+    .hero-card h1 {
+
+        font-size:
+            27px;
 
     }
 
 
-    .camera-placeholder {
+    .hero-icon {
+
+        font-size:
+            60px;
+
+    }
+
+
+    .game-header {
+
+        gap:
+            6px;
+
+    }
+
+
+    .small-label {
+
+        font-size:
+            10px;
+
+    }
+
+
+    .team-name {
+
+        max-width:
+            125px;
+
+        font-size:
+            14px;
+
+    }
+
+
+    .timer-box {
+
+        font-size:
+            12px;
+
+    }
+
+
+    .video-preview-wrapper {
 
         min-height:
-            180px;
+            320px;
 
     }
 
 
-    .recorded-video {
+    .camera-preview,
+    .recorded-preview {
 
-        max-height:
-            300px;
+        min-height:
+            320px;
+
+    }
+
+}
+
+
+/* =========================================================
+   ACCESSIBILITY / TOUCH
+========================================================= */
+
+@media
+(hover: none) {
+
+    .primary-button:hover,
+    .secondary-button:hover {
+
+        transform:
+            none;
+
+        box-shadow:
+            none;
 
     }
 
 
-    .video-challenge-area {
+    .answer-option:hover:not(:disabled) {
 
-        padding:
-            14px;
+        border-color:
+            #e2e8f0;
+
+        background:
+            #f8fafc;
+
+    }
+
+}
+
+
+/* =========================================================
+   PREVENT TEXT SELECTION PADA TOMBOL
+========================================================= */
+
+button {
+
+    user-select:
+        none;
+
+    -webkit-user-select:
+        none;
+}
+
+
+/* =========================================================
+   SAFE AREA UNTUK HP MODERN
+========================================================= */
+
+@supports
+(padding: env(safe-area-inset-bottom)) {
+
+    .game-container {
+
+        padding-bottom:
+            calc(
+                50px +
+                env(safe-area-inset-bottom)
+            );
+
+    }
+
+
+    .toast {
+
+        bottom:
+            calc(
+                20px +
+                env(safe-area-inset-bottom)
+            );
 
     }
 
