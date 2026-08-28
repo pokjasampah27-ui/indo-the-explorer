@@ -1,1 +1,891 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
 
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+    >
+
+    <meta name="theme-color" content="#0f172a">
+
+    <title>Game Pos-Posan — Misi Petualangan</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- =========================================
+         BACKGROUND DECORATION
+    ========================================== -->
+    <div class="background-glow glow-one"></div>
+    <div class="background-glow glow-two"></div>
+
+    <!-- =========================================
+         HEADER
+    ========================================== -->
+    <header class="topbar">
+
+        <div class="brand">
+            <div class="brand-icon">🎯</div>
+
+            <div>
+                <div class="brand-title">GAME POS-POSAN</div>
+                <div class="brand-subtitle">MISI PETUALANGAN</div>
+            </div>
+        </div>
+
+        <div class="topbar-actions">
+
+            <div id="sessionBadge" class="session-badge hidden">
+                SESSION
+            </div>
+
+            <button
+                id="resetButton"
+                class="btn btn-danger btn-small hidden"
+                type="button"
+            >
+                RESET
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================================
+         MAIN APPLICATION
+    ========================================== -->
+    <main id="app">
+
+        <!-- =====================================
+             START SCREEN
+        ====================================== -->
+        <section id="screenStart" class="screen active">
+
+            <div class="hero-card">
+
+                <div class="hero-icon">🧭</div>
+
+                <span class="eyebrow">MISSION • ADVENTURE • CHECKPOINT</span>
+
+                <h1>GAME POS-POSAN</h1>
+
+                <p class="hero-description">
+                    Selesaikan misi dari Pos 1 sampai Pos 7,
+                    jawab seluruh tantangan, dan buktikan bahwa
+                    kelompok kalian layak mencapai <strong>FINISH</strong>.
+                </p>
+
+                <div class="mission-info">
+
+                    <div class="mission-item">
+                        <span class="mission-number">09</span>
+                        <span>POS</span>
+                    </div>
+
+                    <div class="mission-item">
+                        <span class="mission-number">20</span>
+                        <span>SOAL</span>
+                    </div>
+
+                    <div class="mission-item">
+                        <span class="mission-number">11</span>
+                        <span>MIN. LULUS</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================
+                 RESUME CARD
+            ================================== -->
+            <div id="resumeCard" class="resume-card hidden">
+
+                <div class="resume-icon">💾</div>
+
+                <div class="resume-content">
+
+                    <h2>Permainan Sebelumnya Ditemukan</h2>
+
+                    <p>
+                        Data permainan terakhir masih tersimpan
+                        pada perangkat ini.
+                    </p>
+
+                    <div class="resume-actions">
+
+                        <button
+                            id="continueButton"
+                            class="btn btn-primary"
+                            type="button"
+                        >
+                            LANJUTKAN PERMAINAN
+                        </button>
+
+                        <button
+                            id="newGameButton"
+                            class="btn btn-secondary"
+                            type="button"
+                        >
+                            MULAI BARU
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================
+                 GROUP FORM
+            ================================== -->
+            <div id="groupFormCard" class="panel-card">
+
+                <div class="panel-heading">
+
+                    <div>
+                        <span class="section-label">IDENTITAS</span>
+                        <h2>Data Kelompok</h2>
+                    </div>
+
+                    <div class="group-count">
+                        6 SISWA
+                    </div>
+
+                </div>
+
+                <p class="panel-description">
+                    Semua nama wajib diisi sebelum permainan dimulai.
+                </p>
+
+
+                <form id="groupForm" autocomplete="off">
+
+                    <div class="form-group">
+
+                        <label for="leaderName">
+                            👑 Ketua Kelompok
+                        </label>
+
+                        <input
+                            id="leaderName"
+                            name="leaderName"
+                            type="text"
+                            maxlength="100"
+                            placeholder="Masukkan nama ketua"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="members-grid">
+
+                        <div class="form-group">
+                            <label for="member1">Anggota 1</label>
+                            <input
+                                id="member1"
+                                type="text"
+                                maxlength="100"
+                                placeholder="Nama anggota 1"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="member2">Anggota 2</label>
+                            <input
+                                id="member2"
+                                type="text"
+                                maxlength="100"
+                                placeholder="Nama anggota 2"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="member3">Anggota 3</label>
+                            <input
+                                id="member3"
+                                type="text"
+                                maxlength="100"
+                                placeholder="Nama anggota 3"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="member4">Anggota 4</label>
+                            <input
+                                id="member4"
+                                type="text"
+                                maxlength="100"
+                                placeholder="Nama anggota 4"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="member5">Anggota 5</label>
+                            <input
+                                id="member5"
+                                type="text"
+                                maxlength="100"
+                                placeholder="Nama anggota 5"
+                                required
+                            >
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        id="startError"
+                        class="form-message error hidden"
+                    ></div>
+
+
+                    <button
+                        id="startGameButton"
+                        class="btn btn-primary btn-large btn-block"
+                        type="submit"
+                    >
+                        🚀 MULAI PERMAINAN
+                    </button>
+
+                </form>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             GAME SCREEN
+        ====================================== -->
+        <section id="screenGame" class="screen">
+
+            <!-- GAME HEADER -->
+            <div class="game-header">
+
+                <div class="game-title-box">
+
+                    <span class="section-label">CURRENT CHECKPOINT</span>
+
+                    <h1 id="currentPosTitle">
+                        POS 1
+                    </h1>
+
+                </div>
+
+
+                <div class="score-mini">
+
+                    <div class="score-mini-item">
+                        <span>BENAR</span>
+                        <strong id="correctCount">0</strong>
+                    </div>
+
+                    <div class="score-mini-item">
+                        <span>SALAH</span>
+                        <strong id="wrongCount">0</strong>
+                    </div>
+
+                    <div class="score-mini-item">
+                        <span>SOAL</span>
+                        <strong id="answeredCount">0</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PROGRESS -->
+            <div class="progress-panel">
+
+                <div class="progress-info">
+
+                    <span>
+                        Progress Soal
+                    </span>
+
+                    <strong id="progressText">
+                        0 / 20
+                    </strong>
+
+                </div>
+
+                <div class="progress-bar">
+
+                    <div
+                        id="progressFill"
+                        class="progress-fill"
+                        style="width: 0%"
+                    ></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- POS CONTENT -->
+            <div class="pos-layout">
+
+                <!-- LEFT -->
+                <div class="pos-main">
+
+                    <div class="pos-image-card">
+
+                        <img
+                            id="posImage"
+                            src="assets/poske1.jpg"
+                            alt="Foto lokasi pos"
+                            loading="eager"
+                        >
+
+                        <div class="image-overlay">
+
+                            <span id="imagePosLabel">
+                                POS 1
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ACCESS CARD -->
+                    <div
+                        id="accessCard"
+                        class="panel-card access-card"
+                    >
+
+                        <div class="access-icon">🔐</div>
+
+                        <div class="access-content">
+
+                            <span class="section-label">
+                                ACCESS CODE
+                            </span>
+
+                            <h2>Masukkan Kode Pos</h2>
+
+                            <p>
+                                Minta kode akses kepada petugas
+                                di pos yang sedang kalian kunjungi.
+                            </p>
+
+                        </div>
+
+
+                        <form id="accessForm">
+
+                            <div class="code-input-wrap">
+
+                                <input
+                                    id="accessCode"
+                                    type="text"
+                                    maxlength="50"
+                                    placeholder="Masukkan kode akses"
+                                    autocomplete="off"
+                                    required
+                                >
+
+                                <button
+                                    class="btn btn-primary"
+                                    type="submit"
+                                    id="openPosButton"
+                                >
+                                    BUKA POS
+                                </button>
+
+                            </div>
+
+                            <div
+                                id="accessMessage"
+                                class="form-message hidden"
+                            ></div>
+
+                        </form>
+
+                    </div>
+
+
+                    <!-- UNLOCKED CONTENT -->
+                    <div
+                        id="posUnlockedCard"
+                        class="panel-card hidden"
+                    >
+
+                        <div class="access-success">
+
+                            <div class="success-icon">✓</div>
+
+                            <div>
+                                <span class="section-label">
+                                    ACCESS GRANTED
+                                </span>
+
+                                <h2 id="unlockedTitle">
+                                    AKSES POS BERHASIL
+                                </h2>
+
+                                <p id="unlockedDescription">
+                                    Tantangan pos telah terbuka.
+                                </p>
+                            </div>
+
+                        </div>
+
+
+                        <!-- QUESTION -->
+                        <div
+                            id="questionContainer"
+                            class="question-container hidden"
+                        >
+
+                            <div class="question-top">
+
+                                <span
+                                    id="questionNumber"
+                                    class="question-number"
+                                >
+                                    SOAL 1
+                                </span>
+
+                                <span
+                                    id="questionDifficulty"
+                                    class="difficulty-badge"
+                                >
+                                    LOTS
+                                </span>
+
+                            </div>
+
+
+                            <div
+                                id="questionText"
+                                class="question-text"
+                            ></div>
+
+
+                            <div
+                                id="optionsContainer"
+                                class="options-container"
+                            ></div>
+
+
+                            <div
+                                id="answerMessage"
+                                class="answer-message hidden"
+                            ></div>
+
+
+                            <button
+                                id="nextQuestionButton"
+                                class="btn btn-primary btn-block hidden"
+                                type="button"
+                            >
+                                SOAL BERIKUTNYA →
+                            </button>
+
+                        </div>
+
+
+                        <!-- POS COMPLETED -->
+                        <div
+                            id="posCompleteContainer"
+                            class="pos-complete hidden"
+                        >
+
+                            <div class="complete-icon">
+                                🏁
+                            </div>
+
+                            <h2>POS SELESAI</h2>
+
+                            <p id="posCompleteText">
+                                Pos telah berhasil diselesaikan.
+                            </p>
+
+                            <button
+                                id="nextPosButton"
+                                class="btn btn-primary btn-large"
+                                type="button"
+                            >
+                                LANJUT KE POS BERIKUTNYA →
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- DEAD END -->
+                    <div
+                        id="deadEndCard"
+                        class="panel-card hidden"
+                    >
+
+                        <div class="dead-end-header">
+
+                            <div class="dead-end-icon">
+                                ⚠️
+                            </div>
+
+                            <div>
+
+                                <span class="section-label">
+                                    DEAD END
+                                </span>
+
+                                <h2 id="deadEndTitle">
+                                    POS JALAN BUNTU
+                                </h2>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="task-box">
+
+                            <h3>📋 TUGAS POS</h3>
+
+                            <p id="deadEndInstruction">
+                                Laksanakan instruksi dari petugas pos.
+                            </p>
+
+                        </div>
+
+
+                        <!-- UPLOAD -->
+                        <div class="upload-area">
+
+                            <label
+                                class="upload-label"
+                                for="uploadFile"
+                            >
+                                📷 Upload Dokumentasi
+                            </label>
+
+                            <input
+                                id="uploadFile"
+                                type="file"
+                                accept=".jpg,.jpeg,.png,.mp4,image/jpeg,image/png,video/mp4"
+                            >
+
+                            <div
+                                id="selectedFileInfo"
+                                class="selected-file-info"
+                            >
+                                Belum ada file dipilih.
+                            </div>
+
+                            <button
+                                id="uploadButton"
+                                class="btn btn-primary btn-block"
+                                type="button"
+                            >
+                                ⬆ UPLOAD DOKUMENTASI
+                            </button>
+
+                            <div
+                                id="uploadProgressContainer"
+                                class="upload-progress hidden"
+                            >
+
+                                <div class="upload-progress-info">
+
+                                    <span>
+                                        Mengunggah...
+                                    </span>
+
+                                    <span id="uploadProgressText">
+                                        0%
+                                    </span>
+
+                                </div>
+
+                                <div class="progress-bar">
+
+                                    <div
+                                        id="uploadProgressFill"
+                                        class="progress-fill"
+                                        style="width: 0%"
+                                    ></div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div
+                                id="uploadMessage"
+                                class="form-message hidden"
+                            ></div>
+
+                        </div>
+
+
+                        <!-- DESCRIPTION -->
+                        <div class="form-group">
+
+                            <label for="uploadNote">
+                                Keterangan / Catatan
+                            </label>
+
+                            <textarea
+                                id="uploadNote"
+                                maxlength="500"
+                                rows="4"
+                                placeholder="Tulis keterangan dokumentasi jika diperlukan..."
+                            ></textarea>
+
+                        </div>
+
+
+                        <div
+                            id="uploadSuccessBox"
+                            class="upload-success-box hidden"
+                        >
+
+                            <div class="upload-success-icon">
+                                ✓
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Upload berhasil
+                                </strong>
+
+                                <p>
+                                    Dokumentasi telah tersimpan.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            id="deadEndContinueButton"
+                            class="btn btn-primary btn-large btn-block hidden"
+                            type="button"
+                        >
+                            LANJUT → KEMBALI KE POS 1
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- RIGHT -->
+                <aside class="sidebar">
+
+                    <!-- TEAM -->
+                    <div class="sidebar-card">
+
+                        <div class="sidebar-heading">
+                            <span>👥</span>
+                            <h3>KELOMPOK</h3>
+                        </div>
+
+                        <div
+                            id="teamList"
+                            class="team-list"
+                        ></div>
+
+                    </div>
+
+
+                    <!-- TRAVEL HISTORY -->
+                    <div class="sidebar-card">
+
+                        <div class="sidebar-heading">
+                            <span>🧭</span>
+                            <h3>RIWAYAT PERJALANAN</h3>
+                        </div>
+
+                        <div
+                            id="travelHistory"
+                            class="travel-history"
+                        ></div>
+
+                    </div>
+
+
+                    <!-- SCORE -->
+                    <div class="sidebar-card score-card">
+
+                        <div class="sidebar-heading">
+                            <span>🏆</span>
+                            <h3>SKOR</h3>
+                        </div>
+
+                        <div class="big-score">
+                            <span id="scorePercentage">
+                                0%
+                            </span>
+                        </div>
+
+                        <div class="score-detail">
+
+                            <div>
+                                <span>Benar</span>
+                                <strong id="sidebarCorrect">0</strong>
+                            </div>
+
+                            <div>
+                                <span>Salah</span>
+                                <strong id="sidebarWrong">0</strong>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </aside>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             FINISH SCREEN
+        ====================================== -->
+        <section id="screenFinish" class="screen">
+
+            <div class="finish-card">
+
+                <div class="finish-confetti">
+                    🎉
+                </div>
+
+                <span class="eyebrow">
+                    MISSION COMPLETED
+                </span>
+
+                <h1>SELAMAT!</h1>
+
+                <p class="finish-message">
+                    Kelompok kalian berhasil menyelesaikan
+                    seluruh misi permainan.
+                </p>
+
+
+                <div class="finish-status">
+                    FINISH
+                </div>
+
+
+                <div class="result-grid">
+
+                    <div class="result-box">
+                        <span>BENAR</span>
+                        <strong id="finishCorrect">0</strong>
+                    </div>
+
+                    <div class="result-box">
+                        <span>SALAH</span>
+                        <strong id="finishWrong">0</strong>
+                    </div>
+
+                    <div class="result-box">
+                        <span>NILAI</span>
+                        <strong id="finishPercentage">0%</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="finish-team">
+
+                    <h2>Identitas Kelompok</h2>
+
+                    <p>
+                        <strong>Ketua:</strong>
+                        <span id="finishLeader"></span>
+                    </p>
+
+                    <ol id="finishMembers"></ol>
+
+                </div>
+
+
+                <div class="finish-history">
+
+                    <h2>Riwayat Perjalanan</h2>
+
+                    <div id="finishHistory"></div>
+
+                </div>
+
+
+                <button
+                    id="finishResetButton"
+                    class="btn btn-secondary btn-large"
+                    type="button"
+                >
+                    KEMBALI KE HALAMAN AWAL
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================
+         GLOBAL LOADING
+    ========================================== -->
+    <div
+        id="loadingOverlay"
+        class="loading-overlay hidden"
+    >
+
+        <div class="loading-card">
+
+            <div class="spinner"></div>
+
+            <h3 id="loadingTitle">
+                Memproses...
+            </h3>
+
+            <p id="loadingText">
+                Mohon tunggu sebentar.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         TOAST
+    ========================================== -->
+    <div
+        id="toast"
+        class="toast hidden"
+    ></div>
+
+
+    <!-- =========================================
+         JAVASCRIPT
+    ========================================== -->
+    <script src="script.js"></script>
+
+</body>
+</html>
