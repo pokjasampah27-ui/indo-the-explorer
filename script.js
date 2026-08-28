@@ -23,7 +23,7 @@
        "https://script.google.com/macros/s/XXXXXXXX/exec";
 */
 
-const API_URL = "URL_WEB_APP_APPS_SCRIPT";
+const API_URL = "https://script.google.com/macros/s/AKfycbwlEdxm3g1exzV-NDw3ZUIiMesN1jM-mzgKa4yNzAPORRmzwIv9NX3kpaw30Huc4zZb/exec";
 
 
 /*
@@ -35,15 +35,15 @@ const API_URL = "URL_WEB_APP_APPS_SCRIPT";
    nama file yang sebenarnya.
 */
 const POS_IMAGES = {
-    1: "assets/poske1.jpg",
-    2: "assets/poske2.jpg",
-    3: "assets/poske3.jpg",
-    4: "assets/poske4.jpg",
-    5: "assets/poske5.jpg",
-    6: "assets/poske6.jpg",
-    7: "assets/poske7.jpg",
-    8: "assets/poske8.jpg",
-    9: "assets/poske9.jpg"
+    1: "assets/poske1.jpeg",
+    2: "assets/poske2.jpeg",
+    3: "assets/poske3.jpeg",
+    4: "assets/poske4.jpeg",
+    5: "assets/poske5.jpeg",
+    6: "assets/poske6.jpeg",
+    7: "assets/poske7.jpeg",
+    8: "assets/poske8.jpeg",
+    9: "assets/poske9.jpeg"
 };
 
 
