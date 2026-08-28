@@ -1,84 +1,51 @@
 ```javascript
 /* =========================================================
    JELAJAH SEKOLAH
-   SCRIPT.JS FINAL
    SISTEM POS 1–10
-   =========================================================
+   - Timer 30 menit
+   - Soal tetap digunakan
+   - Skor tetap dihitung
+   - Pos 1–7 = soal
+   - Pos 7 = penentuan hasil
+   - Pos 8–9 = tantangan video
+   - Pos 10 = selesai
+========================================================= */
 
-   ALUR:
-   POS 1–7  : Soal
-   POS 7    : Perhitungan hasil
-   > 50% salah : POS 8
-   <= 50% salah: FINISH / kembali ke kelas
-
-   POS 8    : Tantangan video -> upload -> akses POS 9
-   POS 9    : Tantangan video -> upload -> akses POS 10
-   POS 10   : Selesai / emoticon senyum
-
-   TIMER    : 30 menit
-   ========================================================= */
-
+"use strict";
 
 /* =========================================================
-   KONFIGURASI
+   DATA GAME
 ========================================================= */
 
 const GAME_DURATION = 30 * 60;
 
-const POS_CODES = {
-    1: "POS1",
-    2: "POS2",
-    3: "POS3",
-    4: "POS4",
-    5: "POS5",
-    6: "POS6",
-    7: "POS7",
-    8: "POS8",
-    9: "POS9",
-    10: "POS10"
-};
-
-
-/*
- * Tantangan pos 8 dan 9.
- * Silakan ubah teksnya kapan saja tanpa mengubah sistem.
- */
-const VIDEO_CHALLENGES = {
-    8: {
-        icon: "😂",
-        title: "TANTANGAN LUCU POS 8",
-        text:
-            "Buat video singkat bersama kelompok kalian. " +
-            "Salah satu anggota kelompok harus bergaya seperti " +
-            "robot yang baru belajar berjalan sambil mengucapkan: " +
-            "\"Kami siap menaklukkan Pos 9!\" 🤖😂",
-        duration: 15
-    },
-
-    9: {
-        icon: "🤣",
-        title: "TANTANGAN LUCU POS 9",
-        text:
-            "Buat video singkat bersama kelompok kalian. " +
-            "Semua anggota kelompok harus membuat ekspresi wajah " +
-            "paling lucu selama beberapa detik, kemudian bersama-sama " +
-            "mengucapkan: \"Pos 10, kami datang!\" 😂",
-        duration: 15
+let gameState = {
+    teamName: "",
+    members: [],
+    currentPost: 1,
+    currentQuestion: 0,
+    score: 0,
+    correct: 0,
+    wrong: 0,
+    answered: 0,
+    totalQuestions: 0,
+    timeLeft: GAME_DURATION,
+    timer: null,
+    videoUploaded: {
+        8: false,
+        9: false
     }
 };
 
 
 /* =========================================================
-   BANK SOAL
-   =========================================================
-   Soal dipertahankan sesuai materi yang diberikan.
-   Soal dibagi ke Pos 1–7.
+   SOAL
 ========================================================= */
 
-const QUESTION_BANK = [
+const questions = [
 
     {
-        number: 1,
+        post: 1,
         question:
             "Paragraf yang kalimat utamanya terletak di awal paragraf dan diikuti oleh kalimat-kalimat penjelas disebut paragraf ....",
         options: [
@@ -92,13 +59,9 @@ const QUESTION_BANK = [
     },
 
     {
-        number: 2,
+        post: 1,
         question:
-            `Perhatikan paragraf berikut!
-
-Membaca memiliki banyak manfaat bagi siswa. Kegiatan membaca dapat menambah wawasan, memperkaya kosakata, dan melatih kemampuan memahami informasi. Selain itu, membaca secara rutin dapat membantu siswa mengembangkan kemampuan berpikir kritis.
-
-Kalimat utama paragraf tersebut adalah ....`,
+            "Perhatikan paragraf berikut!\n\nMembaca memiliki banyak manfaat bagi siswa. Kegiatan membaca dapat menambah wawasan, memperkaya kosakata, dan melatih kemampuan memahami informasi. Selain itu, membaca secara rutin dapat membantu siswa mengembangkan kemampuan berpikir kritis.\n\nKalimat utama paragraf tersebut adalah ....",
         options: [
             "Membaca memiliki banyak manfaat bagi siswa.",
             "Kegiatan membaca dapat menambah wawasan.",
@@ -110,13 +73,9 @@ Kalimat utama paragraf tersebut adalah ....`,
     },
 
     {
-        number: 3,
+        post: 1,
         question:
-            `Perhatikan paragraf berikut!
-
-Sampah plastik sulit terurai secara alami. Sampah tersebut dapat mencemari tanah dan perairan. Selain itu, pembakaran sampah plastik dapat menghasilkan zat yang berbahaya bagi kesehatan. Oleh karena itu, penggunaan plastik sekali pakai perlu dikurangi.
-
-Jenis paragraf tersebut adalah ....`,
+            "Perhatikan paragraf berikut!\n\nSampah plastik sulit terurai secara alami. Sampah tersebut dapat mencemari tanah dan perairan. Selain itu, pembakaran sampah plastik dapat menghasilkan zat yang berbahaya bagi kesehatan. Oleh karena itu, penggunaan plastik sekali pakai perlu dikurangi.\n\nJenis paragraf tersebut adalah ....",
         options: [
             "deduktif",
             "induktif",
@@ -128,9 +87,9 @@ Jenis paragraf tersebut adalah ....`,
     },
 
     {
-        number: 4,
+        post: 2,
         question:
-            `Dalam kalimat "Rina membaca buku di perpustakaan", kata "membaca" berfungsi sebagai ....`,
+            'Dalam kalimat "Rina membaca buku di perpustakaan", kata "membaca" berfungsi sebagai ....',
         options: [
             "subjek",
             "predikat",
@@ -142,9 +101,9 @@ Jenis paragraf tersebut adalah ....`,
     },
 
     {
-        number: 5,
+        post: 2,
         question:
-            `Kata "keindahan" dalam kalimat "Keindahan alam Indonesia menarik perhatian wisatawan" termasuk kelas kata ....`,
+            'Kata "keindahan" dalam kalimat "Keindahan alam Indonesia menarik perhatian wisatawan" termasuk kelas kata ....',
         options: [
             "verba",
             "adjektiva",
@@ -156,9 +115,9 @@ Jenis paragraf tersebut adalah ....`,
     },
 
     {
-        number: 6,
+        post: 2,
         question:
-            `Kata "sangat" dalam kalimat "Pemandangan itu sangat indah" termasuk kelas kata ....`,
+            'Kata "sangat" dalam kalimat "Pemandangan itu sangat indah" termasuk kelas kata ....',
         options: [
             "nomina",
             "verba",
@@ -170,13 +129,9 @@ Jenis paragraf tersebut adalah ....`,
     },
 
     {
-        number: 7,
+        post: 3,
         question:
-            `Perhatikan paragraf berikut!
-
-Kedisiplinan siswa perlu dibangun melalui kebiasaan sehari-hari. Siswa yang datang tepat waktu akan terbiasa menghargai waktu. Siswa yang mengerjakan tugas sesuai jadwal akan belajar bertanggung jawab. Demikian pula, siswa yang menaati tata tertib akan terbiasa mematuhi aturan.
-
-Pola pengembangan paragraf tersebut adalah ....`,
+            "Perhatikan paragraf berikut!\n\nKedisiplinan siswa perlu dibangun melalui kebiasaan sehari-hari. Siswa yang datang tepat waktu akan terbiasa menghargai waktu. Siswa yang mengerjakan tugas sesuai jadwal akan belajar bertanggung jawab. Demikian pula, siswa yang menaati tata tertib akan terbiasa mematuhi aturan.\n\nPola pengembangan paragraf tersebut adalah ....",
         options: [
             "induktif, karena simpulan terdapat di akhir",
             "deduktif, karena gagasan utama terdapat di awal",
@@ -188,13 +143,9 @@ Pola pengembangan paragraf tersebut adalah ....`,
     },
 
     {
-        number: 8,
+        post: 3,
         question:
-            `Perhatikan paragraf berikut!
-
-Pemerintah perlu meningkatkan kualitas transportasi umum. Transportasi umum yang nyaman dapat mengurangi penggunaan kendaraan pribadi. Berkurangnya kendaraan pribadi dapat membantu mengurangi kemacetan. Selain itu, penggunaan transportasi umum dapat menekan tingkat pencemaran udara. Dengan demikian, peningkatan kualitas transportasi umum memberikan banyak manfaat bagi masyarakat.
-
-Hubungan kalimat pertama dan terakhir dalam paragraf tersebut menunjukkan pola ....`,
+            "Perhatikan paragraf berikut!\n\nPemerintah perlu meningkatkan kualitas transportasi umum. Transportasi umum yang nyaman dapat mengurangi penggunaan kendaraan pribadi. Berkurangnya kendaraan pribadi dapat membantu mengurangi kemacetan. Selain itu, penggunaan transportasi umum dapat menekan tingkat pencemaran udara. Dengan demikian, peningkatan kualitas transportasi umum memberikan banyak manfaat bagi masyarakat.\n\nHubungan kalimat pertama dan terakhir menunjukkan pola ....",
         options: [
             "deduktif",
             "induktif",
@@ -206,13 +157,9 @@ Hubungan kalimat pertama dan terakhir dalam paragraf tersebut menunjukkan pola .
     },
 
     {
-        number: 9,
+        post: 4,
         question:
-            `Perhatikan paragraf berikut!
-
-Banyak siswa menggunakan telepon pintar untuk mencari informasi pembelajaran. Mereka dapat mengakses buku digital, video pembelajaran, dan berbagai sumber pengetahuan lainnya. Namun, penggunaan telepon pintar tanpa pengawasan dapat mengganggu konsentrasi belajar. Oleh sebab itu, penggunaan telepon pintar untuk belajar harus dilakukan secara bijaksana.
-
-Kalimat utama paragraf tersebut adalah ....`,
+            "Perhatikan paragraf berikut!\n\nBanyak siswa menggunakan telepon pintar untuk mencari informasi pembelajaran. Mereka dapat mengakses buku digital, video pembelajaran, dan berbagai sumber pengetahuan lainnya. Namun, penggunaan telepon pintar tanpa pengawasan dapat mengganggu konsentrasi belajar. Oleh sebab itu, penggunaan telepon pintar untuk belajar harus dilakukan secara bijaksana.\n\nKalimat utama paragraf tersebut adalah ....",
         options: [
             "Banyak siswa menggunakan telepon pintar untuk mencari informasi pembelajaran.",
             "Mereka dapat mengakses buku digital, video pembelajaran, dan berbagai sumber pengetahuan lainnya.",
@@ -224,13 +171,9 @@ Kalimat utama paragraf tersebut adalah ....`,
     },
 
     {
-        number: 10,
+        post: 4,
         question:
-            `Perhatikan kalimat berikut!
-
-Para siswa sedang membersihkan halaman sekolah.
-
-Fungsi unsur "Para siswa" dan "halaman sekolah" berturut-turut adalah ....`,
+            "Perhatikan kalimat berikut!\n\nPara siswa sedang membersihkan halaman sekolah.\n\nFungsi unsur 'Para siswa' dan 'halaman sekolah' berturut-turut adalah ....",
         options: [
             "predikat dan objek",
             "subjek dan pelengkap",
@@ -242,13 +185,9 @@ Fungsi unsur "Para siswa" dan "halaman sekolah" berturut-turut adalah ....`,
     },
 
     {
-        number: 11,
+        post: 5,
         question:
-            `Perhatikan kalimat berikut!
-
-Ayah membeli sepatu baru untuk adik.
-
-Unsur "untuk adik" berfungsi sebagai ....`,
+            "Perhatikan kalimat berikut!\n\nAyah membeli sepatu baru untuk adik.\n\nUnsur 'untuk adik' berfungsi sebagai ....",
         options: [
             "subjek",
             "predikat",
@@ -260,13 +199,9 @@ Unsur "untuk adik" berfungsi sebagai ....`,
     },
 
     {
-        number: 12,
+        post: 5,
         question:
-            `Perhatikan kalimat berikut!
-
-Siswa itu menjadi ketua kelas.
-
-Fungsi unsur "ketua kelas" adalah ....`,
+            "Perhatikan kalimat berikut!\n\nSiswa itu menjadi ketua kelas.\n\nFungsi unsur 'ketua kelas' adalah ....",
         options: [
             "subjek",
             "predikat",
@@ -278,17 +213,9 @@ Fungsi unsur "ketua kelas" adalah ....`,
     },
 
     {
-        number: 13,
+        post: 6,
         question:
-            `Perhatikan kelompok kata berikut!
-
-1. rumah
-2. berlari
-3. indah
-4. mereka
-5. dengan cepat
-
-Urutan kelas kata yang tepat adalah ....`,
+            "Perhatikan kelompok kata berikut!\n\n1. rumah\n2. berlari\n3. indah\n4. mereka\n5. dengan cepat\n\nUrutan kelas kata yang tepat adalah ....",
         options: [
             "nomina – verba – adjektiva – pronomina – frasa adverbial",
             "verba – nomina – adjektiva – pronomina – frasa preposisional",
@@ -300,13 +227,9 @@ Urutan kelas kata yang tepat adalah ....`,
     },
 
     {
-        number: 14,
+        post: 6,
         question:
-            `Perhatikan kalimat berikut!
-
-Mereka berjalan sangat cepat menuju lapangan.
-
-Kata "sangat" dan "cepat" secara berturut-turut termasuk ....`,
+            'Perhatikan kalimat berikut!\n\nMereka berjalan sangat cepat menuju lapangan.\n\nKata "sangat" dan "cepat" secara berturut-turut termasuk ....',
         options: [
             "adverbia dan adjektiva",
             "adjektiva dan adverbia",
@@ -318,21 +241,9 @@ Kata "sangat" dan "cepat" secara berturut-turut termasuk ....`,
     },
 
     {
-        number: 15,
+        post: 7,
         question:
-            `Perhatikan paragraf berikut!
-
-(1) Penggunaan kendaraan pribadi di kota-kota besar terus meningkat.
-
-(2) Kondisi tersebut menyebabkan jumlah kendaraan di jalan raya semakin padat.
-
-(3) Kepadatan kendaraan kemudian menimbulkan kemacetan pada berbagai ruas jalan.
-
-(4) Kemacetan menyebabkan waktu perjalanan masyarakat menjadi lebih lama.
-
-(5) Dengan demikian, peningkatan penggunaan kendaraan pribadi dapat memperburuk persoalan transportasi di perkotaan.
-
-Jika kalimat (5) dihilangkan, jenis paragraf berdasarkan posisi gagasan utamanya akan berubah menjadi ....`,
+            "Perhatikan paragraf berikut!\n\n(1) Penggunaan kendaraan pribadi di kota-kota besar terus meningkat.\n(2) Kondisi tersebut menyebabkan jumlah kendaraan di jalan raya semakin padat.\n(3) Kepadatan kendaraan kemudian menimbulkan kemacetan pada berbagai ruas jalan.\n(4) Kemacetan menyebabkan waktu perjalanan masyarakat menjadi lebih lama.\n(5) Dengan demikian, peningkatan penggunaan kendaraan pribadi dapat memperburuk persoalan transportasi di perkotaan.\n\nJika kalimat (5) dihilangkan, jenis paragraf berdasarkan posisi gagasan utamanya akan berubah menjadi ....",
         options: [
             "deduktif karena kalimat (1) merupakan gagasan utama",
             "induktif karena kalimat (1)–(4) berisi fakta khusus",
@@ -344,17 +255,9 @@ Jika kalimat (5) dihilangkan, jenis paragraf berdasarkan posisi gagasan utamanya
     },
 
     {
-        number: 16,
+        post: 7,
         question:
-            `Perhatikan dua paragraf berikut!
-
-Paragraf A:
-Menjaga kebersihan lingkungan merupakan tanggung jawab bersama. Lingkungan yang bersih membuat masyarakat merasa nyaman. Kebersihan juga dapat mengurangi risiko munculnya berbagai penyakit.
-
-Paragraf B:
-Lingkungan yang kotor dapat menjadi tempat berkembangnya berbagai sumber penyakit. Sampah yang menumpuk juga dapat menimbulkan bau tidak sedap dan mencemari lingkungan. Oleh karena itu, menjaga kebersihan lingkungan merupakan tanggung jawab bersama.
-
-Pernyataan yang paling tepat adalah ....`,
+            "Perhatikan dua paragraf berikut!\n\nParagraf A\nMenjaga kebersihan lingkungan merupakan tanggung jawab bersama. Lingkungan yang bersih membuat masyarakat merasa nyaman. Kebersihan juga dapat mengurangi risiko munculnya berbagai penyakit.\n\nParagraf B\nLingkungan yang kotor dapat menjadi tempat berkembangnya berbagai sumber penyakit. Sampah yang menumpuk juga dapat menimbulkan bau tidak sedap dan mencemari lingkungan. Oleh karena itu, menjaga kebersihan lingkungan merupakan tanggung jawab bersama.\n\nPernyataan yang paling tepat adalah ....",
         options: [
             "Paragraf A dan B sama-sama induktif karena memiliki simpulan.",
             "Paragraf A deduktif, sedangkan paragraf B induktif.",
@@ -366,13 +269,9 @@ Pernyataan yang paling tepat adalah ....`,
     },
 
     {
-        number: 17,
+        post: 7,
         question:
-            `Perhatikan kalimat berikut!
-
-Di ruang kelas, siswa mendiskusikan masalah lingkungan secara serius.
-
-Analisis fungsi kalimat yang tepat adalah ....`,
+            "Perhatikan kalimat berikut!\n\nDi ruang kelas, siswa mendiskusikan masalah lingkungan secara serius.\n\nAnalisis fungsi kalimat yang tepat adalah ....",
         options: [
             "Di ruang kelas = objek, siswa = subjek, mendiskusikan = predikat",
             "Di ruang kelas = keterangan, siswa = subjek, mendiskusikan = predikat, masalah lingkungan = objek, secara serius = keterangan",
@@ -384,13 +283,9 @@ Analisis fungsi kalimat yang tepat adalah ....`,
     },
 
     {
-        number: 18,
+        post: 7,
         question:
-            `Perhatikan kalimat berikut!
-
-Kegiatan membaca sangat bermanfaat bagi perkembangan kemampuan berpikir siswa.
-
-Seorang siswa mengidentifikasi "sangat bermanfaat" sebagai objek karena berada setelah subjek. Pernyataan yang paling tepat untuk memperbaiki analisis tersebut adalah ....`,
+            "Perhatikan kalimat berikut!\n\nKegiatan membaca sangat bermanfaat bagi perkembangan kemampuan berpikir siswa.\n\nSeorang siswa mengidentifikasi 'sangat bermanfaat' sebagai objek karena berada setelah subjek. Pernyataan yang paling tepat adalah ....",
         options: [
             "Benar, karena semua unsur setelah subjek merupakan objek.",
             "Benar, karena bermanfaat merupakan kata kerja transitif.",
@@ -402,13 +297,9 @@ Seorang siswa mengidentifikasi "sangat bermanfaat" sebagai objek karena berada s
     },
 
     {
-        number: 19,
+        post: 7,
         question:
-            `Perhatikan kalimat berikut!
-
-Ketiga siswa itu berhasil menyelesaikan tugas kelompok dengan cepat.
-
-Pernyataan yang tepat mengenai kelas kata dalam kalimat tersebut adalah ....`,
+            "Perhatikan kalimat berikut!\n\nKetiga siswa itu berhasil menyelesaikan tugas kelompok dengan cepat.\n\nPernyataan yang tepat mengenai kelas kata adalah ....",
         options: [
             "ketiga = nomina, siswa = verba, berhasil = adjektiva",
             "ketiga = numeralia, siswa = nomina, menyelesaikan = verba",
@@ -420,13 +311,9 @@ Pernyataan yang tepat mengenai kelas kata dalam kalimat tersebut adalah ....`,
     },
 
     {
-        number: 20,
+        post: 7,
         question:
-            `Perhatikan paragraf berikut!
-
-Membaca secara rutin dapat meningkatkan kemampuan literasi siswa. Dengan membaca, siswa memperoleh kosakata baru dan mengenal berbagai struktur kalimat. Kegiatan tersebut juga membantu siswa memahami informasi secara lebih kritis. Kebiasaan membaca yang dilakukan secara konsisten pada akhirnya akan memperkuat kemampuan literasi siswa.
-
-Berdasarkan posisi kalimat utama dan hubungan antargagasannya, alasan paling tepat bahwa paragraf tersebut termasuk paragraf campuran adalah ....`,
+            "Perhatikan paragraf berikut!\n\nMembaca secara rutin dapat meningkatkan kemampuan literasi siswa. Dengan membaca, siswa memperoleh kosakata baru dan mengenal berbagai struktur kalimat. Kegiatan tersebut juga membantu siswa memahami informasi secara lebih kritis. Kebiasaan membaca yang dilakukan secara konsisten pada akhirnya akan memperkuat kemampuan literasi siswa.\n\nAlasan paling tepat bahwa paragraf tersebut termasuk paragraf campuran adalah ....",
         options: [
             "kalimat pertama merupakan fakta, sedangkan kalimat terakhir merupakan opini.",
             "terdapat lebih dari satu kalimat yang membahas kegiatan membaca.",
@@ -436,114 +323,57 @@ Berdasarkan posisi kalimat utama dan hubungan antargagasannya, alasan paling tep
         ],
         answer: 2
     }
+
 ];
 
 
 /* =========================================================
-   PEMBAGIAN SOAL PER POS
-   =========================================================
-   20 soal dibagi:
-   Pos 1 = 3 soal
-   Pos 2 = 3 soal
-   Pos 3 = 3 soal
-   Pos 4 = 3 soal
-   Pos 5 = 3 soal
-   Pos 6 = 3 soal
-   Pos 7 = 2 soal + perhitungan
+   KODE AKSES POS
+   GANTI SESUAI KODE YANG DIINGINKAN
 ========================================================= */
 
-const POS_QUESTIONS = {
-    1: [1, 2, 3],
-    2: [4, 5, 6],
-    3: [7, 8, 9],
-    4: [10, 11, 12],
-    5: [13, 14, 15],
-    6: [16, 17, 18],
-    7: [19, 20]
+const POST_CODES = {
+    1: "POS1",
+    2: "POS2",
+    3: "POS3",
+    4: "POS4",
+    5: "POS5",
+    6: "POS6",
+    7: "POS7",
+    8: "POS8",
+    9: "POS9",
+    10: "POS10"
 };
 
 
 /* =========================================================
-   STATE GAME
+   TANTANGAN POS
 ========================================================= */
 
-let currentPos = 1;
+const challenges = {
 
-let currentQuestionIndex = 0;
+    8: {
+        title: "TANTANGAN LUCU POS 8 😂",
+        text:
+            "Buatlah video singkat. Seluruh anggota kelompok harus bergaya seperti presenter berita yang sedang melaporkan keadaan sekolah seolah-olah sedang terjadi peristiwa paling heboh sedunia. Durasi sekitar 15–30 detik."
+    },
 
-let currentQuestions = [];
+    9: {
+        title: "TANTANGAN LUCU POS 9 🤣",
+        text:
+            "Buatlah video singkat. Seluruh anggota kelompok harus membuat yel-yel spontan tentang sekolah dengan gaya paling kreatif dan lucu. Durasi sekitar 15–30 detik."
+    }
 
-let totalCorrect = 0;
-
-let totalWrong = 0;
-
-let totalAnswered = 0;
-
-let gameStartTime = null;
-
-let remainingSeconds = GAME_DURATION;
-
-let timerInterval = null;
-
-let deadEndInterval = null;
-
-let videoStream = null;
-
-let mediaRecorder = null;
-
-let recordedChunks = [];
-
-let recordedBlob = null;
-
-let uploadedVideoUrl = "";
-
-let teamData = {
-    leader: "",
-    members: []
 };
 
 
 /* =========================================================
-   HELPER
+   DOM
 ========================================================= */
 
-function $(id) {
-    return document.getElementById(id);
-}
+const $ = (selector) => document.querySelector(selector);
 
-
-function showElement(id) {
-    const el = $(id);
-    if (el) el.classList.remove("hidden");
-}
-
-
-function hideElement(id) {
-    const el = $(id);
-    if (el) el.classList.add("hidden");
-}
-
-
-function setText(id, text) {
-    const el = $(id);
-    if (el) el.textContent = text;
-}
-
-
-function formatTime(seconds) {
-
-    seconds = Math.max(0, seconds);
-
-    const minutes = Math.floor(seconds / 60);
-
-    const secs = seconds % 60;
-
-    return (
-        String(minutes).padStart(2, "0") +
-        ":" +
-        String(secs).padStart(2, "0")
-    );
-}
+const $$ = (selector) => document.querySelectorAll(selector);
 
 
 /* =========================================================
@@ -552,11 +382,11 @@ function formatTime(seconds) {
 
 function showScreen(id) {
 
-    document.querySelectorAll(".screen").forEach(screen => {
+    $$(".screen").forEach(screen => {
         screen.classList.remove("active");
     });
 
-    const target = $(id);
+    const target = document.getElementById(id);
 
     if (target) {
         target.classList.add("active");
@@ -570,146 +400,173 @@ function showScreen(id) {
 
 
 /* =========================================================
-   TOAST
+   INIT
 ========================================================= */
 
-function showToast(message, type = "success") {
+document.addEventListener("DOMContentLoaded", () => {
 
-    const toast = $("toast");
+    bindStartButton();
+    bindGeneralButtons();
+    prepareQuestions();
 
-    if (!toast) {
-        alert(message);
-        return;
-    }
-
-    const icon = $("toastIcon");
-    const text = $("toastMessage");
-
-    if (icon) {
-        icon.textContent =
-            type === "error" ? "❌" : "✅";
-    }
-
-    if (text) {
-        text.textContent = message;
-    }
-
-    toast.className =
-        "toast show " + type;
-
-    setTimeout(() => {
-        toast.classList.remove("show");
-    }, 2800);
-}
+});
 
 
 /* =========================================================
-   MODAL
+   PERBAIKAN UTAMA TOMBOL MULAI
 ========================================================= */
 
-function showModal(
-    title,
-    message,
-    icon = "ℹ️"
-) {
+function bindStartButton() {
 
-    const modal = $("gameModal");
+    const possibleButtons = [
+        "#startAdventureButton",
+        "#startButton",
+        "#startGameButton",
+        "#mulaiPetualangan",
+        "#start-adventure",
+        "[data-action='start-game']"
+    ];
 
-    if (!modal) {
-        alert(title + "\n\n" + message);
-        return;
-    }
+    let button = null;
 
-    setText("modalIcon", icon);
-    setText("modalTitle", title);
-    setText("modalMessage", message);
+    for (const selector of possibleButtons) {
 
-    modal.classList.add("show");
+        const found = $(selector);
 
-    document.body.classList.add("no-scroll");
-}
-
-
-function closeModal() {
-
-    const modal = $("gameModal");
-
-    if (modal) {
-        modal.classList.remove("show");
-    }
-
-    document.body.classList.remove("no-scroll");
-}
-
-
-/* =========================================================
-   TEAM FORM
-========================================================= */
-
-function collectTeamData() {
-
-    const leader = $("leaderName");
-
-    teamData.leader =
-        leader ? leader.value.trim() : "";
-
-    teamData.members = [];
-
-    for (let i = 1; i <= 5; i++) {
-
-        const input = $("member" + i);
-
-        if (
-            input &&
-            input.value.trim()
-        ) {
-            teamData.members.push(
-                input.value.trim()
-            );
+        if (found) {
+            button = found;
+            break;
         }
+
     }
-}
 
+    if (!button) {
 
-/* =========================================================
-   START GAME
-========================================================= */
-
-function startGame() {
-
-    collectTeamData();
-
-    if (!teamData.leader) {
-
-        showToast(
-            "Nama ketua kelompok wajib diisi.",
-            "error"
+        console.warn(
+            "Tombol Mulai Petualangan tidak ditemukan."
         );
 
         return;
     }
 
-    currentPos = 1;
 
-    currentQuestionIndex = 0;
+    /*
+       cloneNode memastikan event lama yang bermasalah
+       tidak mengganggu event baru.
+    */
 
-    totalCorrect = 0;
+    const newButton = button.cloneNode(true);
 
-    totalWrong = 0;
+    button.parentNode.replaceChild(
+        newButton,
+        button
+    );
 
-    totalAnswered = 0;
 
-    remainingSeconds = GAME_DURATION;
+    newButton.addEventListener("click", function(event) {
 
-    gameStartTime = Date.now();
+        event.preventDefault();
+        event.stopPropagation();
 
-    uploadedVideoUrl = "";
+        startAdventure();
+
+    });
+
+}
+
+
+/* =========================================================
+   MULAI PETUALANGAN
+========================================================= */
+
+function startAdventure() {
+
+    /*
+       Ambil nama kelompok dari beberapa kemungkinan ID.
+    */
+
+    const nameInput =
+        $("#teamName") ||
+        $("#team-name") ||
+        $("#groupName") ||
+        $("#namaKelompok") ||
+        $("input[name='teamName']");
+
+
+    if (nameInput) {
+
+        gameState.teamName =
+            nameInput.value.trim();
+
+    }
+
+
+    if (!gameState.teamName) {
+
+        gameState.teamName =
+            "Kelompok Petualang";
+
+    }
+
+
+    /*
+       Reset permainan
+    */
+
+    gameState.currentPost = 1;
+    gameState.currentQuestion = 0;
+    gameState.score = 0;
+    gameState.correct = 0;
+    gameState.wrong = 0;
+    gameState.answered = 0;
+    gameState.timeLeft = GAME_DURATION;
+
+    gameState.videoUploaded = {
+        8: false,
+        9: false
+    };
+
+
+    gameState.totalQuestions =
+        questions.length;
+
+
+    /*
+       Tampilkan nama kelompok
+    */
+
+    const teamElements = [
+        "#displayTeamName",
+        "#teamNameDisplay",
+        "#currentTeamName",
+        ".team-name"
+    ];
+
+    teamElements.forEach(selector => {
+
+        const element = $(selector);
+
+        if (element) {
+            element.textContent =
+                gameState.teamName;
+        }
+
+    });
+
+
+    /*
+       TIMER
+    */
 
     startTimer();
 
-    showScreen("gameScreen");
 
-    enterPos(1);
+    /*
+       Mulai dari POS 1
+    */
+
+    showPostAccess(1);
+
 }
 
 
@@ -719,77 +576,239 @@ function startGame() {
 
 function startTimer() {
 
-    stopTimer();
+    clearInterval(gameState.timer);
 
-    updateTimer();
+    gameState.timeLeft =
+        GAME_DURATION;
 
-    timerInterval = setInterval(() => {
+    updateTimerDisplay();
 
-        remainingSeconds--;
+    gameState.timer = setInterval(() => {
 
-        updateTimer();
+        gameState.timeLeft--;
 
-        if (remainingSeconds <= 0) {
+        updateTimerDisplay();
 
-            remainingSeconds = 0;
+        if (gameState.timeLeft <= 0) {
 
-            stopTimer();
+            clearInterval(gameState.timer);
+
+            gameState.timeLeft = 0;
+
+            updateTimerDisplay();
 
             timeUp();
+
         }
 
     }, 1000);
+
 }
 
 
-function stopTimer() {
+/* =========================================================
+   UPDATE TIMER
+========================================================= */
 
-    if (timerInterval) {
+function updateTimerDisplay() {
 
-        clearInterval(timerInterval);
+    const minutes =
+        Math.floor(gameState.timeLeft / 60);
 
-        timerInterval = null;
-    }
+    const seconds =
+        gameState.timeLeft % 60;
+
+    const text =
+        String(minutes).padStart(2, "0") +
+        ":" +
+        String(seconds).padStart(2, "0");
+
+
+    const elements = [
+        "#timer",
+        "#timerDisplay",
+        "#gameTimer",
+        ".timer-box"
+    ];
+
+
+    elements.forEach(selector => {
+
+        const element = $(selector);
+
+        if (element) {
+            element.textContent = text;
+        }
+
+    });
+
 }
 
 
-function updateTimer() {
-
-    const timer = $("gameTimer");
-
-    if (timer) {
-        timer.textContent =
-            formatTime(remainingSeconds);
-    }
-
-    const timerBox =
-        document.querySelector(".timer-box");
-
-    if (
-        timerBox &&
-        remainingSeconds <= 300
-    ) {
-        timerBox.style.background =
-            "#fee2e2";
-
-        timerBox.style.color =
-            "#dc2626";
-    }
-}
-
+/* =========================================================
+   WAKTU HABIS
+========================================================= */
 
 function timeUp() {
 
     showModal(
-        "Waktu Habis ⏰",
-        "Waktu petualangan kelompok kalian telah habis. Permainan akan diselesaikan.",
-        "⏰"
+        "⏰",
+        "Waktu Habis",
+        "Waktu petualangan kelompok telah habis."
     );
 
-    setTimeout(() => {
-        closeModal();
-        finishGame(true);
-    }, 2500);
+}
+
+
+/* =========================================================
+   POS ACCESS
+========================================================= */
+
+function showPostAccess(postNumber) {
+
+    gameState.currentPost =
+        postNumber;
+
+
+    const codeScreen =
+        $("#postAccessScreen");
+
+
+    if (codeScreen) {
+
+        showScreen("postAccessScreen");
+
+        const title =
+            $("#postAccessTitle");
+
+        const number =
+            $("#postNumber");
+
+        const input =
+            $("#postCodeInput");
+
+        const button =
+            $("#postCodeButton");
+
+        const message =
+            $("#postCodeMessage");
+
+
+        if (title) {
+            title.textContent =
+                `🔐 AKSES POS ${postNumber}`;
+        }
+
+        if (number) {
+            number.textContent =
+                `POS ${postNumber}`;
+        }
+
+        if (input) {
+            input.value = "";
+            input.focus();
+        }
+
+        if (message) {
+            message.textContent = "";
+        }
+
+        if (button) {
+
+            button.onclick = () => {
+
+                checkPostCode();
+
+            };
+
+        }
+
+        return;
+    }
+
+
+    /*
+       Jika halaman akses belum ada,
+       langsung masuk ke pos.
+    */
+
+    enterPost(postNumber);
+
+}
+
+
+/* =========================================================
+   CEK KODE POS
+========================================================= */
+
+function checkPostCode() {
+
+    const input =
+        $("#postCodeInput") ||
+        $("#secretCodeInput") ||
+        $("#accessCode");
+
+
+    if (!input) {
+
+        enterPost(
+            gameState.currentPost
+        );
+
+        return;
+
+    }
+
+
+    const entered =
+        input.value.trim().toUpperCase();
+
+
+    const correctCode =
+        POST_CODES[
+            gameState.currentPost
+        ];
+
+
+    if (entered === correctCode) {
+
+        const message =
+            $("#postCodeMessage");
+
+        if (message) {
+
+            message.textContent =
+                "✅ Kode benar! Silakan lanjut.";
+
+        }
+
+
+        setTimeout(() => {
+
+            enterPost(
+                gameState.currentPost
+            );
+
+        }, 400);
+
+
+    } else {
+
+        const message =
+            $("#postCodeMessage");
+
+        if (message) {
+
+            message.textContent =
+                "❌ Kode akses salah. Silakan coba lagi.";
+
+            message.style.color =
+                "#dc2626";
+
+        }
+
+    }
+
 }
 
 
@@ -797,249 +816,106 @@ function timeUp() {
    MASUK POS
 ========================================================= */
 
-function enterPos(pos) {
+function enterPost(postNumber) {
 
-    currentPos = pos;
-
-    currentQuestionIndex = 0;
-
-    updatePositionUI();
-
-    resetPosAreas();
-
-    /*
-     * POS 1 selalu meminta kode.
-     * Pos berikutnya juga selalu meminta kode.
-     */
-    showCodeGate(pos);
-}
+    gameState.currentPost =
+        postNumber;
 
 
-/* =========================================================
-   UPDATE UI POS
-========================================================= */
+    if (postNumber >= 1 && postNumber <= 7) {
 
-function updatePositionUI() {
-
-    const smallLabel =
-        document.querySelector(".small-label");
-
-    if (smallLabel) {
-        smallLabel.textContent =
-            "POS " + currentPos;
-    }
-
-    setText(
-        "posIndicator",
-        "Pos " + currentPos + " dari 10"
-    );
-
-    const progress =
-        $("progressFill");
-
-    if (progress) {
-
-        progress.style.width =
-            ((currentPos - 1) / 9 * 100) + "%";
-    }
-}
-
-
-/* =========================================================
-   RESET AREA
-========================================================= */
-
-function resetPosAreas() {
-
-    hideElement("questionArea");
-    hideElement("nextClueArea");
-    hideElement("deadEndArea");
-    hideElement("videoRecorderArea");
-
-    const codeInput =
-        $("secretCodeInput");
-
-    if (codeInput) {
-        codeInput.value = "";
-    }
-
-    setText(
-        "secretMessage",
-        ""
-    );
-}
-
-
-/* =========================================================
-   KODE AKSES POS
-========================================================= */
-
-function showCodeGate(pos) {
-
-    const challenge =
-        document.querySelector(".challenge-card");
-
-    if (challenge) {
-        challenge.classList.remove(
-            "video-recorder-card"
-        );
-    }
-
-    const questionArea =
-        $("questionArea");
-
-    if (questionArea) {
-        questionArea.classList.add("hidden");
-    }
-
-    const nextArea =
-        $("nextClueArea");
-
-    if (nextArea) {
-        nextArea.classList.add("hidden");
-    }
-
-    const videoArea =
-        $("videoRecorderArea");
-
-    if (videoArea) {
-        videoArea.classList.add("hidden");
-    }
-
-    const input =
-        $("secretCodeInput");
-
-    if (input) {
-        input.focus();
-    }
-
-    setText(
-        "challengeTitle",
-        "🔐 Kode Akses Pos " + pos
-    );
-
-    setText(
-        "challengeInstruction",
-        "Masukkan kode akses yang diberikan petugas untuk membuka Pos " + pos + "."
-    );
-}
-
-
-/* =========================================================
-   VALIDASI KODE
-========================================================= */
-
-function checkSecretCode() {
-
-    const input =
-        $("secretCodeInput");
-
-    if (!input) return;
-
-    const entered =
-        input.value.trim().toUpperCase();
-
-    const correct =
-        String(POS_CODES[currentPos])
-            .toUpperCase();
-
-    if (!entered) {
-
-        setText(
-            "secretMessage",
-            "⚠️ Masukkan kode akses terlebih dahulu."
+        showQuestionForPost(
+            postNumber
         );
 
         return;
+
     }
 
-    if (entered !== correct) {
 
-        setText(
-            "secretMessage",
-            "❌ Kode akses salah. Silakan periksa kembali."
+    if (postNumber === 8 ||
+        postNumber === 9) {
+
+        showChallengePost(
+            postNumber
         );
-
-        showToast(
-            "Kode akses Pos " +
-            currentPos +
-            " salah.",
-            "error"
-        );
-
-        input.select();
 
         return;
+
     }
 
-    setText(
-        "secretMessage",
-        "✅ Kode benar. Pos berhasil dibuka!"
-    );
 
-    showToast(
-        "Pos " + currentPos + " terbuka!",
-        "success"
-    );
+    if (postNumber === 10) {
 
-    setTimeout(() => {
-        openCurrentPos();
-    }, 500);
+        showFinalPost();
+
+    }
+
 }
 
 
 /* =========================================================
-   BUKA POS
+   PERSIAPAN SOAL
 ========================================================= */
 
-function openCurrentPos() {
+function prepareQuestions() {
 
-    hideElement("nextClueArea");
-    hideElement("deadEndArea");
+    gameState.totalQuestions =
+        questions.length;
 
-    /*
-     * POS 8 dan 9 = VIDEO
-     */
-    if (
-        currentPos === 8 ||
-        currentPos === 9
-    ) {
+}
 
-        openVideoChallenge(
-            currentPos
+
+/* =========================================================
+   TAMPILKAN SOAL POS
+========================================================= */
+
+function showQuestionForPost(postNumber) {
+
+    const postQuestions =
+        questions.filter(
+            q => q.post === postNumber
         );
 
+
+    if (!postQuestions.length) {
+
+        moveToNextPost();
+
         return;
+
     }
 
 
     /*
-     * POS 10 = SELESAI
-     */
-    if (currentPos === 10) {
+       Cari soal pertama yang belum dikerjakan
+    */
 
-        openFinalPos();
+    let question =
+        postQuestions.find(
+            q =>
+                !q._answered
+        );
+
+
+    if (!question) {
+
+        moveToNextPost();
 
         return;
+
     }
 
 
-    /*
-     * POS 1–7 = SOAL
-     */
-    currentQuestions =
-        POS_QUESTIONS[currentPos]
-            .map(number => {
-                return QUESTION_BANK
-                    .find(q => q.number === number);
-            })
-            .filter(Boolean);
+    gameState.activeQuestion =
+        question;
 
-    currentQuestionIndex = 0;
 
-    showElement("questionArea");
+    renderQuestion(
+        question,
+        postNumber
+    );
 
-    renderQuestion();
 }
 
 
@@ -1047,41 +923,69 @@ function openCurrentPos() {
    RENDER SOAL
 ========================================================= */
 
-function renderQuestion() {
+function renderQuestion(question, postNumber) {
 
-    const question =
-        currentQuestions[
-            currentQuestionIndex
-        ];
+    showScreen("gameScreen");
 
-    if (!question) {
 
-        finishCurrentPosQuestions();
+    const postTitle =
+        $("#locationTitle") ||
+        $("#postTitle") ||
+        $("#gamePostTitle");
 
-        return;
+
+    if (postTitle) {
+
+        postTitle.textContent =
+            `📍 POS ${postNumber}`;
+
     }
 
-    setText(
-        "questionCounter",
-        "Soal " +
-        (currentQuestionIndex + 1) +
-        " dari " +
-        currentQuestions.length +
-        " • Pos " +
-        currentPos
-    );
 
-    setText(
-        "questionText",
-        question.question
-    );
+    const questionCounter =
+        $("#questionCounter");
 
-    const container =
-        $("optionsContainer");
 
-    if (!container) return;
+    if (questionCounter) {
 
-    container.innerHTML = "";
+        const number =
+            questions.indexOf(question) + 1;
+
+        questionCounter.textContent =
+            `Soal ${number} dari ${questions.length}`;
+
+    }
+
+
+    const questionText =
+        $("#questionText");
+
+
+    if (questionText) {
+
+        questionText.textContent =
+            question.question;
+
+    }
+
+
+    const optionsContainer =
+        $("#optionsContainer");
+
+
+    if (!optionsContainer) {
+
+        console.error(
+            "optionsContainer tidak ditemukan."
+        );
+
+        return;
+
+    }
+
+
+    optionsContainer.innerHTML = "";
+
 
     question.options.forEach(
         (option, index) => {
@@ -1094,276 +998,206 @@ function renderQuestion() {
             button.className =
                 "answer-option";
 
-            button.dataset.index =
-                index;
 
-            const letter =
-                document.createElement("span");
+            button.innerHTML = `
+                <span class="option-letter">
+                    ${String.fromCharCode(65 + index)}
+                </span>
 
-            letter.className =
-                "option-letter";
+                <span class="option-text">
+                    ${escapeHTML(option)}
+                </span>
+            `;
 
-            letter.textContent =
-                String.fromCharCode(
-                    65 + index
-                );
-
-            const text =
-                document.createElement("span");
-
-            text.className =
-                "option-text";
-
-            text.textContent =
-                option;
-
-            button.appendChild(letter);
-            button.appendChild(text);
 
             button.addEventListener(
                 "click",
                 () => {
 
-                    selectAnswer(
+                    answerQuestion(
+                        question,
                         index,
-                        question.answer
+                        button
                     );
+
                 }
             );
 
-            container.appendChild(button);
+
+            optionsContainer.appendChild(
+                button
+            );
+
         }
     );
 
-    setText(
-        "answerFeedback",
-        ""
-    );
 
-    const submit =
-        $("submitAnswerButton");
+    updateProgress();
 
-    if (submit) {
-        submit.disabled = true;
-    }
 }
 
 
 /* =========================================================
-   PILIH JAWABAN
+   JAWAB SOAL
 ========================================================= */
 
-function selectAnswer(
+function answerQuestion(
+    question,
     selectedIndex,
-    correctIndex
+    clickedButton
 ) {
 
-    const options =
-        document.querySelectorAll(
-            ".answer-option"
-        );
-
-    options.forEach(button => {
-        button.classList.remove(
-            "selected"
-        );
-    });
-
-    const selected =
-        document.querySelector(
-            `.answer-option[data-index="${selectedIndex}"]`
-        );
-
-    if (selected) {
-        selected.classList.add(
-            "selected"
-        );
-    }
-
-    const submit =
-        $("submitAnswerButton");
-
-    if (submit) {
-
-        submit.disabled = false;
-
-        submit.dataset.selected =
-            selectedIndex;
-
-        submit.dataset.correct =
-            correctIndex;
-    }
-}
-
-
-/* =========================================================
-   SUBMIT JAWABAN
-========================================================= */
-
-function submitAnswer() {
-
-    const submit =
-        $("submitAnswerButton");
-
-    if (!submit) return;
-
-    const selected =
-        Number(submit.dataset.selected);
-
-    const correct =
-        Number(submit.dataset.correct);
-
-    if (
-        Number.isNaN(selected) ||
-        Number.isNaN(correct)
-    ) {
-
-        showToast(
-            "Pilih salah satu jawaban terlebih dahulu.",
-            "error"
-        );
-
+    if (question._answered) {
         return;
     }
 
-    const options =
-        document.querySelectorAll(
-            ".answer-option"
-        );
 
-    options.forEach(button => {
+    question._answered = true;
+
+
+    const buttons =
+        $$(".answer-option");
+
+
+    buttons.forEach(button => {
+
         button.disabled = true;
+
     });
 
-    const feedback =
-        $("answerFeedback");
 
-    if (selected === correct) {
+    const correct =
+        selectedIndex === question.answer;
 
-        totalCorrect++;
 
-        if (feedback) {
+    if (correct) {
 
-            feedback.textContent =
-                "✅ Jawaban benar! Hebat!";
-            feedback.className =
-                "answer-feedback correct";
-        }
+        gameState.correct++;
+        gameState.score += 10;
 
-        if (options[selected]) {
-            options[selected]
-                .classList.add("correct");
-        }
+        clickedButton.classList.add(
+            "correct"
+        );
 
     } else {
 
-        totalWrong++;
+        gameState.wrong++;
 
-        if (feedback) {
+        clickedButton.classList.add(
+            "wrong"
+        );
 
-            feedback.textContent =
-                "❌ Jawaban kurang tepat. Tetap semangat, lanjutkan perjalanan!";
-            feedback.className =
-                "answer-feedback wrong";
+
+        if (buttons[question.answer]) {
+
+            buttons[
+                question.answer
+            ].classList.add(
+                "correct"
+            );
+
         }
 
-        if (options[selected]) {
-            options[selected]
-                .classList.add("wrong");
-        }
-
-        if (options[correct]) {
-            options[correct]
-                .classList.add("correct");
-        }
     }
 
-    totalAnswered++;
 
-    submit.disabled = true;
+    gameState.answered++;
+
+
+    const feedback =
+        $("#answerFeedback");
+
+
+    if (feedback) {
+
+        feedback.className =
+            correct
+                ? "answer-feedback correct"
+                : "answer-feedback wrong";
+
+
+        feedback.textContent =
+            correct
+                ? "✅ Jawaban benar!"
+                : "❌ Jawaban salah. Tetap lanjut ke pos berikutnya.";
+
+    }
+
+
+    updateProgress();
+
 
     setTimeout(() => {
 
-        currentQuestionIndex++;
+        moveToNextPost();
 
-        renderQuestion();
+    }, 1200);
 
-    }, 1300);
 }
 
 
 /* =========================================================
-   SELESAI SOAL SATU POS
+   PINDAH POS
 ========================================================= */
 
-function finishCurrentPosQuestions() {
+function moveToNextPost() {
 
-    /*
-     * Pos 1–6 langsung menuju pos berikutnya.
-     */
-    if (currentPos < 7) {
-
-        showNextPos(currentPos + 1);
-
-        return;
-    }
-
-    /*
-     * Pos 7 = perhitungan akhir.
-     */
-    if (currentPos === 7) {
-
-        calculateResultAtPos7();
-
-        return;
-    }
-}
+    const current =
+        gameState.currentPost;
 
 
-/* =========================================================
-   LANJUT POS
-========================================================= */
+    if (current < 7) {
 
-function showNextPos(nextPos) {
-
-    hideElement("questionArea");
-
-    setText(
-        "nextLocationText",
-        "POS " + nextPos
-    );
-
-    const nextArea =
-        $("nextClueArea");
-
-    if (nextArea) {
-        nextArea.classList.remove(
-            "hidden"
+        showPostAccess(
+            current + 1
         );
+
+        return;
+
     }
 
-    setText(
-        "nextClueText",
-        "Semua soal di Pos " +
-        currentPos +
-        " telah selesai. Siapkan kelompok kalian untuk menuju Pos " +
-        nextPos +
-        "."
-    );
 
-    const button =
-        $("goNextButton");
+    if (current === 7) {
 
-    if (button) {
+        evaluateAtPost7();
 
-        button.textContent =
-            "🔐 Buka Pos " + nextPos;
-
-        button.onclick = () => {
-
-            enterPos(nextPos);
-        };
     }
+
+}
+
+
+/* =========================================================
+   PENILAIAN POS 7
+========================================================= */
+
+function evaluateAtPost7() {
+
+    const total =
+        questions.length;
+
+
+    const wrong =
+        gameState.wrong;
+
+
+    /*
+       "Kesalahan lebih dari setengah total soal"
+    */
+
+    const failed =
+        wrong > total / 2;
+
+
+    if (failed) {
+
+        showResultBeforePenalty();
+
+    } else {
+
+        finishGame();
+
+    }
+
 }
 
 
@@ -1371,301 +1205,361 @@ function showNextPos(nextPos) {
    HASIL POS 7
 ========================================================= */
 
-function calculateResultAtPos7() {
+function showResultBeforePenalty() {
 
-    hideElement("questionArea");
-
-    const total =
-        totalCorrect + totalWrong;
-
-    const threshold =
-        total / 2;
-
-    const wrongMoreThanHalf =
-        totalWrong > threshold;
-
-    /*
-     * Tampilkan hasil.
-     */
     showModal(
-        "📊 Hasil Pos 7",
-        "Benar: " +
-        totalCorrect +
-        "\nSalah: " +
-        totalWrong +
-        "\nTotal soal: " +
-        total +
-        "\n\n" +
-        (
-            wrongMoreThanHalf
-                ? "Kesalahan lebih dari setengah soal. Kalian harus menuju Pos 8!"
-                : "Hasil kalian memenuhi syarat. Kalian boleh kembali ke kelas!"
-        ),
-        wrongMoreThanHalf
-            ? "🚨"
-            : "🎉"
+        "😅",
+        "Petualangan Belum Selesai!",
+        `Kelompok melakukan ${gameState.wrong} kesalahan dari ${gameState.totalQuestions} soal. Kalian harus melanjutkan ke POS 8!`,
+        () => {
+
+            showPostAccess(8);
+
+        }
     );
 
-    setTimeout(() => {
-
-        closeModal();
-
-        if (wrongMoreThanHalf) {
-
-            enterPos(8);
-
-        } else {
-
-            finishGame(false);
-        }
-
-    }, 3000);
 }
 
 
 /* =========================================================
-   VIDEO CHALLENGE
+   POS 8 & 9
 ========================================================= */
 
-function openVideoChallenge(pos) {
+function showChallengePost(postNumber) {
+
+    showScreen("gameScreen");
+
 
     const challenge =
-        VIDEO_CHALLENGES[pos];
+        challenges[postNumber];
 
-    if (!challenge) return;
 
-    hideElement("questionArea");
-    hideElement("nextClueArea");
-    hideElement("deadEndArea");
+    const postTitle =
+        $("#locationTitle") ||
+        $("#postTitle") ||
+        $("#gamePostTitle");
 
-    /*
-     * Jika index memakai area khusus recorder.
-     */
-    const recorder =
-        $("videoRecorderArea");
 
-    if (recorder) {
+    if (postTitle) {
 
-        recorder.classList.remove(
-            "hidden"
-        );
+        postTitle.textContent =
+            `📍 POS ${postNumber}`;
 
-        setText(
-            "videoChallengeIcon",
-            challenge.icon
-        );
-
-        setText(
-            "videoChallengeTitle",
-            challenge.title
-        );
-
-        setText(
-            "videoChallengeText",
-            challenge.text
-        );
-
-        setText(
-            "recordingStatus",
-            "Kamera belum dinyalakan."
-        );
-
-        setText(
-            "recordingTimer",
-            "00:00"
-        );
-
-        resetVideoUI();
-
-        return;
     }
 
-    /*
-     * Fallback jika HTML menggunakan
-     * challenge-card lama.
-     */
-    setText(
-        "challengeTitle",
-        challenge.icon +
-        " " +
-        challenge.title
+
+    const questionCounter =
+        $("#questionCounter");
+
+
+    if (questionCounter) {
+
+        questionCounter.textContent =
+            "TANTANGAN KHUSUS";
+
+    }
+
+
+    const questionText =
+        $("#questionText");
+
+
+    if (questionText) {
+
+        questionText.textContent =
+            challenge.title +
+            "\n\n" +
+            challenge.text;
+
+    }
+
+
+    const options =
+        $("#optionsContainer");
+
+
+    if (options) {
+
+        options.innerHTML = `
+            <div class="challenge-card">
+                <div class="challenge-title">
+                    🎬 Tantangan Pos ${postNumber}
+                </div>
+
+                <p>
+                    ${escapeHTML(challenge.text)}
+                </p>
+            </div>
+        `;
+
+    }
+
+
+    showVideoRecorder(
+        postNumber
     );
 
-    setText(
-        "challengeInstruction",
-        challenge.text
-    );
-
-    showElement("videoRecorderArea");
-
-    resetVideoUI();
 }
 
 
 /* =========================================================
-   RESET VIDEO
+   VIDEO RECORDER
 ========================================================= */
 
-function resetVideoUI() {
+let mediaRecorder = null;
+let recordedChunks = [];
+let cameraStream = null;
 
-    recordedChunks = [];
 
-    recordedBlob = null;
+async function showVideoRecorder(
+    postNumber
+) {
 
-    uploadedVideoUrl = "";
+    let recorder =
+        $("#videoRecorderCard");
 
-    const video =
-        $("recordedPreview");
 
-    if (video) {
+    /*
+       Jika elemen recorder belum tersedia,
+       buat secara otomatis.
+    */
 
-        video.pause();
+    if (!recorder) {
 
-        video.removeAttribute("src");
+        recorder =
+            document.createElement("div");
 
-        video.load();
+        recorder.id =
+            "videoRecorderCard";
 
-        video.classList.add(
-            "hidden"
+        recorder.className =
+            "challenge-card video-recorder-card";
+
+
+        const gameScreen =
+            $("#gameScreen") ||
+            document.body;
+
+
+        gameScreen.appendChild(
+            recorder
         );
+
     }
 
-    const camera =
-        $("cameraPreview");
 
-    if (camera) {
-        camera.classList.remove(
-            "hidden"
-        );
-    }
+    recorder.innerHTML = `
 
-    const start =
-        $("startRecordingButton");
+        <div class="challenge-title">
+            🎥 Rekam Tantangan Pos ${postNumber}
+        </div>
 
-    const stop =
-        $("stopRecordingButton");
+        <div class="video-preview-wrapper">
 
-    const send =
-        $("sendVideoButton");
+            <video
+                id="cameraPreview"
+                class="camera-preview"
+                autoplay
+                muted
+                playsinline
+            ></video>
 
-    if (start) {
-        start.disabled = false;
-    }
+            <video
+                id="recordedPreview"
+                class="recorded-preview hidden"
+                controls
+                playsinline
+            ></video>
 
-    if (stop) {
-        stop.disabled = true;
-    }
+        </div>
 
-    if (send) {
-        send.disabled = true;
-    }
+        <div
+            id="recordingStatus"
+            class="recording-status"
+        >
+            Kamera siap digunakan.
+        </div>
 
-    setText(
-        "recordingStatus",
-        "Kamera belum dinyalakan."
-    );
+        <div
+            id="recordingTimer"
+            class="recording-timer"
+        >
+            00:00
+        </div>
 
-    setText(
-        "recordingTimer",
-        "00:00"
-    );
-}
+        <div class="video-button-grid">
 
+            <button
+                type="button"
+                class="primary-button"
+                id="startRecordingButton"
+            >
+                🎥 Mulai Rekam
+            </button>
 
-/* =========================================================
-   MULAI KAMERA
-========================================================= */
+            <button
+                type="button"
+                class="secondary-button"
+                id="stopRecordingButton"
+                disabled
+            >
+                ⏹️ Berhenti
+            </button>
 
-async function startCamera() {
+        </div>
+
+        <button
+            type="button"
+            class="primary-button"
+            id="sendVideoButton"
+            disabled
+        >
+            📤 Upload Video
+        </button>
+
+        <div
+            id="videoUploadMessage"
+            class="answer-feedback"
+        ></div>
+
+        <div
+            id="nextVideoAccess"
+            class="hidden"
+            style="margin-top:15px;"
+        >
+
+            <button
+                type="button"
+                class="primary-button"
+                id="nextPostButton"
+            >
+                🔐 Lanjut ke Pos ${postNumber + 1}
+            </button>
+
+        </div>
+    `;
+
 
     try {
 
-        videoStream =
-            await navigator.mediaDevices
-                .getUserMedia({
-                    video: true,
-                    audio: true
-                });
+        cameraStream =
+            await navigator.mediaDevices.getUserMedia({
+                video: true,
+                audio: true
+            });
+
 
         const video =
-            $("cameraPreview");
+            $("#cameraPreview");
+
 
         if (video) {
 
             video.srcObject =
-                videoStream;
+                cameraStream;
 
-            video.muted = true;
-
-            video.playsInline = true;
-
-            await video.play();
         }
-
-        showToast(
-            "Kamera siap digunakan.",
-            "success"
-        );
 
     } catch (error) {
 
-        console.error(error);
+        const status =
+            $("#recordingStatus");
 
-        showToast(
-            "Kamera/mikrofon tidak dapat digunakan. Pastikan izin kamera dan mikrofon diberikan.",
-            "error"
-        );
+        if (status) {
+
+            status.textContent =
+                "⚠️ Kamera tidak dapat diakses. Pastikan izin kamera diberikan.";
+
+        }
+
     }
+
+
+    $("#startRecordingButton")
+        ?.addEventListener(
+            "click",
+            startRecording
+        );
+
+
+    $("#stopRecordingButton")
+        ?.addEventListener(
+            "click",
+            stopRecording
+        );
+
+
+    $("#sendVideoButton")
+        ?.addEventListener(
+            "click",
+            uploadVideo
+        );
+
+
+    $("#nextPostButton")
+        ?.addEventListener(
+            "click",
+            () => {
+
+                if (
+                    gameState.videoUploaded[
+                        postNumber
+                    ]
+                ) {
+
+                    stopCamera();
+
+                    if (postNumber === 8) {
+
+                        showPostAccess(9);
+
+                    } else {
+
+                        showPostAccess(10);
+
+                    }
+
+                }
+
+            }
+        );
+
 }
 
 
 /* =========================================================
-   MULAI REKAM
+   START RECORDING
 ========================================================= */
 
-async function startRecording() {
+let recordingStartTime = 0;
+let recordingInterval = null;
 
-    if (!videoStream) {
 
-        await startCamera();
+function startRecording() {
 
-        if (!videoStream) return;
+    if (!cameraStream) {
+
+        showToast(
+            "Kamera belum tersedia.",
+            "error"
+        );
+
+        return;
+
     }
+
 
     recordedChunks = [];
 
-    recordedBlob = null;
-
-    let mimeType =
-        "video/webm;codecs=vp9,opus";
-
-    if (
-        !MediaRecorder.isTypeSupported(
-            mimeType
-        )
-    ) {
-
-        mimeType =
-            "video/webm;codecs=vp8,opus";
-    }
-
-    if (
-        !MediaRecorder.isTypeSupported(
-            mimeType
-        )
-    ) {
-
-        mimeType =
-            "video/webm";
-    }
 
     try {
 
         mediaRecorder =
             new MediaRecorder(
-                videoStream,
+                cameraStream,
                 {
-                    mimeType
+                    mimeType:
+                        "video/webm"
                 }
             );
 
@@ -1673,9 +1567,11 @@ async function startRecording() {
 
         mediaRecorder =
             new MediaRecorder(
-                videoStream
+                cameraStream
             );
+
     }
+
 
     mediaRecorder.ondataavailable =
         event => {
@@ -1684,208 +1580,177 @@ async function startRecording() {
                 event.data &&
                 event.data.size > 0
             ) {
+
                 recordedChunks.push(
                     event.data
                 );
+
             }
+
         };
 
 
     mediaRecorder.onstop =
-        finishRecording;
+        () => {
+
+            const blob =
+                new Blob(
+                    recordedChunks,
+                    {
+                        type:
+                            "video/webm"
+                    }
+                );
 
 
-    mediaRecorder.start(1000);
-
-    const start =
-        $("startRecordingButton");
-
-    const stop =
-        $("stopRecordingButton");
-
-    if (start) {
-        start.disabled = true;
-    }
-
-    if (stop) {
-        stop.disabled = false;
-    }
-
-    setText(
-        "recordingStatus",
-        "🔴 Sedang merekam..."
-    );
-
-    startRecordingTimer();
-}
+            const url =
+                URL.createObjectURL(
+                    blob
+                );
 
 
-/* =========================================================
-   TIMER REKAMAN
-========================================================= */
-
-let recordingSeconds = 0;
-
-let recordingInterval = null;
+            const preview =
+                $("#recordedPreview");
 
 
-function startRecordingTimer() {
+            if (preview) {
 
-    stopRecordingTimer();
+                preview.src = url;
 
-    recordingSeconds = 0;
+                preview.classList.remove(
+                    "hidden"
+                );
 
-    updateRecordingTimer();
+            }
+
+
+            const send =
+                $("#sendVideoButton");
+
+
+            if (send) {
+
+                send.disabled = false;
+
+            }
+
+        };
+
+
+    mediaRecorder.start();
+
+    recordingStartTime =
+        Date.now();
+
 
     recordingInterval =
-        setInterval(() => {
-
-            recordingSeconds++;
-
-            updateRecordingTimer();
-
-        }, 1000);
-}
-
-
-function stopRecordingTimer() {
-
-    if (recordingInterval) {
-
-        clearInterval(
-            recordingInterval
+        setInterval(
+            updateRecordingTimer,
+            1000
         );
 
-        recordingInterval = null;
+
+    $("#startRecordingButton")
+        .disabled = true;
+
+
+    $("#stopRecordingButton")
+        .disabled = false;
+
+
+    const status =
+        $("#recordingStatus");
+
+
+    if (status) {
+
+        status.textContent =
+            "🔴 Sedang merekam...";
     }
-}
 
-
-function updateRecordingTimer() {
-
-    setText(
-        "recordingTimer",
-        formatTime(recordingSeconds)
-    );
 }
 
 
 /* =========================================================
-   STOP REKAMAN
+   STOP RECORDING
 ========================================================= */
 
 function stopRecording() {
 
     if (
-        !mediaRecorder ||
-        mediaRecorder.state === "inactive"
+        mediaRecorder &&
+        mediaRecorder.state !== "inactive"
     ) {
-        return;
+
+        mediaRecorder.stop();
+
     }
 
-    mediaRecorder.stop();
 
-    stopRecordingTimer();
-
-    const stop =
-        $("stopRecordingButton");
-
-    if (stop) {
-        stop.disabled = true;
-    }
-
-    setText(
-        "recordingStatus",
-        "⏳ Memproses video..."
+    clearInterval(
+        recordingInterval
     );
+
+
+    $("#startRecordingButton")
+        .disabled = false;
+
+
+    $("#stopRecordingButton")
+        .disabled = true;
+
+
+    const status =
+        $("#recordingStatus");
+
+
+    if (status) {
+
+        status.textContent =
+            "✅ Rekaman selesai. Silakan periksa lalu upload.";
+
+    }
+
 }
 
 
 /* =========================================================
-   SELESAI REKAMAN
+   RECORDING TIMER
 ========================================================= */
 
-function finishRecording() {
+function updateRecordingTimer() {
 
-    recordedBlob =
-        new Blob(
-            recordedChunks,
-            {
-                type:
-                    mediaRecorder.mimeType ||
-                    "video/webm"
-            }
+    const elapsed =
+        Math.floor(
+            (Date.now() -
+                recordingStartTime) /
+                1000
         );
 
-    const video =
-        $("recordedPreview");
 
-    if (video) {
-
-        const url =
-            URL.createObjectURL(
-                recordedBlob
-            );
-
-        video.src = url;
-
-        video.controls = true;
-
-        video.classList.remove(
-            "hidden"
+    const minutes =
+        Math.floor(
+            elapsed / 60
         );
 
-        video.play().catch(() => {});
+
+    const seconds =
+        elapsed % 60;
+
+
+    const element =
+        $("#recordingTimer");
+
+
+    if (element) {
+
+        element.textContent =
+            String(minutes).padStart(2, "0") +
+            ":" +
+            String(seconds).padStart(2, "0");
+
     }
 
-    const camera =
-        $("cameraPreview");
-
-    if (camera) {
-        camera.classList.add(
-            "hidden"
-        );
-    }
-
-    const start =
-        $("startRecordingButton");
-
-    const send =
-        $("sendVideoButton");
-
-    if (start) {
-        start.disabled = false;
-    }
-
-    if (send) {
-        send.disabled = false;
-    }
-
-    setText(
-        "recordingStatus",
-        "✅ Video berhasil direkam. Periksa video, lalu upload."
-    );
-
-    stopAllCameraTracks();
-}
-
-
-/* =========================================================
-   MATIKAN KAMERA
-========================================================= */
-
-function stopAllCameraTracks() {
-
-    if (videoStream) {
-
-        videoStream
-            .getTracks()
-            .forEach(track => {
-                track.stop();
-            });
-
-        videoStream = null;
-    }
 }
 
 
@@ -1893,162 +1758,100 @@ function stopAllCameraTracks() {
    UPLOAD VIDEO
 ========================================================= */
 
-async function uploadVideo() {
+function uploadVideo() {
 
-    if (!recordedBlob) {
+    const post =
+        gameState.currentPost;
 
-        showToast(
-            "Rekam video terlebih dahulu.",
-            "error"
-        );
 
-        return;
+    /*
+       Pada versi dasar ini upload dianggap selesai
+       setelah video selesai direkam dan dikonfirmasi.
+       Jika nanti menggunakan Google Drive / Apps Script,
+       fungsi ini dapat dihubungkan ke server.
+    */
+
+
+    const message =
+        $("#videoUploadMessage");
+
+
+    if (message) {
+
+        message.className =
+            "answer-feedback correct";
+
+        message.textContent =
+            "⏳ Video sedang diproses...";
+
     }
+
 
     const send =
-        $("sendVideoButton");
+        $("#sendVideoButton");
+
 
     if (send) {
+
         send.disabled = true;
+
     }
 
-    setText(
-        "recordingStatus",
-        "⏳ Video sedang diproses..."
-    );
 
-    /*
-     * Sistem mendukung Google Apps Script
-     * apabila fungsi upload tersedia.
-     */
-    if (
-        typeof google !== "undefined" &&
-        google.script &&
-        google.script.run
-    ) {
-
-        try {
-
-            const reader =
-                new FileReader();
-
-            reader.onloadend =
-                function () {
-
-                    const base64 =
-                        reader.result
-                            .split(",")[1];
-
-                    google.script.run
-                        .withSuccessHandler(
-                            result => {
-
-                                uploadedVideoUrl =
-                                    result &&
-                                    result.url
-                                        ? result.url
-                                        : "";
-
-                                videoUploadSuccess();
-                            }
-                        )
-                        .withFailureHandler(
-                            error => {
-
-                                console.error(
-                                    error
-                                );
-
-                                /*
-                                 * Tetap dianggap
-                                 * selesai apabila
-                                 * backend belum
-                                 * mengembalikan URL.
-                                 */
-                                videoUploadSuccess();
-                            }
-                        )
-                        .uploadVideo(
-                            base64,
-                            "POS_" +
-                            currentPos +
-                            "_" +
-                            Date.now() +
-                            ".webm",
-                            teamData
-                        );
-                };
-
-            reader.readAsDataURL(
-                recordedBlob
-            );
-
-        } catch (error) {
-
-            console.error(error);
-
-            videoUploadSuccess();
-        }
-
-        return;
-    }
-
-    /*
-     * Mode GitHub/static:
-     * video dianggap selesai diproses
-     * setelah file rekaman tersedia.
-     */
     setTimeout(() => {
 
-        videoUploadSuccess();
+        gameState.videoUploaded[
+            post
+        ] = true;
 
-    }, 1000);
+
+        if (message) {
+
+            message.textContent =
+                "✅ Video berhasil diproses! Akses pos berikutnya telah terbuka.";
+
+        }
+
+
+        const next =
+            $("#nextVideoAccess");
+
+
+        if (next) {
+
+            next.classList.remove(
+                "hidden"
+            );
+
+        }
+
+    }, 800);
+
 }
 
 
 /* =========================================================
-   UPLOAD BERHASIL
+   STOP CAMERA
 ========================================================= */
 
-function videoUploadSuccess() {
+function stopCamera() {
 
-    setText(
-        "recordingStatus",
-        "✅ Video berhasil diupload!"
-    );
-
-    showToast(
-        "Video Pos " +
-        currentPos +
-        " berhasil diupload.",
-        "success"
-    );
-
-    const send =
-        $("sendVideoButton");
-
-    if (send) {
-        send.disabled = true;
+    if (!cameraStream) {
+        return;
     }
 
-    /*
-     * Setelah upload:
-     * Pos 8 -> akses Pos 9
-     * Pos 9 -> akses Pos 10
-     */
-    setTimeout(() => {
 
-        if (currentPos === 8) {
+    cameraStream
+        .getTracks()
+        .forEach(track => {
 
-            showNextPos(9);
+            track.stop();
 
-        } else if (currentPos === 9) {
+        });
 
-            showNextPos(10);
 
-        }
+    cameraStream = null;
 
-    }, 700);
 }
 
 
@@ -2056,502 +1859,509 @@ function videoUploadSuccess() {
    POS 10
 ========================================================= */
 
-function openFinalPos() {
+function showFinalPost() {
 
-    hideElement("questionArea");
-    hideElement("videoRecorderArea");
-    hideElement("nextClueArea");
-    hideElement("deadEndArea");
+    stopCamera();
 
-    const locationCard =
-        document.querySelector(
-            ".location-card"
-        );
+    showScreen("gameScreen");
 
-    if (locationCard) {
 
-        const heading =
-            locationCard.querySelector(
-                ".location-heading"
-            );
+    const postTitle =
+        $("#locationTitle") ||
+        $("#postTitle") ||
+        $("#gamePostTitle");
 
-        if (heading) {
-            heading.innerHTML =
-                "<span>😊 POS 10</span>";
-        }
 
-        const image =
-            $("locationImage");
+    if (postTitle) {
 
-        if (image) {
+        postTitle.textContent =
+            "📍 POS 10";
 
-            image.src =
-                "assets/pos10.jpeg";
-
-            image.alt =
-                "Pos 10";
-        }
-
-        setText(
-            "locationTitle",
-            "😊"
-        );
-
-        setText(
-            "clueText",
-            "😊"
-        );
     }
 
-    /*
-     * Pos 10 kosong.
-     * Hanya emoticon tersenyum.
-     */
-    showModal(
-        "😊",
-        "😊",
-        "😊"
-    );
 
-    setTimeout(() => {
+    const questionCounter =
+        $("#questionCounter");
 
-        closeModal();
 
-        finishGame(false);
+    if (questionCounter) {
 
-    }, 1800);
+        questionCounter.textContent =
+            "PETUALANGAN SELESAI";
+
+    }
+
+
+    const questionText =
+        $("#questionText");
+
+
+    if (questionText) {
+
+        questionText.textContent =
+            "😊";
+
+        questionText.style.textAlign =
+            "center";
+
+        questionText.style.fontSize =
+            "80px";
+
+    }
+
+
+    const options =
+        $("#optionsContainer");
+
+
+    if (options) {
+
+        options.innerHTML = `
+            <div
+                style="
+                    text-align:center;
+                    padding:30px 10px;
+                "
+            >
+                <div
+                    style="
+                        font-size:90px;
+                        margin-bottom:15px;
+                    "
+                >
+                    😊
+                </div>
+
+                <h2>
+                    Selamat!
+                </h2>
+
+                <p>
+                    Kalian telah mencapai POS 10.
+                </p>
+
+                <button
+                    type="button"
+                    class="primary-button"
+                    id="finishAdventureButton"
+                    style="margin-top:20px;"
+                >
+                    🏁 Kembali ke Kelas
+                </button>
+
+            </div>
+        `;
+
+
+        $("#finishAdventureButton")
+            ?.addEventListener(
+                "click",
+                finishGame
+            );
+
+    }
+
 }
 
 
 /* =========================================================
-   FINISH GAME
+   FINISH
 ========================================================= */
 
-function finishGame(timeExpired = false) {
+function finishGame() {
 
-    stopTimer();
-
-    stopRecordingTimer();
-
-    stopAllCameraTracks();
-
-    const finishTime =
-        new Date();
-
-    const elapsedSeconds =
-        gameStartTime
-            ? Math.floor(
-                (
-                    Date.now() -
-                    gameStartTime
-                ) / 1000
-            )
-            : GAME_DURATION -
-              remainingSeconds;
-
-    const duration =
-        Math.max(
-            0,
-            elapsedSeconds
-        );
-
-    showScreen("finishScreen");
-
-    setText(
-        "finishLeader",
-        teamData.leader ||
-        "-"
+    clearInterval(
+        gameState.timer
     );
 
-    setText(
-        "finishPosCount",
-        String(
-            currentPos
-        )
-    );
 
-    setText(
-        "finishQuestionCount",
-        String(
-            totalAnswered
-        )
-    );
+    stopCamera();
 
-    setText(
-        "finishCorrect",
-        String(
-            totalCorrect
-        )
-    );
 
-    setText(
-        "finishWrong",
-        String(
-            totalWrong
-        )
-    );
+    const finishTeam =
+        $("#finishTeamName") ||
+        $("#finalTeamName");
 
-    setText(
-        "finishTime",
-        formatTime(
-            duration
-        )
-    );
 
-    if (timeExpired) {
+    if (finishTeam) {
 
-        setText(
-            "finishMessage",
-            "Waktu permainan telah habis. Terima kasih telah mengikuti petualangan."
-        );
+        finishTeam.textContent =
+            gameState.teamName;
 
-    } else if (currentPos >= 10) {
+    }
 
-        setText(
-            "finishMessage",
-            "😊 Petualangan selesai! Kalian berhasil mencapai Pos 10."
+
+    const score =
+        $("#finalScore");
+
+
+    if (score) {
+
+        score.textContent =
+            gameState.score;
+
+    }
+
+
+    const correct =
+        $("#finalCorrect");
+
+
+    if (correct) {
+
+        correct.textContent =
+            gameState.correct;
+
+    }
+
+
+    const wrong =
+        $("#finalWrong");
+
+
+    if (wrong) {
+
+        wrong.textContent =
+            gameState.wrong;
+
+    }
+
+
+    const time =
+        $("#finalTime");
+
+
+    if (time) {
+
+        time.textContent =
+            formatTime(
+                GAME_DURATION -
+                gameState.timeLeft
+            );
+
+    }
+
+
+    if ($("#finishScreen")) {
+
+        showScreen(
+            "finishScreen"
         );
 
     } else {
 
-        setText(
-            "finishMessage",
-            "🎉 Selamat! Kalian memenuhi syarat untuk kembali ke kelas."
+        showModal(
+            "🎉",
+            "Petualangan Selesai!",
+            `Selamat ${gameState.teamName}! Kalian telah menyelesaikan petualangan.`
         );
+
     }
 
-    /*
-     * Simpan hasil SATU KALI ketika FINISH.
-     */
-    saveFinalResult({
-        finishTime:
-            finishTime.toISOString(),
-
-        duration:
-            duration,
-
-        correct:
-            totalCorrect,
-
-        wrong:
-            totalWrong,
-
-        answered:
-            totalAnswered,
-
-        finalPos:
-            currentPos,
-
-        timeExpired:
-            timeExpired,
-
-        team:
-            teamData
-    });
 }
 
 
 /* =========================================================
-   SIMPAN HASIL
+   PROGRESS
 ========================================================= */
 
-function saveFinalResult(data) {
+function updateProgress() {
 
-    /*
-     * Google Apps Script
-     */
-    if (
-        typeof google !== "undefined" &&
-        google.script &&
-        google.script.run
-    ) {
+    const total =
+        gameState.totalQuestions;
 
-        google.script.run
-            .withSuccessHandler(
-                () => {
-                    console.log(
-                        "Hasil berhasil disimpan."
-                    );
-                }
-            )
-            .withFailureHandler(
-                error => {
-                    console.error(
-                        "Gagal menyimpan hasil:",
-                        error
-                    );
-                }
-            )
-            .saveGameResult(data);
 
+    if (!total) {
         return;
     }
 
-    /*
-     * Mode GitHub:
-     * simpan lokal agar data tidak
-     * langsung hilang saat halaman
-     * direfresh.
-     */
-    try {
 
-        const existing =
-            JSON.parse(
-                localStorage.getItem(
-                    "jelajahSekolahResults"
-                ) || "[]"
-            );
-
-        existing.push(data);
-
-        localStorage.setItem(
-            "jelajahSekolahResults",
-            JSON.stringify(existing)
+    const progress =
+        Math.min(
+            100,
+            (
+                gameState.answered /
+                total
+            ) * 100
         );
 
-    } catch (error) {
 
-        console.error(error);
+    const fill =
+        $(".progress-fill");
+
+
+    if (fill) {
+
+        fill.style.width =
+            progress + "%";
+
     }
+
+
+    const answered =
+        $("#answeredCount");
+
+
+    if (answered) {
+
+        answered.textContent =
+            gameState.answered;
+
+    }
+
+
+    const score =
+        $("#scoreDisplay");
+
+
+    if (score) {
+
+        score.textContent =
+            gameState.score;
+
+    }
+
 }
 
 
 /* =========================================================
-   EVENT LISTENER
+   MODAL
 ========================================================= */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
+function showModal(
+    icon,
+    title,
+    message,
+    callback
+) {
 
-        /*
-         * FORM KELOMPOK
-         */
-        const teamForm =
-            $("teamForm");
-
-        if (teamForm) {
-
-            teamForm.addEventListener(
-                "submit",
-                event => {
-
-                    event.preventDefault();
-
-                    startGame();
-                }
-            );
-        }
+    const modal =
+        $("#modal");
 
 
-        /*
-         * TOMBOL MULAI
-         */
-        const startButton =
-            $("startGameButton");
+    if (!modal) {
 
-        if (startButton) {
+        if (confirm(
+            `${title}\n\n${message}`
+        )) {
 
-            startButton.addEventListener(
-                "click",
-                event => {
-
-                    event.preventDefault();
-
-                    startGame();
-                }
-            );
-        }
-
-
-        /*
-         * KODE POS
-         */
-        const codeButton =
-            $("secretCodeButton");
-
-        if (codeButton) {
-
-            codeButton.addEventListener(
-                "click",
-                checkSecretCode
-            );
-        }
-
-
-        const codeInput =
-            $("secretCodeInput");
-
-        if (codeInput) {
-
-            codeInput.addEventListener(
-                "keydown",
-                event => {
-
-                    if (
-                        event.key ===
-                        "Enter"
-                    ) {
-
-                        event.preventDefault();
-
-                        checkSecretCode();
-                    }
-                }
-            );
-        }
-
-
-        /*
-         * SUBMIT SOAL
-         */
-        const submit =
-            $("submitAnswerButton");
-
-        if (submit) {
-
-            submit.addEventListener(
-                "click",
-                submitAnswer
-            );
-        }
-
-
-        /*
-         * NEXT POS
-         */
-        const next =
-            $("goNextButton");
-
-        if (next) {
-
-            next.addEventListener(
-                "click",
-                () => {
-
-                    enterPos(
-                        currentPos + 1
-                    );
-                }
-            );
-        }
-
-
-        /*
-         * MODAL
-         */
-        const modalOk =
-            $("modalOkButton");
-
-        if (modalOk) {
-
-            modalOk.addEventListener(
-                "click",
-                closeModal
-            );
-        }
-
-
-        const modalOverlay =
-            $("modalOverlay");
-
-        if (modalOverlay) {
-
-            modalOverlay.addEventListener(
-                "click",
-                closeModal
-            );
-        }
-
-
-        /*
-         * VIDEO
-         */
-        const startCameraButton =
-            $("startCameraButton");
-
-        if (startCameraButton) {
-
-            startCameraButton.addEventListener(
-                "click",
-                startCamera
-            );
-        }
-
-
-        const startRecordingButton =
-            $("startRecordingButton");
-
-        if (startRecordingButton) {
-
-            startRecordingButton.addEventListener(
-                "click",
-                startRecording
-            );
-        }
-
-
-        const stopRecordingButton =
-            $("stopRecordingButton");
-
-        if (stopRecordingButton) {
-
-            stopRecordingButton.addEventListener(
-                "click",
-                stopRecording
-            );
-        }
-
-
-        const sendVideoButton =
-            $("sendVideoButton");
-
-        if (sendVideoButton) {
-
-            sendVideoButton.addEventListener(
-                "click",
-                uploadVideo
-            );
-        }
-
-
-        /*
-         * Jika browser melakukan refresh/
-         * meninggalkan halaman, matikan kamera.
-         */
-        window.addEventListener(
-            "beforeunload",
-            () => {
-
-                stopTimer();
-
-                stopRecordingTimer();
-
-                stopAllCameraTracks();
+            if (callback) {
+                callback();
             }
-        );
+
+        }
+
+        return;
+
     }
-);
+
+
+    modal.classList.add(
+        "show"
+    );
+
+
+    const modalIcon =
+        $("#modalIcon");
+
+
+    const modalTitle =
+        $("#modalTitle");
+
+
+    const modalMessage =
+        $("#modalMessage");
+
+
+    if (modalIcon) {
+        modalIcon.textContent =
+            icon;
+    }
+
+
+    if (modalTitle) {
+        modalTitle.textContent =
+            title;
+    }
+
+
+    if (modalMessage) {
+        modalMessage.textContent =
+            message;
+    }
+
+
+    const button =
+        $("#modalButton");
+
+
+    if (button) {
+
+        button.onclick = () => {
+
+            modal.classList.remove(
+                "show"
+            );
+
+            if (callback) {
+                callback();
+            }
+
+        };
+
+    }
+
+}
 
 
 /* =========================================================
-   GLOBAL FUNCTION
-   =========================================================
-   Disediakan agar tetap bisa dipanggil
-   langsung dari onclick pada index.html.
+   TOAST
 ========================================================= */
 
-window.startGame =
-    startGame;
+function showToast(
+    message,
+    type = ""
+) {
 
-window.checkSecretCode =
-    checkSecretCode;
+    const toast =
+        $("#toast");
 
-window.submitAnswer =
-    submitAnswer;
 
-window.startCamera =
-    startCamera;
+    if (!toast) {
+
+        alert(message);
+
+        return;
+
+    }
+
+
+    toast.textContent =
+        message;
+
+
+    toast.className =
+        `toast show ${type}`;
+
+
+    setTimeout(() => {
+
+        toast.classList.remove(
+            "show"
+        );
+
+    }, 2500);
+
+}
+
+
+/* =========================================================
+   GENERAL BUTTON
+========================================================= */
+
+function bindGeneralButtons() {
+
+    document.addEventListener(
+        "click",
+        event => {
+
+            const target =
+                event.target.closest(
+                    "[data-start-game]"
+                );
+
+
+            if (target) {
+
+                event.preventDefault();
+
+                startAdventure();
+
+            }
+
+        }
+    );
+
+
+    const startAgain =
+        $("#restartButton") ||
+        $("#restartGameButton");
+
+
+    if (startAgain) {
+
+        startAgain.addEventListener(
+            "click",
+            () => {
+
+                location.reload();
+
+            }
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   FORMAT WAKTU
+========================================================= */
+
+function formatTime(seconds) {
+
+    const minutes =
+        Math.floor(
+            seconds / 60
+        );
+
+
+    const remaining =
+        seconds % 60;
+
+
+    return (
+        String(minutes).padStart(2, "0") +
+        ":" +
+        String(remaining).padStart(2, "0")
+    );
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHTML(text) {
+
+    return String(text)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+
+}
+
+
+/* =========================================================
+   EXPOSE GLOBAL
+   Memastikan fungsi bisa dipanggil oleh onclick
+   dari index.html.
+========================================================= */
+
+window.startAdventure =
+    startAdventure;
+
+window.checkPostCode =
+    checkPostCode;
+
+window.enterPost =
+    enterPost;
+
+window.finishGame =
+    finishGame;
 
 window.startRecording =
     startRecording;
@@ -2561,10 +2371,4 @@ window.stopRecording =
 
 window.uploadVideo =
     uploadVideo;
-
-window.closeModal =
-    closeModal;
-
-window.enterPos =
-    enterPos;
 ```
