@@ -1,31 +1,7 @@
-```css
-/* =========================================================
-   JELAJAH SEKOLAH — STYLE.CSS
-   POS 1–10 | TIMER 30 MENIT | SOAL | VIDEO
-========================================================= */
-
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-}
-
-:root {
-    --primary: #4f46e5;
-    --primary-dark: #3730a3;
-    --secondary: #06b6d4;
-
-    --success: #16a34a;
-    --danger: #dc2626;
-    --warning: #f59e0b;
-
-    --dark: #172033;
-    --gray: #64748b;
-    --light: #f1f5f9;
-
-    --white: #ffffff;
-
-    --radius: 20px;
 }
 
 html {
@@ -33,6 +9,8 @@ html {
 }
 
 body {
+    min-height: 100vh;
+
     font-family:
         "Segoe UI",
         Arial,
@@ -40,69 +18,41 @@ body {
         sans-serif;
 
     background:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(255,255,255,.14),
+            transparent 30%
+        ),
         linear-gradient(
             135deg,
-            #eef2ff,
-            #ecfeff
+            #0f172a 0%,
+            #14213d 45%,
+            #1d3557 100%
         );
 
-    color: var(--dark);
-
-    min-height: 100vh;
+    color: #172033;
 
     overflow-x: hidden;
 }
 
-body.no-scroll {
-    overflow: hidden;
-}
 
 button,
 input {
-    font: inherit;
+    font-family: inherit;
 }
+
 
 button {
     cursor: pointer;
 }
 
-button:disabled {
-    cursor: not-allowed;
-}
 
-.hidden {
-    display: none !important;
-}
-
-
-/* =========================================================
-   SCREEN
-========================================================= */
-
-.screen {
-    display: none;
-
-    min-height: 100vh;
-
-    padding: 25px 16px;
-}
-
-.screen.active {
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-}
-
-
-/* =========================================================
+/* ================================
    BACKGROUND
-========================================================= */
+================================ */
 
 .background-decoration {
     position: fixed;
-
-    z-index: -1;
 
     width: 180px;
     height: 180px;
@@ -111,249 +61,289 @@ button:disabled {
 
     opacity: .12;
 
-    filter: blur(2px);
-
     pointer-events: none;
+
+    z-index: 0;
 }
 
 .decoration-1 {
     top: -70px;
     right: -60px;
-
     background: #ffd166;
 }
 
 .decoration-2 {
     bottom: 10%;
     left: -100px;
-
     background: #06d6a0;
 }
 
 .decoration-3 {
     top: 45%;
     right: -120px;
-
     background: #ef476f;
 }
 
 
-/* =========================================================
-   HERO / HALAMAN AWAL
-========================================================= */
+/* ================================
+   HEADER
+================================ */
 
-.hero-card {
-    width: 100%;
-    max-width: 600px;
+.game-header {
+    position: relative;
+    z-index: 5;
 
-    background: rgba(255,255,255,.97);
-
-    border-radius: 30px;
-
-    padding: 38px 25px;
-
-    text-align: center;
-
-    box-shadow:
-        0 20px 60px
-        rgba(15,23,42,.12);
-}
-
-.hero-icon {
-    font-size: 70px;
-
-    margin-bottom: 15px;
-}
-
-.hero-card h1 {
-    font-size: 36px;
-
-    color: var(--primary);
-
-    margin-bottom: 8px;
-
-    font-weight: 900;
-}
-
-.hero-card h2 {
-    font-size: 20px;
-
-    margin-bottom: 18px;
-}
-
-.hero-card p {
-    line-height: 1.7;
-
-    color: var(--gray);
-
-    margin-bottom: 25px;
-}
-
-
-/* =========================================================
-   RULE BOX
-========================================================= */
-
-.rule-box {
-    text-align: left;
-
-    background: #f8fafc;
-
-    border-radius: 18px;
-
-    padding: 18px;
-
-    margin-bottom: 25px;
-
-    line-height: 1.8;
-}
-
-.rule-box ul {
-    padding-left: 20px;
-}
-
-.rule-box li {
-    margin-bottom: 6px;
-}
-
-
-/* =========================================================
-   CARD
-========================================================= */
-
-.game-card {
-    width: 100%;
-    max-width: 600px;
-
-    background: var(--white);
-
-    border-radius: var(--radius);
-
-    padding: 30px 22px;
-
-    box-shadow:
-        0 20px 60px
-        rgba(15,23,42,.10);
-}
-
-.section-icon {
-    text-align: center;
-
-    font-size: 55px;
-
-    margin-bottom: 10px;
-}
-
-.game-card h1 {
-    text-align: center;
-
-    font-size: 28px;
-
-    margin-bottom: 5px;
-}
-
-.subtitle {
-    text-align: center;
-
-    color: var(--gray);
-
-    margin-bottom: 25px;
-}
-
-
-/* =========================================================
-   INPUT
-========================================================= */
-
-.input-group {
-    margin-bottom: 16px;
-}
-
-.input-group label {
-    display: block;
-
-    font-weight: 700;
-
-    margin-bottom: 7px;
-}
-
-.input-group input,
-.secret-row input {
-    width: 100%;
-
-    padding: 14px 15px;
-
-    border:
-        2px solid #e2e8f0;
-
-    border-radius: 13px;
-
-    outline: none;
-
-    transition: .2s;
-
-    background: white;
-}
-
-.input-group input:focus,
-.secret-row input:focus {
-    border-color: var(--primary);
-
-    box-shadow:
-        0 0 0 4px
-        rgba(79,70,229,.10);
-}
-
-
-/* =========================================================
-   NOTICE
-========================================================= */
-
-.notice-box {
     display: flex;
+    align-items: center;
 
-    gap: 10px;
+    width: 100%;
+    max-width: 900px;
 
-    align-items: flex-start;
+    margin: auto;
 
-    background: #eef2ff;
+    padding: 14px 16px;
 
-    color: var(--primary-dark);
+    color: white;
+
+    background:
+        rgba(15,23,42,.94);
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.1);
+
+    box-shadow:
+        0 4px 20px
+        rgba(0,0,0,.18);
+}
+
+.header-logo {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 48px;
 
     border-radius: 15px;
 
-    padding: 14px;
+    font-size: 27px;
 
-    margin: 18px 0;
-
-    line-height: 1.5;
+    background:
+        linear-gradient(
+            135deg,
+            #ffd166,
+            #fca311
+        );
 }
 
-.notice-box p {
-    margin: 0;
+.header-title {
+    padding-left: 12px;
+}
+
+.header-title h1 {
+    font-size: 17px;
+    font-weight: 900;
+
+    letter-spacing: .8px;
+}
+
+.header-title p {
+    margin-top: 2px;
+
+    font-size: 11px;
+
+    opacity: .72;
 }
 
 
-/* =========================================================
+/* ================================
+   CONTAINER
+================================ */
+
+.game-container {
+    position: relative;
+    z-index: 1;
+
+    width: 100%;
+    max-width: 900px;
+
+    min-height:
+        calc(100vh - 76px);
+
+    margin: auto;
+
+    padding:
+        18px 14px 40px;
+}
+
+
+/* ================================
+   SCREEN
+================================ */
+
+.screen {
+    display: none;
+    width: 100%;
+}
+
+.screen.active {
+    display: block;
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+/* ================================
+   HERO
+================================ */
+
+.hero-card,
+.card,
+.pos-card,
+.finish-card {
+    width: 100%;
+
+    background:
+        rgba(255,255,255,.98);
+
+    border-radius: 25px;
+
+    box-shadow:
+        0 18px 50px
+        rgba(0,0,0,.22);
+}
+
+.hero-card {
+    padding: 30px 20px;
+
+    text-align: center;
+}
+
+.hero-icon {
+    width: 100px;
+    height: 100px;
+
+    margin: 0 auto 8px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 32px;
+
+    font-size: 57px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffd166,
+            #fca311
+        );
+}
+
+.hero-card h2 {
+    margin-top: 20px;
+
+    color: #14213d;
+
+    font-size: 27px;
+    font-weight: 900;
+}
+
+.hero-description {
+    max-width: 620px;
+
+    margin:
+        12px auto 20px;
+
+    color: #596579;
+
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+
+/* ================================
+   MISSION INFO
+================================ */
+
+.mission-info {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap: 9px;
+
+    margin:
+        20px 0 24px;
+}
+
+.mission-item {
+    display: flex;
+    align-items: center;
+
+    padding: 12px 8px;
+
+    text-align: left;
+
+    border-radius: 15px;
+
+    background: #f3f6fa;
+}
+
+.mission-icon {
+    margin-right: 7px;
+
+    font-size: 20px;
+}
+
+.mission-item strong {
+    display: block;
+
+    color: #14213d;
+
+    font-size: 11px;
+}
+
+.mission-item small {
+    display: block;
+
+    margin-top: 2px;
+
+    color: #718096;
+
+    font-size: 9px;
+    line-height: 1.35;
+}
+
+
+/* ================================
    BUTTON
-========================================================= */
+================================ */
 
 .primary-button,
 .secondary-button {
-    border: none;
+    min-height: 48px;
 
-    border-radius: 14px;
+    padding:
+        12px 18px;
 
-    padding: 15px 18px;
+    border: 0;
 
-    font-weight: 800;
+    border-radius: 13px;
 
-    width: 100%;
+    font-size: 12px;
+    font-weight: 900;
 
     transition:
-        transform .15s,
-        opacity .15s,
-        box-shadow .15s;
+        transform .18s ease,
+        opacity .18s ease;
 }
 
 .primary-button {
@@ -362,502 +352,472 @@ button:disabled {
     background:
         linear-gradient(
             135deg,
-            var(--primary),
-            #7c3aed
+            #fca311,
+            #e85d04
         );
 
     box-shadow:
-        0 8px 20px
-        rgba(79,70,229,.20);
+        0 7px 18px
+        rgba(232,93,4,.27);
+}
+
+.primary-button:hover {
+    transform:
+        translateY(-1px);
+}
+
+.primary-button:active {
+    transform:
+        scale(.97);
+}
+
+.primary-button:disabled {
+    opacity: .45;
+    cursor: not-allowed;
 }
 
 .secondary-button {
-    color: white;
+    color: #334155;
 
-    background:
-        linear-gradient(
-            135deg,
-            #0891b2,
-            #06b6d4
-        );
-
-    box-shadow:
-        0 8px 20px
-        rgba(6,182,212,.20);
-}
-
-.primary-button:hover:not(:disabled),
-.secondary-button:hover:not(:disabled) {
-    transform: translateY(-2px);
-}
-
-.primary-button:active:not(:disabled),
-.secondary-button:active:not(:disabled) {
-    transform: translateY(0);
-}
-
-.primary-button:disabled,
-.secondary-button:disabled {
-    opacity: .45;
-
-    transform: none;
-
-    box-shadow: none;
+    background: #edf1f5;
 }
 
 .big-button {
+    width: 100%;
+
     min-height: 54px;
-
-    font-size: 16px;
-}
-
-
-/* =========================================================
-   INSTRUCTION
-========================================================= */
-
-.instruction-list {
-    margin: 20px 0;
-}
-
-.instruction-item {
-    display: flex;
-
-    gap: 13px;
-
-    align-items: flex-start;
-
-    margin-bottom: 15px;
-
-    line-height: 1.5;
-}
-
-.instruction-item span {
-    flex:
-        0 0 32px;
-
-    width: 32px;
-    height: 32px;
-
-    border-radius: 50%;
-
-    background: var(--primary);
-
-    color: white;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    font-weight: 800;
-}
-
-.warning-box {
-    background: #fff7ed;
-
-    border:
-        1px solid #fed7aa;
-
-    color: #9a3412;
-
-    border-radius: 15px;
-
-    padding: 15px;
-
-    margin-bottom: 20px;
-
-    line-height: 1.5;
-}
-
-
-/* =========================================================
-   GAME HEADER
-========================================================= */
-
-.game-header {
-    position: sticky;
-
-    top: 0;
-
-    z-index: 20;
-
-    width: 100%;
-
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    gap: 10px;
-
-    padding: 13px 16px;
-
-    background: rgba(255,255,255,.96);
-
-    backdrop-filter: blur(10px);
-
-    box-shadow:
-        0 3px 15px
-        rgba(15,23,42,.08);
-}
-
-.header-left {
-    min-width: 0;
-}
-
-.small-label {
-    font-size: 11px;
-
-    color: var(--gray);
-
-    font-weight: 700;
-}
-
-.team-name {
-    font-weight: 900;
-
-    color: var(--primary);
-
-    max-width: 220px;
-
-    overflow: hidden;
-
-    text-overflow: ellipsis;
-
-    white-space: nowrap;
-}
-
-
-/* =========================================================
-   TIMER
-========================================================= */
-
-.timer-box {
-    background: #eef2ff;
-
-    color: var(--primary);
-
-    padding: 10px 13px;
-
-    border-radius: 12px;
-
-    font-weight: 900;
-
-    min-width: 85px;
-
-    text-align: center;
-}
-
-.timer-box.warning {
-    background: #fff7ed;
-
-    color: var(--warning);
-}
-
-.timer-box.danger {
-    background: #fee2e2;
-
-    color: var(--danger);
-
-    animation: timerPulse 1s infinite;
-}
-
-@keyframes timerPulse {
-    50% {
-        transform: scale(1.04);
-    }
-}
-
-
-/* =========================================================
-   GAME CONTAINER
-========================================================= */
-
-.game-container {
-    width: 100%;
-
-    max-width: 700px;
-
-    margin: 0 auto;
-
-    padding: 18px 15px 50px;
-}
-
-
-/* =========================================================
-   POS INDICATOR
-========================================================= */
-
-.pos-card {
-    background:
-        linear-gradient(
-            135deg,
-            #4f46e5,
-            #7c3aed
-        );
-
-    color: white;
-
-    border-radius: 20px;
-
-    padding: 18px;
-
-    margin-bottom: 15px;
-
-    box-shadow:
-        0 12px 30px
-        rgba(79,70,229,.20);
-}
-
-.pos-top {
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    gap: 10px;
-}
-
-.pos-label {
-    font-size: 12px;
-
-    font-weight: 700;
-
-    opacity: .85;
-}
-
-.pos-number {
-    font-size: 30px;
-
-    font-weight: 900;
-}
-
-.pos-name {
-    font-size: 20px;
-
-    font-weight: 900;
-
-    margin-top: 3px;
-}
-
-.pos-status {
-    padding: 7px 10px;
-
-    border-radius: 20px;
-
-    background: rgba(255,255,255,.18);
-
-    font-size: 11px;
-
-    font-weight: 800;
-
-    white-space: nowrap;
-}
-
-
-/* =========================================================
-   PROGRESS
-========================================================= */
-
-.progress-card {
-    background: white;
-
-    border-radius: 16px;
-
-    padding: 15px;
-
-    margin-bottom: 15px;
-
-    box-shadow:
-        0 8px 25px
-        rgba(15,23,42,.07);
-}
-
-.progress-info {
-    display: flex;
-
-    justify-content: space-between;
-
-    margin-bottom: 8px;
 
     font-size: 13px;
 }
 
+.full-button {
+    width: 100%;
+}
+
+
+/* ================================
+   CARD / FORM
+================================ */
+
+.card {
+    padding: 22px 17px;
+}
+
+.section-heading {
+    display: flex;
+    align-items: center;
+
+    margin-bottom: 22px;
+}
+
+.heading-icon {
+    width: 52px;
+    height: 52px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-right: 12px;
+
+    border-radius: 16px;
+
+    background: #e8f1ff;
+
+    font-size: 27px;
+}
+
+.section-heading h2 {
+    color: #14213d;
+
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.section-heading p {
+    margin-top: 3px;
+
+    color: #7b8798;
+
+    font-size: 12px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #334155;
+
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.input-group input {
+    width: 100%;
+
+    min-height: 49px;
+
+    padding:
+        12px 14px;
+
+    border:
+        2px solid
+        #e5eaf0;
+
+    border-radius: 13px;
+
+    outline: none;
+
+    color: #172033;
+
+    background: #f9fafc;
+
+    font-size: 14px;
+}
+
+.input-group input:focus {
+    border-color: #457b9d;
+
+    background: white;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(69,123,157,.12);
+}
+
+.leader-input input {
+    border-color: #ffd166;
+}
+
+.members-title {
+    display: flex;
+    align-items: center;
+
+    margin:
+        22px 0 13px;
+
+    padding-bottom: 8px;
+
+    color: #14213d;
+
+    font-size: 13px;
+    font-weight: 900;
+
+    border-bottom:
+        1px solid
+        #e9edf2;
+}
+
+.members-title span {
+    margin-left: 7px;
+}
+
+.notice-box {
+    display: flex;
+
+    gap: 9px;
+
+    margin:
+        18px 0;
+
+    padding: 13px;
+
+    border-radius: 14px;
+
+    background: #fff8df;
+
+    border:
+        1px solid
+        #ffe49a;
+
+    color: #765c18;
+
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+
+/* ================================
+   RULES
+================================ */
+
+.instruction-header {
+    text-align: center;
+
+    margin-bottom: 23px;
+}
+
+.big-icon {
+    width: 72px;
+    height: 72px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin:
+        0 auto 10px;
+
+    border-radius: 22px;
+
+    background: #e8f1ff;
+
+    font-size: 38px;
+}
+
+.instruction-header h2 {
+    color: #14213d;
+
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.instruction-header p {
+    margin-top: 4px;
+
+    color: #7b8798;
+
+    font-size: 12px;
+}
+
+.rules {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+.rule {
+    display: flex;
+    align-items: flex-start;
+
+    padding: 12px;
+
+    border-radius: 14px;
+
+    background: #f7f9fb;
+}
+
+.rule-number {
+    width: 29px;
+    height: 29px;
+
+    flex: 0 0 29px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-right: 10px;
+
+    border-radius: 50%;
+
+    color: white;
+
+    background: #457b9d;
+
+    font-size: 11px;
+    font-weight: 900;
+}
+
+.rule strong {
+    display: block;
+
+    color: #14213d;
+
+    font-size: 12px;
+}
+
+.rule p {
+    margin-top: 3px;
+
+    color: #697586;
+
+    font-size: 10px;
+
+    line-height: 1.5;
+}
+
+.warning-box {
+    display: flex;
+
+    margin:
+        18px 0;
+
+    padding: 13px;
+
+    border-radius: 14px;
+
+    color: #755719;
+
+    background: #fff5d7;
+
+    font-size: 11px;
+
+    line-height: 1.5;
+}
+
+.warning-box span {
+    margin-left: 7px;
+}
+
+
+/* ================================
+   STATUS
+================================ */
+
+.game-status {
+    display: grid;
+
+    grid-template-columns:
+        1.25fr .8fr .9fr;
+
+    gap: 7px;
+
+    margin-bottom: 10px;
+}
+
+.status-team,
+.status-progress,
+.status-timer {
+    display: flex;
+    align-items: center;
+
+    min-width: 0;
+
+    padding: 9px 8px;
+
+    border-radius: 13px;
+
+    color: white;
+
+    background:
+        rgba(255,255,255,.1);
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+}
+
+.status-icon,
+.timer-icon {
+    margin-right: 7px;
+
+    font-size: 18px;
+}
+
+.status-team small,
+.status-progress small,
+.status-timer small {
+    display: block;
+
+    margin-bottom: 2px;
+
+    color:
+        rgba(255,255,255,.6);
+
+    font-size: 8px;
+}
+
+.status-team strong,
+.status-progress strong,
+.status-timer strong {
+    display: block;
+
+    color: white;
+
+    font-size: 12px;
+}
+
+#timerDisplay.danger {
+    color: #ff6b6b;
+}
+
+
+/* ================================
+   PROGRESS
+================================ */
+
+.progress-wrapper {
+    margin-bottom: 10px;
+}
+
+.progress-label {
+    display: flex;
+    justify-content: space-between;
+
+    margin-bottom: 5px;
+
+    color: white;
+
+    font-size: 10px;
+}
+
 .progress-bar {
-    height: 10px;
-
-    background: #e2e8f0;
-
-    border-radius: 20px;
+    height: 8px;
 
     overflow: hidden;
+
+    border-radius: 10px;
+
+    background:
+        rgba(255,255,255,.15);
 }
 
 .progress-fill {
     height: 100%;
 
-    width: 0%;
+    border-radius: 10px;
 
     background:
         linear-gradient(
             90deg,
-            #4f46e5,
-            #06b6d4
+            #ffd166,
+            #fca311
         );
 
-    transition: width .4s;
-}
-
-.pos-indicator {
-    text-align: right;
-
-    font-size: 12px;
-
-    color: var(--gray);
-
-    margin-top: 7px;
+    transition:
+        width .3s ease;
 }
 
 
-/* =========================================================
-   ACCESS CODE
-========================================================= */
+/* ================================
+   POS
+================================ */
 
-.access-card {
-    background:
-        linear-gradient(
-            135deg,
-            #ffffff,
-            #f8faff
-        );
-
-    border:
-        2px solid #c7d2fe;
-
-    border-radius: 20px;
-
-    padding: 20px;
-
-    margin-bottom: 15px;
-
-    box-shadow:
-        0 10px 30px
-        rgba(15,23,42,.07);
-
-    text-align: center;
+.pos-card {
+    padding: 17px;
 }
 
-.access-icon {
-    font-size: 50px;
-
-    margin-bottom: 8px;
-}
-
-.access-card h2 {
-    color: var(--primary);
-
-    margin-bottom: 8px;
-}
-
-.access-card p {
-    color: var(--gray);
-
-    line-height: 1.5;
-
-    margin-bottom: 16px;
-}
-
-.secret-row {
-    display: grid;
-
-    grid-template-columns:
-        1fr 120px;
-
-    gap: 8px;
-}
-
-.secret-row button {
-    width: 100%;
-}
-
-.secret-message {
-    min-height: 24px;
-
-    margin-top: 10px;
-
-    font-weight: 700;
-}
-
-.secret-message.success {
-    color: var(--success);
-}
-
-.secret-message.error {
-    color: var(--danger);
-}
-
-
-/* =========================================================
-   LOCATION
-========================================================= */
-
-.location-card,
-.challenge-card,
-.next-card,
-.dead-end-card,
-.video-recorder-card {
-    background: white;
-
-    border-radius: 20px;
-
-    padding: 18px;
-
-    margin-bottom: 15px;
-
-    box-shadow:
-        0 10px 30px
-        rgba(15,23,42,.08);
-}
-
-.location-heading {
+.pos-badge {
     display: flex;
-
-    justify-content: space-between;
-
     align-items: center;
 
-    gap: 10px;
+    gap: 7px;
 
     margin-bottom: 12px;
 
-    font-weight: 900;
+    color: #14213d;
+
+    font-size: 14px;
 }
 
-.location-badge {
-    font-size: 11px;
+.location-image-wrapper {
+    position: relative;
 
-    padding: 6px 9px;
-
-    border-radius: 20px;
-
-    background: #eef2ff;
-
-    color: var(--primary);
-}
-
-.image-wrapper {
     width: 100%;
-
-    border-radius: 16px;
 
     overflow: hidden;
 
-    background: #e2e8f0;
+    border-radius: 18px;
 
-    min-height: 220px;
+    background: #e5e7eb;
 }
 
 .location-image {
@@ -865,818 +825,598 @@ button:disabled {
 
     width: 100%;
 
-    height: 300px;
+    max-height: 400px;
 
     object-fit: cover;
-
-    background: #e2e8f0;
 }
 
-.location-card h2 {
-    margin-top: 16px;
+.image-label {
+    position: absolute;
 
-    font-size: 22px;
+    left: 10px;
+    bottom: 10px;
 
-    color: var(--primary);
-}
+    padding:
+        6px 10px;
 
-.clue-text {
-    color: var(--gray);
+    border-radius: 9px;
 
-    line-height: 1.6;
+    color: white;
 
-    margin-top: 8px;
-}
+    background:
+        rgba(0,0,0,.65);
 
-
-/* =========================================================
-   CHALLENGE
-========================================================= */
-
-.challenge-title {
-    font-size: 18px;
-
-    font-weight: 900;
-
-    margin-bottom: 8px;
-}
-
-.challenge-card > p {
-    color: var(--gray);
-
-    margin-bottom: 13px;
-
-    line-height: 1.5;
-}
-
-.question-counter {
-    color: var(--primary);
-
-    font-size: 13px;
-
+    font-size: 10px;
     font-weight: 800;
-
-    margin-bottom: 8px;
 }
 
-.question-text {
-    font-size: 17px;
+.clue-box {
+    margin-top: 14px;
 
-    font-weight: 700;
+    padding: 14px;
 
-    line-height: 1.55;
+    border-radius: 15px;
 
-    margin-bottom: 15px;
-
-    white-space: pre-line;
-}
-
-
-/* =========================================================
-   OPTIONS
-========================================================= */
-
-.options-container {
-    display: grid;
-
-    gap: 10px;
-
-    margin-bottom: 15px;
-}
-
-.answer-option {
-    width: 100%;
-
-    display: flex;
-
-    align-items: flex-start;
-
-    gap: 12px;
-
-    text-align: left;
-
-    background: #f8fafc;
+    background: #f3f7fb;
 
     border:
-        2px solid #e2e8f0;
+        1px solid
+        #e2e8f0;
+}
 
-    border-radius: 14px;
+.clue-title {
+    margin-bottom: 7px;
+
+    color: #14213d;
+
+    font-size: 11px;
+    font-weight: 900;
+}
+
+.clue-box p {
+    color: #596579;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+
+/* ================================
+   SECRET
+================================ */
+
+.secret-area {
+    margin-top: 14px;
+
+    padding: 15px;
+
+    border-radius: 15px;
+
+    background: #fff8df;
+
+    border:
+        1px solid
+        #ffe49a;
+}
+
+.secret-header {
+    color: #765c18;
+
+    font-size: 12px;
+    font-weight: 900;
+}
+
+.secret-area p {
+    margin: 6px 0 10px;
+
+    color: #765c18;
+
+    font-size: 11px;
+}
+
+.secret-input-row {
+    display: flex;
+
+    gap: 8px;
+}
+
+.secret-input-row input {
+    flex: 1;
+
+    min-width: 0;
 
     padding: 12px;
 
-    color: var(--dark);
+    border:
+        2px solid
+        #ead48a;
+
+    border-radius: 11px;
+
+    outline: none;
+
+    font-weight: 800;
+}
+
+.secret-input-row button {
+    flex: 0 0 auto;
+}
+
+.message {
+    margin-top: 8px;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+/* ================================
+   QUESTION
+================================ */
+
+.question-area {
+    margin-top: 14px;
+
+    padding: 15px;
+
+    border-radius: 15px;
+
+    background: #f7f9fb;
+}
+
+.question-header {
+    display: flex;
+    align-items: center;
+
+    margin-bottom: 14px;
+}
+
+.question-icon {
+    width: 43px;
+    height: 43px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-right: 9px;
+
+    border-radius: 13px;
+
+    background: #e8f1ff;
+
+    font-size: 23px;
+}
+
+.question-header small {
+    color: #7b8798;
+
+    font-size: 9px;
+    font-weight: 800;
+}
+
+.question-header h3 {
+    margin-top: 2px;
+
+    color: #14213d;
+
+    font-size: 14px;
+}
+
+.question-text {
+    margin-bottom: 13px;
+
+    color: #1e293b;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+    font-weight: 700;
+}
+
+.options-container {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+.answer-option {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+
+    padding: 11px;
+
+    border:
+        2px solid
+        #e2e8f0;
+
+    border-radius: 12px;
+
+    color: #334155;
+
+    background: white;
+
+    text-align: left;
+
+    font-size: 12px;
 
     transition:
-        .15s;
+        border .2s,
+        background .2s;
 }
 
 .answer-option:hover:not(:disabled) {
-    border-color: var(--primary);
+    border-color: #457b9d;
+}
 
-    background: #eef2ff;
-
-    transform: translateY(-1px);
+.answer-option:disabled {
+    cursor: not-allowed;
+    opacity: .72;
 }
 
 .answer-option.selected {
-    border-color: var(--primary);
+    border-color: #457b9d;
 
-    background: #eef2ff;
+    background: #e8f1ff;
 }
 
 .answer-option.correct {
-    border-color: var(--success);
+    border-color: #16a34a;
 
     background: #dcfce7;
 }
 
 .answer-option.wrong {
-    border-color: var(--danger);
+    border-color: #dc2626;
 
     background: #fee2e2;
 }
 
-.answer-option:disabled {
-    cursor: default;
-}
-
 .option-letter {
-    flex:
-        0 0 30px;
-
     width: 30px;
     height: 30px;
 
-    border-radius: 50%;
+    flex: 0 0 30px;
 
-    background: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-right: 9px;
+
+    border-radius: 50%;
 
     color: white;
 
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
+    background: #457b9d;
 
     font-weight: 900;
 }
 
 .option-text {
-    line-height: 1.5;
+    line-height: 1.4;
 }
 
 .answer-feedback {
-    min-height: 25px;
+    min-height: 20px;
 
     margin:
-        8px 0 13px;
+        10px 0;
+
+    font-size: 11px;
 
     line-height: 1.5;
-
-    font-weight: 700;
 }
 
 .answer-feedback.correct {
-    color: var(--success);
+    color: #15803d;
 }
 
 .answer-feedback.wrong {
-    color: var(--danger);
+    color: #b91c1c;
 }
 
 
-/* =========================================================
-   SCORE
-========================================================= */
+/* ================================
+   NEXT
+================================ */
 
-.score-card {
-    display: grid;
-
-    grid-template-columns:
-        repeat(3, 1fr);
-
-    gap: 10px;
-
-    margin-bottom: 15px;
-}
-
-.score-item {
-    background: white;
-
-    border-radius: 16px;
-
-    padding: 14px 8px;
-
-    text-align: center;
-
-    box-shadow:
-        0 8px 25px
-        rgba(15,23,42,.07);
-}
-
-.score-item span {
-    display: block;
-
-    font-size: 11px;
-
-    color: var(--gray);
-
-    margin-bottom: 5px;
-}
-
-.score-item strong {
-    display: block;
-
-    font-size: 22px;
-
-    color: var(--primary);
-}
-
-
-/* =========================================================
-   RESULT / POS 7
-========================================================= */
-
-.result-decision {
-    text-align: center;
+.next-clue-area {
+    margin-top: 14px;
 
     padding: 20px;
 
-    border-radius: 20px;
-
-    margin-bottom: 15px;
-}
-
-.result-decision.pass {
-    background:
-        linear-gradient(
-            135deg,
-            #dcfce7,
-            #f0fdf4
-        );
-
-    border:
-        2px solid #86efac;
-}
-
-.result-decision.fail {
-    background:
-        linear-gradient(
-            135deg,
-            #fff7ed,
-            #fef2f2
-        );
-
-    border:
-        2px solid #fdba74;
-}
-
-.result-decision-icon {
-    font-size: 65px;
-
-    margin-bottom: 8px;
-}
-
-.result-decision h2 {
-    margin-bottom: 8px;
-}
-
-.result-decision.pass h2 {
-    color: var(--success);
-}
-
-.result-decision.fail h2 {
-    color: var(--danger);
-}
-
-.result-decision p {
-    color: var(--gray);
-
-    line-height: 1.6;
-}
-
-
-/* =========================================================
-   NEXT CARD
-========================================================= */
-
-.next-card {
     text-align: center;
 
-    background:
-        linear-gradient(
-            135deg,
-            #eef2ff,
-            #ecfeff
-        );
+    border-radius: 17px;
+
+    background: #ecfdf5;
+
+    border:
+        1px solid
+        #bbf7d0;
 }
 
-.next-icon {
-    font-size: 55px;
-
-    margin-bottom: 8px;
+.success-icon {
+    font-size: 42px;
 }
 
-.next-card h2 {
-    color: var(--primary);
+.next-clue-area h3 {
+    margin-top: 8px;
 
-    margin-bottom: 8px;
+    color: #166534;
+
+    font-size: 19px;
 }
 
-.next-card p {
-    color: var(--gray);
+.next-clue-area p {
+    margin: 8px 0 14px;
 
-    margin-bottom: 8px;
+    color: #4b6355;
+
+    font-size: 12px;
 }
 
 .next-location {
-    font-size: 20px;
+    display: flex;
+    align-items: center;
 
-    font-weight: 900;
+    gap: 9px;
 
-    margin-bottom: 18px;
+    margin-bottom: 14px;
+
+    padding: 12px;
+
+    text-align: left;
+
+    border-radius: 12px;
+
+    background: white;
 }
 
-
-/* =========================================================
-   DEAD END / WAKTU HABIS
-========================================================= */
-
-.dead-end-card {
-    text-align: center;
-
-    background:
-        linear-gradient(
-            135deg,
-            #fff7ed,
-            #fef2f2
-        );
-}
-
-.dead-end-icon {
-    font-size: 65px;
-
-    margin-bottom: 8px;
-}
-
-.dead-end-card h2 {
-    color: var(--danger);
-
-    margin-bottom: 12px;
-}
-
-.dead-end-card p {
-    line-height: 1.7;
-
-    margin-bottom: 18px;
-}
-
-.dead-end-timer-label {
-    font-size: 11px;
-
-    color: var(--gray);
-
-    font-weight: 800;
-}
-
-.dead-end-timer {
-    font-size: 40px;
-
-    font-weight: 900;
-
-    color: var(--danger);
-
-    margin: 4px 0 18px;
-}
-
-.dead-end-timer.danger {
-    animation:
-        blink 1s infinite;
-}
-
-@keyframes blink {
-    50% {
-        opacity: .35;
-    }
-}
-
-
-/* =========================================================
-   VIDEO RECORDER
-========================================================= */
-
-.video-recorder-card {
-    border:
-        2px solid #c7d2fe;
-
-    background:
-        linear-gradient(
-            145deg,
-            #ffffff,
-            #f8faff
-        );
-}
-
-.video-recorder-card .challenge-title {
-    color: var(--primary);
-}
-
-.video-command {
-    background: #eef2ff;
-
-    color: var(--primary-dark);
-
-    border-radius: 16px;
-
-    padding: 16px;
-
-    margin: 12px 0;
-
-    line-height: 1.6;
-
-    font-weight: 700;
-}
-
-.video-preview-wrapper {
-    position: relative;
-
-    width: 100%;
-
-    min-height: 220px;
-
-    background: #0f172a;
-
-    border-radius: 18px;
-
-    overflow: hidden;
-
-    margin: 15px 0;
-}
-
-.camera-preview,
-.recorded-preview {
+.next-location small {
     display: block;
 
-    width: 100%;
+    color: #7b8798;
 
-    height: 300px;
-
-    object-fit: cover;
-
-    background: #0f172a;
+    font-size: 9px;
 }
 
-.recorded-preview {
-    display: none;
-}
+.next-location strong {
+    display: block;
 
-.recording-status {
-    text-align: center;
+    margin-top: 2px;
 
-    font-weight: 800;
+    color: #166534;
 
-    color: var(--gray);
-
-    padding: 8px;
-}
-
-.recording-status.recording {
-    color: var(--danger);
-}
-
-.recording-timer {
-    text-align: center;
-
-    font-size: 30px;
-
-    font-weight: 900;
-
-    color: var(--danger);
-
-    margin: 5px 0 15px;
-}
-
-.video-button-grid {
-    display: grid;
-
-    grid-template-columns:
-        1fr 1fr;
-
-    gap: 10px;
-
-    margin-bottom: 10px;
-}
-
-#stopRecordingButton {
-    background:
-        linear-gradient(
-            135deg,
-            #dc2626,
-            #b91c1c
-        );
-
-    margin-bottom: 10px;
-}
-
-#sendVideoButton {
-    background:
-        linear-gradient(
-            135deg,
-            #059669,
-            #16a34a
-        );
-
-    margin-top: 10px;
-}
-
-.upload-status {
-    min-height: 25px;
-
-    margin-top: 12px;
-
-    text-align: center;
-
-    font-weight: 800;
-}
-
-.upload-status.success {
-    color: var(--success);
-}
-
-.upload-status.error {
-    color: var(--danger);
-}
-
-.upload-progress {
-    width: 100%;
-
-    height: 9px;
-
-    background: #e2e8f0;
-
-    border-radius: 20px;
-
-    overflow: hidden;
-
-    margin-top: 10px;
-}
-
-.upload-progress-fill {
-    height: 100%;
-
-    width: 0%;
-
-    background:
-        linear-gradient(
-            90deg,
-            #06b6d4,
-            #4f46e5
-        );
-
-    transition: width .3s;
+    font-size: 12px;
 }
 
 
-/* =========================================================
-   VIDEO ACCESS — MUNCUL SETELAH UPLOAD
-========================================================= */
+/* ================================
+   DEAD END
+================================ */
 
-.video-access-card {
-    text-align: center;
-
-    background:
-        linear-gradient(
-            135deg,
-            #dcfce7,
-            #ecfdf5
-        );
-
-    border:
-        2px solid #86efac;
-
-    border-radius: 20px;
+.dead-end-area {
+    margin-top: 14px;
 
     padding: 20px;
 
-    margin-bottom: 15px;
-
-    box-shadow:
-        0 10px 30px
-        rgba(22,163,74,.10);
-}
-
-.video-access-icon {
-    font-size: 55px;
-
-    margin-bottom: 8px;
-}
-
-.video-access-card h2 {
-    color: var(--success);
-
-    margin-bottom: 8px;
-}
-
-.video-access-card p {
-    color: #166534;
-
-    line-height: 1.6;
-
-    margin-bottom: 15px;
-}
-
-
-/* =========================================================
-   POS 10
-========================================================= */
-
-.final-card {
-    width: 100%;
-
-    max-width: 600px;
-
-    background: white;
-
-    border-radius: 30px;
-
-    padding: 45px 25px;
-
     text-align: center;
 
-    box-shadow:
-        0 20px 60px
-        rgba(15,23,42,.12);
+    border-radius: 17px;
+
+    background: #fff1f2;
+
+    border:
+        1px solid
+        #fecdd3;
 }
 
-.final-icon {
-    font-size: 100px;
+.dead-end-icon {
+    font-size: 48px;
+}
 
+.dead-end-area h3 {
+    margin-top: 7px;
+
+    color: #be123c;
+
+    font-size: 20px;
+}
+
+.dead-end-area p {
+    margin:
+        8px 0 15px;
+
+    color: #6b4650;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+}
+
+.dead-end-timer {
     margin-bottom: 15px;
 
-    animation:
-        gentleSmile 2s ease-in-out infinite;
+    padding: 15px;
+
+    border-radius: 14px;
+
+    background: #1f2937;
+
+    color: white;
 }
 
-@keyframes gentleSmile {
-    0%,
-    100% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(1.08);
-    }
+.dead-end-timer div {
+    font-size: 9px;
+    opacity: .7;
 }
 
-.final-card h1 {
-    color: var(--primary);
+.dead-end-timer span {
+    display: block;
+
+    margin: 5px 0;
 
     font-size: 30px;
 
-    margin-bottom: 10px;
+    font-weight: 900;
 }
 
-.final-card p {
-    color: var(--gray);
-
-    line-height: 1.7;
+.dead-end-timer span.danger {
+    color: #ff6b6b;
 }
 
 
-/* =========================================================
+/* ================================
    FINISH
-========================================================= */
+================================ */
 
 .finish-card {
-    width: 100%;
+    padding: 30px 20px;
+
+    text-align: center;
+}
+
+.finish-animation {
+    font-size: 70px;
+}
+
+.finish-card h2 {
+    margin-top: 8px;
+
+    color: #14213d;
+
+    font-size: 28px;
+    font-weight: 900;
+}
+
+.finish-subtitle {
+    margin:
+        10px auto 20px;
 
     max-width: 600px;
 
-    background: white;
+    color: #64748b;
 
-    border-radius: 30px;
-
-    padding: 35px 22px;
-
-    text-align: center;
-
-    box-shadow:
-        0 20px 60px
-        rgba(15,23,42,.12);
-}
-
-.finish-icon {
-    font-size: 80px;
-
-    margin-bottom: 10px;
-}
-
-.finish-card h1 {
-    color: var(--primary);
-
-    margin-bottom: 10px;
-}
-
-.finish-card > p {
-    color: var(--gray);
+    font-size: 13px;
 
     line-height: 1.6;
-
-    margin-bottom: 25px;
 }
 
 .finish-team {
     display: flex;
-
     align-items: center;
 
-    justify-content: center;
+    gap: 10px;
 
-    gap: 12px;
+    margin-bottom: 15px;
 
-    background: #eef2ff;
+    padding: 14px;
 
-    border-radius: 16px;
+    text-align: left;
 
-    padding: 15px;
+    border-radius: 14px;
 
-    margin-bottom: 20px;
+    background: #f7f9fb;
 }
 
 .finish-team small {
     display: block;
 
-    color: var(--gray);
+    color: #7b8798;
 
-    font-size: 11px;
+    font-size: 9px;
 }
 
 .finish-team strong {
     display: block;
 
-    color: var(--primary);
+    margin-top: 3px;
 
-    margin-top: 4px;
+    color: #14213d;
+
+    font-size: 14px;
 }
 
-.result-grid {
+.finish-statistics {
     display: grid;
 
     grid-template-columns:
-        1fr 1fr;
+        repeat(3,1fr);
 
-    gap: 10px;
-
-    margin-bottom: 25px;
+    gap: 8px;
 }
 
-.result-item {
-    background: #f8fafc;
+.stat-box {
+    padding: 13px;
 
-    border-radius: 15px;
+    border-radius: 13px;
 
-    padding: 15px;
+    background: #f3f6fa;
 }
 
-.result-item span {
+.stat-box strong {
     display: block;
 
-    font-size: 12px;
+    margin-top: 5px;
 
-    color: var(--gray);
+    color: #14213d;
 
-    margin-bottom: 5px;
+    font-size: 18px;
 }
 
-.result-item strong {
-    font-size: 17px;
+.stat-box small {
+    color: #718096;
 
-    color: var(--primary);
+    font-size: 9px;
 }
 
 .finish-message {
-    color: var(--gray);
+    margin:
+        16px 0;
+
+    padding: 14px;
+
+    border-radius: 14px;
+
+    color: #536174;
+
+    background: #f8fafc;
+
+    font-size: 11px;
 
     line-height: 1.6;
 }
 
 
-/* =========================================================
+/* ================================
    MODAL
-========================================================= */
+================================ */
 
 .modal {
-    display: none;
-
     position: fixed;
 
     inset: 0;
 
     z-index: 100;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
 }
 
 .modal.show {
-    display: block;
+    display: flex;
 }
 
 .modal-overlay {
@@ -1685,99 +1425,119 @@ button:disabled {
     inset: 0;
 
     background:
-        rgba(15,23,42,.55);
+        rgba(15,23,42,.7);
 }
 
-.modal-box {
+.modal-content {
     position: relative;
+    z-index: 1;
 
-    z-index: 2;
-
-    width:
-        calc(100% - 35px);
-
-    max-width: 450px;
-
-    margin: 20vh auto 0;
-
-    background: white;
-
-    border-radius: 22px;
+    width: min(420px,100%);
 
     padding: 25px;
 
     text-align: center;
 
+    border-radius: 20px;
+
+    background: white;
+
     box-shadow:
-        0 20px 70px
-        rgba(0,0,0,.25);
+        0 25px 70px
+        rgba(0,0,0,.3);
+}
+
+.modal-close {
+    position: absolute;
+
+    top: 10px;
+    right: 12px;
+
+    width: 35px;
+    height: 35px;
+
+    border: 0;
+
+    border-radius: 50%;
+
+    color: #64748b;
+
+    background: #f1f5f9;
+
+    font-size: 24px;
 }
 
 .modal-icon {
-    font-size: 55px;
-
-    margin-bottom: 8px;
+    font-size: 45px;
 }
 
-.modal-box h2 {
-    margin-bottom: 10px;
+.modal-content h3 {
+    margin-top: 8px;
+
+    color: #14213d;
 }
 
-.modal-box p {
-    color: var(--gray);
+.modal-content p {
+    margin:
+        10px 0 18px;
 
-    line-height: 1.6;
+    color: #64748b;
 
-    margin-bottom: 20px;
+    font-size: 13px;
+
+    line-height: 1.5;
 }
 
 
-/* =========================================================
+/* ================================
    TOAST
-========================================================= */
+================================ */
 
 .toast {
     position: fixed;
 
     left: 50%;
-
-    bottom: 20px;
-
-    transform:
-        translate(-50%, 120px);
+    bottom: 22px;
 
     z-index: 200;
 
-    width:
-        calc(100% - 30px);
+    display: flex;
+    align-items: center;
 
-    max-width: 500px;
+    gap: 8px;
 
-    padding: 13px 15px;
+    max-width: calc(100% - 30px);
 
-    border-radius: 14px;
+    padding:
+        11px 15px;
 
-    background: #172033;
+    border-radius: 12px;
 
     color: white;
 
-    display: flex;
-
-    gap: 10px;
-
-    align-items: center;
+    background: #14213d;
 
     box-shadow:
         0 10px 30px
-        rgba(0,0,0,.2);
+        rgba(0,0,0,.25);
+
+    transform:
+        translate(-50%,120px);
+
+    opacity: 0;
 
     transition:
-        transform .3s;
+        transform .25s ease,
+        opacity .25s ease;
+
+    font-size: 11px;
 }
 
 .toast.show {
     transform:
-        translate(-50%, 0);
+        translate(-50%,0);
+
+    opacity: 1;
 }
 
 .toast.success {
@@ -1785,287 +1545,64 @@ button:disabled {
 }
 
 .toast.error {
-    background: #991b1b;
-}
-
-.toast.warning {
-    background: #92400e;
+    background: #b91c1c;
 }
 
 
-/* =========================================================
-   LOADING
-========================================================= */
+/* ================================
+   MOBILE
+================================ */
 
-.loading-overlay {
-    position: fixed;
+@media (max-width: 650px) {
 
-    inset: 0;
-
-    z-index: 999;
-
-    background:
-        rgba(255,255,255,.92);
-
-    display: none;
-
-    align-items: center;
-
-    justify-content: center;
-
-    flex-direction: column;
-
-    gap: 15px;
-}
-
-.loading-overlay.show {
-    display: flex;
-}
-
-.loading-spinner {
-    width: 48px;
-    height: 48px;
-
-    border:
-        5px solid #e2e8f0;
-
-    border-top-color:
-        var(--primary);
-
-    border-radius: 50%;
-
-    animation:
-        spin .8s linear infinite;
-}
-
-.loading-text {
-    color: var(--gray);
-
-    font-weight: 800;
-
-    text-align: center;
-}
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-
-/* =========================================================
-   DISABLED / LOCKED
-========================================================= */
-
-.locked {
-    opacity: .55;
-
-    pointer-events: none;
-}
-
-.access-locked {
-    background: #f8fafc;
-
-    border-color: #cbd5e1;
-}
-
-.access-locked .access-icon {
-    filter: grayscale(1);
-}
-
-
-/* =========================================================
-   POS BADGE COLORS
-========================================================= */
-
-.pos-badge-1,
-.pos-badge-2,
-.pos-badge-3,
-.pos-badge-4,
-.pos-badge-5,
-.pos-badge-6,
-.pos-badge-7 {
-    background: #eef2ff;
-
-    color: var(--primary);
-}
-
-.pos-badge-8,
-.pos-badge-9 {
-    background: #fff7ed;
-
-    color: #c2410c;
-}
-
-.pos-badge-10 {
-    background: #dcfce7;
-
-    color: var(--success);
-}
-
-
-/* =========================================================
-   RESPONSIVE
-========================================================= */
-
-@media (max-width: 520px) {
-
-    .screen {
+    .game-container {
         padding:
-            15px 10px;
+            12px 10px 30px;
     }
 
     .hero-card {
         padding:
-            30px 18px;
+            25px 15px;
     }
 
-    .hero-card h1 {
-        font-size: 30px;
-    }
-
-    .hero-icon {
-        font-size: 60px;
-    }
-
-    .game-card {
-        padding:
-            24px 17px;
-    }
-
-    .game-container {
-        padding:
-            12px 10px 40px;
-    }
-
-    .location-image {
-        height: 230px;
-    }
-
-    .secret-row {
+    .mission-info {
         grid-template-columns: 1fr;
     }
 
-    .result-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .game-header {
-        padding:
-            11px 12px;
-    }
-
-    .team-name {
-        max-width: 160px;
-    }
-
-    .timer-box {
-        min-width: 78px;
-
-        padding:
-            9px 8px;
-
-        font-size: 13px;
-    }
-
-    .score-card {
-        grid-template-columns:
-            1fr 1fr 1fr;
-
-        gap: 6px;
-    }
-
-    .score-item {
-        padding:
-            11px 5px;
-    }
-
-    .score-item span {
-        font-size: 10px;
-    }
-
-    .score-item strong {
-        font-size: 18px;
-    }
-
-    .video-button-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .camera-preview,
-    .recorded-preview {
-        height: 230px;
-    }
-
-    .video-preview-wrapper {
-        min-height: 230px;
-    }
-
-    .pos-number {
-        font-size: 26px;
-    }
-
-    .pos-name {
-        font-size: 18px;
-    }
-
-    .final-card {
-        padding:
-            38px 18px;
-    }
-
-    .final-icon {
-        font-size: 85px;
-    }
-
-    .final-card h1 {
-        font-size: 27px;
-    }
-}
-
-
-/* =========================================================
-   EXTRA SMALL DEVICES
-========================================================= */
-
-@media (max-width: 360px) {
-
-    .hero-card h1 {
-        font-size: 27px;
-    }
-
-    .game-card h1 {
-        font-size: 24px;
-    }
-
-    .question-text {
-        font-size: 16px;
-    }
-
-    .option-letter {
-        flex-basis: 27px;
-
-        width: 27px;
-        height: 27px;
-
-        font-size: 13px;
-    }
-
-    .answer-option {
-        gap: 9px;
-
+    .mission-item {
         padding: 10px;
     }
 
-    .pos-card {
-        padding: 14px;
+    .game-status {
+        grid-template-columns:
+            1fr 1fr 1fr;
     }
 
-    .pos-status {
+    .status-team strong,
+    .status-progress strong,
+    .status-timer strong {
         font-size: 10px;
+    }
 
-        padding:
-            6px 8px;
+    .status-icon,
+    .timer-icon {
+        font-size: 15px;
+    }
+
+    .secret-input-row {
+        flex-direction: column;
+    }
+
+    .secret-input-row button {
+        width: 100%;
+    }
+
+    .finish-statistics {
+        grid-template-columns:
+            1fr;
+    }
+
+    .location-image {
+        max-height: 300px;
     }
 }
-```
