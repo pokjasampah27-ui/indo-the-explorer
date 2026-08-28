@@ -1,100 +1,43 @@
 ```javascript
 /* =========================================================
    JELAJAH SEKOLAH
-   GAME EDUKATIF BAHASA INDONESIA
-   SCRIPT.JS - FINAL
-========================================================= */
+   SCRIPT.JS — VERSI PLUG & PLAY
+   ========================================================= */
 
-
-/* =========================================================
-   DATA POS
-========================================================= */
-
-const POSITIONS = [
-
-    {
-        id: 1,
-        name: "Pos 1",
-        title: "Gerbang Sekolah",
-        badge: "POS AWAL",
-        image: "",
-        clue: "Mulailah perjalanan dari gerbang sekolah. Temukan petunjuk dan selesaikan tantangan Bahasa Indonesia.",
-        questions: [1, 2, 3, 4]
-    },
-
-    {
-        id: 2,
-        name: "Pos 2",
-        title: "Perpustakaan",
-        badge: "POS 2",
-        image: "",
-        clue: "Tempat penuh buku dan pengetahuan. Selesaikan tantangan berikutnya untuk melanjutkan perjalanan.",
-        questions: [5, 6, 7, 8]
-    },
-
-    {
-        id: 3,
-        name: "Pos 3",
-        title: "Ruang Kelas",
-        badge: "POS 3",
-        image: "",
-        clue: "Di tempat belajar ini, kemampuanmu memahami fungsi kalimat dan kelas kata akan diuji.",
-        questions: [9, 10, 11, 12]
-    },
-
-    {
-        id: 4,
-        name: "Pos 4",
-        title: "Taman Sekolah",
-        badge: "POS 4",
-        image: "",
-        clue: "Perhatikan lingkungan di sekitarmu. Tantangan berikut akan menguji ketelitianmu dalam memahami bahasa.",
-        questions: [13, 14, 15, 16]
-    },
-
-    {
-        id: 5,
-        name: "Pos 5",
-        title: "Lapangan Sekolah",
-        badge: "POS AKHIR",
-        image: "",
-        clue: "Ini adalah pos terakhir. Tuntaskan seluruh tantangan HOTS dan buktikan kemampuanmu!",
-        questions: [17, 18, 19, 20]
-    }
-
-];
-
+"use strict";
 
 /* =========================================================
-   BANK SOAL
-========================================================= */
+   DATA SOAL
+   20 SOAL:
+   1–6  LOTS
+   7–14 MOTS
+   15–20 HOTS
+   ========================================================= */
 
-const QUESTION_BANK = [
+const QUESTIONS = [
 
     {
         id: 1,
         level: "LOTS",
-        question: "Paragraf yang kalimat utamanya terletak di awal paragraf dan diikuti oleh kalimat-kalimat penjelas disebut paragraf ....",
+        question:
+            "Paragraf yang kalimat utamanya terletak di awal paragraf dan diikuti oleh kalimat-kalimat penjelas disebut paragraf ....",
         options: [
-            "induktif",
-            "deduktif",
-            "campuran",
-            "naratif",
-            "deskriptif"
+            "Induktif",
+            "Deduktif",
+            "Campuran",
+            "Naratif",
+            "Deskriptif"
         ],
-        answer: 1
+        answer: 1,
+        explanation:
+            "Paragraf deduktif memiliki gagasan utama atau kalimat utama di awal paragraf."
     },
-
 
     {
         id: 2,
         level: "LOTS",
         question:
-`Perhatikan paragraf berikut!
-
-Membaca memiliki banyak manfaat bagi siswa. Kegiatan membaca dapat menambah wawasan, memperkaya kosakata, dan melatih kemampuan memahami informasi. Selain itu, membaca secara rutin dapat membantu siswa mengembangkan kemampuan berpikir kritis.
-
-Kalimat utama paragraf tersebut adalah ....`,
+            "Perhatikan paragraf berikut!\n\nMembaca memiliki banyak manfaat bagi siswa. Kegiatan membaca dapat menambah wawasan, memperkaya kosakata, dan melatih kemampuan memahami informasi. Selain itu, membaca secara rutin dapat membantu siswa mengembangkan kemampuan berpikir kritis.\n\nKalimat utama paragraf tersebut adalah ....",
         options: [
             "Membaca memiliki banyak manfaat bagi siswa.",
             "Kegiatan membaca dapat menambah wawasan.",
@@ -102,127 +45,118 @@ Kalimat utama paragraf tersebut adalah ....`,
             "Membaca dapat melatih kemampuan memahami informasi.",
             "Membaca secara rutin dapat membantu siswa mengembangkan kemampuan berpikir kritis."
         ],
-        answer: 0
+        answer: 0,
+        explanation:
+            "Kalimat pertama merupakan gagasan umum yang dijelaskan oleh kalimat-kalimat berikutnya."
     },
-
 
     {
         id: 3,
         level: "LOTS",
         question:
-`Perhatikan paragraf berikut!
-
-Sampah plastik sulit terurai secara alami. Sampah tersebut dapat mencemari tanah dan perairan. Selain itu, pembakaran sampah plastik dapat menghasilkan zat yang berbahaya bagi kesehatan. Oleh karena itu, penggunaan plastik sekali pakai perlu dikurangi.
-
-Jenis paragraf tersebut adalah ....`,
+            "Perhatikan paragraf berikut!\n\nSampah plastik sulit terurai secara alami. Sampah tersebut dapat mencemari tanah dan perairan. Selain itu, pembakaran sampah plastik dapat menghasilkan zat yang berbahaya bagi kesehatan. Oleh karena itu, penggunaan plastik sekali pakai perlu dikurangi.\n\nJenis paragraf tersebut adalah ....",
         options: [
-            "deduktif",
-            "induktif",
-            "campuran",
-            "naratif",
-            "argumentatif"
+            "Deduktif",
+            "Induktif",
+            "Campuran",
+            "Naratif",
+            "Argumentatif"
         ],
-        answer: 1
+        answer: 1,
+        explanation:
+            "Gagasan utama terdapat di akhir paragraf dan didahului fakta-fakta khusus."
     },
-
 
     {
         id: 4,
         level: "LOTS",
         question:
-`Dalam kalimat "Rina membaca buku di perpustakaan", kata "membaca" berfungsi sebagai ....`,
+            "Dalam kalimat “Rina membaca buku di perpustakaan”, kata “membaca” berfungsi sebagai ....",
         options: [
-            "subjek",
-            "predikat",
-            "objek",
-            "pelengkap",
-            "keterangan"
+            "Subjek",
+            "Predikat",
+            "Objek",
+            "Pelengkap",
+            "Keterangan"
         ],
-        answer: 1
+        answer: 1,
+        explanation:
+            "Kata “membaca” menerangkan tindakan yang dilakukan oleh subjek Rina sehingga berfungsi sebagai predikat."
     },
-
 
     {
         id: 5,
         level: "LOTS",
         question:
-`Kata "keindahan" dalam kalimat "Keindahan alam Indonesia menarik perhatian wisatawan" termasuk kelas kata ....`,
+            "Kata “keindahan” dalam kalimat “Keindahan alam Indonesia menarik perhatian wisatawan” termasuk kelas kata ....",
         options: [
-            "verba",
-            "adjektiva",
-            "nomina",
-            "adverbia",
-            "pronomina"
+            "Verba",
+            "Adjektiva",
+            "Nomina",
+            "Adverbia",
+            "Pronomina"
         ],
-        answer: 2
+        answer: 2,
+        explanation:
+            "“Keindahan” merupakan kata benda atau nomina."
     },
-
 
     {
         id: 6,
         level: "LOTS",
         question:
-`Kata "sangat" dalam kalimat "Pemandangan itu sangat indah" termasuk kelas kata ....`,
+            "Kata “sangat” dalam kalimat “Pemandangan itu sangat indah” termasuk kelas kata ....",
         options: [
-            "nomina",
-            "verba",
-            "adjektiva",
-            "adverbia",
-            "konjungsi"
+            "Nomina",
+            "Verba",
+            "Adjektiva",
+            "Adverbia",
+            "Konjungsi"
         ],
-        answer: 3
+        answer: 3,
+        explanation:
+            "“Sangat” merupakan adverbia yang menerangkan tingkat kata “indah”."
     },
-
 
     {
         id: 7,
         level: "MOTS",
         question:
-`Perhatikan paragraf berikut!
-
-Kedisiplinan siswa perlu dibangun melalui kebiasaan sehari-hari. Siswa yang datang tepat waktu akan terbiasa menghargai waktu. Siswa yang mengerjakan tugas sesuai jadwal akan belajar bertanggung jawab. Demikian pula, siswa yang menaati tata tertib akan terbiasa mematuhi aturan.
-
-Pola pengembangan paragraf tersebut adalah ....`,
+            "Perhatikan paragraf berikut!\n\nKedisiplinan siswa perlu dibangun melalui kebiasaan sehari-hari. Siswa yang datang tepat waktu akan terbiasa menghargai waktu. Siswa yang mengerjakan tugas sesuai jadwal akan belajar bertanggung jawab. Demikian pula, siswa yang menaati tata tertib akan terbiasa mematuhi aturan.\n\nPola pengembangan paragraf tersebut adalah ....",
         options: [
-            "induktif, karena simpulan terdapat di akhir",
-            "deduktif, karena gagasan utama terdapat di awal",
-            "campuran, karena gagasan utama terdapat di awal dan akhir",
-            "induktif, karena kalimat penjelas lebih banyak daripada kalimat utama",
-            "campuran, karena semua kalimat memiliki kedudukan yang sama"
+            "Induktif, karena simpulan terdapat di akhir",
+            "Deduktif, karena gagasan utama terdapat di awal",
+            "Campuran, karena gagasan utama terdapat di awal dan akhir",
+            "Induktif, karena kalimat penjelas lebih banyak daripada kalimat utama",
+            "Campuran, karena semua kalimat memiliki kedudukan yang sama"
         ],
-        answer: 1
+        answer: 1,
+        explanation:
+            "Gagasan utama berada pada kalimat pertama dan diikuti oleh penjelasan."
     },
-
 
     {
         id: 8,
         level: "MOTS",
         question:
-`Perhatikan paragraf berikut!
-
-Pemerintah perlu meningkatkan kualitas transportasi umum. Transportasi umum yang nyaman dapat mengurangi penggunaan kendaraan pribadi. Berkurangnya kendaraan pribadi dapat membantu mengurangi kemacetan. Selain itu, penggunaan transportasi umum dapat menekan tingkat pencemaran udara. Dengan demikian, peningkatan kualitas transportasi umum memberikan banyak manfaat bagi masyarakat.
-
-Hubungan kalimat pertama dan terakhir dalam paragraf tersebut menunjukkan pola ....`,
+            "Perhatikan paragraf berikut!\n\nPemerintah perlu meningkatkan kualitas transportasi umum. Transportasi umum yang nyaman dapat mengurangi penggunaan kendaraan pribadi. Berkurangnya kendaraan pribadi dapat membantu mengurangi kemacetan. Selain itu, penggunaan transportasi umum dapat menekan tingkat pencemaran udara. Dengan demikian, peningkatan kualitas transportasi umum memberikan banyak manfaat bagi masyarakat.\n\nHubungan kalimat pertama dan terakhir dalam paragraf tersebut menunjukkan pola ....",
         options: [
-            "deduktif",
-            "induktif",
-            "campuran",
-            "kronologis",
-            "deskriptif"
+            "Deduktif",
+            "Induktif",
+            "Campuran",
+            "Kronologis",
+            "Deskriptif"
         ],
-        answer: 2
+        answer: 2,
+        explanation:
+            "Gagasan utama disampaikan di awal dan ditegaskan kembali di akhir."
     },
-
 
     {
         id: 9,
         level: "MOTS",
         question:
-`Perhatikan paragraf berikut!
-
-Banyak siswa menggunakan telepon pintar untuk mencari informasi pembelajaran. Mereka dapat mengakses buku digital, video pembelajaran, dan berbagai sumber pengetahuan lainnya. Namun, penggunaan telepon pintar tanpa pengawasan dapat mengganggu konsentrasi belajar. Oleh sebab itu, penggunaan telepon pintar untuk belajar harus dilakukan secara bijaksana.
-
-Kalimat utama paragraf tersebut adalah ....`,
+            "Perhatikan paragraf berikut!\n\nBanyak siswa menggunakan telepon pintar untuk mencari informasi pembelajaran. Mereka dapat mengakses buku digital, video pembelajaran, dan berbagai sumber pengetahuan lainnya. Namun, penggunaan telepon pintar tanpa pengawasan dapat mengganggu konsentrasi belajar. Oleh sebab itu, penggunaan telepon pintar untuk belajar harus dilakukan secara bijaksana.\n\nKalimat utama paragraf tersebut adalah ....",
         options: [
             "Banyak siswa menggunakan telepon pintar untuk mencari informasi pembelajaran.",
             "Mereka dapat mengakses buku digital, video pembelajaran, dan berbagai sumber pengetahuan lainnya.",
@@ -230,157 +164,118 @@ Kalimat utama paragraf tersebut adalah ....`,
             "Penggunaan telepon pintar untuk belajar harus dilakukan secara bijaksana.",
             "Buku digital dan video pembelajaran dapat diakses melalui telepon pintar."
         ],
-        answer: 3
+        answer: 3,
+        explanation:
+            "Kalimat terakhir menjadi simpulan utama berdasarkan uraian sebelumnya."
     },
-
 
     {
         id: 10,
         level: "MOTS",
         question:
-`Perhatikan kalimat berikut!
-
-Para siswa sedang membersihkan halaman sekolah.
-
-Fungsi unsur "Para siswa" dan "halaman sekolah" berturut-turut adalah ....`,
+            "Perhatikan kalimat berikut!\n\nPara siswa sedang membersihkan halaman sekolah.\n\nFungsi unsur “Para siswa” dan “halaman sekolah” berturut-turut adalah ....",
         options: [
-            "predikat dan objek",
-            "subjek dan pelengkap",
-            "subjek dan objek",
-            "objek dan keterangan",
-            "pelengkap dan objek"
+            "Predikat dan objek",
+            "Subjek dan pelengkap",
+            "Subjek dan objek",
+            "Objek dan keterangan",
+            "Pelengkap dan objek"
         ],
-        answer: 2
+        answer: 2,
+        explanation:
+            "“Para siswa” merupakan subjek, sedangkan “halaman sekolah” merupakan objek."
     },
-
 
     {
         id: 11,
         level: "MOTS",
         question:
-`Perhatikan kalimat berikut!
-
-Ayah membeli sepatu baru untuk adik.
-
-Unsur "untuk adik" berfungsi sebagai ....`,
+            "Perhatikan kalimat berikut!\n\nAyah membeli sepatu baru untuk adik.\n\nUnsur “untuk adik” berfungsi sebagai ....",
         options: [
-            "subjek",
-            "predikat",
-            "objek",
-            "pelengkap",
-            "keterangan"
+            "Subjek",
+            "Predikat",
+            "Objek",
+            "Pelengkap",
+            "Keterangan"
         ],
-        answer: 4
+        answer: 4,
+        explanation:
+            "Frasa “untuk adik” merupakan keterangan yang menjelaskan pihak yang menerima manfaat."
     },
-
 
     {
         id: 12,
         level: "MOTS",
         question:
-`Perhatikan kalimat berikut!
-
-Siswa itu menjadi ketua kelas.
-
-Fungsi unsur "ketua kelas" adalah ....`,
+            "Perhatikan kalimat berikut!\n\nSiswa itu menjadi ketua kelas.\n\nFungsi unsur “ketua kelas” adalah ....",
         options: [
-            "subjek",
-            "predikat",
-            "objek",
-            "pelengkap",
-            "keterangan"
+            "Subjek",
+            "Predikat",
+            "Objek",
+            "Pelengkap",
+            "Keterangan"
         ],
-        answer: 3
+        answer: 3,
+        explanation:
+            "“Ketua kelas” merupakan pelengkap setelah verba “menjadi”."
     },
-
 
     {
         id: 13,
         level: "MOTS",
         question:
-`Perhatikan kelompok kata berikut!
-
-1. rumah
-2. berlari
-3. indah
-4. mereka
-5. dengan cepat
-
-Urutan kelas kata yang tepat adalah ....`,
+            "Perhatikan kelompok kata berikut!\n\n1. rumah\n2. berlari\n3. indah\n4. mereka\n5. dengan cepat\n\nUrutan kelas kata yang tepat adalah ....",
         options: [
-            "nomina – verba – adjektiva – pronomina – frasa adverbial",
-            "verba – nomina – adjektiva – pronomina – frasa preposisional",
-            "nomina – verba – adverbia – pronomina – frasa adjektival",
-            "nomina – adjektiva – verba – pronomina – frasa adverbial",
-            "nomina – verba – adjektiva – numeralia – frasa adverbial"
+            "Nomina – verba – adjektiva – pronomina – frasa adverbial",
+            "Verba – nomina – adjektiva – pronomina – frasa preposisional",
+            "Nomina – verba – adverbia – pronomina – frasa adjektival",
+            "Nomina – adjektiva – verba – pronomina – frasa adverbial",
+            "Nomina – verba – adjektiva – numeralia – frasa adverbial"
         ],
-        answer: 0
+        answer: 0,
+        explanation:
+            "Rumah = nomina, berlari = verba, indah = adjektiva, mereka = pronomina, dengan cepat = frasa adverbial."
     },
-
 
     {
         id: 14,
         level: "MOTS",
         question:
-`Perhatikan kalimat berikut!
-
-Mereka berjalan sangat cepat menuju lapangan.
-
-Kata "sangat" dan "cepat" secara berturut-turut termasuk ....`,
+            "Perhatikan kalimat berikut!\n\nMereka berjalan sangat cepat menuju lapangan.\n\nKata “sangat” dan “cepat” secara berturut-turut termasuk ....",
         options: [
-            "adverbia dan adjektiva",
-            "adjektiva dan adverbia",
-            "verba dan adjektiva",
-            "adverbia dan verba",
-            "nomina dan adjektiva"
+            "Adverbia dan adjektiva",
+            "Adjektiva dan adverbia",
+            "Verba dan adjektiva",
+            "Adverbia dan verba",
+            "Nomina dan adjektiva"
         ],
-        answer: 0
+        answer: 0,
+        explanation:
+            "“Sangat” merupakan adverbia dan “cepat” merupakan adjektiva."
     },
-
 
     {
         id: 15,
         level: "HOTS",
         question:
-`Perhatikan paragraf berikut!
-
-(1) Penggunaan kendaraan pribadi di kota-kota besar terus meningkat.
-
-(2) Kondisi tersebut menyebabkan jumlah kendaraan di jalan raya semakin padat.
-
-(3) Kepadatan kendaraan kemudian menimbulkan kemacetan pada berbagai ruas jalan.
-
-(4) Kemacetan menyebabkan waktu perjalanan masyarakat menjadi lebih lama.
-
-(5) Dengan demikian, peningkatan penggunaan kendaraan pribadi dapat memperburuk persoalan transportasi di perkotaan.
-
-Jika kalimat (5) dihilangkan, jenis paragraf berdasarkan posisi gagasan utamanya akan berubah menjadi ....`,
+            "Perhatikan paragraf berikut!\n\n(1) Penggunaan kendaraan pribadi di kota-kota besar terus meningkat.\n(2) Kondisi tersebut menyebabkan jumlah kendaraan di jalan raya semakin padat.\n(3) Kepadatan kendaraan kemudian menimbulkan kemacetan pada berbagai ruas jalan.\n(4) Kemacetan menyebabkan waktu perjalanan masyarakat menjadi lebih lama.\n(5) Dengan demikian, peningkatan penggunaan kendaraan pribadi dapat memperburuk persoalan transportasi di perkotaan.\n\nJika kalimat (5) dihilangkan, jenis paragraf berdasarkan posisi gagasan utamanya akan berubah menjadi ....",
         options: [
-            "deduktif karena kalimat (1) merupakan gagasan utama",
-            "induktif karena kalimat (1)–(4) berisi fakta khusus",
-            "campuran karena kalimat (2) dan (4) menjadi gagasan utama",
-            "deskriptif karena seluruh kalimat menggambarkan kemacetan",
-            "naratif karena terdapat hubungan sebab-akibat"
+            "Deduktif karena kalimat (1) merupakan gagasan utama",
+            "Induktif karena kalimat (1)–(4) berisi fakta khusus",
+            "Campuran karena kalimat (2) dan (4) menjadi gagasan utama",
+            "Deskriptif karena seluruh kalimat menggambarkan kemacetan",
+            "Naratif karena terdapat hubungan sebab-akibat"
         ],
-        answer: 1
+        answer: 1,
+        explanation:
+            "Tanpa kalimat simpulan, uraian bergerak dari fakta-fakta khusus menuju kesimpulan yang tersirat."
     },
-
 
     {
         id: 16,
         level: "HOTS",
         question:
-`Perhatikan dua paragraf berikut!
-
-Paragraf A
-
-Menjaga kebersihan lingkungan merupakan tanggung jawab bersama. Lingkungan yang bersih membuat masyarakat merasa nyaman. Kebersihan juga dapat mengurangi risiko munculnya berbagai penyakit.
-
-Paragraf B
-
-Lingkungan yang kotor dapat menjadi tempat berkembangnya berbagai sumber penyakit. Sampah yang menumpuk juga dapat menimbulkan bau tidak sedap dan mencemari lingkungan. Oleh karena itu, menjaga kebersihan lingkungan merupakan tanggung jawab bersama.
-
-Pernyataan yang paling tepat adalah ....`,
+            "Perhatikan dua paragraf berikut!\n\nParagraf A:\nMenjaga kebersihan lingkungan merupakan tanggung jawab bersama. Lingkungan yang bersih membuat masyarakat merasa nyaman. Kebersihan juga dapat mengurangi risiko munculnya berbagai penyakit.\n\nParagraf B:\nLingkungan yang kotor dapat menjadi tempat berkembangnya berbagai sumber penyakit. Sampah yang menumpuk juga dapat menimbulkan bau tidak sedap dan mencemari lingkungan. Oleh karena itu, menjaga kebersihan lingkungan merupakan tanggung jawab bersama.\n\nPernyataan yang paling tepat adalah ....",
         options: [
             "Paragraf A dan B sama-sama induktif karena memiliki simpulan.",
             "Paragraf A deduktif, sedangkan paragraf B induktif.",
@@ -388,19 +283,16 @@ Pernyataan yang paling tepat adalah ....`,
             "Paragraf A dan B sama-sama deduktif karena membahas topik yang sama.",
             "Paragraf A campuran, sedangkan paragraf B induktif."
         ],
-        answer: 1
+        answer: 1,
+        explanation:
+            "Paragraf A memiliki gagasan utama di awal, sedangkan paragraf B memiliki gagasan utama di akhir."
     },
-
 
     {
         id: 17,
         level: "HOTS",
         question:
-`Perhatikan kalimat berikut!
-
-Di ruang kelas, siswa mendiskusikan masalah lingkungan secara serius.
-
-Analisis fungsi kalimat yang tepat adalah ....`,
+            "Perhatikan kalimat berikut!\n\nDi ruang kelas, siswa mendiskusikan masalah lingkungan secara serius.\n\nAnalisis fungsi kalimat yang tepat adalah ....",
         options: [
             "Di ruang kelas = objek, siswa = subjek, mendiskusikan = predikat",
             "Di ruang kelas = keterangan, siswa = subjek, mendiskusikan = predikat, masalah lingkungan = objek, secara serius = keterangan",
@@ -408,19 +300,16 @@ Analisis fungsi kalimat yang tepat adalah ....`,
             "siswa = objek, mendiskusikan = predikat, masalah lingkungan = subjek",
             "secara serius = objek karena menerangkan tindakan mendiskusikan"
         ],
-        answer: 1
+        answer: 1,
+        explanation:
+            "“Di ruang kelas” dan “secara serius” merupakan keterangan, “siswa” subjek, “mendiskusikan” predikat, dan “masalah lingkungan” objek."
     },
-
 
     {
         id: 18,
         level: "HOTS",
         question:
-`Perhatikan kalimat berikut!
-
-Kegiatan membaca sangat bermanfaat bagi perkembangan kemampuan berpikir siswa.
-
-Seorang siswa mengidentifikasi "sangat bermanfaat" sebagai objek karena berada setelah subjek. Pernyataan yang paling tepat untuk memperbaiki analisis tersebut adalah ....`,
+            "Perhatikan kalimat berikut!\n\nKegiatan membaca sangat bermanfaat bagi perkembangan kemampuan berpikir siswa.\n\nSeorang siswa mengidentifikasi “sangat bermanfaat” sebagai objek karena berada setelah subjek. Pernyataan yang paling tepat untuk memperbaiki analisis tersebut adalah ....",
         options: [
             "Benar, karena semua unsur setelah subjek merupakan objek.",
             "Benar, karena bermanfaat merupakan kata kerja transitif.",
@@ -428,19 +317,16 @@ Seorang siswa mengidentifikasi "sangat bermanfaat" sebagai objek karena berada s
             "Salah, karena sangat bermanfaat berfungsi sebagai subjek.",
             "Salah, karena sangat merupakan kata benda."
         ],
-        answer: 2
+        answer: 2,
+        explanation:
+            "“Sangat bermanfaat” menerangkan keadaan atau sifat subjek sehingga berfungsi sebagai predikat."
     },
-
 
     {
         id: 19,
         level: "HOTS",
         question:
-`Perhatikan kalimat berikut!
-
-Ketiga siswa itu berhasil menyelesaikan tugas kelompok dengan cepat.
-
-Pernyataan yang tepat mengenai kelas kata dalam kalimat tersebut adalah ....`,
+            "Perhatikan kalimat berikut!\n\nKetiga siswa itu berhasil menyelesaikan tugas kelompok dengan cepat.\n\nPernyataan yang tepat mengenai kelas kata dalam kalimat tersebut adalah ....",
         options: [
             "ketiga = nomina, siswa = verba, berhasil = adjektiva",
             "ketiga = numeralia, siswa = nomina, menyelesaikan = verba",
@@ -448,51 +334,62 @@ Pernyataan yang tepat mengenai kelas kata dalam kalimat tersebut adalah ....`,
             "itu = nomina, berhasil = adverbia, dengan = konjungsi",
             "cepat = verba, tugas = adjektiva, kelompok = pronomina"
         ],
-        answer: 1
+        answer: 1,
+        explanation:
+            "“Ketiga” menunjukkan jumlah sehingga termasuk numeralia; “siswa” nomina; “menyelesaikan” verba."
     },
-
 
     {
         id: 20,
         level: "HOTS",
         question:
-`Perhatikan paragraf berikut!
-
-Membaca secara rutin dapat meningkatkan kemampuan literasi siswa. Dengan membaca, siswa memperoleh kosakata baru dan mengenal berbagai struktur kalimat. Kegiatan tersebut juga membantu siswa memahami informasi secara lebih kritis. Kebiasaan membaca yang dilakukan secara konsisten pada akhirnya akan memperkuat kemampuan literasi siswa.
-
-Berdasarkan posisi kalimat utama dan hubungan antargagasannya, alasan paling tepat bahwa paragraf tersebut termasuk paragraf campuran adalah ....`,
+            "Perhatikan paragraf berikut!\n\nMembaca secara rutin dapat meningkatkan kemampuan literasi siswa. Dengan membaca, siswa memperoleh kosakata baru dan mengenal berbagai struktur kalimat. Kegiatan tersebut juga membantu siswa memahami informasi secara lebih kritis. Kebiasaan membaca yang dilakukan secara konsisten pada akhirnya akan memperkuat kemampuan literasi siswa.\n\nBerdasarkan posisi kalimat utama dan hubungan antargagasannya, alasan paling tepat bahwa paragraf tersebut termasuk paragraf campuran adalah ....",
         options: [
-            "kalimat pertama merupakan fakta, sedangkan kalimat terakhir merupakan opini.",
-            "terdapat lebih dari satu kalimat yang membahas kegiatan membaca.",
-            "gagasan utama disampaikan pada awal paragraf, kemudian ditegaskan kembali pada akhir paragraf dengan bentuk yang berbeda.",
-            "semua kalimat memiliki informasi yang sama pentingnya.",
-            "kalimat kedua dan ketiga merupakan kalimat utama karena menjelaskan manfaat membaca."
+            "Kalimat pertama merupakan fakta, sedangkan kalimat terakhir merupakan opini.",
+            "Terdapat lebih dari satu kalimat yang membahas kegiatan membaca.",
+            "Gagasan utama disampaikan pada awal paragraf, kemudian ditegaskan kembali pada akhir paragraf dengan bentuk yang berbeda.",
+            "Semua kalimat memiliki informasi yang sama pentingnya.",
+            "Kalimat kedua dan ketiga merupakan kalimat utama karena menjelaskan manfaat membaca."
         ],
-        answer: 2
+        answer: 2,
+        explanation:
+            "Gagasan utama terdapat di awal dan kembali ditegaskan pada akhir paragraf dengan redaksi berbeda."
     }
 
 ];
 
 
 /* =========================================================
-   GAME STATE
-========================================================= */
+   KONFIGURASI GAME
+   ========================================================= */
 
-const gameState = {
+const GAME_CONFIG = {
+
+    totalQuestions: QUESTIONS.length,
+
+    // Waktu permainan dalam detik.
+    gameTime: 15 * 60,
+
+    // Waktu dead-end jika digunakan.
+    deadEndTime: 10,
+
+    // Jumlah pos.
+    totalPosts: 20
+
+};
+
+
+/* =========================================================
+   STATE GAME
+   ========================================================= */
+
+const GAME = {
 
     teamName: "",
 
     members: [],
 
-    currentPosition: 0,
-
-    currentQuestionIndex: 0,
-
-    currentQuestionIds: [],
-
-    selectedAnswer: null,
-
-    answered: false,
+    currentQuestion: 0,
 
     score: 0,
 
@@ -500,34 +397,26 @@ const gameState = {
 
     wrong: 0,
 
-    totalQuestions: 20,
+    answered: false,
 
     startTime: null,
 
-    elapsedSeconds: 0,
+    remainingTime: GAME_CONFIG.gameTime,
 
     timerInterval: null,
 
-    deadEndInterval: null,
+    currentPost: 1,
 
-    recordingSeconds: 0,
+    postAnswers: {},
 
-    recordingInterval: null,
-
-    mediaStream: null,
-
-    mediaRecorder: null,
-
-    recordedChunks: [],
-
-    videoBlob: null
+    finished: false
 
 };
 
 
 /* =========================================================
    DOM HELPER
-========================================================= */
+   ========================================================= */
 
 function $(id) {
     return document.getElementById(id);
@@ -535,20 +424,25 @@ function $(id) {
 
 
 /* =========================================================
-   SCREEN MANAGEMENT
-========================================================= */
+   SCREEN NAVIGATION
+   ========================================================= */
 
 function showScreen(screenId) {
 
-    document.querySelectorAll(".screen").forEach(screen => {
+    const screens = document.querySelectorAll(".screen");
+
+    screens.forEach(function (screen) {
         screen.classList.remove("active");
     });
 
-    const screen = $(screenId);
+    const target = $(screenId);
 
-    if (screen) {
-        screen.classList.add("active");
+    if (!target) {
+        console.error("Screen tidak ditemukan:", screenId);
+        return;
     }
+
+    target.classList.add("active");
 
     window.scrollTo({
         top: 0,
@@ -558,661 +452,444 @@ function showScreen(screenId) {
 
 
 /* =========================================================
-   INITIALIZATION
-========================================================= */
+   TOAST
+   ========================================================= */
 
-document.addEventListener("DOMContentLoaded", () => {
+function showToast(message, type = "success") {
 
-    bindEvents();
+    const toast = $("toast");
 
-    resetGame();
+    if (!toast) return;
 
-});
+    const toastMessage =
+        toast.querySelector(".toast-message") ||
+        toast.querySelector("p") ||
+        toast;
 
-
-/* =========================================================
-   EVENT LISTENERS
-========================================================= */
-
-function bindEvents() {
-
-    if ($("startButton")) {
-        $("startButton").addEventListener("click", () => {
-            showScreen("teamScreen");
-        });
+    if (toastMessage) {
+        toastMessage.textContent = message;
     }
 
+    toast.classList.remove("success", "error", "show");
 
-    if ($("continueTeamButton")) {
-        $("continueTeamButton").addEventListener(
-            "click",
-            handleTeamSubmit
-        );
-    }
+    toast.classList.add(type);
 
+    requestAnimationFrame(function () {
+        toast.classList.add("show");
+    });
 
-    if ($("beginGameButton")) {
-        $("beginGameButton").addEventListener(
-            "click",
-            startGame
-        );
-    }
-
-
-    if ($("submitAnswerButton")) {
-        $("submitAnswerButton").addEventListener(
-            "click",
-            submitAnswer
-        );
-    }
-
-
-    if ($("nextButton")) {
-        $("nextButton").addEventListener(
-            "click",
-            nextPosition
-        );
-    }
-
-
-    if ($("retryButton")) {
-        $("retryButton").addEventListener(
-            "click",
-            retryCurrentPosition
-        );
-    }
-
-
-    if ($("restartButton")) {
-        $("restartButton").addEventListener(
-            "click",
-            () => {
-                resetGame();
-                showScreen("welcomeScreen");
-            }
-        );
-    }
-
-
-    if ($("checkSecretButton")) {
-        $("checkSecretButton").addEventListener(
-            "click",
-            checkSecret
-        );
-    }
-
-
-    if ($("modalButton")) {
-        $("modalButton").addEventListener(
-            "click",
-            closeModal
-        );
-    }
-
-
-    if ($("modalOverlay")) {
-        $("modalOverlay").addEventListener(
-            "click",
-            closeModal
-        );
-    }
-
-
-    if ($("startCameraButton")) {
-        $("startCameraButton").addEventListener(
-            "click",
-            startCamera
-        );
-    }
-
-
-    if ($("startRecordingButton")) {
-        $("startRecordingButton").addEventListener(
-            "click",
-            startRecording
-        );
-    }
-
-
-    if ($("stopRecordingButton")) {
-        $("stopRecordingButton").addEventListener(
-            "click",
-            stopRecording
-        );
-    }
-
-
-    if ($("sendVideoButton")) {
-        $("sendVideoButton").addEventListener(
-            "click",
-            sendVideo
-        );
-    }
-
+    setTimeout(function () {
+        toast.classList.remove("show");
+    }, 2500);
 }
 
 
 /* =========================================================
-   RESET GAME
-========================================================= */
+   MULAI PETUALANGAN
+   ========================================================= */
 
-function resetGame() {
+function startAdventure() {
 
-    stopGameTimer();
+    /*
+     * Tombol Mulai Petualangan sekarang benar-benar
+     * mengarah ke halaman pendaftaran tim.
+     */
 
-    stopRecordingTimer();
+    showScreen("teamScreen");
 
-    stopCamera();
+    const teamInput = $("teamName");
 
-    gameState.teamName = "";
-
-    gameState.members = [];
-
-    gameState.currentPosition = 0;
-
-    gameState.currentQuestionIndex = 0;
-
-    gameState.currentQuestionIds = [];
-
-    gameState.selectedAnswer = null;
-
-    gameState.answered = false;
-
-    gameState.score = 0;
-
-    gameState.correct = 0;
-
-    gameState.wrong = 0;
-
-    gameState.totalQuestions = QUESTION_BANK.length;
-
-    gameState.startTime = null;
-
-    gameState.elapsedSeconds = 0;
-
-    gameState.videoBlob = null;
-
-    if ($("gameTimer")) {
-        $("gameTimer").textContent = "00:00";
+    if (teamInput) {
+        setTimeout(function () {
+            teamInput.focus();
+        }, 300);
     }
-
 }
 
 
 /* =========================================================
-   TEAM
-========================================================= */
+   MULAI GAME
+   ========================================================= */
 
-function handleTeamSubmit() {
+function startGame() {
 
-    const teamName =
-        $("teamName")?.value.trim() || "";
+    const teamInput = $("teamName");
+
+    let teamName = "";
+
+    if (teamInput) {
+        teamName = teamInput.value.trim();
+    }
 
     if (!teamName) {
-
         showToast(
-            "Masukkan nama tim terlebih dahulu.",
+            "Silakan masukkan nama tim terlebih dahulu.",
             "error"
         );
 
-        $("teamName")?.focus();
+        if (teamInput) {
+            teamInput.focus();
+        }
 
         return;
     }
 
+    GAME.teamName = teamName;
+
+    GAME.currentQuestion = 0;
+    GAME.score = 0;
+    GAME.correct = 0;
+    GAME.wrong = 0;
+    GAME.answered = false;
+    GAME.currentPost = 1;
+    GAME.postAnswers = {};
+    GAME.finished = false;
+    GAME.remainingTime = GAME_CONFIG.gameTime;
+    GAME.startTime = Date.now();
+
+    collectMembers();
+
+    showScreen("gameScreen");
+
+    updateTeamDisplay();
+
+    updateProgress();
+
+    renderQuestion();
+
+    startTimer();
+
+    showToast("Petualangan dimulai! Semangat!", "success");
+}
+
+
+/* =========================================================
+   AMBIL NAMA ANGGOTA
+   ========================================================= */
+
+function collectMembers() {
+
+    GAME.members = [];
 
     const memberInputs =
-        document.querySelectorAll(".member-input");
+        document.querySelectorAll(
+            'input[data-member], .member-input'
+        );
 
+    memberInputs.forEach(function (input) {
 
-    const members = [];
+        const value = input.value.trim();
 
-    memberInputs.forEach(input => {
-
-        const name = input.value.trim();
-
-        if (name) {
-            members.push(name);
+        if (value) {
+            GAME.members.push(value);
         }
 
     });
 
+    /*
+     * Jika HTML menggunakan satu atau beberapa input
+     * tetapi belum diberi data-member, kita coba mencari
+     * input nama anggota berdasarkan pola umum.
+     */
 
-    gameState.teamName = teamName;
+    if (GAME.members.length === 0) {
 
-    gameState.members = members;
+        const possibleInputs = document.querySelectorAll(
+            'input[placeholder*="anggota"], input[placeholder*="Anggota"]'
+        );
 
+        possibleInputs.forEach(function (input) {
 
-    if ($("displayTeamName")) {
-        $("displayTeamName").textContent =
-            teamName;
+            const value = input.value.trim();
+
+            if (value) {
+                GAME.members.push(value);
+            }
+
+        });
+
     }
-
-
-    if ($("finishTeamName")) {
-        $("finishTeamName").textContent =
-            teamName;
-    }
-
-
-    showScreen("instructionScreen");
 
 }
 
 
 /* =========================================================
-   START GAME
-========================================================= */
+   TAMPILKAN INFORMASI TIM
+   ========================================================= */
 
-function startGame() {
+function updateTeamDisplay() {
 
-    gameState.currentPosition = 0;
+    const teamElements =
+        document.querySelectorAll(
+            "#gameTeamName, .team-name, [data-team-name]"
+        );
 
-    gameState.currentQuestionIndex = 0;
-
-    gameState.score = 0;
-
-    gameState.correct = 0;
-
-    gameState.wrong = 0;
-
-    gameState.startTime = Date.now();
-
-    startGameTimer();
-
-    showScreen("gameScreen");
-
-    loadPosition();
+    teamElements.forEach(function (element) {
+        element.textContent = GAME.teamName;
+    });
 
 }
 
 
 /* =========================================================
    TIMER
-========================================================= */
+   ========================================================= */
 
-function startGameTimer() {
+function startTimer() {
 
-    stopGameTimer();
+    stopTimer();
 
-    gameState.startTime = Date.now();
+    updateTimerDisplay();
 
-    gameState.timerInterval =
-        setInterval(() => {
+    GAME.timerInterval = setInterval(function () {
 
-            if (!gameState.startTime) {
-                return;
-            }
+        GAME.remainingTime--;
 
-            gameState.elapsedSeconds =
-                Math.floor(
-                    (Date.now() -
-                        gameState.startTime) /
-                    1000
-                );
+        updateTimerDisplay();
 
-            updateGameTimer();
+        if (GAME.remainingTime <= 0) {
 
-        }, 1000);
+            GAME.remainingTime = 0;
 
-}
+            updateTimerDisplay();
 
+            stopTimer();
 
-function stopGameTimer() {
-
-    if (gameState.timerInterval) {
-
-        clearInterval(
-            gameState.timerInterval
-        );
-
-        gameState.timerInterval = null;
-
-    }
-
-}
-
-
-function updateGameTimer() {
-
-    if (!$("gameTimer")) {
-        return;
-    }
-
-    $("gameTimer").textContent =
-        formatTime(
-            gameState.elapsedSeconds
-        );
-
-}
-
-
-function formatTime(totalSeconds) {
-
-    const minutes =
-        Math.floor(totalSeconds / 60);
-
-    const seconds =
-        totalSeconds % 60;
-
-    return (
-        String(minutes).padStart(2, "0") +
-        ":" +
-        String(seconds).padStart(2, "0")
-    );
-
-}
-
-
-/* =========================================================
-   LOAD POSITION
-========================================================= */
-
-function loadPosition() {
-
-    const position =
-        POSITIONS[
-            gameState.currentPosition
-        ];
-
-
-    if (!position) {
-
-        finishGame();
-
-        return;
-    }
-
-
-    gameState.currentQuestionIds =
-        [...position.questions];
-
-
-    gameState.currentQuestionIndex = 0;
-
-
-    if ($("displayPosition")) {
-        $("displayPosition").textContent =
-            `${position.id}/${POSITIONS.length}`;
-    }
-
-
-    if ($("locationNumber")) {
-        $("locationNumber").textContent =
-            `📍 ${position.name.toUpperCase()}`;
-    }
-
-
-    if ($("locationBadge")) {
-        $("locationBadge").textContent =
-            position.badge;
-    }
-
-
-    if ($("locationTitle")) {
-        $("locationTitle").textContent =
-            position.title;
-    }
-
-
-    if ($("locationClue")) {
-        $("locationClue").textContent =
-            position.clue;
-    }
-
-
-    if ($("locationImage")) {
-
-        if (position.image) {
-
-            $("locationImage").src =
-                position.image;
-
-            $("locationImage").alt =
-                position.title;
-
-            $("locationImage").style.display =
-                "block";
-
-        } else {
-
-            $("locationImage").removeAttribute(
-                "src"
-            );
-
-            $("locationImage").alt =
-                "Ilustrasi lokasi " +
-                position.title;
+            finishGame("Waktu permainan telah habis.");
 
         }
 
+    }, 1000);
+
+}
+
+
+function stopTimer() {
+
+    if (GAME.timerInterval) {
+
+        clearInterval(GAME.timerInterval);
+
+        GAME.timerInterval = null;
+
     }
 
-
-    hideElement("nextCard");
-
-    hideElement("deadEndCard");
-
-    showElement("questionChallengeCard");
-
-    hideElement("secretChallengeCard");
-
-    hideElement("videoRecorderCard");
+}
 
 
-    updateProgress();
+function updateTimerDisplay() {
 
-    loadCurrentQuestion();
+    const minutes =
+        Math.floor(GAME.remainingTime / 60);
+
+    const seconds =
+        GAME.remainingTime % 60;
+
+    const formatted =
+        String(minutes).padStart(2, "0") +
+        ":" +
+        String(seconds).padStart(2, "0");
+
+    const timerElements =
+        document.querySelectorAll(
+            "#gameTimer, .timer-box, [data-timer]"
+        );
+
+    timerElements.forEach(function (element) {
+
+        element.textContent = formatted;
+
+    });
 
 }
 
 
 /* =========================================================
-   LOAD QUESTION
-========================================================= */
+   RENDER SOAL
+   ========================================================= */
 
-function loadCurrentQuestion() {
-
-    const questionId =
-        gameState.currentQuestionIds[
-            gameState.currentQuestionIndex
-        ];
-
+function renderQuestion() {
 
     const question =
-        QUESTION_BANK.find(
-            item => item.id === questionId
-        );
-
+        QUESTIONS[GAME.currentQuestion];
 
     if (!question) {
 
-        nextPosition();
+        finishGame("Semua pos telah diselesaikan.");
 
         return;
-    }
-
-
-    gameState.selectedAnswer = null;
-
-    gameState.answered = false;
-
-
-    if ($("questionCounter")) {
-
-        $("questionCounter").textContent =
-            `Soal ${gameState.currentQuestionIndex + 1} dari ${gameState.currentQuestionIds.length} • ${question.level}`;
 
     }
 
+    GAME.answered = false;
 
-    if ($("questionText")) {
+    const counter =
+        $("questionCounter") ||
+        document.querySelector(".question-counter");
 
-        $("questionText").textContent =
+    const questionText =
+        $("questionText") ||
+        document.querySelector(".question-text");
+
+    const optionsContainer =
+        $("optionsContainer") ||
+        document.querySelector(".options-container");
+
+    const feedback =
+        $("answerFeedback") ||
+        document.querySelector(".answer-feedback");
+
+    const submitButton =
+        $("submitAnswerButton");
+
+    const nextButton =
+        $("nextButton");
+
+    const postNumber =
+        $("postNumber");
+
+    const level =
+        $("questionLevel");
+
+    if (counter) {
+
+        counter.textContent =
+            `Pos ${GAME.currentQuestion + 1} dari ${QUESTIONS.length}`;
+
+    }
+
+    if (postNumber) {
+        postNumber.textContent =
+            GAME.currentQuestion + 1;
+    }
+
+    if (level) {
+        level.textContent =
+            question.level;
+    }
+
+    if (questionText) {
+        questionText.textContent =
             question.question;
+    }
+
+    if (feedback) {
+
+        feedback.textContent = "";
+
+        feedback.classList.remove(
+            "correct",
+            "wrong"
+        );
 
     }
 
+    if (optionsContainer) {
 
-    renderOptions(question);
+        optionsContainer.innerHTML = "";
 
-    clearFeedback();
+        question.options.forEach(
+            function (option, index) {
 
+                const button =
+                    document.createElement("button");
 
-    if ($("submitAnswerButton")) {
+                button.type = "button";
 
-        $("submitAnswerButton").disabled =
-            true;
+                button.className =
+                    "answer-option";
 
-        $("submitAnswerButton").textContent =
-            "Jawab";
+                button.dataset.index =
+                    index;
 
-    }
+                button.innerHTML = `
+                    <span class="option-letter">
+                        ${String.fromCharCode(65 + index)}
+                    </span>
 
-}
+                    <span class="option-text">
+                        ${escapeHTML(option)}
+                    </span>
+                `;
 
-
-/* =========================================================
-   RENDER OPTIONS
-========================================================= */
-
-function renderOptions(question) {
-
-    const container =
-        $("optionsContainer");
-
-
-    if (!container) {
-        return;
-    }
-
-
-    container.innerHTML = "";
-
-
-    question.options.forEach(
-        (option, index) => {
-
-            const button =
-                document.createElement("button");
-
-
-            button.type = "button";
-
-            button.className =
-                "answer-option";
-
-
-            button.dataset.index =
-                index;
-
-
-            const letter =
-                document.createElement("span");
-
-            letter.className =
-                "option-letter";
-
-            letter.textContent =
-                String.fromCharCode(
-                    65 + index
+                button.addEventListener(
+                    "click",
+                    function () {
+                        selectOption(button);
+                    }
                 );
 
+                optionsContainer.appendChild(button);
 
-            const text =
-                document.createElement("span");
+            }
+        );
 
-            text.className =
-                "option-text";
+    }
 
-            text.textContent =
-                option;
+    if (submitButton) {
 
+        submitButton.disabled = true;
 
-            button.appendChild(letter);
+        submitButton.classList.remove("hidden");
 
-            button.appendChild(text);
+    }
 
+    if (nextButton) {
 
-            button.addEventListener(
-                "click",
-                () => selectAnswer(index)
-            );
+        nextButton.disabled = true;
 
+        nextButton.classList.add("hidden");
 
-            container.appendChild(button);
+    }
 
-        }
-    );
+    updateProgress();
 
 }
 
 
 /* =========================================================
-   SELECT ANSWER
-========================================================= */
+   PILIH JAWABAN
+   ========================================================= */
 
-function selectAnswer(index) {
+function selectOption(button) {
 
-    if (gameState.answered) {
-        return;
-    }
+    if (GAME.answered) return;
 
-
-    gameState.selectedAnswer =
-        index;
-
-
-    document
-        .querySelectorAll(".answer-option")
-        .forEach(button => {
-
-            button.classList.remove(
-                "selected"
-            );
-
-        });
-
-
-    const selectedButton =
-        document.querySelector(
-            `.answer-option[data-index="${index}"]`
+    const options =
+        document.querySelectorAll(
+            ".answer-option"
         );
 
+    options.forEach(function (option) {
+        option.classList.remove("selected");
+    });
 
-    if (selectedButton) {
+    button.classList.add("selected");
 
-        selectedButton.classList.add(
-            "selected"
-        );
+    const submitButton =
+        $("submitAnswerButton");
 
-    }
-
-
-    if ($("submitAnswerButton")) {
-
-        $("submitAnswerButton").disabled =
-            false;
-
+    if (submitButton) {
+        submitButton.disabled = false;
     }
 
 }
 
 
 /* =========================================================
-   SUBMIT ANSWER
-========================================================= */
+   CEK JAWABAN
+   ========================================================= */
 
 function submitAnswer() {
 
-    if (gameState.answered) {
-        return;
-    }
+    if (GAME.answered) return;
 
+    const selected =
+        document.querySelector(
+            ".answer-option.selected"
+        );
 
-    if (
-        gameState.selectedAnswer === null
-    ) {
+    if (!selected) {
 
         showToast(
             "Pilih salah satu jawaban terlebih dahulu.",
@@ -1220,86 +897,76 @@ function submitAnswer() {
         );
 
         return;
+
     }
 
+    GAME.answered = true;
 
-    const questionId =
-        gameState.currentQuestionIds[
-            gameState.currentQuestionIndex
-        ];
-
+    const selectedIndex =
+        Number(selected.dataset.index);
 
     const question =
-        QUESTION_BANK.find(
-            item => item.id === questionId
-        );
+        QUESTIONS[GAME.currentQuestion];
 
+    const correctIndex =
+        question.answer;
 
-    if (!question) {
-        return;
-    }
-
-
-    gameState.answered = true;
-
-
-    const optionButtons =
+    const options =
         document.querySelectorAll(
             ".answer-option"
         );
 
+    options.forEach(function (button) {
 
-    optionButtons.forEach(
-        (button, index) => {
+        button.disabled = true;
 
-            button.disabled = true;
+        const index =
+            Number(button.dataset.index);
 
+        if (index === correctIndex) {
 
-            if (index === question.answer) {
-
-                button.classList.add(
-                    "correct"
-                );
-
-            }
-
-
-            if (
-                index ===
-                gameState.selectedAnswer &&
-                index !== question.answer
-            ) {
-
-                button.classList.add(
-                    "wrong"
-                );
-
-            }
+            button.classList.add("correct");
 
         }
-    );
 
+        if (
+            index === selectedIndex &&
+            index !== correctIndex
+        ) {
 
-    const isCorrect =
-        gameState.selectedAnswer ===
-        question.answer;
+            button.classList.add("wrong");
 
+        }
 
-    if (isCorrect) {
+    });
 
-        gameState.correct++;
+    const feedback =
+        $("answerFeedback") ||
+        document.querySelector(".answer-feedback");
 
-        gameState.score +=
-            getScoreByLevel(
-                question.level
-            );
+    if (selectedIndex === correctIndex) {
 
+        GAME.correct++;
 
-        showFeedback(
-            true,
-            `Benar! Jawaban tepat. +${getScoreByLevel(question.level)} poin.`
+        GAME.score += getQuestionScore(
+            question.level
         );
 
+        GAME.postAnswers[question.id] = {
+            answer: selectedIndex,
+            correct: true,
+            level: question.level
+        };
+
+        if (feedback) {
+
+            feedback.textContent =
+                "✅ Jawaban benar! " +
+                question.explanation;
+
+            feedback.classList.add("correct");
+
+        }
 
         showToast(
             "Jawaban benar! 🎉",
@@ -1308,14 +975,23 @@ function submitAnswer() {
 
     } else {
 
-        gameState.wrong++;
+        GAME.wrong++;
 
+        GAME.postAnswers[question.id] = {
+            answer: selectedIndex,
+            correct: false,
+            level: question.level
+        };
 
-        showFeedback(
-            false,
-            `Jawaban kurang tepat. Jawaban yang benar adalah ${String.fromCharCode(65 + question.answer)}.`
-        );
+        if (feedback) {
 
+            feedback.textContent =
+                "❌ Jawaban belum tepat. " +
+                question.explanation;
+
+            feedback.classList.add("wrong");
+
+        }
 
         showToast(
             "Jawaban belum tepat.",
@@ -1324,21 +1000,23 @@ function submitAnswer() {
 
     }
 
+    const submitButton =
+        $("submitAnswerButton");
 
-    if ($("submitAnswerButton")) {
-
-        $("submitAnswerButton").textContent =
-            "Lanjutkan →";
-
-        $("submitAnswerButton").disabled =
-            false;
-
-
-        $("submitAnswerButton").onclick =
-            continueAfterAnswer;
-
+    if (submitButton) {
+        submitButton.classList.add("hidden");
     }
 
+    const nextButton =
+        $("nextButton");
+
+    if (nextButton) {
+
+        nextButton.disabled = false;
+
+        nextButton.classList.remove("hidden");
+
+    }
 
     updateProgress();
 
@@ -1346,10 +1024,10 @@ function submitAnswer() {
 
 
 /* =========================================================
-   SCORE
-========================================================= */
+   SKOR BERDASARKAN TINGKAT
+   ========================================================= */
 
-function getScoreByLevel(level) {
+function getQuestionScore(level) {
 
     switch (level) {
 
@@ -1371,209 +1049,91 @@ function getScoreByLevel(level) {
 
 
 /* =========================================================
-   CONTINUE AFTER ANSWER
-========================================================= */
+   SOAL BERIKUTNYA
+   ========================================================= */
 
-function continueAfterAnswer() {
+function nextQuestion() {
 
-    if (!gameState.answered) {
-        submitAnswer();
-        return;
-    }
+    if (!GAME.answered) {
 
-
-    gameState.currentQuestionIndex++;
-
-
-    if (
-        gameState.currentQuestionIndex <
-        gameState.currentQuestionIds.length
-    ) {
-
-        loadCurrentQuestion();
+        showToast(
+            "Jawab soal terlebih dahulu.",
+            "error"
+        );
 
         return;
 
     }
 
+    GAME.currentQuestion++;
 
-    completePosition();
-
-}
-
-
-/* =========================================================
-   COMPLETE POSITION
-========================================================= */
-
-function completePosition() {
-
-    hideElement("questionChallengeCard");
-
-    showElement("nextCard");
-
-
-    const nextPositionIndex =
-        gameState.currentPosition + 1;
-
+    GAME.currentPost =
+        GAME.currentQuestion + 1;
 
     if (
-        nextPositionIndex <
-        POSITIONS.length
+        GAME.currentQuestion >=
+        QUESTIONS.length
     ) {
 
-        const next =
-            POSITIONS[nextPositionIndex];
-
-
-        if ($("nextLocation")) {
-
-            $("nextLocation").textContent =
-                `${next.name} — ${next.title}`;
-
-        }
-
-
-        if ($("nextButton")) {
-
-            $("nextButton").textContent =
-                `➡️ Lanjut ke ${next.name}`;
-
-        }
-
-    } else {
-
-        if ($("nextLocation")) {
-
-            $("nextLocation").textContent =
-                "🏆 Garis Akhir";
-
-        }
-
-
-        if ($("nextButton")) {
-
-            $("nextButton").textContent =
-                "🏆 Selesaikan Permainan";
-
-        }
-
-    }
-
-}
-
-
-/* =========================================================
-   NEXT POSITION
-========================================================= */
-
-function nextPosition() {
-
-    gameState.currentPosition++;
-
-
-    if (
-        gameState.currentPosition >=
-        POSITIONS.length
-    ) {
-
-        finishGame();
+        finishGame(
+            "Selamat! Semua pos berhasil diselesaikan."
+        );
 
         return;
+
     }
 
-
-    loadPosition();
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
-
-}
-
-
-/* =========================================================
-   RETRY POSITION
-========================================================= */
-
-function retryCurrentPosition() {
-
-    stopDeadEndTimer();
-
-    hideElement("deadEndCard");
-
-    showElement("questionChallengeCard");
-
-    gameState.currentQuestionIndex = 0;
-
-    loadCurrentQuestion();
+    renderQuestion();
 
 }
 
 
 /* =========================================================
    PROGRESS
-========================================================= */
+   ========================================================= */
 
 function updateProgress() {
 
-    const completedBefore =
-        POSITIONS
-            .slice(
-                0,
-                gameState.currentPosition
-            )
-            .reduce(
-                (total, position) =>
-                    total +
-                    position.questions.length,
-                0
-            );
-
-
-    const currentCompleted =
-        gameState.currentQuestionIndex;
-
-
-    const completed =
-        completedBefore +
-        currentCompleted;
-
-
     const total =
-        QUESTION_BANK.length;
+        QUESTIONS.length;
 
+    const current =
+        GAME.currentQuestion + 1;
 
     const percentage =
         Math.min(
             100,
-            Math.round(
-                (completed / total) * 100
-            )
+            (GAME.currentQuestion / total) * 100
         );
 
+    const progressFill =
+        $("progressFill") ||
+        document.querySelector(".progress-fill");
 
-    if ($("progressText")) {
+    if (progressFill) {
 
-        $("progressText").textContent =
-            `${completed} / ${total}`;
-
-    }
-
-
-    if ($("progressFill")) {
-
-        $("progressFill").style.width =
-            `${percentage}%`;
+        progressFill.style.width =
+            percentage + "%";
 
     }
 
+    const progressText =
+        $("progressText");
 
-    if ($("positionIndicator")) {
+    if (progressText) {
 
-        $("positionIndicator").textContent =
-            `Pos ${gameState.currentPosition + 1} dari ${POSITIONS.length}`;
+        progressText.textContent =
+            `${Math.min(current, total)} / ${total}`;
+
+    }
+
+    const scoreDisplay =
+        $("scoreDisplay");
+
+    if (scoreDisplay) {
+
+        scoreDisplay.textContent =
+            GAME.score;
 
     }
 
@@ -1581,890 +1141,371 @@ function updateProgress() {
 
 
 /* =========================================================
-   FEEDBACK
-========================================================= */
+   FINISH GAME
+   ========================================================= */
 
-function showFeedback(
-    correct,
-    message
-) {
+function finishGame(message) {
 
-    const feedback =
-        $("answerFeedback");
+    if (GAME.finished) return;
 
+    GAME.finished = true;
 
-    if (!feedback) {
-        return;
-    }
+    stopTimer();
 
+    const elapsed =
+        GAME.startTime
+            ? Date.now() - GAME.startTime
+            : 0;
 
-    feedback.textContent =
-        message;
-
-
-    feedback.classList.remove(
-        "correct",
-        "wrong"
-    );
-
-
-    feedback.classList.add(
-        correct ? "correct" : "wrong"
-    );
-
-}
-
-
-function clearFeedback() {
-
-    const feedback =
-        $("answerFeedback");
-
-
-    if (!feedback) {
-        return;
-    }
-
-
-    feedback.textContent = "";
-
-    feedback.classList.remove(
-        "correct",
-        "wrong"
-    );
-
-}
-
-
-/* =========================================================
-   FINISH
-========================================================= */
-
-function finishGame() {
-
-    stopGameTimer();
-
-    stopRecordingTimer();
-
-    stopCamera();
-
-
-    if ($("finishTeamName")) {
-
-        $("finishTeamName").textContent =
-            gameState.teamName || "-";
-
-    }
-
-
-    if ($("finishTime")) {
-
-        $("finishTime").textContent =
-            formatTime(
-                gameState.elapsedSeconds
-            );
-
-    }
-
-
-    if ($("finishCorrect")) {
-
-        $("finishCorrect").textContent =
-            gameState.correct;
-
-    }
-
-
-    if ($("finishWrong")) {
-
-        $("finishWrong").textContent =
-            gameState.wrong;
-
-    }
-
-
-    if ($("finishScore")) {
-
-        $("finishScore").textContent =
-            gameState.score;
-
-    }
-
-
-    if ($("finishMessage")) {
-
-        $("finishMessage").textContent =
-            createFinishMessage();
-
-    }
-
+    const elapsedSeconds =
+        Math.floor(elapsed / 1000);
 
     showScreen("finishScreen");
 
-}
-
-
-function createFinishMessage() {
-
-    const accuracy =
-        gameState.totalQuestions > 0
-            ? (
-                gameState.correct /
-                gameState.totalQuestions
-            ) * 100
-            : 0;
-
-
-    if (accuracy >= 90) {
-
-        return "Luar biasa! Kemampuan Bahasa Indonesia tim kamu sangat hebat! 🏆";
-
-    }
-
-
-    if (accuracy >= 75) {
-
-        return "Hebat! Tim kamu berhasil menyelesaikan perjalanan dengan hasil yang sangat baik! 🌟";
-
-    }
-
-
-    if (accuracy >= 60) {
-
-        return "Bagus! Terus berlatih agar kemampuan Bahasa Indonesia semakin kuat! 💪";
-
-    }
-
-
-    return "Petualangan selesai! Jadikan pengalaman ini sebagai kesempatan untuk belajar dan berkembang. 📚";
-
-}
-
-
-/* =========================================================
-   SECRET CODE
-========================================================= */
-
-function checkSecret() {
-
-    const input =
-        $("secretInput");
-
-
-    const message =
-        $("secretMessage");
-
-
-    if (!input || !message) {
-        return;
-    }
-
-
-    const value =
-        input.value.trim();
-
-
-    if (!value) {
-
-        message.textContent =
-            "Masukkan kode terlebih dahulu.";
-
-        message.style.color =
-            "var(--danger)";
-
-        return;
-
-    }
-
-
-    /*
-       Sistem kode tetap tersedia untuk
-       pengembangan pos yang membutuhkan kode.
-
-       Saat ini kode tidak menjadi syarat
-       utama permainan karena tantangan
-       soal menjadi tantangan utama.
-    */
-
-    message.textContent =
-        "Kode diterima. Lanjutkan tantangan.";
-
-    message.style.color =
-        "var(--success)";
-
-}
-
-
-/* =========================================================
-   CAMERA
-========================================================= */
-
-async function startCamera() {
-
-    if (
-        !navigator.mediaDevices ||
-        !navigator.mediaDevices.getUserMedia
-    ) {
-
-        showToast(
-            "Browser tidak mendukung akses kamera.",
-            "error"
-        );
-
-        return;
-
-    }
-
-
-    try {
-
-        gameState.mediaStream =
-            await navigator.mediaDevices.getUserMedia({
-                video: true,
-                audio: true
-            });
-
-
-        if ($("cameraPreview")) {
-
-            $("cameraPreview").srcObject =
-                gameState.mediaStream;
-
-        }
-
-
-        if ($("recordingStatus")) {
-
-            $("recordingStatus").textContent =
-                "Kamera siap digunakan.";
-
-        }
-
-
-        if ($("startRecordingButton")) {
-
-            $("startRecordingButton").disabled =
-                false;
-
-        }
-
-
-        showToast(
-            "Kamera berhasil dibuka.",
-            "success"
-        );
-
-    } catch (error) {
-
-        console.error(error);
-
-
-        showToast(
-            "Kamera tidak dapat diakses. Pastikan izin kamera diberikan.",
-            "error"
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   START RECORDING
-========================================================= */
-
-function startRecording() {
-
-    if (!gameState.mediaStream) {
-
-        showToast(
-            "Buka kamera terlebih dahulu.",
-            "error"
-        );
-
-        return;
-
-    }
-
-
-    if (
-        typeof MediaRecorder ===
-        "undefined"
-    ) {
-
-        showToast(
-            "Browser tidak mendukung perekaman video.",
-            "error"
-        );
-
-        return;
-
-    }
-
-
-    gameState.recordedChunks = [];
-
-
-    try {
-
-        gameState.mediaRecorder =
-            new MediaRecorder(
-                gameState.mediaStream
-            );
-
-
-        gameState.mediaRecorder.ondataavailable =
-            event => {
-
-                if (event.data.size > 0) {
-
-                    gameState.recordedChunks.push(
-                        event.data
-                    );
-
-                }
-
-            };
-
-
-        gameState.mediaRecorder.onstop =
-            handleRecordingComplete;
-
-
-        gameState.mediaRecorder.start();
-
-
-        gameState.recordingSeconds = 0;
-
-        startRecordingTimer();
-
-
-        if ($("startRecordingButton")) {
-
-            $("startRecordingButton").classList.add(
-                "hidden"
-            );
-
-        }
-
-
-        if ($("stopRecordingButton")) {
-
-            $("stopRecordingButton").classList.remove(
-                "hidden"
-            );
-
-        }
-
-
-        if ($("recordingStatus")) {
-
-            $("recordingStatus").textContent =
-                "Sedang merekam...";
-
-        }
-
-
-    } catch (error) {
-
-        console.error(error);
-
-        showToast(
-            "Perekaman tidak dapat dimulai.",
-            "error"
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   STOP RECORDING
-========================================================= */
-
-function stopRecording() {
-
-    if (
-        gameState.mediaRecorder &&
-        gameState.mediaRecorder.state !==
-        "inactive"
-    ) {
-
-        gameState.mediaRecorder.stop();
-
-    }
-
-
-    stopRecordingTimer();
-
-
-    if ($("stopRecordingButton")) {
-
-        $("stopRecordingButton").classList.add(
-            "hidden"
-        );
-
-    }
-
-
-    if ($("recordingStatus")) {
-
-        $("recordingStatus").textContent =
-            "Perekaman selesai.";
-
-    }
-
-}
-
-
-/* =========================================================
-   RECORDING COMPLETE
-========================================================= */
-
-function handleRecordingComplete() {
-
-    gameState.videoBlob =
-        new Blob(
-            gameState.recordedChunks,
-            {
-                type:
-                    gameState.mediaRecorder?.mimeType ||
-                    "video/webm"
-            }
-        );
-
-
-    const videoURL =
-        URL.createObjectURL(
-            gameState.videoBlob
-        );
-
-
-    if ($("recordedPreview")) {
-
-        $("recordedPreview").src =
-            videoURL;
-
-        $("recordedPreview").classList.remove(
-            "hidden"
-        );
-
-    }
-
-
-    if ($("sendVideoButton")) {
-
-        $("sendVideoButton").classList.remove(
-            "hidden"
-        );
-
-    }
-
-
-    if ($("recordingStatus")) {
-
-        $("recordingStatus").textContent =
-            "Video siap ditinjau.";
-
-    }
-
-}
-
-
-/* =========================================================
-   RECORDING TIMER
-========================================================= */
-
-function startRecordingTimer() {
-
-    stopRecordingTimer();
-
-
-    gameState.recordingInterval =
-        setInterval(() => {
-
-            gameState.recordingSeconds++;
-
-
-            if ($("recordingTimer")) {
-
-                $("recordingTimer").textContent =
-                    formatTime(
-                        gameState.recordingSeconds
-                    );
-
-            }
-
-        }, 1000);
-
-}
-
-
-function stopRecordingTimer() {
-
-    if (gameState.recordingInterval) {
-
-        clearInterval(
-            gameState.recordingInterval
-        );
-
-        gameState.recordingInterval = null;
-
-    }
-
-}
-
-
-/* =========================================================
-   SEND VIDEO
-========================================================= */
-
-function sendVideo() {
-
-    if (!gameState.videoBlob) {
-
-        showToast(
-            "Belum ada video yang direkam.",
-            "error"
-        );
-
-        return;
-
-    }
-
-
-    /*
-       Tempat integrasi pengiriman video
-       ke Google Apps Script / Google Drive
-       apabila sistem backend digunakan.
-
-       Untuk versi permainan mandiri,
-       video dianggap berhasil disiapkan.
-    */
-
-
-    showToast(
-        "Video berhasil disiapkan untuk dikirim. 📤",
-        "success"
+    updateFinishScreen(
+        message,
+        elapsedSeconds
     );
 
-
-    if ($("videoFeedback")) {
-
-        $("videoFeedback").textContent =
-            "Video berhasil disiapkan.";
-
-        $("videoFeedback").classList.remove(
-            "wrong"
-        );
-
-        $("videoFeedback").classList.add(
-            "correct"
-        );
-
-    }
-
 }
 
 
 /* =========================================================
-   STOP CAMERA
-========================================================= */
+   HASIL AKHIR
+   ========================================================= */
 
-function stopCamera() {
-
-    if (gameState.mediaStream) {
-
-        gameState.mediaStream
-            .getTracks()
-            .forEach(track => {
-                track.stop();
-            });
-
-        gameState.mediaStream = null;
-
-    }
-
-
-    if ($("cameraPreview")) {
-
-        $("cameraPreview").srcObject =
-            null;
-
-    }
-
-}
-
-
-/* =========================================================
-   DEAD END TIMER
-========================================================= */
-
-function startDeadEndTimer(seconds = 10) {
-
-    stopDeadEndTimer();
-
-
-    let remaining = seconds;
-
-
-    if ($("deadEndTimer")) {
-
-        $("deadEndTimer").textContent =
-            formatTime(remaining);
-
-    }
-
-
-    gameState.deadEndInterval =
-        setInterval(() => {
-
-            remaining--;
-
-
-            if ($("deadEndTimer")) {
-
-                $("deadEndTimer").textContent =
-                    formatTime(
-                        Math.max(0, remaining)
-                    );
-
-            }
-
-
-            if (remaining <= 0) {
-
-                stopDeadEndTimer();
-
-                if ($("retryButton")) {
-
-                    $("retryButton").disabled =
-                        false;
-
-                }
-
-            }
-
-        }, 1000);
-
-}
-
-
-function stopDeadEndTimer() {
-
-    if (gameState.deadEndInterval) {
-
-        clearInterval(
-            gameState.deadEndInterval
-        );
-
-        gameState.deadEndInterval = null;
-
-    }
-
-}
-
-
-/* =========================================================
-   ELEMENT VISIBILITY
-========================================================= */
-
-function showElement(id) {
-
-    const element = $(id);
-
-    if (element) {
-
-        element.classList.remove(
-            "hidden"
-        );
-
-    }
-
-}
-
-
-function hideElement(id) {
-
-    const element = $(id);
-
-    if (element) {
-
-        element.classList.add(
-            "hidden"
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   MODAL
-========================================================= */
-
-function showModal(
-    title,
+function updateFinishScreen(
     message,
-    icon = "ℹ️"
+    elapsedSeconds
 ) {
 
-    if (!$("modal")) {
-        return;
+    const teamName =
+        $("finishTeamName") ||
+        document.querySelector(".finish-team strong");
+
+    if (teamName) {
+        teamName.textContent =
+            GAME.teamName;
     }
 
+    const finishMessage =
+        $("finishMessage") ||
+        document.querySelector(".finish-message");
 
-    if ($("modalTitle")) {
-
-        $("modalTitle").textContent =
-            title;
-
-    }
-
-
-    if ($("modalMessage")) {
-
-        $("modalMessage").textContent =
+    if (finishMessage) {
+        finishMessage.textContent =
             message;
-
     }
 
+    const score =
+        $("finalScore") ||
+        document.querySelector("[data-final-score]");
 
-    if ($("modalIcon")) {
-
-        $("modalIcon").textContent =
-            icon;
-
+    if (score) {
+        score.textContent =
+            GAME.score;
     }
 
+    const correct =
+        $("finalCorrect") ||
+        document.querySelector("[data-final-correct]");
 
-    $("modal").classList.add(
-        "show"
-    );
+    if (correct) {
+        correct.textContent =
+            GAME.correct;
+    }
 
+    const wrong =
+        $("finalWrong") ||
+        document.querySelector("[data-final-wrong]");
 
-    document.body.classList.add(
-        "no-scroll"
-    );
+    if (wrong) {
+        wrong.textContent =
+            GAME.wrong;
+    }
+
+    const total =
+        $("finalTotal") ||
+        document.querySelector("[data-final-total]");
+
+    if (total) {
+        total.textContent =
+            QUESTIONS.length;
+    }
+
+    const time =
+        $("finalTime") ||
+        document.querySelector("[data-final-time]");
+
+    if (time) {
+
+        time.textContent =
+            formatDuration(elapsedSeconds);
+
+    }
 
 }
 
 
-function closeModal() {
+/* =========================================================
+   FORMAT WAKTU
+   ========================================================= */
 
-    if ($("modal")) {
+function formatDuration(seconds) {
 
-        $("modal").classList.remove(
-            "show"
-        );
+    const minutes =
+        Math.floor(seconds / 60);
 
-    }
+    const remainingSeconds =
+        seconds % 60;
 
-
-    document.body.classList.remove(
-        "no-scroll"
+    return (
+        String(minutes).padStart(2, "0") +
+        ":" +
+        String(remainingSeconds).padStart(2, "0")
     );
 
 }
 
 
 /* =========================================================
-   TOAST
-========================================================= */
+   ULANGI GAME
+   ========================================================= */
 
-let toastTimeout = null;
+function restartGame() {
 
+    stopTimer();
 
-function showToast(
-    message,
-    type = "default"
-) {
+    GAME.teamName = "";
+    GAME.members = [];
+    GAME.currentQuestion = 0;
+    GAME.score = 0;
+    GAME.correct = 0;
+    GAME.wrong = 0;
+    GAME.answered = false;
+    GAME.currentPost = 1;
+    GAME.postAnswers = {};
+    GAME.finished = false;
+    GAME.remainingTime =
+        GAME_CONFIG.gameTime;
 
-    const toast =
-        $("toast");
-
-
-    if (!toast) {
-        return;
-    }
-
-
-    if ($("toastMessage")) {
-
-        $("toastMessage").textContent =
-            message;
-
-    }
-
-
-    if ($("toastIcon")) {
-
-        $("toastIcon").textContent =
-            type === "success"
-                ? "✅"
-                : type === "error"
-                    ? "❌"
-                    : "ℹ️";
-
-    }
-
-
-    toast.classList.remove(
-        "success",
-        "error"
-    );
-
-
-    if (
-        type === "success" ||
-        type === "error"
-    ) {
-
-        toast.classList.add(type);
-
-    }
-
-
-    toast.classList.add("show");
-
-
-    if (toastTimeout) {
-
-        clearTimeout(
-            toastTimeout
-        );
-
-    }
-
-
-    toastTimeout =
-        setTimeout(() => {
-
-            toast.classList.remove(
-                "show"
-            );
-
-        }, 3000);
+    showScreen("startScreen");
 
 }
 
 
 /* =========================================================
-   KEYBOARD SUPPORT
-========================================================= */
+   KELUAR / KEMBALI
+   ========================================================= */
+
+function backToStart() {
+
+    stopTimer();
+
+    showScreen("startScreen");
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+   ========================================================= */
+
+function escapeHTML(value) {
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =========================================================
+   EVENT LISTENER
+   ========================================================= */
 
 document.addEventListener(
-    "keydown",
-    event => {
+    "DOMContentLoaded",
+    function () {
 
-        if (
-            event.key === "Enter" &&
-            document.activeElement?.id ===
-            "secretInput"
-        ) {
+        console.log(
+            "Jelajah Sekolah siap dimainkan."
+        );
 
-            checkSecret();
+
+        /* -----------------------------------------
+           MULAI PETUALANGAN
+        ----------------------------------------- */
+
+        const startButton =
+            $("startButton");
+
+        if (startButton) {
+
+            startButton.addEventListener(
+                "click",
+                function (event) {
+
+                    event.preventDefault();
+
+                    startAdventure();
+
+                }
+            );
+
+        }
+
+
+        /* -----------------------------------------
+           MULAI PERMAINAN
+        ----------------------------------------- */
+
+        const beginButton =
+            $("beginGameButton") ||
+            $("startGameButton");
+
+        if (beginButton) {
+
+            beginButton.addEventListener(
+                "click",
+                function (event) {
+
+                    event.preventDefault();
+
+                    startGame();
+
+                }
+            );
+
+        }
+
+
+        /* -----------------------------------------
+           CEK JAWABAN
+        ----------------------------------------- */
+
+        const submitButton =
+            $("submitAnswerButton");
+
+        if (submitButton) {
+
+            submitButton.addEventListener(
+                "click",
+                function (event) {
+
+                    event.preventDefault();
+
+                    submitAnswer();
+
+                }
+            );
+
+        }
+
+
+        /* -----------------------------------------
+           SOAL BERIKUTNYA
+        ----------------------------------------- */
+
+        const nextButton =
+            $("nextButton");
+
+        if (nextButton) {
+
+            nextButton.addEventListener(
+                "click",
+                function (event) {
+
+                    event.preventDefault();
+
+                    nextQuestion();
+
+                }
+            );
+
+        }
+
+
+        /* -----------------------------------------
+           MAIN LAGI
+        ----------------------------------------- */
+
+        const restartButton =
+            $("restartButton");
+
+        if (restartButton) {
+
+            restartButton.addEventListener(
+                "click",
+                function (event) {
+
+                    event.preventDefault();
+
+                    restartGame();
+
+                }
+            );
+
+        }
+
+
+        /* -----------------------------------------
+           KEMBALI KE AWAL
+        ----------------------------------------- */
+
+        const backButton =
+            $("backToStartButton");
+
+        if (backButton) {
+
+            backButton.addEventListener(
+                "click",
+                function (event) {
+
+                    event.preventDefault();
+
+                    backToStart();
+
+                }
+            );
+
+        }
+
+
+        /* -----------------------------------------
+           TOMBOL ENTER UNTUK NAMA TIM
+        ----------------------------------------- */
+
+        const teamInput =
+            $("teamName");
+
+        if (teamInput) {
+
+            teamInput.addEventListener(
+                "keydown",
+                function (event) {
+
+                    if (
+                        event.key === "Enter"
+                    ) {
+
+                        event.preventDefault();
+
+                        const begin =
+                            $("beginGameButton") ||
+                            $("startGameButton");
+
+                        if (begin) {
+                            begin.click();
+                        }
+
+                    }
+
+                }
+            );
 
         }
 
@@ -2473,18 +1514,16 @@ document.addEventListener(
 
 
 /* =========================================================
-   PREVENT ACCIDENTAL PAGE LEAVE
-========================================================= */
+   MENCEGAH ACCIDENTAL REFRESH SAAT GAME BERJALAN
+   ========================================================= */
 
 window.addEventListener(
     "beforeunload",
-    event => {
+    function (event) {
 
         if (
-            gameState.startTime &&
-            $("gameScreen")?.classList.contains(
-                "active"
-            )
+            GAME.startTime &&
+            !GAME.finished
         ) {
 
             event.preventDefault();
@@ -2498,28 +1537,18 @@ window.addEventListener(
 
 
 /* =========================================================
-   EXPORT DATA
-   Memudahkan pengembangan / integrasi backend
-========================================================= */
+   PUBLIC API
+   ========================================================= */
 
 window.JelajahSekolah = {
 
-    positions: POSITIONS,
-
-    questions: QUESTION_BANK,
-
-    state: gameState,
-
-    start: startGame,
-
-    reset: resetGame,
-
-    showToast: showToast
+    startAdventure,
+    startGame,
+    submitAnswer,
+    nextQuestion,
+    finishGame,
+    restartGame,
+    showScreen
 
 };
-
-
-/* =========================================================
-   END OF SCRIPT
-========================================================= */
 ```
