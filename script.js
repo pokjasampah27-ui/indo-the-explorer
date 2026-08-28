@@ -1,10 +1,10 @@
-```javascript
 /* =========================================================
    JELAJAH SEKOLAH
-   SCRIPT.JS — VERSI PLUG & PLAY
+   SCRIPT.JS — FINAL
    ========================================================= */
 
 "use strict";
+
 
 /* =========================================================
    DATA SOAL
@@ -15,6 +15,10 @@
    ========================================================= */
 
 const QUESTIONS = [
+
+    /* =====================================================
+       LOTS — NOMOR 1–6
+    ===================================================== */
 
     {
         id: 1,
@@ -117,6 +121,11 @@ const QUESTIONS = [
         explanation:
             "“Sangat” merupakan adverbia yang menerangkan tingkat kata “indah”."
     },
+
+
+    /* =====================================================
+       MOTS — NOMOR 7–14
+    ===================================================== */
 
     {
         id: 7,
@@ -254,6 +263,11 @@ const QUESTIONS = [
             "“Sangat” merupakan adverbia dan “cepat” merupakan adjektiva."
     },
 
+
+    /* =====================================================
+       HOTS — NOMOR 15–20
+    ===================================================== */
+
     {
         id: 15,
         level: "HOTS",
@@ -367,13 +381,10 @@ const GAME_CONFIG = {
 
     totalQuestions: QUESTIONS.length,
 
-    // Waktu permainan dalam detik.
     gameTime: 15 * 60,
 
-    // Waktu dead-end jika digunakan.
     deadEndTime: 10,
 
-    // Jumlah pos.
     totalPosts: 20
 
 };
@@ -419,7 +430,9 @@ const GAME = {
    ========================================================= */
 
 function $(id) {
+
     return document.getElementById(id);
+
 }
 
 
@@ -429,25 +442,42 @@ function $(id) {
 
 function showScreen(screenId) {
 
-    const screens = document.querySelectorAll(".screen");
+    const screens =
+        document.querySelectorAll(".screen");
 
-    screens.forEach(function (screen) {
+    screens.forEach(function(screen) {
+
         screen.classList.remove("active");
+
     });
 
-    const target = $(screenId);
+
+    const target =
+        $(screenId);
 
     if (!target) {
-        console.error("Screen tidak ditemukan:", screenId);
+
+        console.error(
+            "Screen tidak ditemukan:",
+            screenId
+        );
+
         return;
+
     }
+
 
     target.classList.add("active");
 
+
     window.scrollTo({
+
         top: 0,
+
         behavior: "smooth"
+
     });
+
 }
 
 
@@ -455,158 +485,273 @@ function showScreen(screenId) {
    TOAST
    ========================================================= */
 
-function showToast(message, type = "success") {
+function showToast(
+    message,
+    type = "success"
+) {
 
-    const toast = $("toast");
+    const toast =
+        $("toast");
 
     if (!toast) return;
+
 
     const toastMessage =
         toast.querySelector(".toast-message") ||
         toast.querySelector("p") ||
         toast;
 
+
     if (toastMessage) {
-        toastMessage.textContent = message;
+
+        toastMessage.textContent =
+            message;
+
     }
 
-    toast.classList.remove("success", "error", "show");
 
-    toast.classList.add(type);
+    toast.classList.remove(
+        "success",
+        "error",
+        "show"
+    );
 
-    requestAnimationFrame(function () {
-        toast.classList.add("show");
-    });
 
-    setTimeout(function () {
-        toast.classList.remove("show");
-    }, 2500);
+    toast.classList.add(
+        type
+    );
+
+
+    requestAnimationFrame(
+        function() {
+
+            toast.classList.add(
+                "show"
+            );
+
+        }
+    );
+
+
+    setTimeout(
+        function() {
+
+            toast.classList.remove(
+                "show"
+            );
+
+        },
+        2500
+    );
+
 }
 
 
 /* =========================================================
    MULAI PETUALANGAN
-   ========================================================= */
+========================================================= */
 
 function startAdventure() {
 
-    /*
-     * Tombol Mulai Petualangan sekarang benar-benar
-     * mengarah ke halaman pendaftaran tim.
-     */
+    showScreen(
+        "teamScreen"
+    );
 
-    showScreen("teamScreen");
 
-    const teamInput = $("teamName");
+    const teamInput =
+        $("teamName");
+
 
     if (teamInput) {
-        setTimeout(function () {
-            teamInput.focus();
-        }, 300);
+
+        setTimeout(
+            function() {
+
+                teamInput.focus();
+
+            },
+            300
+        );
+
     }
+
 }
 
 
 /* =========================================================
    MULAI GAME
-   ========================================================= */
+========================================================= */
 
 function startGame() {
 
-    const teamInput = $("teamName");
+    const teamInput =
+        $("teamName");
+
 
     let teamName = "";
 
+
     if (teamInput) {
-        teamName = teamInput.value.trim();
+
+        teamName =
+            teamInput.value.trim();
+
     }
 
+
     if (!teamName) {
+
         showToast(
             "Silakan masukkan nama tim terlebih dahulu.",
             "error"
         );
 
+
         if (teamInput) {
+
             teamInput.focus();
+
         }
 
+
         return;
+
     }
 
-    GAME.teamName = teamName;
 
-    GAME.currentQuestion = 0;
-    GAME.score = 0;
-    GAME.correct = 0;
-    GAME.wrong = 0;
-    GAME.answered = false;
-    GAME.currentPost = 1;
-    GAME.postAnswers = {};
-    GAME.finished = false;
-    GAME.remainingTime = GAME_CONFIG.gameTime;
-    GAME.startTime = Date.now();
+    GAME.teamName =
+        teamName;
+
+
+    GAME.currentQuestion =
+        0;
+
+
+    GAME.score =
+        0;
+
+
+    GAME.correct =
+        0;
+
+
+    GAME.wrong =
+        0;
+
+
+    GAME.answered =
+        false;
+
+
+    GAME.currentPost =
+        1;
+
+
+    GAME.postAnswers =
+        {};
+
+
+    GAME.finished =
+        false;
+
+
+    GAME.remainingTime =
+        GAME_CONFIG.gameTime;
+
+
+    GAME.startTime =
+        Date.now();
+
 
     collectMembers();
 
-    showScreen("gameScreen");
+
+    showScreen(
+        "gameScreen"
+    );
+
 
     updateTeamDisplay();
 
+
     updateProgress();
+
 
     renderQuestion();
 
+
     startTimer();
 
-    showToast("Petualangan dimulai! Semangat!", "success");
+
+    showToast(
+        "Petualangan dimulai! Semangat!",
+        "success"
+    );
+
 }
 
 
 /* =========================================================
    AMBIL NAMA ANGGOTA
-   ========================================================= */
+========================================================= */
 
 function collectMembers() {
 
     GAME.members = [];
+
 
     const memberInputs =
         document.querySelectorAll(
             'input[data-member], .member-input'
         );
 
-    memberInputs.forEach(function (input) {
 
-        const value = input.value.trim();
+    memberInputs.forEach(
+        function(input) {
 
-        if (value) {
-            GAME.members.push(value);
-        }
+            const value =
+                input.value.trim();
 
-    });
-
-    /*
-     * Jika HTML menggunakan satu atau beberapa input
-     * tetapi belum diberi data-member, kita coba mencari
-     * input nama anggota berdasarkan pola umum.
-     */
-
-    if (GAME.members.length === 0) {
-
-        const possibleInputs = document.querySelectorAll(
-            'input[placeholder*="anggota"], input[placeholder*="Anggota"]'
-        );
-
-        possibleInputs.forEach(function (input) {
-
-            const value = input.value.trim();
 
             if (value) {
-                GAME.members.push(value);
+
+                GAME.members.push(
+                    value
+                );
+
             }
 
-        });
+        }
+    );
+
+
+    if (
+        GAME.members.length === 0
+    ) {
+
+        const possibleInputs =
+            document.querySelectorAll(
+                'input[placeholder*="anggota"], input[placeholder*="Anggota"]'
+            );
+
+
+        possibleInputs.forEach(
+            function(input) {
+
+                const value =
+                    input.value.trim();
+
+
+                if (value) {
+
+                    GAME.members.push(
+                        value
+                    );
+
+                }
+
+            }
+        );
 
     }
 
@@ -615,7 +760,7 @@ function collectMembers() {
 
 /* =========================================================
    TAMPILKAN INFORMASI TIM
-   ========================================================= */
+========================================================= */
 
 function updateTeamDisplay() {
 
@@ -624,16 +769,22 @@ function updateTeamDisplay() {
             "#gameTeamName, .team-name, [data-team-name]"
         );
 
-    teamElements.forEach(function (element) {
-        element.textContent = GAME.teamName;
-    });
+
+    teamElements.forEach(
+        function(element) {
+
+            element.textContent =
+                GAME.teamName;
+
+        }
+    );
 
 }
 
 
 /* =========================================================
    TIMER
-   ========================================================= */
+========================================================= */
 
 function startTimer() {
 
@@ -641,36 +792,57 @@ function startTimer() {
 
     updateTimerDisplay();
 
-    GAME.timerInterval = setInterval(function () {
 
-        GAME.remainingTime--;
+    GAME.timerInterval =
+        setInterval(
+            function() {
 
-        updateTimerDisplay();
+                GAME.remainingTime--;
 
-        if (GAME.remainingTime <= 0) {
 
-            GAME.remainingTime = 0;
+                updateTimerDisplay();
 
-            updateTimerDisplay();
 
-            stopTimer();
+                if (
+                    GAME.remainingTime <= 0
+                ) {
 
-            finishGame("Waktu permainan telah habis.");
+                    GAME.remainingTime =
+                        0;
 
-        }
 
-    }, 1000);
+                    updateTimerDisplay();
+
+
+                    stopTimer();
+
+
+                    finishGame(
+                        "Waktu permainan telah habis."
+                    );
+
+                }
+
+            },
+            1000
+        );
 
 }
 
 
 function stopTimer() {
 
-    if (GAME.timerInterval) {
+    if (
+        GAME.timerInterval
+    ) {
 
-        clearInterval(GAME.timerInterval);
+        clearInterval(
+            GAME.timerInterval
+        );
 
-        GAME.timerInterval = null;
+
+        GAME.timerInterval =
+            null;
 
     }
 
@@ -680,76 +852,115 @@ function stopTimer() {
 function updateTimerDisplay() {
 
     const minutes =
-        Math.floor(GAME.remainingTime / 60);
+        Math.floor(
+            GAME.remainingTime / 60
+        );
+
 
     const seconds =
         GAME.remainingTime % 60;
 
+
     const formatted =
-        String(minutes).padStart(2, "0") +
+        String(minutes).padStart(
+            2,
+            "0"
+        ) +
         ":" +
-        String(seconds).padStart(2, "0");
+        String(seconds).padStart(
+            2,
+            "0"
+        );
+
 
     const timerElements =
         document.querySelectorAll(
             "#gameTimer, .timer-box, [data-timer]"
         );
 
-    timerElements.forEach(function (element) {
 
-        element.textContent = formatted;
+    timerElements.forEach(
+        function(element) {
 
-    });
+            element.textContent =
+                formatted;
+
+        }
+    );
 
 }
 
 
 /* =========================================================
    RENDER SOAL
-   ========================================================= */
+========================================================= */
 
 function renderQuestion() {
 
     const question =
-        QUESTIONS[GAME.currentQuestion];
+        QUESTIONS[
+            GAME.currentQuestion
+        ];
+
 
     if (!question) {
 
-        finishGame("Semua pos telah diselesaikan.");
+        finishGame(
+            "Semua pos telah diselesaikan."
+        );
 
         return;
 
     }
 
-    GAME.answered = false;
+
+    GAME.answered =
+        false;
+
 
     const counter =
         $("questionCounter") ||
-        document.querySelector(".question-counter");
+        document.querySelector(
+            ".question-counter"
+        );
+
 
     const questionText =
         $("questionText") ||
-        document.querySelector(".question-text");
+        document.querySelector(
+            ".question-text"
+        );
+
 
     const optionsContainer =
         $("optionsContainer") ||
-        document.querySelector(".options-container");
+        document.querySelector(
+            ".options-container"
+        );
+
 
     const feedback =
         $("answerFeedback") ||
-        document.querySelector(".answer-feedback");
+        document.querySelector(
+            ".answer-feedback"
+        );
+
 
     const submitButton =
         $("submitAnswerButton");
 
+
     const nextButton =
         $("nextButton");
+
 
     const postNumber =
         $("postNumber");
 
+
     const level =
         $("questionLevel");
+
 
     if (counter) {
 
@@ -758,24 +969,36 @@ function renderQuestion() {
 
     }
 
+
     if (postNumber) {
+
         postNumber.textContent =
             GAME.currentQuestion + 1;
+
     }
+
 
     if (level) {
+
         level.textContent =
             question.level;
+
     }
 
+
     if (questionText) {
+
         questionText.textContent =
             question.question;
+
     }
+
 
     if (feedback) {
 
-        feedback.textContent = "";
+        feedback.textContent =
+            "";
+
 
         feedback.classList.remove(
             "correct",
@@ -784,23 +1007,33 @@ function renderQuestion() {
 
     }
 
+
     if (optionsContainer) {
 
-        optionsContainer.innerHTML = "";
+        optionsContainer.innerHTML =
+            "";
+
 
         question.options.forEach(
-            function (option, index) {
+            function(option, index) {
 
                 const button =
-                    document.createElement("button");
+                    document.createElement(
+                        "button"
+                    );
 
-                button.type = "button";
+
+                button.type =
+                    "button";
+
 
                 button.className =
                     "answer-option";
 
+
                 button.dataset.index =
                     index;
+
 
                 button.innerHTML = `
                     <span class="option-letter">
@@ -812,35 +1045,54 @@ function renderQuestion() {
                     </span>
                 `;
 
+
                 button.addEventListener(
                     "click",
-                    function () {
-                        selectOption(button);
+                    function() {
+
+                        selectOption(
+                            button
+                        );
+
                     }
                 );
 
-                optionsContainer.appendChild(button);
+
+                optionsContainer.appendChild(
+                    button
+                );
 
             }
         );
 
     }
 
+
     if (submitButton) {
 
-        submitButton.disabled = true;
+        submitButton.disabled =
+            true;
 
-        submitButton.classList.remove("hidden");
+
+        submitButton.classList.remove(
+            "hidden"
+        );
 
     }
+
 
     if (nextButton) {
 
-        nextButton.disabled = true;
+        nextButton.disabled =
+            true;
 
-        nextButton.classList.add("hidden");
+
+        nextButton.classList.add(
+            "hidden"
+        );
 
     }
+
 
     updateProgress();
 
@@ -849,28 +1101,52 @@ function renderQuestion() {
 
 /* =========================================================
    PILIH JAWABAN
-   ========================================================= */
+========================================================= */
 
-function selectOption(button) {
+function selectOption(
+    button
+) {
 
-    if (GAME.answered) return;
+    if (
+        GAME.answered
+    ) {
+
+        return;
+
+    }
+
 
     const options =
         document.querySelectorAll(
             ".answer-option"
         );
 
-    options.forEach(function (option) {
-        option.classList.remove("selected");
-    });
 
-    button.classList.add("selected");
+    options.forEach(
+        function(option) {
+
+            option.classList.remove(
+                "selected"
+            );
+
+        }
+    );
+
+
+    button.classList.add(
+        "selected"
+    );
+
 
     const submitButton =
         $("submitAnswerButton");
 
+
     if (submitButton) {
-        submitButton.disabled = false;
+
+        submitButton.disabled =
+            false;
+
     }
 
 }
@@ -878,16 +1154,24 @@ function selectOption(button) {
 
 /* =========================================================
    CEK JAWABAN
-   ========================================================= */
+========================================================= */
 
 function submitAnswer() {
 
-    if (GAME.answered) return;
+    if (
+        GAME.answered
+    ) {
+
+        return;
+
+    }
+
 
     const selected =
         document.querySelector(
             ".answer-option.selected"
         );
+
 
     if (!selected) {
 
@@ -900,63 +1184,108 @@ function submitAnswer() {
 
     }
 
-    GAME.answered = true;
+
+    GAME.answered =
+        true;
+
 
     const selectedIndex =
-        Number(selected.dataset.index);
+        Number(
+            selected.dataset.index
+        );
+
 
     const question =
-        QUESTIONS[GAME.currentQuestion];
+        QUESTIONS[
+            GAME.currentQuestion
+        ];
+
 
     const correctIndex =
         question.answer;
+
 
     const options =
         document.querySelectorAll(
             ".answer-option"
         );
 
-    options.forEach(function (button) {
 
-        button.disabled = true;
+    options.forEach(
+        function(button) {
 
-        const index =
-            Number(button.dataset.index);
+            button.disabled =
+                true;
 
-        if (index === correctIndex) {
 
-            button.classList.add("correct");
+            const index =
+                Number(
+                    button.dataset.index
+                );
+
+
+            if (
+                index === correctIndex
+            ) {
+
+                button.classList.add(
+                    "correct"
+                );
+
+            }
+
+
+            if (
+                index === selectedIndex &&
+                index !== correctIndex
+            ) {
+
+                button.classList.add(
+                    "wrong"
+                );
+
+            }
 
         }
+    );
 
-        if (
-            index === selectedIndex &&
-            index !== correctIndex
-        ) {
-
-            button.classList.add("wrong");
-
-        }
-
-    });
 
     const feedback =
         $("answerFeedback") ||
-        document.querySelector(".answer-feedback");
+        document.querySelector(
+            ".answer-feedback"
+        );
 
-    if (selectedIndex === correctIndex) {
+
+    if (
+        selectedIndex ===
+        correctIndex
+    ) {
 
         GAME.correct++;
 
-        GAME.score += getQuestionScore(
-            question.level
-        );
 
-        GAME.postAnswers[question.id] = {
-            answer: selectedIndex,
-            correct: true,
-            level: question.level
+        GAME.score +=
+            getQuestionScore(
+                question.level
+            );
+
+
+        GAME.postAnswers[
+            question.id
+        ] = {
+
+            answer:
+                selectedIndex,
+
+            correct:
+                true,
+
+            level:
+                question.level
+
         };
+
 
         if (feedback) {
 
@@ -964,24 +1293,40 @@ function submitAnswer() {
                 "✅ Jawaban benar! " +
                 question.explanation;
 
-            feedback.classList.add("correct");
+
+            feedback.classList.add(
+                "correct"
+            );
 
         }
+
 
         showToast(
             "Jawaban benar! 🎉",
             "success"
         );
 
-    } else {
+    }
+    else {
 
         GAME.wrong++;
 
-        GAME.postAnswers[question.id] = {
-            answer: selectedIndex,
-            correct: false,
-            level: question.level
+
+        GAME.postAnswers[
+            question.id
+        ] = {
+
+            answer:
+                selectedIndex,
+
+            correct:
+                false,
+
+            level:
+                question.level
+
         };
+
 
         if (feedback) {
 
@@ -989,9 +1334,13 @@ function submitAnswer() {
                 "❌ Jawaban belum tepat. " +
                 question.explanation;
 
-            feedback.classList.add("wrong");
+
+            feedback.classList.add(
+                "wrong"
+            );
 
         }
+
 
         showToast(
             "Jawaban belum tepat.",
@@ -1000,23 +1349,36 @@ function submitAnswer() {
 
     }
 
+
     const submitButton =
         $("submitAnswerButton");
 
+
     if (submitButton) {
-        submitButton.classList.add("hidden");
+
+        submitButton.classList.add(
+            "hidden"
+        );
+
     }
+
 
     const nextButton =
         $("nextButton");
 
+
     if (nextButton) {
 
-        nextButton.disabled = false;
+        nextButton.disabled =
+            false;
 
-        nextButton.classList.remove("hidden");
+
+        nextButton.classList.remove(
+            "hidden"
+        );
 
     }
+
 
     updateProgress();
 
@@ -1025,9 +1387,11 @@ function submitAnswer() {
 
 /* =========================================================
    SKOR BERDASARKAN TINGKAT
-   ========================================================= */
+========================================================= */
 
-function getQuestionScore(level) {
+function getQuestionScore(
+    level
+) {
 
     switch (level) {
 
@@ -1050,11 +1414,13 @@ function getQuestionScore(level) {
 
 /* =========================================================
    SOAL BERIKUTNYA
-   ========================================================= */
+========================================================= */
 
 function nextQuestion() {
 
-    if (!GAME.answered) {
+    if (
+        !GAME.answered
+    ) {
 
         showToast(
             "Jawab soal terlebih dahulu.",
@@ -1065,10 +1431,13 @@ function nextQuestion() {
 
     }
 
+
     GAME.currentQuestion++;
+
 
     GAME.currentPost =
         GAME.currentQuestion + 1;
+
 
     if (
         GAME.currentQuestion >=
@@ -1083,6 +1452,7 @@ function nextQuestion() {
 
     }
 
+
     renderQuestion();
 
 }
@@ -1090,15 +1460,17 @@ function nextQuestion() {
 
 /* =========================================================
    PROGRESS
-   ========================================================= */
+========================================================= */
 
 function updateProgress() {
 
     const total =
         QUESTIONS.length;
 
+
     const current =
         GAME.currentQuestion + 1;
+
 
     const percentage =
         Math.min(
@@ -1106,9 +1478,13 @@ function updateProgress() {
             (GAME.currentQuestion / total) * 100
         );
 
+
     const progressFill =
         $("progressFill") ||
-        document.querySelector(".progress-fill");
+        document.querySelector(
+            ".progress-fill"
+        );
+
 
     if (progressFill) {
 
@@ -1117,8 +1493,10 @@ function updateProgress() {
 
     }
 
+
     const progressText =
         $("progressText");
+
 
     if (progressText) {
 
@@ -1127,8 +1505,10 @@ function updateProgress() {
 
     }
 
+
     const scoreDisplay =
         $("scoreDisplay");
+
 
     if (scoreDisplay) {
 
@@ -1142,25 +1522,45 @@ function updateProgress() {
 
 /* =========================================================
    FINISH GAME
-   ========================================================= */
+========================================================= */
 
-function finishGame(message) {
+function finishGame(
+    message
+) {
 
-    if (GAME.finished) return;
+    if (
+        GAME.finished
+    ) {
 
-    GAME.finished = true;
+        return;
+
+    }
+
+
+    GAME.finished =
+        true;
+
 
     stopTimer();
 
+
     const elapsed =
         GAME.startTime
-            ? Date.now() - GAME.startTime
+            ? Date.now() -
+              GAME.startTime
             : 0;
 
-    const elapsedSeconds =
-        Math.floor(elapsed / 1000);
 
-    showScreen("finishScreen");
+    const elapsedSeconds =
+        Math.floor(
+            elapsed / 1000
+        );
+
+
+    showScreen(
+        "finishScreen"
+    );
+
 
     updateFinishScreen(
         message,
@@ -1172,7 +1572,7 @@ function finishGame(message) {
 
 /* =========================================================
    HASIL AKHIR
-   ========================================================= */
+========================================================= */
 
 function updateFinishScreen(
     message,
@@ -1181,66 +1581,107 @@ function updateFinishScreen(
 
     const teamName =
         $("finishTeamName") ||
-        document.querySelector(".finish-team strong");
+        document.querySelector(
+            ".finish-team strong"
+        );
+
 
     if (teamName) {
+
         teamName.textContent =
             GAME.teamName;
+
     }
+
 
     const finishMessage =
         $("finishMessage") ||
-        document.querySelector(".finish-message");
+        document.querySelector(
+            ".finish-message"
+        );
+
 
     if (finishMessage) {
+
         finishMessage.textContent =
             message;
+
     }
+
 
     const score =
         $("finalScore") ||
-        document.querySelector("[data-final-score]");
+        document.querySelector(
+            "[data-final-score]"
+        );
+
 
     if (score) {
+
         score.textContent =
             GAME.score;
+
     }
+
 
     const correct =
         $("finalCorrect") ||
-        document.querySelector("[data-final-correct]");
+        document.querySelector(
+            "[data-final-correct]"
+        );
+
 
     if (correct) {
+
         correct.textContent =
             GAME.correct;
+
     }
+
 
     const wrong =
         $("finalWrong") ||
-        document.querySelector("[data-final-wrong]");
+        document.querySelector(
+            "[data-final-wrong]"
+        );
+
 
     if (wrong) {
+
         wrong.textContent =
             GAME.wrong;
+
     }
+
 
     const total =
         $("finalTotal") ||
-        document.querySelector("[data-final-total]");
+        document.querySelector(
+            "[data-final-total]"
+        );
+
 
     if (total) {
+
         total.textContent =
             QUESTIONS.length;
+
     }
+
 
     const time =
         $("finalTime") ||
-        document.querySelector("[data-final-time]");
+        document.querySelector(
+            "[data-final-time]"
+        );
+
 
     if (time) {
 
         time.textContent =
-            formatDuration(elapsedSeconds);
+            formatDuration(
+                elapsedSeconds
+            );
 
     }
 
@@ -1249,20 +1690,34 @@ function updateFinishScreen(
 
 /* =========================================================
    FORMAT WAKTU
-   ========================================================= */
+========================================================= */
 
-function formatDuration(seconds) {
+function formatDuration(
+    seconds
+) {
 
     const minutes =
-        Math.floor(seconds / 60);
+        Math.floor(
+            seconds / 60
+        );
+
 
     const remainingSeconds =
         seconds % 60;
 
+
     return (
-        String(minutes).padStart(2, "0") +
+        String(minutes).padStart(
+            2,
+            "0"
+        ) +
         ":" +
-        String(remainingSeconds).padStart(2, "0")
+        String(
+            remainingSeconds
+        ).padStart(
+            2,
+            "0"
+        )
     );
 
 }
@@ -1270,66 +1725,120 @@ function formatDuration(seconds) {
 
 /* =========================================================
    ULANGI GAME
-   ========================================================= */
+========================================================= */
 
 function restartGame() {
 
     stopTimer();
 
-    GAME.teamName = "";
-    GAME.members = [];
-    GAME.currentQuestion = 0;
-    GAME.score = 0;
-    GAME.correct = 0;
-    GAME.wrong = 0;
-    GAME.answered = false;
-    GAME.currentPost = 1;
-    GAME.postAnswers = {};
-    GAME.finished = false;
+
+    GAME.teamName =
+        "";
+
+
+    GAME.members =
+        [];
+
+
+    GAME.currentQuestion =
+        0;
+
+
+    GAME.score =
+        0;
+
+
+    GAME.correct =
+        0;
+
+
+    GAME.wrong =
+        0;
+
+
+    GAME.answered =
+        false;
+
+
+    GAME.currentPost =
+        1;
+
+
+    GAME.postAnswers =
+        {};
+
+
+    GAME.finished =
+        false;
+
+
     GAME.remainingTime =
         GAME_CONFIG.gameTime;
 
-    showScreen("startScreen");
+
+    showScreen(
+        "startScreen"
+    );
 
 }
 
 
 /* =========================================================
-   KELUAR / KEMBALI
-   ========================================================= */
+   KEMBALI KE AWAL
+========================================================= */
 
 function backToStart() {
 
     stopTimer();
 
-    showScreen("startScreen");
+
+    showScreen(
+        "startScreen"
+    );
 
 }
 
 
 /* =========================================================
    ESCAPE HTML
-   ========================================================= */
+========================================================= */
 
-function escapeHTML(value) {
+function escapeHTML(
+    value
+) {
 
     return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
 
 /* =========================================================
    EVENT LISTENER
-   ========================================================= */
+========================================================= */
 
 document.addEventListener(
     "DOMContentLoaded",
-    function () {
+    function() {
 
         console.log(
             "Jelajah Sekolah siap dimainkan."
@@ -1343,13 +1852,15 @@ document.addEventListener(
         const startButton =
             $("startButton");
 
+
         if (startButton) {
 
             startButton.addEventListener(
                 "click",
-                function (event) {
+                function(event) {
 
                     event.preventDefault();
+
 
                     startAdventure();
 
@@ -1367,13 +1878,15 @@ document.addEventListener(
             $("beginGameButton") ||
             $("startGameButton");
 
+
         if (beginButton) {
 
             beginButton.addEventListener(
                 "click",
-                function (event) {
+                function(event) {
 
                     event.preventDefault();
+
 
                     startGame();
 
@@ -1390,13 +1903,15 @@ document.addEventListener(
         const submitButton =
             $("submitAnswerButton");
 
+
         if (submitButton) {
 
             submitButton.addEventListener(
                 "click",
-                function (event) {
+                function(event) {
 
                     event.preventDefault();
+
 
                     submitAnswer();
 
@@ -1413,13 +1928,15 @@ document.addEventListener(
         const nextButton =
             $("nextButton");
 
+
         if (nextButton) {
 
             nextButton.addEventListener(
                 "click",
-                function (event) {
+                function(event) {
 
                     event.preventDefault();
+
 
                     nextQuestion();
 
@@ -1436,13 +1953,15 @@ document.addEventListener(
         const restartButton =
             $("restartButton");
 
+
         if (restartButton) {
 
             restartButton.addEventListener(
                 "click",
-                function (event) {
+                function(event) {
 
                     event.preventDefault();
+
 
                     restartGame();
 
@@ -1459,13 +1978,15 @@ document.addEventListener(
         const backButton =
             $("backToStartButton");
 
+
         if (backButton) {
 
             backButton.addEventListener(
                 "click",
-                function (event) {
+                function(event) {
 
                     event.preventDefault();
+
 
                     backToStart();
 
@@ -1482,11 +2003,12 @@ document.addEventListener(
         const teamInput =
             $("teamName");
 
+
         if (teamInput) {
 
             teamInput.addEventListener(
                 "keydown",
-                function (event) {
+                function(event) {
 
                     if (
                         event.key === "Enter"
@@ -1494,12 +2016,16 @@ document.addEventListener(
 
                         event.preventDefault();
 
+
                         const begin =
                             $("beginGameButton") ||
                             $("startGameButton");
 
+
                         if (begin) {
+
                             begin.click();
+
                         }
 
                     }
@@ -1515,11 +2041,11 @@ document.addEventListener(
 
 /* =========================================================
    MENCEGAH ACCIDENTAL REFRESH SAAT GAME BERJALAN
-   ========================================================= */
+========================================================= */
 
 window.addEventListener(
     "beforeunload",
-    function (event) {
+    function(event) {
 
         if (
             GAME.startTime &&
@@ -1538,17 +2064,22 @@ window.addEventListener(
 
 /* =========================================================
    PUBLIC API
-   ========================================================= */
+========================================================= */
 
 window.JelajahSekolah = {
 
     startAdventure,
+
     startGame,
+
     submitAnswer,
+
     nextQuestion,
+
     finishGame,
+
     restartGame,
+
     showScreen
 
 };
-```
